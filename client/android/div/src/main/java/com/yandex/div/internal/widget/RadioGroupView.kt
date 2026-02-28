@@ -2,6 +2,7 @@ package com.yandex.div.internal.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -9,7 +10,6 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -24,6 +24,36 @@ internal open class RadioGroupView(context: Context) : LinearLayout(context) {
         set(value) {
             field = value
             updateButtonTints()
+        }
+
+    var defaultColor: Int? = null
+        set(value) {
+            field = value
+            updateButtonTints()
+        }
+
+    var textColor: Int? = null
+        set(value) {
+            field = value
+            optionButtons.forEach { (button, _) ->
+                value?.let { button.setTextColor(it) }
+            }
+        }
+
+    var textSizePx: Float? = null
+        set(value) {
+            field = value
+            optionButtons.forEach { (button, _) ->
+                value?.let { button.setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }
+            }
+        }
+
+    var typeface: Typeface? = null
+        set(value) {
+            field = value
+            optionButtons.forEach { (button, _) ->
+                value?.let { button.typeface = it }
+            }
         }
 
     var selectedValue: String
@@ -71,6 +101,9 @@ internal open class RadioGroupView(context: Context) : LinearLayout(context) {
             val button = RadioButton(context).apply {
                 id = View.generateViewId()
                 this.text = text.ifEmpty { value }
+                this@RadioGroupView.textColor?.let { setTextColor(it) }
+                this@RadioGroupView.textSizePx?.let { setTextSize(TypedValue.COMPLEX_UNIT_PX, it) }
+                this@RadioGroupView.typeface?.let { typeface = it }
             }
             val params = RadioGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
                 if (index > 0) {
@@ -88,15 +121,16 @@ internal open class RadioGroupView(context: Context) : LinearLayout(context) {
     }
 
     private fun updateButtonTints() {
-        val color = selectedColor ?: return
+        val checkedColor = selectedColor ?: return
+        val uncheckedColor = defaultColor ?: getThemeDefaultColor()
         val tintList = ColorStateList(
             arrayOf(
                 intArrayOf(android.R.attr.state_checked),
                 intArrayOf()
             ),
             intArrayOf(
-                color,
-                getDefaultColor()
+                checkedColor,
+                uncheckedColor
             )
         )
         optionButtons.forEach { (button, _) ->
@@ -104,7 +138,7 @@ internal open class RadioGroupView(context: Context) : LinearLayout(context) {
         }
     }
 
-    private fun getDefaultColor(): Int {
+    private fun getThemeDefaultColor(): Int {
         val typedValue = TypedValue()
         val resolved = context.theme.resolveAttribute(android.R.attr.colorControlNormal, typedValue, true)
         return if (resolved) typedValue.data else 0

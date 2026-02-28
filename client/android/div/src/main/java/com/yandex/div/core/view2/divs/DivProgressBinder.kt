@@ -82,7 +82,7 @@ internal class DivProgressBinder @Inject constructor(
         if (div.activeColor.isConstantOrNull()) {
             return
         }
-        val callback = { _: Any -> div.activeColor?.evaluate(resolver)?.let { activeColor = it } }
+        val callback: (Any) -> Unit = { _ -> div.activeColor?.evaluate(resolver)?.let { activeColor = it } }
         addSubscription(div.activeColor?.observe(resolver, callback))
     }
 
@@ -94,7 +94,7 @@ internal class DivProgressBinder @Inject constructor(
         if (div.inactiveColor.isConstantOrNull()) {
             return
         }
-        val callback = { _: Any -> div.inactiveColor?.evaluate(resolver)?.let { inactiveColor = it } }
+        val callback: (Any) -> Unit = { _ -> div.inactiveColor?.evaluate(resolver)?.let { inactiveColor = it } }
         addSubscription(div.inactiveColor?.observe(resolver, callback))
     }
 

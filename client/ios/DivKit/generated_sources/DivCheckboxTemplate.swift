@@ -14,7 +14,7 @@ public final class DivCheckboxTemplate: TemplateValue, Sendable {
   public let animators: Field<[DivAnimatorTemplate]>?
   public let background: Field<[DivBackgroundTemplate]>?
   public let border: Field<DivBorderTemplate>?
-  public let checkMarkColor: Field<Expression<Color>>?
+  public let checkMarkColor: Field<Expression<Color>>? // default value: #FFFFFF
   public let columnSpan: Field<Expression<Int>>? // constraint: number >= 0
   public let disappearActions: Field<[DivDisappearActionTemplate]>?
   public let extensions: Field<[DivExtensionTemplate]>?
@@ -26,8 +26,8 @@ public final class DivCheckboxTemplate: TemplateValue, Sendable {
   public let isEnabled: Field<Expression<Bool>>? // default value: true
   public let layoutProvider: Field<DivLayoutProviderTemplate>?
   public let margins: Field<DivEdgeInsetsTemplate>?
-  public let offColor: Field<Expression<Color>>?
-  public let onColor: Field<Expression<Color>>?
+  public let offColor: Field<Expression<Color>>? // default value: #4D000000
+  public let onColor: Field<Expression<Color>>? // default value: #129386
   public let paddings: Field<DivEdgeInsetsTemplate>?
   public let reuseId: Field<Expression<String>>?
   public let rowSpan: Field<Expression<Int>>? // constraint: number >= 0

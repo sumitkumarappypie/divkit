@@ -923,16 +923,19 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.on_color',
             prop: 'on_color',
             type: 'color',
+            default: '#129386',
             enableSources: true
         }, {
             name: 'props.off_color',
             prop: 'off_color',
             type: 'color',
+            default: '#4D000000',
             enableSources: true
         }, {
             name: 'props.check_mark_color',
             prop: 'check_mark_color',
             type: 'color',
+            default: '#FFFFFF',
             enableSources: true
         }]
     }],
@@ -963,7 +966,47 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.selected_color',
             prop: 'selected_color',
             type: 'color',
+            default: '#129386',
             enableSources: true
+        }, {
+            name: 'props.default_color',
+            prop: 'default_color',
+            type: 'color',
+            default: '#4D000000',
+            enableSources: true
+        }, {
+            name: 'props.text_color',
+            prop: 'text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.font_size',
+                prop: 'font_size',
+                type: 'integer',
+                min: 1,
+                max: 1000,
+                enableSources: true
+            }, {
+                name: 'props.font_weight',
+                prop: 'font_weight',
+                type: 'select',
+                options: [{
+                    name: 'props.font_weight_light',
+                    value: 'light'
+                }, {
+                    name: 'props.font_weight_normal',
+                    value: 'regular'
+                }, {
+                    name: 'props.font_weight_medium',
+                    value: 'medium'
+                }, {
+                    name: 'props.font_weight_bold',
+                    value: 'bold'
+                }],
+                enableSources: true
+            }]
         }]
     }],
     progress: [...BASE_COMPONENT_PROPS, {
@@ -974,10 +1017,10 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             prop: 'style',
             type: 'select',
             options: [{
-                name: 'linear',
+                name: 'props.style_linear',
                 value: 'linear'
             }, {
-                name: 'circular',
+                name: 'props.style_circular',
                 value: 'circular'
             }],
             default: 'linear',

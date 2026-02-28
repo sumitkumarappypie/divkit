@@ -14,5 +14,10 @@ export interface DivRadioData extends DivBaseData {
     orientation?: 'vertical' | 'horizontal';
     item_spacing?: number;
     selected_color?: string;
+    default_color?: string;
+    text_color?: string;
+    font_size?: number;
+    font_weight?: 'light' | 'regular' | 'medium' | 'bold';
+    font_family?: string;
     is_enabled?: BooleanInt;
 }

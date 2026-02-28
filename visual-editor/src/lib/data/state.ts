@@ -775,7 +775,10 @@ export class State {
         } else if (type === 'checkbox') {
             json = {
                 type,
-                is_checked_variable: 'checked_var'
+                is_checked_variable: 'checked_var',
+                on_color: '#129386',
+                off_color: '#4D000000',
+                check_mark_color: '#FFFFFF'
             };
         } else if (type === 'radio') {
             json = {
@@ -784,12 +787,16 @@ export class State {
                 options: [
                     { value: 'option_1', text: 'Option 1' },
                     { value: 'option_2', text: 'Option 2' }
-                ]
+                ],
+                selected_color: '#129386',
+                default_color: '#4D000000'
             };
         } else if (type === 'progress') {
             json = {
                 type,
                 value: 0.5,
+                active_color: '#129386',
+                inactive_color: '#4D000000',
                 width: {
                     type: 'match_parent'
                 }

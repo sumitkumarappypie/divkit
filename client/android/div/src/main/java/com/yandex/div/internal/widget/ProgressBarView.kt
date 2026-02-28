@@ -101,6 +101,21 @@ internal open class ProgressBarView(context: Context) : View(context) {
         })
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        if (isCircular) {
+            val defaultSize = dpToPx(DEFAULT_CIRCULAR_SIZE_DP)
+            val width = resolveSize(defaultSize, widthMeasureSpec)
+            val height = resolveSize(defaultSize, heightMeasureSpec)
+            val size = minOf(width, height)
+            setMeasuredDimension(size, size)
+        } else {
+            val desiredHeight = trackThickness + paddingTop + paddingBottom
+            val width = resolveSize(0, widthMeasureSpec)
+            val height = resolveSize(desiredHeight, heightMeasureSpec)
+            setMeasuredDimension(width, height)
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (isCircular) {
@@ -203,6 +218,7 @@ internal open class ProgressBarView(context: Context) : View(context) {
 
     companion object {
         private const val DEFAULT_TRACK_THICKNESS_DP = 4
+        private const val DEFAULT_CIRCULAR_SIZE_DP = 48
         private const val DEFAULT_ACTIVE_COLOR = 0xFF1976D2.toInt() // Material Blue
         private const val DEFAULT_INACTIVE_COLOR = 0xFFE0E0E0.toInt() // Light Gray
     }

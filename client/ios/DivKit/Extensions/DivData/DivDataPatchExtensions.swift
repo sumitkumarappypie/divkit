@@ -114,11 +114,14 @@ extension Div {
 
   private func applyPatchToChildren(_ patch: DivPatch, callbacks: DivPatchCallbacks) -> Div {
     switch self {
-    case .divCustom,
+    case .divCheckbox,
+         .divCustom,
          .divGifImage,
          .divInput,
          .divImage,
          .divIndicator,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,
