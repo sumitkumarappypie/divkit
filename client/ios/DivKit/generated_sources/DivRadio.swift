@@ -48,9 +48,13 @@ public final class DivRadio: DivBase, Sendable {
   public let background: [DivBackground]?
   public let border: DivBorder?
   public let columnSpan: Expression<Int>? // constraint: number >= 0
+  public let defaultColor: Expression<Color>?
   public let disappearActions: [DivDisappearAction]?
   public let extensions: [DivExtension]?
   public let focus: DivFocus?
+  public let fontFamily: Expression<String>?
+  public let fontSize: Expression<Int>? // constraint: number >= 0
+  public let fontWeight: Expression<DivFontWeight>?
   public let functions: [DivFunction]?
   public let height: DivSize // default value: .divWrapContentSize(DivWrapContentSize())
   public let id: String?
@@ -65,6 +69,7 @@ public final class DivRadio: DivBase, Sendable {
   public let rowSpan: Expression<Int>? // constraint: number >= 0
   public let selectedActions: [DivAction]?
   public let selectedColor: Expression<Color>?
+  public let textColor: Expression<Color>?
   public let tooltips: [DivTooltip]?
   public let transform: DivTransform?
   public let transformations: [DivTransformation]?
@@ -96,6 +101,22 @@ public final class DivRadio: DivBase, Sendable {
     resolver.resolveNumeric(columnSpan)
   }
 
+  public func resolveDefaultColor(_ resolver: ExpressionResolver) -> Color? {
+    resolver.resolveColor(defaultColor)
+  }
+
+  public func resolveFontFamily(_ resolver: ExpressionResolver) -> String? {
+    resolver.resolveString(fontFamily)
+  }
+
+  public func resolveFontSize(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(fontSize)
+  }
+
+  public func resolveFontWeight(_ resolver: ExpressionResolver) -> DivFontWeight? {
+    resolver.resolveEnum(fontWeight)
+  }
+
   public func resolveIsEnabled(_ resolver: ExpressionResolver) -> Bool {
     resolver.resolveNumeric(isEnabled) ?? true
   }
@@ -120,6 +141,10 @@ public final class DivRadio: DivBase, Sendable {
     resolver.resolveColor(selectedColor)
   }
 
+  public func resolveTextColor(_ resolver: ExpressionResolver) -> Color? {
+    resolver.resolveColor(textColor)
+  }
+
   public func resolveVisibility(_ resolver: ExpressionResolver) -> DivVisibility {
     resolver.resolveEnum(visibility) ?? DivVisibility.visible
   }
@@ -128,6 +153,9 @@ public final class DivRadio: DivBase, Sendable {
     makeValueValidator(valueValidator: { $0 >= 0.0 && $0 <= 1.0 })
 
   static let columnSpanValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 >= 0 })
+
+  static let fontSizeValidator: AnyValueValidator<Int> =
     makeValueValidator(valueValidator: { $0 >= 0 })
 
   static let itemSpacingValidator: AnyValueValidator<Int> =
@@ -152,9 +180,13 @@ public final class DivRadio: DivBase, Sendable {
       background: try dictionary.getOptionalArray("background", transform: { (dict: [String: Any]) in try? DivBackground(dictionary: dict, context: context) }),
       border: try dictionary.getOptionalField("border", transform: { (dict: [String: Any]) in try DivBorder(dictionary: dict, context: context) }),
       columnSpan: try dictionary.getOptionalExpressionField("column_span", validator: Self.columnSpanValidator, context: context),
+      defaultColor: try dictionary.getOptionalExpressionField("default_color", transform: Color.color(withHexString:), context: context),
       disappearActions: try dictionary.getOptionalArray("disappear_actions", transform: { (dict: [String: Any]) in try? DivDisappearAction(dictionary: dict, context: context) }),
       extensions: try dictionary.getOptionalArray("extensions", transform: { (dict: [String: Any]) in try? DivExtension(dictionary: dict, context: context) }),
       focus: try dictionary.getOptionalField("focus", transform: { (dict: [String: Any]) in try DivFocus(dictionary: dict, context: context) }),
+      fontFamily: try dictionary.getOptionalExpressionField("font_family", context: context),
+      fontSize: try dictionary.getOptionalExpressionField("font_size", validator: Self.fontSizeValidator, context: context),
+      fontWeight: try dictionary.getOptionalExpressionField("font_weight", context: context),
       functions: try dictionary.getOptionalArray("functions", transform: { (dict: [String: Any]) in try? DivFunction(dictionary: dict, context: context) }),
       height: try dictionary.getOptionalField("height", transform: { (dict: [String: Any]) in try DivSize(dictionary: dict, context: context) }),
       id: try dictionary.getOptionalField("id", context: context),
@@ -169,6 +201,7 @@ public final class DivRadio: DivBase, Sendable {
       rowSpan: try dictionary.getOptionalExpressionField("row_span", validator: Self.rowSpanValidator, context: context),
       selectedActions: try dictionary.getOptionalArray("selected_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
       selectedColor: try dictionary.getOptionalExpressionField("selected_color", transform: Color.color(withHexString:), context: context),
+      textColor: try dictionary.getOptionalExpressionField("text_color", transform: Color.color(withHexString:), context: context),
       tooltips: try dictionary.getOptionalArray("tooltips", transform: { (dict: [String: Any]) in try? DivTooltip(dictionary: dict, context: context) }),
       transform: try dictionary.getOptionalField("transform", transform: { (dict: [String: Any]) in try DivTransform(dictionary: dict, context: context) }),
       transformations: try dictionary.getOptionalArray("transformations", transform: { (dict: [String: Any]) in try? DivTransformation(dictionary: dict, context: context) }),
@@ -195,9 +228,13 @@ public final class DivRadio: DivBase, Sendable {
     background: [DivBackground]? = nil,
     border: DivBorder? = nil,
     columnSpan: Expression<Int>? = nil,
+    defaultColor: Expression<Color>? = nil,
     disappearActions: [DivDisappearAction]? = nil,
     extensions: [DivExtension]? = nil,
     focus: DivFocus? = nil,
+    fontFamily: Expression<String>? = nil,
+    fontSize: Expression<Int>? = nil,
+    fontWeight: Expression<DivFontWeight>? = nil,
     functions: [DivFunction]? = nil,
     height: DivSize? = nil,
     id: String? = nil,
@@ -212,6 +249,7 @@ public final class DivRadio: DivBase, Sendable {
     rowSpan: Expression<Int>? = nil,
     selectedActions: [DivAction]? = nil,
     selectedColor: Expression<Color>? = nil,
+    textColor: Expression<Color>? = nil,
     tooltips: [DivTooltip]? = nil,
     transform: DivTransform? = nil,
     transformations: [DivTransformation]? = nil,
@@ -235,9 +273,13 @@ public final class DivRadio: DivBase, Sendable {
     self.background = background
     self.border = border
     self.columnSpan = columnSpan
+    self.defaultColor = defaultColor
     self.disappearActions = disappearActions
     self.extensions = extensions
     self.focus = focus
+    self.fontFamily = fontFamily
+    self.fontSize = fontSize
+    self.fontWeight = fontWeight
     self.functions = functions
     self.height = height ?? .divWrapContentSize(DivWrapContentSize())
     self.id = id
@@ -252,6 +294,7 @@ public final class DivRadio: DivBase, Sendable {
     self.rowSpan = rowSpan
     self.selectedActions = selectedActions
     self.selectedColor = selectedColor
+    self.textColor = textColor
     self.tooltips = tooltips
     self.transform = transform
     self.transformations = transformations
@@ -289,75 +332,88 @@ extension DivRadio: Equatable {
     guard
       lhs.border == rhs.border,
       lhs.columnSpan == rhs.columnSpan,
-      lhs.disappearActions == rhs.disappearActions
+      lhs.defaultColor == rhs.defaultColor
     else {
       return false
     }
     guard
+      lhs.disappearActions == rhs.disappearActions,
       lhs.extensions == rhs.extensions,
-      lhs.focus == rhs.focus,
-      lhs.functions == rhs.functions
+      lhs.focus == rhs.focus
     else {
       return false
     }
     guard
+      lhs.fontFamily == rhs.fontFamily,
+      lhs.fontSize == rhs.fontSize,
+      lhs.fontWeight == rhs.fontWeight
+    else {
+      return false
+    }
+    guard
+      lhs.functions == rhs.functions,
       lhs.height == rhs.height,
-      lhs.id == rhs.id,
-      lhs.isEnabled == rhs.isEnabled
+      lhs.id == rhs.id
     else {
       return false
     }
     guard
+      lhs.isEnabled == rhs.isEnabled,
       lhs.itemSpacing == rhs.itemSpacing,
-      lhs.layoutProvider == rhs.layoutProvider,
-      lhs.margins == rhs.margins
+      lhs.layoutProvider == rhs.layoutProvider
     else {
       return false
     }
     guard
+      lhs.margins == rhs.margins,
       lhs.options == rhs.options,
-      lhs.orientation == rhs.orientation,
-      lhs.paddings == rhs.paddings
+      lhs.orientation == rhs.orientation
     else {
       return false
     }
     guard
+      lhs.paddings == rhs.paddings,
       lhs.reuseId == rhs.reuseId,
-      lhs.rowSpan == rhs.rowSpan,
-      lhs.selectedActions == rhs.selectedActions
+      lhs.rowSpan == rhs.rowSpan
     else {
       return false
     }
     guard
+      lhs.selectedActions == rhs.selectedActions,
       lhs.selectedColor == rhs.selectedColor,
+      lhs.textColor == rhs.textColor
+    else {
+      return false
+    }
+    guard
       lhs.tooltips == rhs.tooltips,
-      lhs.transform == rhs.transform
+      lhs.transform == rhs.transform,
+      lhs.transformations == rhs.transformations
     else {
       return false
     }
     guard
-      lhs.transformations == rhs.transformations,
       lhs.transitionChange == rhs.transitionChange,
-      lhs.transitionIn == rhs.transitionIn
+      lhs.transitionIn == rhs.transitionIn,
+      lhs.transitionOut == rhs.transitionOut
     else {
       return false
     }
     guard
-      lhs.transitionOut == rhs.transitionOut,
       lhs.transitionTriggers == rhs.transitionTriggers,
-      lhs.valueVariable == rhs.valueVariable
+      lhs.valueVariable == rhs.valueVariable,
+      lhs.variableTriggers == rhs.variableTriggers
     else {
       return false
     }
     guard
-      lhs.variableTriggers == rhs.variableTriggers,
       lhs.variables == rhs.variables,
-      lhs.visibility == rhs.visibility
+      lhs.visibility == rhs.visibility,
+      lhs.visibilityAction == rhs.visibilityAction
     else {
       return false
     }
     guard
-      lhs.visibilityAction == rhs.visibilityAction,
       lhs.visibilityActions == rhs.visibilityActions,
       lhs.width == rhs.width
     else {
@@ -381,9 +437,13 @@ extension DivRadio: Serializable {
     result["background"] = background?.map { $0.toDictionary() }
     result["border"] = border?.toDictionary()
     result["column_span"] = columnSpan?.toValidSerializationValue()
+    result["default_color"] = defaultColor?.toValidSerializationValue()
     result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
     result["extensions"] = extensions?.map { $0.toDictionary() }
     result["focus"] = focus?.toDictionary()
+    result["font_family"] = fontFamily?.toValidSerializationValue()
+    result["font_size"] = fontSize?.toValidSerializationValue()
+    result["font_weight"] = fontWeight?.toValidSerializationValue()
     result["functions"] = functions?.map { $0.toDictionary() }
     result["height"] = height.toDictionary()
     result["id"] = id
@@ -398,6 +458,7 @@ extension DivRadio: Serializable {
     result["row_span"] = rowSpan?.toValidSerializationValue()
     result["selected_actions"] = selectedActions?.map { $0.toDictionary() }
     result["selected_color"] = selectedColor?.toValidSerializationValue()
+    result["text_color"] = textColor?.toValidSerializationValue()
     result["tooltips"] = tooltips?.map { $0.toDictionary() }
     result["transform"] = transform?.toDictionary()
     result["transformations"] = transformations?.map { $0.toDictionary() }

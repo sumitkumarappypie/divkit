@@ -964,6 +964,44 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             prop: 'selected_color',
             type: 'color',
             enableSources: true
+        }, {
+            name: 'props.default_color',
+            prop: 'default_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.text_color',
+            prop: 'text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.font_size',
+                prop: 'font_size',
+                type: 'integer',
+                min: 1,
+                max: 1000,
+                enableSources: true
+            }, {
+                name: 'props.font_weight',
+                prop: 'font_weight',
+                type: 'select',
+                options: [{
+                    name: 'props.font_weight_light',
+                    value: 'light'
+                }, {
+                    name: 'props.font_weight_normal',
+                    value: 'regular'
+                }, {
+                    name: 'props.font_weight_medium',
+                    value: 'medium'
+                }, {
+                    name: 'props.font_weight_bold',
+                    value: 'bold'
+                }],
+                enableSources: true
+            }]
         }]
     }],
     progress: [...BASE_COMPONENT_PROPS, {

@@ -60,6 +60,26 @@
           "$ref": "common.json#/color",
           "$description": "translations.json#/div_radio_selected_color"
         },
+        "default_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_radio_default_color"
+        },
+        "text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_radio_text_color"
+        },
+        "font_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "$description": "translations.json#/div_radio_font_size"
+        },
+        "font_weight": {
+          "$ref": "div-font-weight.json",
+          "$description": "translations.json#/div_radio_font_weight"
+        },
+        "font_family": {
+          "type": "string",
+          "$description": "translations.json#/div_radio_font_family"
+        },
         "is_enabled": {
           "$ref": "common.json#/boolean_int",
           "default_value": "true",

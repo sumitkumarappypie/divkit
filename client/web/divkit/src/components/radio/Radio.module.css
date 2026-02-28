@@ -33,7 +33,7 @@
     width: 1.4em;
     height: 1.4em;
     border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, .3);
+    border: 2px solid var(--divkit-radio-default-color, rgba(0, 0, 0, .3));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,6 +60,7 @@
 .radio__label {
     margin-left: .5em;
     user-select: none;
+    color: var(--divkit-radio-text-color, inherit);
 }
 
 .radio__input {

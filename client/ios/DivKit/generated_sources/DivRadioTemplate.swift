@@ -105,9 +105,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
   public let background: Field<[DivBackgroundTemplate]>?
   public let border: Field<DivBorderTemplate>?
   public let columnSpan: Field<Expression<Int>>? // constraint: number >= 0
+  public let defaultColor: Field<Expression<Color>>?
   public let disappearActions: Field<[DivDisappearActionTemplate]>?
   public let extensions: Field<[DivExtensionTemplate]>?
   public let focus: Field<DivFocusTemplate>?
+  public let fontFamily: Field<Expression<String>>?
+  public let fontSize: Field<Expression<Int>>? // constraint: number >= 0
+  public let fontWeight: Field<Expression<DivFontWeight>>?
   public let functions: Field<[DivFunctionTemplate]>?
   public let height: Field<DivSizeTemplate>? // default value: .divWrapContentSize(DivWrapContentSize())
   public let id: Field<String>?
@@ -122,6 +126,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
   public let rowSpan: Field<Expression<Int>>? // constraint: number >= 0
   public let selectedActions: Field<[DivActionTemplate]>?
   public let selectedColor: Field<Expression<Color>>?
+  public let textColor: Field<Expression<Color>>?
   public let tooltips: Field<[DivTooltipTemplate]>?
   public let transform: Field<DivTransformTemplate>?
   public let transformations: Field<[DivTransformationTemplate]>?
@@ -148,9 +153,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       background: dictionary.getOptionalArray("background", templateToType: templateToType),
       border: dictionary.getOptionalField("border", templateToType: templateToType),
       columnSpan: dictionary.getOptionalExpressionField("column_span"),
+      defaultColor: dictionary.getOptionalExpressionField("default_color", transform: Color.color(withHexString:)),
       disappearActions: dictionary.getOptionalArray("disappear_actions", templateToType: templateToType),
       extensions: dictionary.getOptionalArray("extensions", templateToType: templateToType),
       focus: dictionary.getOptionalField("focus", templateToType: templateToType),
+      fontFamily: dictionary.getOptionalExpressionField("font_family"),
+      fontSize: dictionary.getOptionalExpressionField("font_size"),
+      fontWeight: dictionary.getOptionalExpressionField("font_weight"),
       functions: dictionary.getOptionalArray("functions", templateToType: templateToType),
       height: dictionary.getOptionalField("height", templateToType: templateToType),
       id: dictionary.getOptionalField("id"),
@@ -165,6 +174,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpan: dictionary.getOptionalExpressionField("row_span"),
       selectedActions: dictionary.getOptionalArray("selected_actions", templateToType: templateToType),
       selectedColor: dictionary.getOptionalExpressionField("selected_color", transform: Color.color(withHexString:)),
+      textColor: dictionary.getOptionalExpressionField("text_color", transform: Color.color(withHexString:)),
       tooltips: dictionary.getOptionalArray("tooltips", templateToType: templateToType),
       transform: dictionary.getOptionalField("transform", templateToType: templateToType),
       transformations: dictionary.getOptionalArray("transformations", templateToType: templateToType),
@@ -192,9 +202,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     background: Field<[DivBackgroundTemplate]>? = nil,
     border: Field<DivBorderTemplate>? = nil,
     columnSpan: Field<Expression<Int>>? = nil,
+    defaultColor: Field<Expression<Color>>? = nil,
     disappearActions: Field<[DivDisappearActionTemplate]>? = nil,
     extensions: Field<[DivExtensionTemplate]>? = nil,
     focus: Field<DivFocusTemplate>? = nil,
+    fontFamily: Field<Expression<String>>? = nil,
+    fontSize: Field<Expression<Int>>? = nil,
+    fontWeight: Field<Expression<DivFontWeight>>? = nil,
     functions: Field<[DivFunctionTemplate]>? = nil,
     height: Field<DivSizeTemplate>? = nil,
     id: Field<String>? = nil,
@@ -209,6 +223,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     rowSpan: Field<Expression<Int>>? = nil,
     selectedActions: Field<[DivActionTemplate]>? = nil,
     selectedColor: Field<Expression<Color>>? = nil,
+    textColor: Field<Expression<Color>>? = nil,
     tooltips: Field<[DivTooltipTemplate]>? = nil,
     transform: Field<DivTransformTemplate>? = nil,
     transformations: Field<[DivTransformationTemplate]>? = nil,
@@ -233,9 +248,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     self.background = background
     self.border = border
     self.columnSpan = columnSpan
+    self.defaultColor = defaultColor
     self.disappearActions = disappearActions
     self.extensions = extensions
     self.focus = focus
+    self.fontFamily = fontFamily
+    self.fontSize = fontSize
+    self.fontWeight = fontWeight
     self.functions = functions
     self.height = height
     self.id = id
@@ -250,6 +269,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     self.rowSpan = rowSpan
     self.selectedActions = selectedActions
     self.selectedColor = selectedColor
+    self.textColor = textColor
     self.tooltips = tooltips
     self.transform = transform
     self.transformations = transformations
@@ -275,9 +295,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     let backgroundValue = parent?.background?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let borderValue = parent?.border?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let columnSpanValue = parent?.columnSpan?.resolveOptionalValue(context: context, validator: ResolvedValue.columnSpanValidator) ?? .noValue
+    let defaultColorValue = parent?.defaultColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
     let disappearActionsValue = parent?.disappearActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let extensionsValue = parent?.extensions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let focusValue = parent?.focus?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let fontFamilyValue = parent?.fontFamily?.resolveOptionalValue(context: context) ?? .noValue
+    let fontSizeValue = parent?.fontSize?.resolveOptionalValue(context: context, validator: ResolvedValue.fontSizeValidator) ?? .noValue
+    let fontWeightValue = parent?.fontWeight?.resolveOptionalValue(context: context) ?? .noValue
     let functionsValue = parent?.functions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let heightValue = parent?.height?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let idValue = parent?.id?.resolveOptionalValue(context: context) ?? .noValue
@@ -292,6 +316,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     let rowSpanValue = parent?.rowSpan?.resolveOptionalValue(context: context, validator: ResolvedValue.rowSpanValidator) ?? .noValue
     let selectedActionsValue = parent?.selectedActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let selectedColorValue = parent?.selectedColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let textColorValue = parent?.textColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
     let tooltipsValue = parent?.tooltips?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transformValue = parent?.transform?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transformationsValue = parent?.transformations?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
@@ -315,9 +340,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
+      defaultColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "default_color", error: $0) },
       disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
+      fontFamilyValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_family", error: $0) },
+      fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
+      fontWeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight", error: $0) },
       functionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "functions", error: $0) },
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
@@ -332,6 +361,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "row_span", error: $0) },
       selectedActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_actions", error: $0) },
       selectedColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_color", error: $0) },
+      textColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_color", error: $0) },
       tooltipsValue.errorsOrWarnings?.map { .nestedObjectError(field: "tooltips", error: $0) },
       transformValue.errorsOrWarnings?.map { .nestedObjectError(field: "transform", error: $0) },
       transformationsValue.errorsOrWarnings?.map { .nestedObjectError(field: "transformations", error: $0) },
@@ -368,9 +398,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       background: backgroundValue.value,
       border: borderValue.value,
       columnSpan: columnSpanValue.value,
+      defaultColor: defaultColorValue.value,
       disappearActions: disappearActionsValue.value,
       extensions: extensionsValue.value,
       focus: focusValue.value,
+      fontFamily: fontFamilyValue.value,
+      fontSize: fontSizeValue.value,
+      fontWeight: fontWeightValue.value,
       functions: functionsValue.value,
       height: heightValue.value,
       id: idValue.value,
@@ -385,6 +419,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpan: rowSpanValue.value,
       selectedActions: selectedActionsValue.value,
       selectedColor: selectedColorValue.value,
+      textColor: textColorValue.value,
       tooltips: tooltipsValue.value,
       transform: transformValue.value,
       transformations: transformationsValue.value,
@@ -415,9 +450,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     var backgroundValue: DeserializationResult<[DivBackground]> = .noValue
     var borderValue: DeserializationResult<DivBorder> = .noValue
     var columnSpanValue: DeserializationResult<Expression<Int>> = parent?.columnSpan?.value() ?? .noValue
+    var defaultColorValue: DeserializationResult<Expression<Color>> = parent?.defaultColor?.value() ?? .noValue
     var disappearActionsValue: DeserializationResult<[DivDisappearAction]> = .noValue
     var extensionsValue: DeserializationResult<[DivExtension]> = .noValue
     var focusValue: DeserializationResult<DivFocus> = .noValue
+    var fontFamilyValue: DeserializationResult<Expression<String>> = parent?.fontFamily?.value() ?? .noValue
+    var fontSizeValue: DeserializationResult<Expression<Int>> = parent?.fontSize?.value() ?? .noValue
+    var fontWeightValue: DeserializationResult<Expression<DivFontWeight>> = parent?.fontWeight?.value() ?? .noValue
     var functionsValue: DeserializationResult<[DivFunction]> = .noValue
     var heightValue: DeserializationResult<DivSize> = .noValue
     var idValue: DeserializationResult<String> = parent?.id?.value() ?? .noValue
@@ -432,6 +471,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
     var rowSpanValue: DeserializationResult<Expression<Int>> = parent?.rowSpan?.value() ?? .noValue
     var selectedActionsValue: DeserializationResult<[DivAction]> = .noValue
     var selectedColorValue: DeserializationResult<Expression<Color>> = parent?.selectedColor?.value() ?? .noValue
+    var textColorValue: DeserializationResult<Expression<Color>> = parent?.textColor?.value() ?? .noValue
     var tooltipsValue: DeserializationResult<[DivTooltip]> = .noValue
     var transformValue: DeserializationResult<DivTransform> = .noValue
     var transformationsValue: DeserializationResult<[DivTransformation]> = .noValue
@@ -464,12 +504,20 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
         borderValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivBorderTemplate.self).merged(with: borderValue)
       case "column_span":
         columnSpanValue = deserialize(__dictValue, validator: ResolvedValue.columnSpanValidator).merged(with: columnSpanValue)
+      case "default_color":
+        defaultColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: defaultColorValue)
       case "disappear_actions":
         disappearActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self).merged(with: disappearActionsValue)
       case "extensions":
         extensionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self).merged(with: extensionsValue)
       case "focus":
         focusValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFocusTemplate.self).merged(with: focusValue)
+      case "font_family":
+        fontFamilyValue = deserialize(__dictValue).merged(with: fontFamilyValue)
+      case "font_size":
+        fontSizeValue = deserialize(__dictValue, validator: ResolvedValue.fontSizeValidator).merged(with: fontSizeValue)
+      case "font_weight":
+        fontWeightValue = deserialize(__dictValue).merged(with: fontWeightValue)
       case "functions":
         functionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFunctionTemplate.self).merged(with: functionsValue)
       case "height":
@@ -498,6 +546,8 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
         selectedActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: selectedActionsValue)
       case "selected_color":
         selectedColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: selectedColorValue)
+      case "text_color":
+        textColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: textColorValue)
       case "tooltips":
         tooltipsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTooltipTemplate.self).merged(with: tooltipsValue)
       case "transform":
@@ -542,12 +592,20 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
         borderValue = borderValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivBorderTemplate.self) })
       case parent?.columnSpan?.link:
         columnSpanValue = columnSpanValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.columnSpanValidator) })
+      case parent?.defaultColor?.link:
+        defaultColorValue = defaultColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
       case parent?.disappearActions?.link:
         disappearActionsValue = disappearActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self) })
       case parent?.extensions?.link:
         extensionsValue = extensionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self) })
       case parent?.focus?.link:
         focusValue = focusValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFocusTemplate.self) })
+      case parent?.fontFamily?.link:
+        fontFamilyValue = fontFamilyValue.merged(with: { deserialize(__dictValue) })
+      case parent?.fontSize?.link:
+        fontSizeValue = fontSizeValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.fontSizeValidator) })
+      case parent?.fontWeight?.link:
+        fontWeightValue = fontWeightValue.merged(with: { deserialize(__dictValue) })
       case parent?.functions?.link:
         functionsValue = functionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFunctionTemplate.self) })
       case parent?.height?.link:
@@ -576,6 +634,8 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
         selectedActionsValue = selectedActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
       case parent?.selectedColor?.link:
         selectedColorValue = selectedColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.textColor?.link:
+        textColorValue = textColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
       case parent?.tooltips?.link:
         tooltipsValue = tooltipsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTooltipTemplate.self) })
       case parent?.transform?.link:
@@ -643,9 +703,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
+      defaultColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "default_color", error: $0) },
       disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
+      fontFamilyValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_family", error: $0) },
+      fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
+      fontWeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight", error: $0) },
       functionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "functions", error: $0) },
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
@@ -660,6 +724,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "row_span", error: $0) },
       selectedActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_actions", error: $0) },
       selectedColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_color", error: $0) },
+      textColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_color", error: $0) },
       tooltipsValue.errorsOrWarnings?.map { .nestedObjectError(field: "tooltips", error: $0) },
       transformValue.errorsOrWarnings?.map { .nestedObjectError(field: "transform", error: $0) },
       transformationsValue.errorsOrWarnings?.map { .nestedObjectError(field: "transformations", error: $0) },
@@ -696,9 +761,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       background: backgroundValue.value,
       border: borderValue.value,
       columnSpan: columnSpanValue.value,
+      defaultColor: defaultColorValue.value,
       disappearActions: disappearActionsValue.value,
       extensions: extensionsValue.value,
       focus: focusValue.value,
+      fontFamily: fontFamilyValue.value,
+      fontSize: fontSizeValue.value,
+      fontWeight: fontWeightValue.value,
       functions: functionsValue.value,
       height: heightValue.value,
       id: idValue.value,
@@ -713,6 +782,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpan: rowSpanValue.value,
       selectedActions: selectedActionsValue.value,
       selectedColor: selectedColorValue.value,
+      textColor: textColorValue.value,
       tooltips: tooltipsValue.value,
       transform: transformValue.value,
       transformations: transformationsValue.value,
@@ -748,9 +818,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       background: background ?? mergedParent.background,
       border: border ?? mergedParent.border,
       columnSpan: columnSpan ?? mergedParent.columnSpan,
+      defaultColor: defaultColor ?? mergedParent.defaultColor,
       disappearActions: disappearActions ?? mergedParent.disappearActions,
       extensions: extensions ?? mergedParent.extensions,
       focus: focus ?? mergedParent.focus,
+      fontFamily: fontFamily ?? mergedParent.fontFamily,
+      fontSize: fontSize ?? mergedParent.fontSize,
+      fontWeight: fontWeight ?? mergedParent.fontWeight,
       functions: functions ?? mergedParent.functions,
       height: height ?? mergedParent.height,
       id: id ?? mergedParent.id,
@@ -765,6 +839,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpan: rowSpan ?? mergedParent.rowSpan,
       selectedActions: selectedActions ?? mergedParent.selectedActions,
       selectedColor: selectedColor ?? mergedParent.selectedColor,
+      textColor: textColor ?? mergedParent.textColor,
       tooltips: tooltips ?? mergedParent.tooltips,
       transform: transform ?? mergedParent.transform,
       transformations: transformations ?? mergedParent.transformations,
@@ -795,9 +870,13 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       background: merged.background?.tryResolveParent(templates: templates),
       border: merged.border?.tryResolveParent(templates: templates),
       columnSpan: merged.columnSpan,
+      defaultColor: merged.defaultColor,
       disappearActions: merged.disappearActions?.tryResolveParent(templates: templates),
       extensions: merged.extensions?.tryResolveParent(templates: templates),
       focus: merged.focus?.tryResolveParent(templates: templates),
+      fontFamily: merged.fontFamily,
+      fontSize: merged.fontSize,
+      fontWeight: merged.fontWeight,
       functions: merged.functions?.tryResolveParent(templates: templates),
       height: merged.height?.tryResolveParent(templates: templates),
       id: merged.id,
@@ -812,6 +891,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
       rowSpan: merged.rowSpan,
       selectedActions: merged.selectedActions?.tryResolveParent(templates: templates),
       selectedColor: merged.selectedColor,
+      textColor: merged.textColor,
       tooltips: merged.tooltips?.tryResolveParent(templates: templates),
       transform: merged.transform?.tryResolveParent(templates: templates),
       transformations: merged.transformations?.tryResolveParent(templates: templates),

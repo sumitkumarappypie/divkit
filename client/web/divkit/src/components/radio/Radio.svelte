@@ -12,6 +12,7 @@
     import { pxToEm } from '../../utils/pxToEm';
     import { wrapError } from '../../utils/wrapError';
     import { correctColor } from '../../utils/correctColor';
+    import { correctFontWeight } from '../../utils/correctFontWeight';
     import { createVariable } from '../../expressions/variable';
     import { correctBooleanInt } from '../../utils/correctBooleanInt';
     import { composeAccessibilityDescription } from '../../utils/composeAccessibilityDescription';
@@ -30,6 +31,11 @@
     let description = '';
     let isEnabled = true;
     let selectedColor = '#129386';
+    let defaultColor = 'rgba(0, 0, 0, 0.3)';
+    let textColor = '';
+    let fontSize: number | undefined = undefined;
+    let fontWeight: number | undefined = undefined;
+    let fontFamily = '';
     let orientation: 'vertical' | 'horizontal' = 'vertical';
     let itemSpacing = 8;
 
@@ -38,6 +44,11 @@
     function rebind(): void {
         isEnabled = true;
         selectedColor = '#129386';
+        defaultColor = 'rgba(0, 0, 0, 0.3)';
+        textColor = '';
+        fontSize = undefined;
+        fontWeight = undefined;
+        fontFamily = '';
         orientation = 'vertical';
         itemSpacing = 8;
     }
@@ -55,6 +66,11 @@
     $: jsonAccessibility = componentContext.getDerivedFromVars(componentContext.json.accessibility);
     $: jsonIsEnabled = componentContext.getDerivedFromVars(componentContext.json.is_enabled);
     $: jsonSelectedColor = componentContext.getDerivedFromVars(componentContext.json.selected_color);
+    $: jsonDefaultColor = componentContext.getDerivedFromVars(componentContext.json.default_color);
+    $: jsonTextColor = componentContext.getDerivedFromVars(componentContext.json.text_color);
+    $: jsonFontSize = componentContext.getDerivedFromVars(componentContext.json.font_size);
+    $: jsonFontWeight = componentContext.getDerivedFromVars(componentContext.json.font_weight);
+    $: jsonFontFamily = componentContext.getDerivedFromVars(componentContext.json.font_family);
     $: jsonOrientation = componentContext.getDerivedFromVars(componentContext.json.orientation);
     $: jsonItemSpacing = componentContext.getDerivedFromVars(componentContext.json.item_spacing);
 
@@ -87,6 +103,29 @@
     }
 
     $: {
+        defaultColor = correctColor($jsonDefaultColor, 1, defaultColor);
+    }
+
+    $: {
+        textColor = correctColor($jsonTextColor, 1, textColor);
+    }
+
+    $: {
+        fontSize = (typeof $jsonFontSize === 'number' && $jsonFontSize > 0) ? $jsonFontSize : fontSize;
+    }
+
+    $: {
+        fontWeight = correctFontWeight($jsonFontWeight, undefined, fontWeight);
+        if ($jsonFontFamily && typeof $jsonFontFamily === 'string') {
+            fontFamily = rootCtx.typefaceProvider($jsonFontFamily, {
+                fontWeight: fontWeight || 400
+            });
+        } else {
+            fontFamily = '';
+        }
+    }
+
+    $: {
         orientation = ($jsonOrientation === 'horizontal' || $jsonOrientation === 'vertical') ? $jsonOrientation : orientation;
     }
 
@@ -112,7 +151,12 @@
         [orientation]: true
     };
     $: stl = {
-        '--divkit-radio-selected-color': selectedColor
+        '--divkit-radio-selected-color': selectedColor,
+        '--divkit-radio-default-color': defaultColor,
+        ...(textColor ? { '--divkit-radio-text-color': textColor } : {}),
+        ...(fontSize ? { 'font-size': pxToEm(fontSize) } : {}),
+        ...(fontWeight ? { 'font-weight': fontWeight } : {}),
+        ...(fontFamily ? { 'font-family': fontFamily } : {})
     };
     $: groupStl = `gap: ${pxToEm(itemSpacing)}`;
 

@@ -1895,6 +1895,22 @@
     "en": "A group of radio buttons allowing the user to select one option from a list. The selected value is stored in a string variable.",
     "ru": "Группа радиокнопок, позволяющая пользователю выбрать один вариант из списка. Выбранное значение сохраняется в строковой переменной."
   },
+  "div_radio_default_color": {
+    "en": "Color of unselected radio buttons.",
+    "ru": "Цвет невыбранных радиокнопок."
+  },
+  "div_radio_font_family": {
+    "en": "Font family for the option label text.",
+    "ru": "Семейство шрифтов для текста меток."
+  },
+  "div_radio_font_size": {
+    "en": "Font size for the option label text in sp.",
+    "ru": "Размер шрифта текста меток в sp."
+  },
+  "div_radio_font_weight": {
+    "en": "Font weight for the option label text.",
+    "ru": "Начертание шрифта текста меток."
+  },
   "div_radio_is_enabled": {
     "en": "Enables or disables the radio group.",
     "ru": "Включает или отключает группу радиокнопок."
@@ -1922,6 +1938,10 @@
   "div_radio_selected_color": {
     "en": "Color of the selected radio button.",
     "ru": "Цвет выбранной радиокнопки."
+  },
+  "div_radio_text_color": {
+    "en": "Color of the option label text.",
+    "ru": "Цвет текста меток."
   },
   "div_radio_value_variable": {
     "en": "Name of the string variable that stores the selected option value.",
