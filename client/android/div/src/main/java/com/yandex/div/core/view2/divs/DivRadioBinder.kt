@@ -111,7 +111,7 @@ internal class DivRadioBinder @Inject constructor(
         if (div.fontSize.isConstantOrNull()) {
             return
         }
-        val callback = { _: Any ->
+        val callback: (Any) -> Unit = { _ ->
             div.fontSize?.evaluate(resolver)?.let { sp ->
                 textSizePx = sp.spToPxF(resources.displayMetrics)
             }
