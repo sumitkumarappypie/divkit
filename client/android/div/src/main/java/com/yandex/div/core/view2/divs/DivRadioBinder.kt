@@ -4,8 +4,10 @@ import com.yandex.div.core.dagger.DivScope
 import com.yandex.div.core.expression.variables.TwoWayStringVariableBinder
 import com.yandex.div.core.state.DivStatePath
 import com.yandex.div.core.view2.BindingContext
+import com.yandex.div.core.view2.DivTypefaceResolver
 import com.yandex.div.core.view2.DivViewBinder
 import com.yandex.div.core.view2.divs.widgets.DivRadioView
+import com.yandex.div.core.view2.getTypeface
 import com.yandex.div.json.expressions.ExpressionResolver
 import com.yandex.div.json.expressions.equalsToConstant
 import com.yandex.div.json.expressions.isConstant
@@ -17,6 +19,7 @@ import javax.inject.Inject
 @DivScope
 internal class DivRadioBinder @Inject constructor(
     baseBinder: DivBaseBinder,
+    private val typefaceResolver: DivTypefaceResolver,
     private val variableBinder: TwoWayStringVariableBinder
 ) : DivViewBinder<Div.Radio, DivRadio, DivRadioView>(baseBinder) {
 
@@ -31,6 +34,10 @@ internal class DivRadioBinder @Inject constructor(
         bindOptions(div, oldDiv, resolver)
         bindIsEnabled(div, oldDiv, resolver)
         bindSelectedColor(div, oldDiv, resolver)
+        bindDefaultColor(div, oldDiv, resolver)
+        bindTextColor(div, oldDiv, resolver)
+        bindTextSize(div, oldDiv, resolver)
+        bindTypeface(div, oldDiv, resolver)
 
         observeVariable(div, bindingContext, path)
     }
@@ -68,6 +75,69 @@ internal class DivRadioBinder @Inject constructor(
         }
         val callback = { _: Any -> selectedColor = div.selectedColor?.evaluate(resolver) }
         addSubscription(div.selectedColor?.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.bindDefaultColor(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.defaultColor.equalsToConstant(oldDiv?.defaultColor)) {
+            return
+        }
+        defaultColor = div.defaultColor?.evaluate(resolver)
+        if (div.defaultColor.isConstantOrNull()) {
+            return
+        }
+        val callback = { _: Any -> defaultColor = div.defaultColor?.evaluate(resolver) }
+        addSubscription(div.defaultColor?.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.bindTextColor(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.textColor.equalsToConstant(oldDiv?.textColor)) {
+            return
+        }
+        textColor = div.textColor?.evaluate(resolver)
+        if (div.textColor.isConstantOrNull()) {
+            return
+        }
+        val callback = { _: Any -> textColor = div.textColor?.evaluate(resolver) }
+        addSubscription(div.textColor?.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.bindTextSize(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.fontSize.equalsToConstant(oldDiv?.fontSize)) {
+            return
+        }
+        div.fontSize?.evaluate(resolver)?.let { sp ->
+            textSizePx = sp.spToPxF(resources.displayMetrics)
+        }
+        if (div.fontSize.isConstantOrNull()) {
+            return
+        }
+        val callback = { _: Any ->
+            div.fontSize?.evaluate(resolver)?.let { sp ->
+                textSizePx = sp.spToPxF(resources.displayMetrics)
+            }
+        }
+        addSubscription(div.fontSize?.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.bindTypeface(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.fontFamily.equalsToConstant(oldDiv?.fontFamily) &&
+            div.fontWeight.equalsToConstant(oldDiv?.fontWeight)) {
+            return
+        }
+        applyTypeface(div, resolver)
+        if (div.fontFamily.isConstantOrNull() && div.fontWeight.isConstantOrNull()) {
+            return
+        }
+        val callback = { _: Any -> applyTypeface(div, resolver) }
+        div.fontFamily?.observe(resolver, callback)?.let { addSubscription(it) }
+        div.fontWeight?.observe(resolver, callback)?.let { addSubscription(it) }
+    }
+
+    private fun DivRadioView.applyTypeface(div: DivRadio, resolver: ExpressionResolver) {
+        val family = div.fontFamily?.evaluate(resolver)
+        val weight = div.fontWeight?.evaluate(resolver)
+        val provider = typefaceResolver.getTypefaceProvider(family)
+        typeface = getTypeface(weight, null, provider)
     }
 
     private fun DivRadioView.observeVariable(
