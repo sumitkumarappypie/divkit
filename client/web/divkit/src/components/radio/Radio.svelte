@@ -87,15 +87,11 @@
     }
 
     $: {
-        if ($jsonOrientation === 'horizontal' || $jsonOrientation === 'vertical') {
-            orientation = $jsonOrientation;
-        }
+        orientation = ($jsonOrientation === 'horizontal' || $jsonOrientation === 'vertical') ? $jsonOrientation : orientation;
     }
 
     $: {
-        if (typeof $jsonItemSpacing === 'number' && $jsonItemSpacing >= 0) {
-            itemSpacing = $jsonItemSpacing;
-        }
+        itemSpacing = (typeof $jsonItemSpacing === 'number' && $jsonItemSpacing >= 0) ? $jsonItemSpacing : itemSpacing;
     }
 
     $: if ($jsonAccessibility?.description) {

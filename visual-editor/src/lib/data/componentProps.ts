@@ -974,10 +974,10 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             prop: 'style',
             type: 'select',
             options: [{
-                name: 'linear',
+                name: 'props.style_linear',
                 value: 'linear'
             }, {
-                name: 'circular',
+                name: 'props.style_circular',
                 value: 'circular'
             }],
             default: 'linear',

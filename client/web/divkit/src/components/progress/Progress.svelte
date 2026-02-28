@@ -11,7 +11,6 @@
     import { pxToEm } from '../../utils/pxToEm';
     import { correctColor } from '../../utils/correctColor';
     import { correctBooleanInt } from '../../utils/correctBooleanInt';
-    import { booleanInt } from '../../utils/booleanInt';
     import Outer from '../utilities/Outer.svelte';
     import DevtoolHolder from '../utilities/DevtoolHolder.svelte';
 
@@ -50,15 +49,11 @@
     $: jsonTrackThickness = componentContext.getDerivedFromVars(componentContext.json.track_thickness);
 
     $: {
-        if (typeof $jsonValue === 'number') {
-            progressValue = Math.max(0, Math.min(1, $jsonValue));
-        }
+        progressValue = (typeof $jsonValue === 'number') ? Math.max(0, Math.min(1, $jsonValue)) : progressValue;
     }
 
     $: {
-        if ($jsonStyle === 'linear' || $jsonStyle === 'circular') {
-            progressStyle = $jsonStyle;
-        }
+        progressStyle = ($jsonStyle === 'linear' || $jsonStyle === 'circular') ? $jsonStyle : progressStyle;
     }
 
     $: {
@@ -74,9 +69,7 @@
     }
 
     $: {
-        if (typeof $jsonTrackThickness === 'number' && $jsonTrackThickness >= 0) {
-            trackThickness = $jsonTrackThickness;
-        }
+        trackThickness = (typeof $jsonTrackThickness === 'number' && $jsonTrackThickness >= 0) ? $jsonTrackThickness : trackThickness;
     }
 
     // SVG circular progress calculations
