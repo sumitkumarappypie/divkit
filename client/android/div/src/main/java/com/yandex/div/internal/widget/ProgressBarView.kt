@@ -101,6 +101,26 @@ internal open class ProgressBarView(context: Context) : View(context) {
         })
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+
+        val desiredHeight = if (isCircular) {
+            val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+            widthSize
+        } else {
+            trackThickness + paddingTop + paddingBottom
+        }
+
+        val measuredHeight = when (heightMode) {
+            MeasureSpec.EXACTLY -> heightSize
+            MeasureSpec.AT_MOST -> desiredHeight.coerceAtMost(heightSize)
+            else -> desiredHeight
+        }
+
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY))
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (isCircular) {
