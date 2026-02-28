@@ -1,0 +1,264 @@
+{
+  "templates": {
+    "stepper_button": {
+      "type": "container",
+      "width": {
+        "type": "fixed",
+        "value": 40
+      },
+      "height": {
+        "type": "fixed",
+        "value": 40
+      },
+      "content_alignment_horizontal": "center",
+      "content_alignment_vertical": "center",
+      "border": {
+        "corner_radius": 8,
+        "stroke": {
+          "color": "#E0E0E0",
+          "width": 1
+        }
+      },
+      "items": [
+        {
+          "type": "text",
+          "$text": "button_label",
+          "font_size": 20,
+          "font_weight": "medium",
+          "$text_color": "button_color"
+        }
+      ],
+      "$actions": "button_actions"
+    },
+    "product_row": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      ],
+      "border": {
+        "corner_radius": 12,
+        "stroke": {
+          "color": "#F0F0F0",
+          "width": 1
+        }
+      },
+      "paddings": {
+        "left": 16,
+        "top": 12,
+        "right": 16,
+        "bottom": 12
+      },
+      "margins": {
+        "bottom": 12
+      },
+      "items": [
+        {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "weight": 1,
+          "items": [
+            {
+              "type": "text",
+              "$text": "product_name",
+              "font_size": 16,
+              "font_weight": "medium",
+              "text_color": "#212121"
+            },
+            {
+              "type": "text",
+              "$text": "product_price",
+              "font_size": 14,
+              "text_color": "#757575",
+              "paddings": {
+                "top": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "orientation": "horizontal",
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "stepper_button",
+              "button_label": "\u2212",
+              "$button_color": "minus_color",
+              "$button_actions": "minus_actions"
+            },
+            {
+              "type": "text",
+              "$text": "quantity_text",
+              "font_size": 18,
+              "font_weight": "bold",
+              "text_color": "#212121",
+              "text_alignment_horizontal": "center",
+              "width": {
+                "type": "fixed",
+                "value": 48
+              }
+            },
+            {
+              "type": "stepper_button",
+              "button_label": "+",
+              "button_color": "#4A90D9",
+              "$button_actions": "plus_actions"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "stepper_card",
+    "variables": [
+      {
+        "name": "qty_apples",
+        "type": "integer",
+        "value": 1
+      },
+      {
+        "name": "qty_bananas",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "qty_oranges",
+        "type": "integer",
+        "value": 2
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 16,
+            "top": 16,
+            "right": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "Shopping Cart",
+              "font_size": 20,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "bottom": 16
+              }
+            },
+            {
+              "type": "product_row",
+              "product_name": "Apples",
+              "product_price": "$2.99 each",
+              "quantity_text": "@{qty_apples}",
+              "minus_color": "@{if(qty_apples > 0, '#E53935', '#CCCCCC')}",
+              "minus_actions": [
+                {
+                  "log_id": "dec_apples",
+                  "url": "div-action://set_variable?name=qty_apples&value=@{max(sub(qty_apples, 1), 0)}"
+                }
+              ],
+              "plus_actions": [
+                {
+                  "log_id": "inc_apples",
+                  "url": "div-action://set_variable?name=qty_apples&value=@{min(sum(qty_apples, 1), 99)}"
+                }
+              ]
+            },
+            {
+              "type": "product_row",
+              "product_name": "Bananas",
+              "product_price": "$1.49 each",
+              "quantity_text": "@{qty_bananas}",
+              "minus_color": "@{if(qty_bananas > 0, '#E53935', '#CCCCCC')}",
+              "minus_actions": [
+                {
+                  "log_id": "dec_bananas",
+                  "url": "div-action://set_variable?name=qty_bananas&value=@{max(sub(qty_bananas, 1), 0)}"
+                }
+              ],
+              "plus_actions": [
+                {
+                  "log_id": "inc_bananas",
+                  "url": "div-action://set_variable?name=qty_bananas&value=@{min(sum(qty_bananas, 1), 99)}"
+                }
+              ]
+            },
+            {
+              "type": "product_row",
+              "product_name": "Oranges",
+              "product_price": "$3.49 each",
+              "quantity_text": "@{qty_oranges}",
+              "minus_color": "@{if(qty_oranges > 0, '#E53935', '#CCCCCC')}",
+              "minus_actions": [
+                {
+                  "log_id": "dec_oranges",
+                  "url": "div-action://set_variable?name=qty_oranges&value=@{max(sub(qty_oranges, 1), 0)}"
+                }
+              ],
+              "plus_actions": [
+                {
+                  "log_id": "inc_oranges",
+                  "url": "div-action://set_variable?name=qty_oranges&value=@{min(sum(qty_oranges, 1), 99)}"
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#E0E0E0",
+                "orientation": "horizontal"
+              },
+              "margins": {
+                "top": 4,
+                "bottom": 12
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Total items:",
+                  "font_size": 16,
+                  "text_color": "#757575",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "weight": 1
+                },
+                {
+                  "type": "text",
+                  "text": "@{sum(qty_apples, qty_bananas, qty_oranges)}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#212121"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

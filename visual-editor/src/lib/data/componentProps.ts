@@ -23,7 +23,10 @@ export const supportedComponents = new Set([
     'input',
     'select',
     'video',
-    'switch'
+    'switch',
+    'checkbox',
+    'radio',
+    'progress'
 ]);
 
 export const containerComponents = new Set([
@@ -890,6 +893,124 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.on_color',
             prop: 'on_color',
             type: 'color',
+            enableSources: true
+        }]
+    }],
+    checkbox: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            name: 'props.a11y_description',
+            prop: 'accessibility.description',
+            type: 'string',
+            enableSources: true
+        }]
+    }, {
+        type: 'group',
+        title: 'checkboxProps.title',
+        list: [{
+            name: 'props.text_variable',
+            prop: 'is_checked_variable',
+            type: 'variable-name',
+            required: true
+        }, {
+            name: 'props.is_enabled',
+            prop: 'is_enabled',
+            type: 'boolean',
+            default: true,
+            enableSources: true
+        }, {
+            name: 'props.on_color',
+            prop: 'on_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.off_color',
+            prop: 'off_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.check_mark_color',
+            prop: 'check_mark_color',
+            type: 'color',
+            enableSources: true
+        }]
+    }],
+    radio: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            name: 'props.a11y_description',
+            prop: 'accessibility.description',
+            type: 'string',
+            enableSources: true
+        }]
+    }, {
+        type: 'group',
+        title: 'radioProps.title',
+        list: [{
+            name: 'props.text_variable',
+            prop: 'value_variable',
+            type: 'variable-name',
+            required: true
+        }, {
+            name: 'props.is_enabled',
+            prop: 'is_enabled',
+            type: 'boolean',
+            default: true,
+            enableSources: true
+        }, {
+            name: 'props.selected_color',
+            prop: 'selected_color',
+            type: 'color',
+            enableSources: true
+        }]
+    }],
+    progress: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'progressProps.title',
+        list: [{
+            name: 'props.style',
+            prop: 'style',
+            type: 'select',
+            options: [{
+                name: 'linear',
+                value: 'linear'
+            }, {
+                name: 'circular',
+                value: 'circular'
+            }],
+            default: 'linear',
+            enableSources: true
+        }, {
+            name: 'props.value',
+            prop: 'value',
+            type: 'number',
+            default: 0,
+            enableSources: true
+        }, {
+            name: 'props.is_indeterminate',
+            prop: 'is_indeterminate',
+            type: 'boolean',
+            default: false,
+            enableSources: true
+        }, {
+            name: 'props.active_color',
+            prop: 'active_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.inactive_color',
+            prop: 'inactive_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.track_thickness',
+            prop: 'track_thickness',
+            type: 'integer',
+            min: 1,
+            max: 100,
+            default: 4,
             enableSources: true
         }]
     }],

@@ -1,0 +1,215 @@
+{
+  "templates": {
+    "nav_item": {
+      "type": "container",
+      "orientation": "vertical",
+      "content_alignment_horizontal": "center",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "weight": 1,
+      "paddings": {
+        "top": 8,
+        "bottom": 8
+      },
+      "items": [
+        {
+          "type": "image",
+          "$image_url": "icon_url",
+          "width": {
+            "type": "fixed",
+            "value": 24
+          },
+          "height": {
+            "type": "fixed",
+            "value": 24
+          },
+          "$tint_color": "icon_color"
+        },
+        {
+          "type": "text",
+          "$text": "label",
+          "font_size": 12,
+          "$text_color": "label_color",
+          "paddings": {
+            "top": 4
+          }
+        }
+      ],
+      "$actions": "nav_actions"
+    },
+    "page_content": {
+      "type": "container",
+      "orientation": "vertical",
+      "content_alignment_horizontal": "center",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "height": {
+        "type": "fixed",
+        "value": 300
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FAFAFA"
+        }
+      ],
+      "items": [
+        {
+          "type": "text",
+          "$text": "page_title",
+          "font_size": 24,
+          "font_weight": "bold",
+          "text_color": "#333333"
+        },
+        {
+          "type": "text",
+          "$text": "page_subtitle",
+          "font_size": 14,
+          "text_color": "#999999",
+          "paddings": {
+            "top": 8
+          }
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "bottom_nav_bar_card",
+    "variables": [
+      {
+        "name": "active_tab",
+        "type": "string",
+        "value": "home"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "items": [
+            {
+              "type": "state",
+              "id": "page_content",
+              "default_state_id": "home",
+              "state_id_variable": "active_tab",
+              "states": [
+                {
+                  "state_id": "home",
+                  "div": {
+                    "type": "page_content",
+                    "page_title": "Home",
+                    "page_subtitle": "Welcome back!"
+                  }
+                },
+                {
+                  "state_id": "search",
+                  "div": {
+                    "type": "page_content",
+                    "page_title": "Search",
+                    "page_subtitle": "Find what you need"
+                  }
+                },
+                {
+                  "state_id": "favorites",
+                  "div": {
+                    "type": "page_content",
+                    "page_title": "Favorites",
+                    "page_subtitle": "Your saved items"
+                  }
+                },
+                {
+                  "state_id": "profile",
+                  "div": {
+                    "type": "page_content",
+                    "page_title": "Profile",
+                    "page_subtitle": "Account settings"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#E0E0E0",
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#FFFFFF"
+                }
+              ],
+              "items": [
+                {
+                  "type": "nav_item",
+                  "icon_url": "https://img.icons8.com/material-outlined/24/home--v2.png",
+                  "label": "Home",
+                  "icon_color": "@{if(active_tab == 'home', '#4A90D9', '#999999')}",
+                  "label_color": "@{if(active_tab == 'home', '#4A90D9', '#999999')}",
+                  "nav_actions": [
+                    {
+                      "log_id": "nav_home",
+                      "url": "div-action://set_variable?name=active_tab&value=home"
+                    }
+                  ]
+                },
+                {
+                  "type": "nav_item",
+                  "icon_url": "https://img.icons8.com/material-outlined/24/search--v1.png",
+                  "label": "Search",
+                  "icon_color": "@{if(active_tab == 'search', '#4A90D9', '#999999')}",
+                  "label_color": "@{if(active_tab == 'search', '#4A90D9', '#999999')}",
+                  "nav_actions": [
+                    {
+                      "log_id": "nav_search",
+                      "url": "div-action://set_variable?name=active_tab&value=search"
+                    }
+                  ]
+                },
+                {
+                  "type": "nav_item",
+                  "icon_url": "https://img.icons8.com/material-outlined/24/like--v1.png",
+                  "label": "Favorites",
+                  "icon_color": "@{if(active_tab == 'favorites', '#4A90D9', '#999999')}",
+                  "label_color": "@{if(active_tab == 'favorites', '#4A90D9', '#999999')}",
+                  "nav_actions": [
+                    {
+                      "log_id": "nav_favorites",
+                      "url": "div-action://set_variable?name=active_tab&value=favorites"
+                    }
+                  ]
+                },
+                {
+                  "type": "nav_item",
+                  "icon_url": "https://img.icons8.com/material-outlined/24/user--v1.png",
+                  "label": "Profile",
+                  "icon_color": "@{if(active_tab == 'profile', '#4A90D9', '#999999')}",
+                  "label_color": "@{if(active_tab == 'profile', '#4A90D9', '#999999')}",
+                  "nav_actions": [
+                    {
+                      "log_id": "nav_profile",
+                      "url": "div-action://set_variable?name=active_tab&value=profile"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

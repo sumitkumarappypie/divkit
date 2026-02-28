@@ -16,6 +16,9 @@ import Input from './input/Input.svelte';
 import Select from './select/Select.svelte';
 import Video from './video/Video.svelte';
 import Switch from './switch/Switch.svelte';
+import Checkbox from './checkbox/Checkbox.svelte';
+import Radio from './radio/Radio.svelte';
+import Progress from './progress/Progress.svelte';
 import Custom from './custom/Custom.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
@@ -35,5 +38,8 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     select: Select,
     video: Video,
     switch: Switch,
+    checkbox: Checkbox,
+    radio: Radio,
+    progress: Progress,
     custom: Custom
 };

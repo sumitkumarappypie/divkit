@@ -23,6 +23,9 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divInputTemplate(DivInputTemplate)
   case divSelectTemplate(DivSelectTemplate)
   case divVideoTemplate(DivVideoTemplate)
+  case divCheckboxTemplate(DivCheckboxTemplate)
+  case divRadioTemplate(DivRadioTemplate)
+  case divProgressTemplate(DivProgressTemplate)
 
   public var value: Any {
     switch self {
@@ -59,6 +62,12 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divSelectTemplate(value):
       return value
     case let .divVideoTemplate(value):
+      return value
+    case let .divCheckboxTemplate(value):
+      return value
+    case let .divRadioTemplate(value):
+      return value
+    case let .divProgressTemplate(value):
       return value
     }
   }
@@ -99,6 +108,12 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divSelectTemplate(try value.resolveParent(templates: templates))
     case let .divVideoTemplate(value):
       return .divVideoTemplate(try value.resolveParent(templates: templates))
+    case let .divCheckboxTemplate(value):
+      return .divCheckboxTemplate(try value.resolveParent(templates: templates))
+    case let .divRadioTemplate(value):
+      return .divRadioTemplate(try value.resolveParent(templates: templates))
+    case let .divProgressTemplate(value):
+      return .divProgressTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -248,6 +263,30 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divCheckboxTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCheckbox(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCheckbox(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case let .divRadioTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divRadio(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divRadio(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case let .divProgressTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divProgress(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divProgress(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     }
   }
 
@@ -393,6 +432,30 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivCheckbox.type:
+      let result = DivCheckboxTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCheckbox(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCheckbox(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case DivRadio.type:
+      let result = DivRadioTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divRadio(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divRadio(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case DivProgress.type:
+      let result = DivProgressTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divProgress(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divProgress(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     default:
       return .failure(NonEmptyArray(.requiredFieldIsMissing(field: "type")))
     }
@@ -438,6 +501,12 @@ extension DivTemplate {
       self = .divSelectTemplate(try DivSelectTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivVideoTemplate.type:
       self = .divVideoTemplate(try DivVideoTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivCheckboxTemplate.type:
+      self = .divCheckboxTemplate(try DivCheckboxTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivRadioTemplate.type:
+      self = .divRadioTemplate(try DivRadioTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivProgressTemplate.type:
+      self = .divProgressTemplate(try DivProgressTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }

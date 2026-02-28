@@ -19,6 +19,9 @@ import sliderIcon from '../../assets/components/slider.svg?url';
 import inputIcon from '../../assets/components/input.svg?url';
 import selectIcon from '../../assets/components/select.svg?url';
 import videoIcon from '../../assets/components/video.svg?url';
+import checkboxIcon from '../../assets/components/checkbox.svg?url';
+import radioIcon from '../../assets/components/radio.svg?url';
+import progressIcon from '../../assets/components/progress.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
@@ -38,7 +41,10 @@ const MAP = {
     slider: sliderIcon,
     input: inputIcon,
     select: selectIcon,
-    video: videoIcon
+    video: videoIcon,
+    checkbox: checkboxIcon,
+    radio: radioIcon,
+    progress: progressIcon
 };
 
 const MAP_BY_ORIENTATION = {

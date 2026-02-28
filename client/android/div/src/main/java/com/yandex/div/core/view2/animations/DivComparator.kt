@@ -124,6 +124,9 @@ internal object DivComparator {
             is Div.Slider -> emptyList()
             is Div.Video -> emptyList()
             is Div.Switch -> emptyList()
+            is Div.Checkbox -> emptyList()
+            is Div.Radio -> emptyList()
+            is Div.Progress -> emptyList()
         }
     }
 

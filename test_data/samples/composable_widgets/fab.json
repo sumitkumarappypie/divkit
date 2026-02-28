@@ -1,0 +1,220 @@
+{
+  "templates": {
+    "list_item": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "paddings": {
+        "left": 16,
+        "top": 12,
+        "right": 16,
+        "bottom": 12
+      },
+      "items": [
+        {
+          "type": "container",
+          "width": {
+            "type": "fixed",
+            "value": 40
+          },
+          "height": {
+            "type": "fixed",
+            "value": 40
+          },
+          "background": [
+            {
+              "type": "solid",
+              "color": "#E8EAF6"
+            }
+          ],
+          "border": {
+            "corner_radius": 20
+          },
+          "content_alignment_horizontal": "center",
+          "content_alignment_vertical": "center",
+          "items": [
+            {
+              "type": "text",
+              "$text": "item_icon",
+              "font_size": 18,
+              "text_color": "#3F51B5"
+            }
+          ]
+        },
+        {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 12
+          },
+          "width": {
+            "type": "match_parent"
+          },
+          "weight": 1,
+          "items": [
+            {
+              "type": "text",
+              "$text": "item_title",
+              "font_size": 16,
+              "text_color": "#212121"
+            },
+            {
+              "type": "text",
+              "$text": "item_subtitle",
+              "font_size": 13,
+              "text_color": "#757575"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "fab_card",
+    "variables": [
+      {
+        "name": "item_count",
+        "type": "integer",
+        "value": 3
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "overlap",
+          "width": {
+            "type": "match_parent"
+          },
+          "height": {
+            "type": "fixed",
+            "value": 400
+          },
+          "items": [
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "width": {
+                "type": "match_parent"
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Items: @{item_count}",
+                  "font_size": 18,
+                  "font_weight": "bold",
+                  "text_color": "#212121",
+                  "paddings": {
+                    "left": 16,
+                    "top": 16,
+                    "right": 16,
+                    "bottom": 8
+                  }
+                },
+                {
+                  "type": "list_item",
+                  "item_icon": "\u2709",
+                  "item_title": "Message from Alex",
+                  "item_subtitle": "Hey, are you free today?"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#F0F0F0",
+                    "orientation": "horizontal"
+                  },
+                  "margins": {
+                    "left": 68
+                  }
+                },
+                {
+                  "type": "list_item",
+                  "item_icon": "\u2709",
+                  "item_title": "Team Update",
+                  "item_subtitle": "Sprint review at 3 PM"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#F0F0F0",
+                    "orientation": "horizontal"
+                  },
+                  "margins": {
+                    "left": 68
+                  }
+                },
+                {
+                  "type": "list_item",
+                  "item_icon": "\u2709",
+                  "item_title": "Newsletter",
+                  "item_subtitle": "Weekly digest is ready"
+                }
+              ]
+            },
+            {
+              "type": "container",
+              "width": {
+                "type": "fixed",
+                "value": 56
+              },
+              "height": {
+                "type": "fixed",
+                "value": 56
+              },
+              "content_alignment_horizontal": "center",
+              "content_alignment_vertical": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#4A90D9"
+                }
+              ],
+              "border": {
+                "corner_radius": 28,
+                "shadow": {
+                  "color": "#40000000",
+                  "offset": {
+                    "x": {
+                      "value": 0
+                    },
+                    "y": {
+                      "value": 4
+                    }
+                  },
+                  "blur": 8
+                }
+              },
+              "alignment_horizontal": "right",
+              "alignment_vertical": "bottom",
+              "margins": {
+                "right": 16,
+                "bottom": 16
+              },
+              "actions": [
+                {
+                  "log_id": "fab_add",
+                  "url": "div-action://set_variable?name=item_count&value=@{sum(item_count, 1)}"
+                }
+              ],
+              "items": [
+                {
+                  "type": "text",
+                  "text": "+",
+                  "font_size": 28,
+                  "text_color": "#FFFFFF",
+                  "font_weight": "light",
+                  "text_alignment_horizontal": "center",
+                  "text_alignment_vertical": "center"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "templates": {
+    "sheet_handle": {
+      "type": "container",
+      "content_alignment_horizontal": "center",
+      "paddings": {
+        "top": 8,
+        "bottom": 8
+      },
+      "items": [
+        {
+          "type": "separator",
+          "delimiter_style": {
+            "color": "#40000000",
+            "orientation": "horizontal"
+          },
+          "width": {
+            "type": "fixed",
+            "value": 40
+          },
+          "height": {
+            "type": "fixed",
+            "value": 4
+          },
+          "border": {
+            "corner_radius": 2
+          }
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "bottom_sheet_card",
+    "variables": [
+      {
+        "name": "sheet_title",
+        "type": "string",
+        "value": "Select an option"
+      },
+      {
+        "name": "selected_option",
+        "type": "string",
+        "value": ""
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "items": [
+            {
+              "type": "text",
+              "text": "Selected: @{selected_option}",
+              "font_size": 16,
+              "text_color": "#333333",
+              "paddings": {
+                "left": 16,
+                "top": 16,
+                "right": 16,
+                "bottom": 8
+              }
+            },
+            {
+              "type": "text",
+              "text": "Open Bottom Sheet",
+              "font_size": 16,
+              "font_weight": "medium",
+              "text_color": "#FFFFFF",
+              "text_alignment_horizontal": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#4A90D9"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 24,
+                "top": 12,
+                "right": 24,
+                "bottom": 12
+              },
+              "margins": {
+                "left": 16,
+                "right": 16,
+                "top": 8,
+                "bottom": 16
+              },
+              "tooltips": [
+                {
+                  "id": "bottom_sheet",
+                  "position": "bottom",
+                  "duration": 0,
+                  "close_by_tap_outside": true,
+                  "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "width": {
+                      "type": "match_parent"
+                    },
+                    "background": [
+                      {
+                        "type": "solid",
+                        "color": "#FFFFFF"
+                      }
+                    ],
+                    "border": {
+                      "corner_radius": 16
+                    },
+                    "items": [
+                      {
+                        "type": "sheet_handle"
+                      },
+                      {
+                        "type": "text",
+                        "text": "@{sheet_title}",
+                        "font_size": 18,
+                        "font_weight": "bold",
+                        "text_color": "#1A1A1A",
+                        "paddings": {
+                          "left": 16,
+                          "top": 4,
+                          "right": 16,
+                          "bottom": 12
+                        }
+                      },
+                      {
+                        "type": "separator",
+                        "delimiter_style": {
+                          "color": "#1A000000",
+                          "orientation": "horizontal"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "text": "Option A",
+                        "font_size": 16,
+                        "text_color": "#333333",
+                        "paddings": {
+                          "left": 16,
+                          "top": 14,
+                          "right": 16,
+                          "bottom": 14
+                        },
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "actions": [
+                          {
+                            "log_id": "select_option_a",
+                            "url": "div-action://set_variable?name=selected_option&value=Option A"
+                          },
+                          {
+                            "log_id": "close_sheet_a",
+                            "url": "div-action://hide_tooltip?id=bottom_sheet"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "Option B",
+                        "font_size": 16,
+                        "text_color": "#333333",
+                        "paddings": {
+                          "left": 16,
+                          "top": 14,
+                          "right": 16,
+                          "bottom": 14
+                        },
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "actions": [
+                          {
+                            "log_id": "select_option_b",
+                            "url": "div-action://set_variable?name=selected_option&value=Option B"
+                          },
+                          {
+                            "log_id": "close_sheet_b",
+                            "url": "div-action://hide_tooltip?id=bottom_sheet"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "text",
+                        "text": "Option C",
+                        "font_size": 16,
+                        "text_color": "#333333",
+                        "paddings": {
+                          "left": 16,
+                          "top": 14,
+                          "right": 16,
+                          "bottom": 16
+                        },
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "actions": [
+                          {
+                            "log_id": "select_option_c",
+                            "url": "div-action://set_variable?name=selected_option&value=Option C"
+                          },
+                          {
+                            "log_id": "close_sheet_c",
+                            "url": "div-action://hide_tooltip?id=bottom_sheet"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "actions": [
+                {
+                  "log_id": "open_bottom_sheet",
+                  "url": "div-action://show_tooltip?id=bottom_sheet"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

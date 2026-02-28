@@ -1,0 +1,81 @@
+{
+  "$description": "translations.json#/div_radio",
+  "definitions": {
+    "option": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "$description": "translations.json#/div_radio_option_text"
+        },
+        "value": {
+          "type": "string",
+          "$description": "translations.json#/div_radio_option_value"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "radio"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/option",
+            "$description": "translations.json#/div_radio_option"
+          },
+          "minItems": 1
+        },
+        "value_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_radio_value_variable"
+        },
+        "orientation": {
+          "type": "string",
+          "enum": [
+            "vertical",
+            "horizontal"
+          ],
+          "default_value": "vertical",
+          "$description": "translations.json#/div_radio_orientation"
+        },
+        "item_spacing": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "8",
+          "$description": "translations.json#/div_radio_item_spacing"
+        },
+        "selected_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_radio_selected_color"
+        },
+        "is_enabled": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_radio_is_enabled"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "options",
+    "value_variable"
+  ]
+}

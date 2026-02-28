@@ -32,6 +32,8 @@ import com.yandex.div2.DivAction
 import com.yandex.div2.DivBase
 import com.yandex.div2.DivInput
 import com.yandex.div2.DivSwitch
+import com.yandex.div2.DivCheckbox
+import com.yandex.div2.DivRadio
 import com.yandex.div2.DivVisibility
 import javax.inject.Inject
 
@@ -466,7 +468,7 @@ internal class DivBaseBinder @Inject constructor(
     //endregion
 
     private fun View.applyFocusableState(div: DivBase) {
-        if (div is DivInput || div is DivSwitch) return
+        if (div is DivInput || div is DivSwitch || div is DivCheckbox || div is DivRadio) return
         isFocusable = div.focus != null
     }
 }

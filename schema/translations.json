@@ -699,6 +699,30 @@
     "en": "A set of animations.",
     "ru": "Набор анимаций."
   },
+  "div_checkbox": {
+    "en": "A checkbox element that allows the user to toggle a Boolean variable. Renders a native checkbox control with customizable colors.",
+    "ru": "Элемент чекбокса, позволяющий пользователю переключать булевую переменную. Отображает нативный элемент управления с настраиваемыми цветами."
+  },
+  "div_checkbox_check_mark_color": {
+    "en": "Color of the check mark inside the checkbox.",
+    "ru": "Цвет галочки внутри чекбокса."
+  },
+  "div_checkbox_is_checked_variable": {
+    "en": "Name of the Boolean variable assigned to the checkbox.",
+    "ru": "Название булевой переменной для чекбокса."
+  },
+  "div_checkbox_is_enabled": {
+    "en": "Enables or disables the checkbox.",
+    "ru": "Включает или отключает чекбокс."
+  },
+  "div_checkbox_off_color": {
+    "en": "Color of the checkbox in the unchecked state.",
+    "ru": "Цвет чекбокса в выключенном состоянии."
+  },
+  "div_checkbox_on_color": {
+    "en": "Color of the checkbox in the checked state.",
+    "ru": "Цвет чекбокса во включенном состоянии."
+  },
   "div_circle_shape": {
     "en": "Circle.",
     "ru": "Круг."
@@ -1815,6 +1839,34 @@
     "en": "`Y` coordinate.",
     "ru": "Координата `Y`."
   },
+  "div_progress": {
+    "en": "A progress indicator that displays the completion state of a task. Supports linear and circular styles with determinate and indeterminate modes.",
+    "ru": "Индикатор прогресса, отображающий состояние выполнения задачи. Поддерживает линейный и круговой стили с определённым и неопределённым режимами."
+  },
+  "div_progress_active_color": {
+    "en": "Color of the filled (active) portion of the progress indicator.",
+    "ru": "Цвет заполненной (активной) части индикатора прогресса."
+  },
+  "div_progress_inactive_color": {
+    "en": "Color of the unfilled (inactive) portion of the progress indicator.",
+    "ru": "Цвет незаполненной (неактивной) части индикатора прогресса."
+  },
+  "div_progress_is_indeterminate": {
+    "en": "Enables indeterminate mode where the indicator animates continuously without showing specific progress.",
+    "ru": "Включает неопределённый режим, при котором индикатор анимируется непрерывно без отображения конкретного прогресса."
+  },
+  "div_progress_style": {
+    "en": "Visual style of the progress indicator: `linear` for a horizontal bar or `circular` for a ring.",
+    "ru": "Визуальный стиль индикатора прогресса: `linear` для горизонтальной полосы или `circular` для кольца."
+  },
+  "div_progress_track_thickness": {
+    "en": "Thickness of the progress track in dp.",
+    "ru": "Толщина полосы прогресса в dp."
+  },
+  "div_progress_value": {
+    "en": "Current progress value from 0.0 to 1.0. Supports expressions for dynamic updates.",
+    "ru": "Текущее значение прогресса от 0.0 до 1.0. Поддерживает выражения для динамического обновления."
+  },
   "div_property": {
     "en": "A property that is handeled with `get` and `set` methods.",
     "ru": "Свойство, обращение к которому происходит через методы `get` и `set`."
@@ -1838,6 +1890,42 @@
   "div_property_value_type": {
     "en": "Return property value type.",
     "ru": "Тип возвращаемого значения свойства."
+  },
+  "div_radio": {
+    "en": "A group of radio buttons allowing the user to select one option from a list. The selected value is stored in a string variable.",
+    "ru": "Группа радиокнопок, позволяющая пользователю выбрать один вариант из списка. Выбранное значение сохраняется в строковой переменной."
+  },
+  "div_radio_is_enabled": {
+    "en": "Enables or disables the radio group.",
+    "ru": "Включает или отключает группу радиокнопок."
+  },
+  "div_radio_item_spacing": {
+    "en": "Spacing between radio button options in dp.",
+    "ru": "Расстояние между вариантами радиокнопок в dp."
+  },
+  "div_radio_option": {
+    "en": "A radio button option.",
+    "ru": "Вариант радиокнопки."
+  },
+  "div_radio_option_text": {
+    "en": "Text label displayed next to the radio button. If not set, `value` is used instead.",
+    "ru": "Текстовая метка рядом с радиокнопкой. Если не указано, используется значение параметра `value`."
+  },
+  "div_radio_option_value": {
+    "en": "String value associated with this radio option.",
+    "ru": "Строковое значение, связанное с этим вариантом радиокнопки."
+  },
+  "div_radio_orientation": {
+    "en": "Layout direction for radio options: `vertical` or `horizontal`.",
+    "ru": "Направление расположения вариантов: `vertical` (вертикально) или `horizontal` (горизонтально)."
+  },
+  "div_radio_selected_color": {
+    "en": "Color of the selected radio button.",
+    "ru": "Цвет выбранной радиокнопки."
+  },
+  "div_radio_value_variable": {
+    "en": "Name of the string variable that stores the selected option value.",
+    "ru": "Имя строковой переменной, которая хранит значение выбранного варианта."
   },
   "div_radial_gradient_fixed_center": {
     "en": "Fixed coordinates of the central point of the gradient.",

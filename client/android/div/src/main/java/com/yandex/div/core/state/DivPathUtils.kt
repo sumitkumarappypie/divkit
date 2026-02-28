@@ -147,6 +147,9 @@ internal object DivPathUtils {
             is Div.Select -> null
             is Div.Video -> null
             is Div.Switch -> null
+            is Div.Checkbox -> null
+            is Div.Radio -> null
+            is Div.Progress -> null
         }
     }
 

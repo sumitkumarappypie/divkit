@@ -1,0 +1,229 @@
+{
+  "templates": {
+    "chip": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "background": [
+        {
+          "type": "solid",
+          "color": "#E8EAF6"
+        }
+      ],
+      "border": {
+        "corner_radius": 16
+      },
+      "paddings": {
+        "left": 12,
+        "top": 6,
+        "right": 4,
+        "bottom": 6
+      },
+      "margins": {
+        "right": 8,
+        "bottom": 8
+      },
+      "items": [
+        {
+          "type": "text",
+          "$text": "chip_label",
+          "font_size": 14,
+          "text_color": "#3F51B5"
+        },
+        {
+          "type": "text",
+          "text": "\u2715",
+          "font_size": 14,
+          "text_color": "#7986CB",
+          "paddings": {
+            "left": 6,
+            "right": 6
+          },
+          "$actions": "close_actions"
+        }
+      ]
+    },
+    "selected_chip": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "background": [
+        {
+          "type": "solid",
+          "color": "#3F51B5"
+        }
+      ],
+      "border": {
+        "corner_radius": 16
+      },
+      "paddings": {
+        "left": 12,
+        "top": 6,
+        "right": 12,
+        "bottom": 6
+      },
+      "margins": {
+        "right": 8,
+        "bottom": 8
+      },
+      "items": [
+        {
+          "type": "text",
+          "text": "\u2713",
+          "font_size": 12,
+          "text_color": "#FFFFFF",
+          "paddings": {
+            "right": 4
+          }
+        },
+        {
+          "type": "text",
+          "$text": "chip_label",
+          "font_size": 14,
+          "text_color": "#FFFFFF"
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "chip_tag_card",
+    "variables": [
+      {
+        "name": "chip_design_visible",
+        "type": "boolean",
+        "value": true
+      },
+      {
+        "name": "chip_mobile_visible",
+        "type": "boolean",
+        "value": true
+      },
+      {
+        "name": "chip_web_visible",
+        "type": "boolean",
+        "value": true
+      },
+      {
+        "name": "chip_backend_visible",
+        "type": "boolean",
+        "value": true
+      },
+      {
+        "name": "selected_category",
+        "type": "string",
+        "value": "all"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 16,
+            "top": 16,
+            "right": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "Filter Tags",
+              "font_size": 16,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "bottom": 12
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "content_alignment_horizontal": "left",
+              "layout_mode": "wrap",
+              "items": [
+                {
+                  "type": "selected_chip",
+                  "chip_label": "All"
+                },
+                {
+                  "type": "chip",
+                  "chip_label": "Design",
+                  "visibility": "@{if(chip_design_visible, 'visible', 'gone')}",
+                  "close_actions": [
+                    {
+                      "log_id": "remove_design",
+                      "url": "div-action://set_variable?name=chip_design_visible&value=false"
+                    }
+                  ]
+                },
+                {
+                  "type": "chip",
+                  "chip_label": "Mobile",
+                  "visibility": "@{if(chip_mobile_visible, 'visible', 'gone')}",
+                  "close_actions": [
+                    {
+                      "log_id": "remove_mobile",
+                      "url": "div-action://set_variable?name=chip_mobile_visible&value=false"
+                    }
+                  ]
+                },
+                {
+                  "type": "chip",
+                  "chip_label": "Web",
+                  "visibility": "@{if(chip_web_visible, 'visible', 'gone')}",
+                  "close_actions": [
+                    {
+                      "log_id": "remove_web",
+                      "url": "div-action://set_variable?name=chip_web_visible&value=false"
+                    }
+                  ]
+                },
+                {
+                  "type": "chip",
+                  "chip_label": "Backend",
+                  "visibility": "@{if(chip_backend_visible, 'visible', 'gone')}",
+                  "close_actions": [
+                    {
+                      "log_id": "remove_backend",
+                      "url": "div-action://set_variable?name=chip_backend_visible&value=false"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "text": "Reset All",
+              "font_size": 14,
+              "text_color": "#3F51B5",
+              "font_weight": "medium",
+              "paddings": {
+                "top": 12
+              },
+              "actions": [
+                {
+                  "log_id": "reset_chip_design",
+                  "url": "div-action://set_variable?name=chip_design_visible&value=true"
+                },
+                {
+                  "log_id": "reset_chip_mobile",
+                  "url": "div-action://set_variable?name=chip_mobile_visible&value=true"
+                },
+                {
+                  "log_id": "reset_chip_web",
+                  "url": "div-action://set_variable?name=chip_web_visible&value=true"
+                },
+                {
+                  "log_id": "reset_chip_backend",
+                  "url": "div-action://set_variable?name=chip_backend_visible&value=true"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

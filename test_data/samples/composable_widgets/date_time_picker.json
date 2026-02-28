@@ -1,0 +1,226 @@
+{
+  "templates": {
+    "picker_field": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "background": [
+        {
+          "type": "solid",
+          "color": "#F5F5F5"
+        }
+      ],
+      "border": {
+        "corner_radius": 8,
+        "stroke": {
+          "color": "#E0E0E0",
+          "width": 1
+        }
+      },
+      "paddings": {
+        "left": 12,
+        "top": 12,
+        "right": 12,
+        "bottom": 12
+      },
+      "margins": {
+        "bottom": 12
+      },
+      "items": [
+        {
+          "type": "text",
+          "$text": "field_label",
+          "font_size": 14,
+          "text_color": "#757575",
+          "width": {
+            "type": "fixed",
+            "value": 60
+          }
+        },
+        {
+          "type": "text",
+          "$text": "field_value",
+          "font_size": 16,
+          "text_color": "#212121",
+          "width": {
+            "type": "match_parent"
+          },
+          "weight": 1
+        },
+        {
+          "type": "text",
+          "text": "\u25BC",
+          "font_size": 12,
+          "text_color": "#757575"
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "date_time_picker_card",
+    "variables": [
+      {
+        "name": "selected_date",
+        "type": "string",
+        "value": "2026-02-28"
+      },
+      {
+        "name": "selected_time",
+        "type": "string",
+        "value": "10:00"
+      },
+      {
+        "name": "display_date",
+        "type": "string",
+        "value": "Feb 28, 2026"
+      },
+      {
+        "name": "display_time",
+        "type": "string",
+        "value": "10:00 AM"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 16,
+            "top": 16,
+            "right": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "Schedule Event",
+              "font_size": 20,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "bottom": 16
+              }
+            },
+            {
+              "type": "text",
+              "text": "Date",
+              "font_size": 12,
+              "text_color": "#757575",
+              "paddings": {
+                "bottom": 4
+              }
+            },
+            {
+              "type": "div-custom",
+              "custom_type": "date_picker",
+              "custom_props": {
+                "mode": "date",
+                "variable_name": "selected_date",
+                "display_variable_name": "display_date",
+                "min_date": "2026-01-01",
+                "max_date": "2027-12-31"
+              },
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 48
+              },
+              "margins": {
+                "bottom": 16
+              },
+              "accessibility": {
+                "description": "Date picker",
+                "type": "button"
+              }
+            },
+            {
+              "type": "text",
+              "text": "Time",
+              "font_size": 12,
+              "text_color": "#757575",
+              "paddings": {
+                "bottom": 4
+              }
+            },
+            {
+              "type": "div-custom",
+              "custom_type": "time_picker",
+              "custom_props": {
+                "mode": "time",
+                "variable_name": "selected_time",
+                "display_variable_name": "display_time",
+                "minute_interval": 15
+              },
+              "width": {
+                "type": "match_parent"
+              },
+              "height": {
+                "type": "fixed",
+                "value": 48
+              },
+              "margins": {
+                "bottom": 24
+              },
+              "accessibility": {
+                "description": "Time picker",
+                "type": "button"
+              }
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#E0E0E0",
+                "orientation": "horizontal"
+              },
+              "margins": {
+                "bottom": 16
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#E8F5E9"
+                }
+              ],
+              "border": {
+                "corner_radius": 8
+              },
+              "paddings": {
+                "left": 16,
+                "top": 12,
+                "right": 16,
+                "bottom": 12
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Selected",
+                  "font_size": 12,
+                  "text_color": "#388E3C",
+                  "font_weight": "medium",
+                  "paddings": {
+                    "bottom": 4
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "@{display_date} at @{display_time}",
+                  "font_size": 16,
+                  "text_color": "#2E7D32",
+                  "font_weight": "bold"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

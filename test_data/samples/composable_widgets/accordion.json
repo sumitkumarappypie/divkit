@@ -1,0 +1,263 @@
+{
+  "templates": {
+    "accordion_header": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      ],
+      "paddings": {
+        "left": 16,
+        "top": 14,
+        "right": 16,
+        "bottom": 14
+      },
+      "items": [
+        {
+          "type": "text",
+          "$text": "header_text",
+          "font_size": 16,
+          "font_weight": "medium",
+          "text_color": "#212121",
+          "width": {
+            "type": "match_parent"
+          },
+          "weight": 1
+        },
+        {
+          "type": "text",
+          "$text": "arrow_icon",
+          "font_size": 14,
+          "text_color": "#757575"
+        }
+      ]
+    },
+    "accordion_body": {
+      "type": "container",
+      "orientation": "vertical",
+      "width": {
+        "type": "match_parent"
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#F5F5F5"
+        }
+      ],
+      "paddings": {
+        "left": 16,
+        "top": 12,
+        "right": 16,
+        "bottom": 12
+      },
+      "items": [
+        {
+          "type": "text",
+          "$text": "body_text",
+          "font_size": 14,
+          "text_color": "#616161",
+          "line_height": 20
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "accordion_card",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 16,
+            "top": 16,
+            "right": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "FAQ",
+              "font_size": 20,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "bottom": 12
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "border": {
+                "corner_radius": 8,
+                "stroke": {
+                  "color": "#E0E0E0",
+                  "width": 1
+                }
+              },
+              "items": [
+                {
+                  "type": "state",
+                  "id": "section_1",
+                  "default_state_id": "collapsed",
+                  "states": [
+                    {
+                      "state_id": "collapsed",
+                      "div": {
+                        "type": "accordion_header",
+                        "header_text": "What is DivKit?",
+                        "arrow_icon": "\u25BC",
+                        "actions": [
+                          {
+                            "log_id": "expand_1",
+                            "url": "div-action://set_state?state_id=0/section_1/expanded"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "state_id": "expanded",
+                      "div": {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "items": [
+                          {
+                            "type": "accordion_header",
+                            "header_text": "What is DivKit?",
+                            "arrow_icon": "\u25B2",
+                            "actions": [
+                              {
+                                "log_id": "collapse_1",
+                                "url": "div-action://set_state?state_id=0/section_1/collapsed"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "accordion_body",
+                            "body_text": "DivKit is an open-source Server-Driven UI framework that renders native views from JSON specifications. It supports Android, iOS, Web, and Flutter platforms."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#E0E0E0",
+                    "orientation": "horizontal"
+                  }
+                },
+                {
+                  "type": "state",
+                  "id": "section_2",
+                  "default_state_id": "collapsed",
+                  "states": [
+                    {
+                      "state_id": "collapsed",
+                      "div": {
+                        "type": "accordion_header",
+                        "header_text": "How do templates work?",
+                        "arrow_icon": "\u25BC",
+                        "actions": [
+                          {
+                            "log_id": "expand_2",
+                            "url": "div-action://set_state?state_id=0/section_2/expanded"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "state_id": "expanded",
+                      "div": {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "items": [
+                          {
+                            "type": "accordion_header",
+                            "header_text": "How do templates work?",
+                            "arrow_icon": "\u25B2",
+                            "actions": [
+                              {
+                                "log_id": "collapse_2",
+                                "url": "div-action://set_state?state_id=0/section_2/collapsed"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "accordion_body",
+                            "body_text": "Templates are defined in the templates section using $ prefix for substitutable properties. They enable reusable UI patterns across a card, reducing JSON size and improving consistency."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#E0E0E0",
+                    "orientation": "horizontal"
+                  }
+                },
+                {
+                  "type": "state",
+                  "id": "section_3",
+                  "default_state_id": "collapsed",
+                  "states": [
+                    {
+                      "state_id": "collapsed",
+                      "div": {
+                        "type": "accordion_header",
+                        "header_text": "What are expressions?",
+                        "arrow_icon": "\u25BC",
+                        "actions": [
+                          {
+                            "log_id": "expand_3",
+                            "url": "div-action://set_state?state_id=0/section_3/expanded"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "state_id": "expanded",
+                      "div": {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "items": [
+                          {
+                            "type": "accordion_header",
+                            "header_text": "What are expressions?",
+                            "arrow_icon": "\u25B2",
+                            "actions": [
+                              {
+                                "log_id": "collapse_3",
+                                "url": "div-action://set_state?state_id=0/section_3/collapsed"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "accordion_body",
+                            "body_text": "Expressions use @{...} syntax to create dynamic values. They support variable references, function calls, arithmetic operations, and conditional logic for reactive UI updates."
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

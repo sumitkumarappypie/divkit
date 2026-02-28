@@ -30,6 +30,9 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
             is Div.Select -> visit(div, context, path)
             is Div.Video -> visit(div, context, path)
             is Div.Switch -> visit(div, context, path)
+            is Div.Checkbox -> visit(div, context, path)
+            is Div.Radio -> visit(div, context, path)
+            is Div.Progress -> visit(div, context, path)
         }
     }
 
@@ -140,6 +143,15 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
         defaultVisit(data, context, path)
 
     protected open fun visit(data: Div.Switch, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Checkbox, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Radio, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Progress, context: BindingContext, path: DivStatePath) =
         defaultVisit(data, context, path)
 }
 

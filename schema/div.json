@@ -69,6 +69,18 @@
     {
       "$ref": "div-video.json",
       "$description": "translations.json#/div_video"
+    },
+    {
+      "$ref": "div-checkbox.json",
+      "$description": "translations.json#/div_checkbox"
+    },
+    {
+      "$ref": "div-radio.json",
+      "$description": "translations.json#/div_radio"
+    },
+    {
+      "$ref": "div-progress.json",
+      "$description": "translations.json#/div_progress"
     }
   ]
 }
