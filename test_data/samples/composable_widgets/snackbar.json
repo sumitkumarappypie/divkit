@@ -1,0 +1,241 @@
+{
+  "templates": {
+    "snackbar_trigger": {
+      "type": "text",
+      "font_size": 16,
+      "font_weight": "medium",
+      "text_color": "#FFFFFF",
+      "text_alignment_horizontal": "center",
+      "background": [
+        {
+          "type": "solid",
+          "color": "#4A90D9"
+        }
+      ],
+      "border": {
+        "corner_radius": 8
+      },
+      "paddings": {
+        "left": 24,
+        "top": 12,
+        "right": 24,
+        "bottom": 12
+      },
+      "margins": {
+        "left": 16,
+        "right": 16,
+        "bottom": 8
+      }
+    }
+  },
+  "card": {
+    "log_id": "snackbar_card",
+    "variables": [
+      {
+        "name": "snackbar_message",
+        "type": "string",
+        "value": "Item saved successfully"
+      },
+      {
+        "name": "action_count",
+        "type": "integer",
+        "value": 0
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "items": [
+            {
+              "type": "text",
+              "text": "Actions triggered: @{action_count}",
+              "font_size": 14,
+              "text_color": "#666666",
+              "paddings": {
+                "left": 16,
+                "top": 16,
+                "right": 16,
+                "bottom": 8
+              }
+            },
+            {
+              "type": "snackbar_trigger",
+              "text": "Show Info Snackbar",
+              "tooltips": [
+                {
+                  "id": "snackbar_info",
+                  "position": "bottom",
+                  "duration": 3000,
+                  "animation_in": {
+                    "name": "slide",
+                    "duration": 300
+                  },
+                  "animation_out": {
+                    "name": "slide",
+                    "duration": 300
+                  },
+                  "div": {
+                    "type": "container",
+                    "orientation": "horizontal",
+                    "content_alignment_vertical": "center",
+                    "width": {
+                      "type": "match_parent"
+                    },
+                    "background": [
+                      {
+                        "type": "solid",
+                        "color": "#323232"
+                      }
+                    ],
+                    "border": {
+                      "corner_radius": 8
+                    },
+                    "paddings": {
+                      "left": 16,
+                      "top": 12,
+                      "right": 16,
+                      "bottom": 12
+                    },
+                    "margins": {
+                      "left": 8,
+                      "right": 8,
+                      "bottom": 8
+                    },
+                    "items": [
+                      {
+                        "type": "text",
+                        "text": "@{snackbar_message}",
+                        "font_size": 14,
+                        "text_color": "#FFFFFF",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "weight": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": "DISMISS",
+                        "font_size": 14,
+                        "font_weight": "bold",
+                        "text_color": "#BB86FC",
+                        "paddings": {
+                          "left": 12
+                        },
+                        "actions": [
+                          {
+                            "log_id": "dismiss_snackbar",
+                            "url": "div-action://hide_tooltip?id=snackbar_info"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "actions": [
+                {
+                  "log_id": "show_info_snackbar",
+                  "url": "div-action://show_tooltip?id=snackbar_info"
+                }
+              ]
+            },
+            {
+              "type": "snackbar_trigger",
+              "text": "Show Action Snackbar",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#E67E22"
+                }
+              ],
+              "tooltips": [
+                {
+                  "id": "snackbar_action",
+                  "position": "bottom",
+                  "duration": 5000,
+                  "animation_in": {
+                    "name": "slide",
+                    "duration": 300
+                  },
+                  "animation_out": {
+                    "name": "fade",
+                    "duration": 200
+                  },
+                  "div": {
+                    "type": "container",
+                    "orientation": "horizontal",
+                    "content_alignment_vertical": "center",
+                    "width": {
+                      "type": "match_parent"
+                    },
+                    "background": [
+                      {
+                        "type": "solid",
+                        "color": "#323232"
+                      }
+                    ],
+                    "border": {
+                      "corner_radius": 8
+                    },
+                    "paddings": {
+                      "left": 16,
+                      "top": 12,
+                      "right": 16,
+                      "bottom": 12
+                    },
+                    "margins": {
+                      "left": 8,
+                      "right": 8,
+                      "bottom": 8
+                    },
+                    "items": [
+                      {
+                        "type": "text",
+                        "text": "Item deleted",
+                        "font_size": 14,
+                        "text_color": "#FFFFFF",
+                        "width": {
+                          "type": "match_parent"
+                        },
+                        "weight": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": "UNDO",
+                        "font_size": 14,
+                        "font_weight": "bold",
+                        "text_color": "#BB86FC",
+                        "paddings": {
+                          "left": 12
+                        },
+                        "actions": [
+                          {
+                            "log_id": "undo_action",
+                            "url": "div-action://set_variable?name=action_count&value=@{sum(action_count, 1)}"
+                          },
+                          {
+                            "log_id": "dismiss_action_snackbar",
+                            "url": "div-action://hide_tooltip?id=snackbar_action"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "actions": [
+                {
+                  "log_id": "show_action_snackbar",
+                  "url": "div-action://show_tooltip?id=snackbar_action"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+package com.yandex.div.core.view2.divs
+
+import com.yandex.div.core.dagger.DivScope
+import com.yandex.div.core.expression.variables.TwoWayStringVariableBinder
+import com.yandex.div.core.state.DivStatePath
+import com.yandex.div.core.view2.BindingContext
+import com.yandex.div.core.view2.DivViewBinder
+import com.yandex.div.core.view2.divs.widgets.DivRadioView
+import com.yandex.div.json.expressions.ExpressionResolver
+import com.yandex.div.json.expressions.equalsToConstant
+import com.yandex.div.json.expressions.isConstant
+import com.yandex.div.json.expressions.isConstantOrNull
+import com.yandex.div2.Div
+import com.yandex.div2.DivRadio
+import javax.inject.Inject
+
+@DivScope
+internal class DivRadioBinder @Inject constructor(
+    baseBinder: DivBaseBinder,
+    private val variableBinder: TwoWayStringVariableBinder
+) : DivViewBinder<Div.Radio, DivRadio, DivRadioView>(baseBinder) {
+
+    override fun DivRadioView.bind(
+        bindingContext: BindingContext,
+        div: DivRadio,
+        oldDiv: DivRadio?,
+        path: DivStatePath
+    ) {
+        val resolver = bindingContext.expressionResolver
+
+        bindOptions(div, oldDiv, resolver)
+        bindIsEnabled(div, oldDiv, resolver)
+        bindSelectedColor(div, oldDiv, resolver)
+
+        observeVariable(div, bindingContext, path)
+    }
+
+    private fun DivRadioView.bindOptions(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        val options = div.options.map { option ->
+            val value = option.value.evaluate(resolver)
+            val text = option.text?.evaluate(resolver) ?: value
+            value to text
+        }
+        val spacing = div.itemSpacing.evaluate(resolver).dpToPx(resources.displayMetrics)
+        val isHorizontal = div.orientation.evaluate(resolver) == DivRadio.Orientation.HORIZONTAL
+        setOptions(options, spacing, isHorizontal)
+    }
+
+    private fun DivRadioView.bindIsEnabled(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.isEnabled.equalsToConstant(oldDiv?.isEnabled)) {
+            return
+        }
+        isEnabled = div.isEnabled.evaluate(resolver)
+        if (div.isEnabled.isConstant()) {
+            return
+        }
+        val callback = { _: Any -> isEnabled = div.isEnabled.evaluate(resolver) }
+        addSubscription(div.isEnabled.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.bindSelectedColor(div: DivRadio, oldDiv: DivRadio?, resolver: ExpressionResolver) {
+        if (div.selectedColor.equalsToConstant(oldDiv?.selectedColor)) {
+            return
+        }
+        selectedColor = div.selectedColor?.evaluate(resolver)
+        if (div.selectedColor.isConstantOrNull()) {
+            return
+        }
+        val callback = { _: Any -> selectedColor = div.selectedColor?.evaluate(resolver) }
+        addSubscription(div.selectedColor?.observe(resolver, callback))
+    }
+
+    private fun DivRadioView.observeVariable(
+        div: DivRadio,
+        bindingContext: BindingContext,
+        path: DivStatePath,
+    ) {
+        val callbacks = object : TwoWayStringVariableBinder.Callbacks {
+            override fun onVariableChanged(value: String?) {
+                value?.let {
+                    selectedValue = it
+                }
+            }
+
+            override fun setViewStateChangeListener(valueUpdater: (String) -> Unit) {
+                setOnValueChangedListener(valueUpdater)
+            }
+        }
+
+        val subscription = variableBinder.bindVariable(bindingContext, div.valueVariable, callbacks, path)
+        addSubscription(subscription)
+    }
+}

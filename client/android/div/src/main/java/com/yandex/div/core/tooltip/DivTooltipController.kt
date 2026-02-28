@@ -615,6 +615,9 @@ private fun Div.hasAction(): Boolean {
                 || value.states.any { state -> state.div?.hasAction() == true }
 
         is Div.Switch -> true
+        is Div.Checkbox -> true
+        is Div.Radio -> true
+        is Div.Progress -> false
         is Div.Tabs -> true
         is Div.Text -> value.action != null
                 || !value.actions.isNullOrEmpty()

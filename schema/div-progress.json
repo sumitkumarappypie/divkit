@@ -1,0 +1,59 @@
+{
+  "$description": "translations.json#/div_progress",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "progress"
+          ]
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "linear",
+            "circular"
+          ],
+          "default_value": "linear",
+          "$description": "translations.json#/div_progress_style"
+        },
+        "value": {
+          "type": "number",
+          "default_value": "0",
+          "$description": "translations.json#/div_progress_value",
+          "constraint": "number >= 0.0 && number <= 1.0"
+        },
+        "is_indeterminate": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_progress_is_indeterminate"
+        },
+        "active_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_progress_active_color"
+        },
+        "inactive_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_progress_inactive_color"
+        },
+        "track_thickness": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "4",
+          "$description": "translations.json#/div_progress_track_thickness"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type"
+  ]
+}

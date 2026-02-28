@@ -60,6 +60,9 @@ import com.yandex.div2.DivSlider
 import com.yandex.div2.DivState
 import com.yandex.div2.DivStroke
 import com.yandex.div2.DivSwitch
+import com.yandex.div2.DivCheckbox
+import com.yandex.div2.DivRadio
+import com.yandex.div2.DivProgress
 import com.yandex.div2.DivTabs
 import com.yandex.div2.DivText
 import com.yandex.div2.DivVideo
@@ -86,6 +89,9 @@ internal val Div.type: String
             is Div.Custom -> DivCustom.TYPE
             is Div.Select -> DivSelect.TYPE
             is Div.Switch -> DivSwitch.TYPE
+            is Div.Checkbox -> DivCheckbox.TYPE
+            is Div.Radio -> DivRadio.TYPE
+            is Div.Progress -> DivProgress.TYPE
         }
     }
 
@@ -196,6 +202,9 @@ internal fun Div.containsStateInnerTransitions(resolver: ExpressionResolver): Bo
         is Div.Video -> false
         is Div.Input -> false
         is Div.Switch -> false
+        is Div.Checkbox -> false
+        is Div.Radio -> false
+        is Div.Progress -> false
     }
 }
 
@@ -218,6 +227,9 @@ internal val Div.isBranch: Boolean
         is Div.Select -> false
         is Div.Video -> false
         is Div.Switch -> false
+        is Div.Checkbox -> false
+        is Div.Radio -> false
+        is Div.Progress -> false
         is Div.Container -> true
         is Div.Grid -> true
         is Div.Gallery -> true

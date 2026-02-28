@@ -1,0 +1,366 @@
+{
+  "templates": {
+    "avatar_circle": {
+      "type": "container",
+      "content_alignment_horizontal": "center",
+      "content_alignment_vertical": "center",
+      "$width": "avatar_size",
+      "$height": "avatar_size",
+      "border": {
+        "$corner_radius": "avatar_radius",
+        "stroke": {
+          "$color": "border_color",
+          "width": 2
+        }
+      },
+      "items": [
+        {
+          "type": "image",
+          "$image_url": "avatar_url",
+          "$width": "avatar_size",
+          "$height": "avatar_size",
+          "scale": "fill",
+          "border": {
+            "$corner_radius": "avatar_radius"
+          },
+          "$placeholder_color": "placeholder_bg"
+        }
+      ]
+    },
+    "avatar_with_badge": {
+      "type": "container",
+      "orientation": "overlap",
+      "items": [
+        {
+          "type": "avatar_circle",
+          "$avatar_url": "avatar_url",
+          "$avatar_size": "avatar_size",
+          "$avatar_radius": "avatar_radius",
+          "$border_color": "border_color",
+          "$placeholder_bg": "placeholder_bg"
+        },
+        {
+          "type": "container",
+          "width": {
+            "type": "fixed",
+            "value": 14
+          },
+          "height": {
+            "type": "fixed",
+            "value": 14
+          },
+          "background": [
+            {
+              "type": "solid",
+              "$color": "badge_color"
+            }
+          ],
+          "border": {
+            "corner_radius": 7,
+            "stroke": {
+              "color": "#FFFFFF",
+              "width": 2
+            }
+          },
+          "alignment_horizontal": "right",
+          "alignment_vertical": "bottom"
+        }
+      ]
+    },
+    "user_card": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "width": {
+        "type": "match_parent"
+      },
+      "paddings": {
+        "left": 16,
+        "top": 10,
+        "right": 16,
+        "bottom": 10
+      },
+      "items": [
+        {
+          "type": "avatar_with_badge",
+          "$avatar_url": "user_avatar",
+          "avatar_size": {
+            "type": "fixed",
+            "value": 48
+          },
+          "avatar_radius": 24,
+          "border_color": "#E0E0E0",
+          "placeholder_bg": "#E8EAF6",
+          "$badge_color": "status_color"
+        },
+        {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "left": 12
+          },
+          "width": {
+            "type": "match_parent"
+          },
+          "weight": 1,
+          "items": [
+            {
+              "type": "text",
+              "$text": "user_name",
+              "font_size": 16,
+              "font_weight": "medium",
+              "text_color": "#212121"
+            },
+            {
+              "type": "text",
+              "$text": "user_role",
+              "font_size": 13,
+              "text_color": "#757575"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "avatar_card",
+    "variables": [
+      {
+        "name": "current_user_name",
+        "type": "string",
+        "value": "Alex Johnson"
+      },
+      {
+        "name": "current_user_status",
+        "type": "string",
+        "value": "online"
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "paddings": {
+            "top": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "Team Members",
+              "font_size": 20,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "left": 16,
+                "bottom": 12
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "paddings": {
+                "left": 16,
+                "right": 16,
+                "bottom": 16
+              },
+              "items": [
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "content_alignment_horizontal": "center",
+                  "margins": {
+                    "right": 20
+                  },
+                  "items": [
+                    {
+                      "type": "avatar_circle",
+                      "avatar_url": "https://i.pravatar.cc/120?img=1",
+                      "avatar_size": {
+                        "type": "fixed",
+                        "value": 64
+                      },
+                      "avatar_radius": 32,
+                      "border_color": "#4A90D9",
+                      "placeholder_bg": "#BBDEFB"
+                    },
+                    {
+                      "type": "text",
+                      "text": "You",
+                      "font_size": 12,
+                      "text_color": "#4A90D9",
+                      "paddings": {
+                        "top": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "content_alignment_horizontal": "center",
+                  "margins": {
+                    "right": 20
+                  },
+                  "items": [
+                    {
+                      "type": "avatar_circle",
+                      "avatar_url": "https://i.pravatar.cc/120?img=5",
+                      "avatar_size": {
+                        "type": "fixed",
+                        "value": 64
+                      },
+                      "avatar_radius": 32,
+                      "border_color": "#E0E0E0",
+                      "placeholder_bg": "#F5F5F5"
+                    },
+                    {
+                      "type": "text",
+                      "text": "Sara",
+                      "font_size": 12,
+                      "text_color": "#757575",
+                      "paddings": {
+                        "top": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "content_alignment_horizontal": "center",
+                  "margins": {
+                    "right": 20
+                  },
+                  "items": [
+                    {
+                      "type": "avatar_circle",
+                      "avatar_url": "https://i.pravatar.cc/120?img=8",
+                      "avatar_size": {
+                        "type": "fixed",
+                        "value": 64
+                      },
+                      "avatar_radius": 32,
+                      "border_color": "#E0E0E0",
+                      "placeholder_bg": "#F5F5F5"
+                    },
+                    {
+                      "type": "text",
+                      "text": "Mike",
+                      "font_size": 12,
+                      "text_color": "#757575",
+                      "paddings": {
+                        "top": 4
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "container",
+                  "orientation": "vertical",
+                  "content_alignment_horizontal": "center",
+                  "items": [
+                    {
+                      "type": "container",
+                      "width": {
+                        "type": "fixed",
+                        "value": 64
+                      },
+                      "height": {
+                        "type": "fixed",
+                        "value": 64
+                      },
+                      "content_alignment_horizontal": "center",
+                      "content_alignment_vertical": "center",
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#F5F5F5"
+                        }
+                      ],
+                      "border": {
+                        "corner_radius": 32,
+                        "stroke": {
+                          "color": "#E0E0E0",
+                          "width": 2
+                        }
+                      },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "+5",
+                          "font_size": 16,
+                          "font_weight": "medium",
+                          "text_color": "#757575"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "text": "More",
+                      "font_size": 12,
+                      "text_color": "#757575",
+                      "paddings": {
+                        "top": 4
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#F0F0F0",
+                "orientation": "horizontal"
+              }
+            },
+            {
+              "type": "user_card",
+              "user_avatar": "https://i.pravatar.cc/120?img=1",
+              "user_name": "@{current_user_name}",
+              "user_role": "Engineering Lead",
+              "status_color": "@{if(current_user_status == 'online', '#4CAF50', '#9E9E9E')}"
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#F0F0F0",
+                "orientation": "horizontal"
+              },
+              "margins": {
+                "left": 76
+              }
+            },
+            {
+              "type": "user_card",
+              "user_avatar": "https://i.pravatar.cc/120?img=5",
+              "user_name": "Sara Williams",
+              "user_role": "Product Designer",
+              "status_color": "#4CAF50"
+            },
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#F0F0F0",
+                "orientation": "horizontal"
+              },
+              "margins": {
+                "left": 76
+              }
+            },
+            {
+              "type": "user_card",
+              "user_avatar": "https://i.pravatar.cc/120?img=8",
+              "user_name": "Mike Chen",
+              "user_role": "Backend Developer",
+              "status_color": "#9E9E9E"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

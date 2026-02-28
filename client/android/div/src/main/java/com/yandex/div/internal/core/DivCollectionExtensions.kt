@@ -115,6 +115,9 @@ private fun Div.copy(id: String? = value().id): Div {
         is Div.Select -> Div.Select(value.copy(id = id))
         is Div.Video -> Div.Video(value.copy(id = id))
         is Div.Switch -> Div.Switch(value.copy(id = id))
+        is Div.Checkbox -> Div.Checkbox(value.copy(id = id))
+        is Div.Radio -> Div.Radio(value.copy(id = id))
+        is Div.Progress -> Div.Progress(value.copy(id = id))
     }
 }
 

@@ -772,6 +772,28 @@ export class State {
                     value: 200
                 }
             };
+        } else if (type === 'checkbox') {
+            json = {
+                type,
+                is_checked_variable: 'checked_var'
+            };
+        } else if (type === 'radio') {
+            json = {
+                type,
+                value_variable: 'selected_var',
+                options: [
+                    { value: 'option_1', text: 'Option 1' },
+                    { value: 'option_2', text: 'Option 2' }
+                ]
+            };
+        } else if (type === 'progress') {
+            json = {
+                type,
+                value: 0.5,
+                width: {
+                    type: 'match_parent'
+                }
+            };
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {

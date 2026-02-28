@@ -23,6 +23,9 @@ public enum Div: Sendable {
   case divInput(DivInput)
   case divSelect(DivSelect)
   case divVideo(DivVideo)
+  case divCheckbox(DivCheckbox)
+  case divRadio(DivRadio)
+  case divProgress(DivProgress)
 
   public var value: Serializable & DivBase {
     switch self {
@@ -59,6 +62,12 @@ public enum Div: Sendable {
     case let .divSelect(value):
       return value
     case let .divVideo(value):
+      return value
+    case let .divCheckbox(value):
+      return value
+    case let .divRadio(value):
+      return value
+    case let .divProgress(value):
       return value
     }
   }
@@ -98,6 +107,12 @@ public enum Div: Sendable {
     case let .divSelect(value):
       return value.id
     case let .divVideo(value):
+      return value.id
+    case let .divCheckbox(value):
+      return value.id
+    case let .divRadio(value):
+      return value.id
+    case let .divProgress(value):
       return value.id
     }
   }
@@ -142,6 +157,12 @@ extension Div {
       self = .divSelect(try DivSelect(dictionary: dictionary, context: context))
     case DivVideo.type:
       self = .divVideo(try DivVideo(dictionary: dictionary, context: context))
+    case DivCheckbox.type:
+      self = .divCheckbox(try DivCheckbox(dictionary: dictionary, context: context))
+    case DivRadio.type:
+      self = .divRadio(try DivRadio(dictionary: dictionary, context: context))
+    case DivProgress.type:
+      self = .divProgress(try DivProgress(dictionary: dictionary, context: context))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
@@ -185,6 +206,12 @@ extension Div: Equatable {
     case let (.divSelect(l), .divSelect(r)):
       return l == r
     case let (.divVideo(l), .divVideo(r)):
+      return l == r
+    case let (.divCheckbox(l), .divCheckbox(r)):
+      return l == r
+    case let (.divRadio(l), .divRadio(r)):
+      return l == r
+    case let (.divProgress(l), .divProgress(r)):
       return l == r
     default:
       return false
