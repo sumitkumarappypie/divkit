@@ -85,6 +85,8 @@ final class ProgressBlockView: UIView, BlockViewProtocol, VisibleBoundsTrackingL
 
   override func layoutSubviews() {
     super.layoutSubviews()
+    trackLayer.frame = bounds
+    progressLayer.frame = bounds
     updatePaths()
   }
 

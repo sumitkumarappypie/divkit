@@ -1,6 +1,7 @@
 import CoreGraphics
 import Foundation
 import LayoutKit
+import Serialization
 import VGSL
 
 extension DivRadio: DivBlockModeling {
@@ -26,27 +27,95 @@ extension DivRadio: DivBlockModeling {
     let isHorizontal = resolveOrientation(expressionResolver) == .horizontal
     let spacing = CGFloat(resolveItemSpacing(expressionResolver))
 
+    let indicatorSize: CGFloat = 20
+    let indicatorRadius = indicatorSize / 2
+    let indicatorBorderWidth: CGFloat = 2
+    let innerDotSize: CGFloat = 10
+    let innerDotRadius = innerDotSize / 2
+    let indicatorTextGap: CGFloat = 8
+
     let optionBlocks: [Block] = try options.map { option in
       let value = option.resolveValue(expressionResolver) ?? ""
       let text = option.resolveText(expressionResolver) ?? value
       let isSelected = value == selectedValue
-      let indicatorColor = isSelected ? resolvedSelectedColor : resolvedDefaultColor
 
-      let indicatorBlock = EmptyBlock(
-        widthTrait: .fixed(16),
-        heightTrait: .fixed(16)
-      ).addingDecorations(backgroundColor: indicatorColor)
+      let indicatorBlock: Block
+      if isSelected {
+        let outerRing = EmptyBlock(
+          widthTrait: .fixed(indicatorSize),
+          heightTrait: .fixed(indicatorSize)
+        ).addingDecorations(
+          boundary: .cornerRadius(indicatorRadius),
+          border: BlockBorder(
+            color: resolvedSelectedColor,
+            width: indicatorBorderWidth
+          )
+        )
+        let innerDot = EmptyBlock(
+          widthTrait: .fixed(innerDotSize),
+          heightTrait: .fixed(innerDotSize)
+        ).addingDecorations(
+          boundary: .cornerRadius(innerDotRadius),
+          backgroundColor: resolvedSelectedColor
+        )
+        indicatorBlock = LayeredBlock(
+          widthTrait: .fixed(indicatorSize),
+          heightTrait: .fixed(indicatorSize),
+          horizontalChildrenAlignment: .center,
+          verticalChildrenAlignment: .center,
+          children: [outerRing, innerDot]
+        )
+      } else {
+        indicatorBlock = EmptyBlock(
+          widthTrait: .fixed(indicatorSize),
+          heightTrait: .fixed(indicatorSize)
+        ).addingDecorations(
+          boundary: .cornerRadius(indicatorRadius),
+          border: BlockBorder(
+            color: resolvedDefaultColor,
+            width: indicatorBorderWidth
+          )
+        )
+      }
 
       let textBlock = TextBlock(
-        widthTrait: .resizable,
+        widthTrait: .intrinsic,
         text: text.with(typo: Typo(size: FontSize(rawValue: 14), weight: .regular).with(color: resolvedTextColor))
       )
 
-      return try ContainerBlock(
+      let encodedName = valueVariable.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? valueVariable
+      let encodedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? value
+      let actionURLString = "div-action://set_variable?name=\(encodedName)&value=\(encodedValue)"
+      let actionURL = URL(string: actionURLString)!
+
+      let actionJSON: JSONObject = .object([
+        "log_id": .string("radio_select_\(value)"),
+        "url": .string(actionURLString),
+      ])
+
+      let tapAction = UserInterfaceAction(
+        payload: .divAction(
+          params: UserInterfaceAction.DivActionParams(
+            action: actionJSON,
+            path: context.path,
+            source: .tap,
+            url: actionURL
+          )
+        ),
+        path: context.path + "option_\(value)"
+      )
+
+      let optionRow = try ContainerBlock(
         layoutDirection: .horizontal,
-        widthTrait: isHorizontal ? .intrinsic : .resizable,
+        widthTrait: .intrinsic,
+        heightTrait: .intrinsic,
         verticalChildrenAlignment: .center,
+        gaps: [0, indicatorTextGap, 0],
         children: [indicatorBlock, textBlock]
+      )
+
+      return optionRow.addingDecorations(
+        actions: NonEmptyArray(tapAction)
       )
     }
 
