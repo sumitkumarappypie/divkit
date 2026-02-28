@@ -1,4 +1,3 @@
-import CoreFoundation
 import CoreGraphics
 import Foundation
 import LayoutKit
@@ -17,62 +16,48 @@ extension DivRadio: DivBlockModeling {
   private func makeBaseBlock(context: DivBlockModelingContext) throws -> Block {
     let expressionResolver = context.expressionResolver
 
-    let textValue: Binding<String> = context
+    let textBinding: Binding<String> = context
       .makeBinding(variableName: valueVariable, defaultValue: "")
+    let selectedValue = textBinding.value
 
-    let font = context.font(resolveFontParams(expressionResolver))
-    var typo = Typo(font: font)
+    let resolvedSelectedColor = resolveSelectedColor(expressionResolver)
+    let resolvedDefaultColor = resolveDefaultColor(expressionResolver)
+    let resolvedTextColor = resolveTextColor(expressionResolver) ?? Color.colorWithARGBHexCode(0xFF000000)
+    let isHorizontal = resolveOrientation(expressionResolver) == .horizontal
+    let spacing = CGFloat(resolveItemSpacing(expressionResolver))
 
-    let kern = CGFloat(resolveLetterSpacing(expressionResolver))
-    if !kern.isApproximatelyEqualTo(0) {
-      typo = typo.kerned(kern)
+    let optionBlocks: [Block] = try options.map { option in
+      let value = option.resolveValue(expressionResolver) ?? ""
+      let text = option.resolveText(expressionResolver) ?? value
+      let isSelected = value == selectedValue
+      let indicatorColor = isSelected ? resolvedSelectedColor : resolvedDefaultColor
+
+      let indicatorBlock = EmptyBlock(
+        widthTrait: .fixed(16),
+        heightTrait: .fixed(16)
+      ).addingDecorations(backgroundColor: indicatorColor)
+
+      let textBlock = TextBlock(
+        widthTrait: .resizable,
+        text: text.with(typo: Typo(size: FontSize(rawValue: 14), weight: .regular).with(color: resolvedTextColor))
+      )
+
+      return try ContainerBlock(
+        layoutDirection: .horizontal,
+        widthTrait: isHorizontal ? .intrinsic : .resizable,
+        verticalChildrenAlignment: .center,
+        children: [indicatorBlock, textBlock]
+      )
     }
 
-    if let lineHeight = resolveLineHeight(expressionResolver) {
-      typo = typo.with(height: CGFloat(lineHeight))
-    }
+    let gaps = [CGFloat(0)] + [CGFloat](repeating: spacing, count: max(optionBlocks.count - 1, 0)) + [CGFloat(0)]
 
-    let resolvedHintColor: Color = resolveHintColor(expressionResolver)
-    let hintTypo = typo.with(color: resolvedHintColor)
-    let hintValue = resolveHintText(expressionResolver) ?? ""
-
-    let resolvedColor: Color = resolveTextColor(expressionResolver)
-    let textTypo = typo.with(color: resolvedColor)
-
-    let onFocusActions = focus?.onFocus?.uiActions(context: context) ?? []
-    let onBlurActions = focus?.onBlur?.uiActions(context: context) ?? []
-
-    let isFocused = context.blockStateStorage.isFocused(path: context.path)
-
-    return TextInputBlock(
+    return try ContainerBlock(
+      layoutDirection: isHorizontal ? .horizontal : .vertical,
       widthTrait: resolveContentWidthTrait(context),
       heightTrait: resolveContentHeightTrait(context),
-      hint: hintValue.with(typo: hintTypo),
-      textValue: textValue,
-      rawTextValue: nil,
-      textTypo: textTypo,
-      inputType: makeInputType(expressionResolver),
-      path: context.path,
-      isFocused: isFocused,
-      onFocusActions: onFocusActions,
-      onBlurActions: onBlurActions,
-      parentScrollView: context.parentScrollView,
-      layoutDirection: context.layoutDirection
+      gaps: gaps,
+      children: optionBlocks
     )
-  }
-
-  private func makeInputType(_ resolver: ExpressionResolver) -> TextInputBlock.InputType {
-    .selection(options.map { $0.makeSelectionItem(resolver) })
-  }
-}
-
-extension DivRadio: FontParamsProvider {}
-
-extension DivRadio.Option {
-  fileprivate func makeSelectionItem(_ resolver: ExpressionResolver) -> TextInputBlock.InputType
-    .SelectionItem {
-    let value = resolveValue(resolver) ?? ""
-    let text = resolveText(resolver) ?? value
-    return TextInputBlock.InputType.SelectionItem(value: value, text: text)
   }
 }

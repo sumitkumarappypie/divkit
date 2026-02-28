@@ -10,10 +10,13 @@ extension Div {
     case let .divTabs(div): div.items.map(\.div)
     case let .divCustom(div): div.items ?? []
     case let .divState(div): div.states.compactMap(\.div)
-    case .divGifImage,
+    case .divCheckbox,
+         .divGifImage,
          .divImage,
          .divIndicator,
          .divInput,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,

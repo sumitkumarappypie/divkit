@@ -43,7 +43,8 @@ extension Div {
       return nil
     }
     switch self {
-    case .divContainer,
+    case .divCheckbox,
+         .divContainer,
          .divCustom,
          .divGallery,
          .divGifImage,
@@ -52,6 +53,8 @@ extension Div {
          .divIndicator,
          .divInput,
          .divPager,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,

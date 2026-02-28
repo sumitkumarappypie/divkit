@@ -22,13 +22,16 @@ extension Div {
       divText.images?.forEach {
         urls.append(contentsOf: $0.preloadURLs(expressionResolver, filter: filter))
       }
-    case .divContainer,
+    case .divCheckbox,
+         .divContainer,
          .divCustom,
          .divGallery,
          .divGrid,
          .divIndicator,
          .divInput,
          .divPager,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,
@@ -49,7 +52,8 @@ extension Div {
     switch self {
     case let .divVideo(divVideo):
       divVideo.preloadURLs(expressionResolver, filter: filter)
-    case .divImage,
+    case .divCheckbox,
+         .divImage,
          .divGifImage,
          .divText,
          .divContainer,
@@ -59,6 +63,8 @@ extension Div {
          .divIndicator,
          .divInput,
          .divPager,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,

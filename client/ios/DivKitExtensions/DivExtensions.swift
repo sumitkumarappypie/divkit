@@ -27,13 +27,16 @@ extension Div {
       if let images = divText.images {
         urls.append(contentsOf: images.compactMap { $0.resolveUrl(expressionResolver) })
       }
-    case .divContainer,
+    case .divCheckbox,
+         .divContainer,
          .divCustom,
          .divGallery,
          .divGrid,
          .divIndicator,
          .divInput,
          .divPager,
+         .divProgress,
+         .divRadio,
          .divSelect,
          .divSeparator,
          .divSlider,

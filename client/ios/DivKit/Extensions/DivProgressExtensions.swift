@@ -15,11 +15,11 @@ extension DivProgress: DivBlockModeling {
   private func makeBaseBlock(context: DivBlockModelingContext) throws -> Block {
     let resolver = context.expressionResolver
 
-    let progressValue = resolveValue(resolver) ?? 0
+    let progressValue = resolveValue(resolver)
     let clampedValue = min(max(progressValue, 0), 1)
-    let activeColor = resolveActiveColor(resolver) ?? Color.colorWithARGBHexCode(0xFF0000FF)
-    let inactiveColor = resolveInactiveColor(resolver) ?? Color.colorWithARGBHexCode(0xFFCCCCCC)
-    let thickness = CGFloat(resolveTrackThickness(resolver) ?? 4)
+    let activeColor = resolveActiveColor(resolver) ?? Color.colorWithARGBHexCode(0xFF129386)
+    let inactiveColor = resolveInactiveColor(resolver) ?? Color.colorWithARGBHexCode(0x4D000000)
+    let thickness = CGFloat(resolveTrackThickness(resolver))
 
     let widthTrait = resolveContentWidthTrait(context)
     let heightTrait: LayoutTrait = .fixed(thickness)
