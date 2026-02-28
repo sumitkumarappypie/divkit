@@ -1,0 +1,1348 @@
+{
+  "templates": {
+    "section_header": {
+      "type": "text",
+      "$text": "title",
+      "font_size": 20,
+      "font_weight": "bold",
+      "text_color": "#1A1A2E",
+      "paddings": {
+        "top": 24,
+        "bottom": 8,
+        "left": 16,
+        "right": 16
+      }
+    },
+    "subsection_header": {
+      "type": "text",
+      "$text": "title",
+      "font_size": 14,
+      "font_weight": "medium",
+      "text_color": "#6C757D",
+      "letter_spacing": 0.5,
+      "paddings": {
+        "top": 16,
+        "bottom": 4,
+        "left": 16,
+        "right": 16
+      }
+    },
+    "card": {
+      "type": "container",
+      "orientation": "vertical",
+      "background": [
+        {
+          "type": "solid",
+          "color": "#FFFFFF"
+        }
+      ],
+      "border": {
+        "corner_radius": 12,
+        "stroke": {
+          "color": "#14000000",
+          "width": 1
+        }
+      },
+      "paddings": {
+        "left": 16,
+        "top": 16,
+        "right": 16,
+        "bottom": 16
+      },
+      "margins": {
+        "left": 16,
+        "right": 16,
+        "top": 8,
+        "bottom": 8
+      },
+      "$items": "card_items"
+    },
+    "label": {
+      "type": "text",
+      "$text": "label_text",
+      "font_size": 14,
+      "text_color": "#495057",
+      "paddings": {
+        "bottom": 8
+      }
+    },
+    "description": {
+      "type": "text",
+      "$text": "desc_text",
+      "font_size": 12,
+      "text_color": "#868E96",
+      "paddings": {
+        "top": 4
+      }
+    },
+    "divider": {
+      "type": "separator",
+      "delimiter_style": {
+        "color": "#0F000000",
+        "orientation": "horizontal"
+      },
+      "margins": {
+        "top": 12,
+        "bottom": 12
+      }
+    },
+    "checkbox_row": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "items": [
+        {
+          "type": "checkbox",
+          "$is_checked_variable": "var_name",
+          "$on_color": "check_on",
+          "$off_color": "check_off",
+          "$check_mark_color": "check_mark"
+        },
+        {
+          "type": "text",
+          "$text": "check_label",
+          "font_size": 15,
+          "text_color": "#343A40",
+          "paddings": {
+            "left": 12
+          }
+        }
+      ]
+    },
+    "stat_row": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "items": [
+        {
+          "type": "text",
+          "$text": "stat_label",
+          "font_size": 13,
+          "text_color": "#6C757D",
+          "width": {
+            "type": "fixed",
+            "value": 80
+          }
+        },
+        {
+          "type": "progress",
+          "$value": "stat_value",
+          "$active_color": "stat_color",
+          "inactive_color": "#F1F3F5",
+          "track_thickness": 8,
+          "width": {
+            "type": "match_parent"
+          }
+        },
+        {
+          "type": "text",
+          "$text": "stat_pct",
+          "font_size": 13,
+          "font_weight": "medium",
+          "text_color": "#343A40",
+          "paddings": {
+            "left": 12
+          },
+          "width": {
+            "type": "fixed",
+            "value": 40
+          },
+          "text_alignment_horizontal": "right"
+        }
+      ]
+    }
+  },
+  "card": {
+    "variables": [
+      { "name": "agree_terms", "type": "boolean", "value": false },
+      { "name": "agree_privacy", "type": "boolean", "value": false },
+      { "name": "agree_newsletter", "type": "boolean", "value": true },
+      { "name": "dark_mode", "type": "boolean", "value": false },
+      { "name": "notifications", "type": "boolean", "value": true },
+      { "name": "auto_update", "type": "boolean", "value": true },
+      { "name": "task_done_1", "type": "boolean", "value": true },
+      { "name": "task_done_2", "type": "boolean", "value": false },
+      { "name": "task_done_3", "type": "boolean", "value": false },
+      { "name": "task_done_4", "type": "boolean", "value": false },
+      { "name": "shipping_method", "type": "string", "value": "standard" },
+      { "name": "payment_method", "type": "string", "value": "credit_card" },
+      { "name": "plan_choice", "type": "string", "value": "pro" },
+      { "name": "theme_color", "type": "string", "value": "blue" },
+      { "name": "feedback_rating", "type": "string", "value": "" },
+      { "name": "language", "type": "string", "value": "en" },
+      { "name": "upload_progress", "type": "number", "value": 0.73 },
+      { "name": "download_progress", "type": "number", "value": 0.45 },
+      { "name": "battery_level", "type": "number", "value": 0.82 },
+      { "name": "storage_used", "type": "number", "value": 0.67 }
+    ],
+    "log_id": "form_widgets_showcase",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "background": [
+            {
+              "type": "solid",
+              "color": "#F8F9FA"
+            }
+          ],
+          "items": [
+
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "background": [
+                {
+                  "type": "gradient",
+                  "colors": ["#667EEA", "#764BA2"]
+                }
+              ],
+              "paddings": {
+                "left": 20,
+                "top": 32,
+                "right": 20,
+                "bottom": 32
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Form Widgets",
+                  "font_size": 28,
+                  "font_weight": "bold",
+                  "text_color": "#FFFFFF"
+                },
+                {
+                  "type": "text",
+                  "text": "Checkbox \u2022 Radio \u2022 Progress",
+                  "font_size": 16,
+                  "text_color": "#FFFFFFCC",
+                  "paddings": {
+                    "top": 4
+                  }
+                }
+              ]
+            },
+
+
+            {
+              "type": "section_header",
+              "title": "Checkbox"
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "FORM AGREEMENT"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "checkbox_row",
+                  "var_name": "agree_terms",
+                  "check_label": "I agree to the Terms of Service",
+                  "check_on": "#129386",
+                  "check_off": "#ADB5BD",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "agree_privacy",
+                  "check_label": "I accept the Privacy Policy",
+                  "check_on": "#129386",
+                  "check_off": "#ADB5BD",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "agree_newsletter",
+                  "check_label": "Subscribe to newsletter",
+                  "check_on": "#129386",
+                  "check_off": "#ADB5BD",
+                  "check_mark": "#FFFFFF"
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "SETTINGS TOGGLES"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "checkbox_row",
+                  "var_name": "dark_mode",
+                  "check_label": "Dark mode",
+                  "check_on": "#6C63FF",
+                  "check_off": "#CED4DA",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "notifications",
+                  "check_label": "Push notifications",
+                  "check_on": "#6C63FF",
+                  "check_off": "#CED4DA",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "auto_update",
+                  "check_label": "Auto-update apps",
+                  "check_on": "#6C63FF",
+                  "check_off": "#CED4DA",
+                  "check_mark": "#FFFFFF"
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "TODO LIST"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "checkbox_row",
+                  "var_name": "task_done_1",
+                  "check_label": "Design wireframes",
+                  "check_on": "#2ECC71",
+                  "check_off": "#DEE2E6",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "task_done_2",
+                  "check_label": "Implement API endpoints",
+                  "check_on": "#2ECC71",
+                  "check_off": "#DEE2E6",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "task_done_3",
+                  "check_label": "Write unit tests",
+                  "check_on": "#2ECC71",
+                  "check_off": "#DEE2E6",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "task_done_4",
+                  "check_label": "Deploy to production",
+                  "check_on": "#2ECC71",
+                  "check_off": "#DEE2E6",
+                  "check_mark": "#FFFFFF"
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "CUSTOM COLORS"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "checkbox",
+                      "is_checked_variable": "agree_terms",
+                      "on_color": "#E74C3C",
+                      "off_color": "#E74C3C80",
+                      "check_mark_color": "#FFFFFF",
+                      "accessibility": {
+                        "description": "Red checkbox"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Red",
+                      "font_size": 14,
+                      "text_color": "#E74C3C",
+                      "paddings": { "left": 8, "right": 20 }
+                    },
+                    {
+                      "type": "checkbox",
+                      "is_checked_variable": "agree_privacy",
+                      "on_color": "#F39C12",
+                      "off_color": "#F39C1280",
+                      "check_mark_color": "#FFFFFF",
+                      "accessibility": {
+                        "description": "Orange checkbox"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Orange",
+                      "font_size": 14,
+                      "text_color": "#F39C12",
+                      "paddings": { "left": 8, "right": 20 }
+                    },
+                    {
+                      "type": "checkbox",
+                      "is_checked_variable": "agree_newsletter",
+                      "on_color": "#9B59B6",
+                      "off_color": "#9B59B680",
+                      "check_mark_color": "#FFFFFF",
+                      "accessibility": {
+                        "description": "Purple checkbox"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Purple",
+                      "font_size": 14,
+                      "text_color": "#9B59B6",
+                      "paddings": { "left": 8 }
+                    }
+                  ]
+                }
+              ]
+            },
+
+
+            {
+              "type": "section_header",
+              "title": "Radio"
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "SHIPPING METHOD"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "paddings": { "bottom": 4 },
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "\uD83D\uDE9A",
+                      "font_size": 20,
+                      "paddings": { "right": 8 }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Choose delivery",
+                      "font_size": 16,
+                      "font_weight": "medium",
+                      "text_color": "#343A40"
+                    }
+                  ]
+                },
+                {
+                  "type": "radio",
+                  "value_variable": "shipping_method",
+                  "options": [
+                    { "value": "standard", "text": "Standard (5-7 days)" },
+                    { "value": "express", "text": "Express (2-3 days)" },
+                    { "value": "overnight", "text": "Overnight (next day)" }
+                  ],
+                  "selected_color": "#129386",
+                  "default_color": "#CED4DA",
+                  "text_color": "#495057",
+                  "font_size": 15,
+                  "item_spacing": 12,
+                  "accessibility": {
+                    "description": "Shipping method selection"
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "PAYMENT METHOD"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "radio",
+                  "value_variable": "payment_method",
+                  "options": [
+                    { "value": "credit_card", "text": "Credit Card" },
+                    { "value": "paypal", "text": "PayPal" },
+                    { "value": "bank_transfer", "text": "Bank Transfer" },
+                    { "value": "crypto", "text": "Cryptocurrency" }
+                  ],
+                  "selected_color": "#3498DB",
+                  "default_color": "#ADB5BD",
+                  "text_color": "#212529",
+                  "font_size": 15,
+                  "item_spacing": 14,
+                  "accessibility": {
+                    "description": "Payment method selection"
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "HORIZONTAL LAYOUT"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "label",
+                  "label_text": "Theme color"
+                },
+                {
+                  "type": "radio",
+                  "value_variable": "theme_color",
+                  "orientation": "horizontal",
+                  "options": [
+                    { "value": "blue", "text": "Blue" },
+                    { "value": "green", "text": "Green" },
+                    { "value": "red", "text": "Red" }
+                  ],
+                  "selected_color": "#6C63FF",
+                  "default_color": "#CED4DA",
+                  "text_color": "#495057",
+                  "font_size": 14,
+                  "item_spacing": 24,
+                  "accessibility": {
+                    "description": "Theme color selection"
+                  }
+                },
+                { "type": "divider" },
+                {
+                  "type": "label",
+                  "label_text": "Language"
+                },
+                {
+                  "type": "radio",
+                  "value_variable": "language",
+                  "orientation": "horizontal",
+                  "options": [
+                    { "value": "en", "text": "English" },
+                    { "value": "ru", "text": "Russian" },
+                    { "value": "zh", "text": "Chinese" }
+                  ],
+                  "selected_color": "#6C63FF",
+                  "default_color": "#CED4DA",
+                  "text_color": "#495057",
+                  "font_size": 14,
+                  "item_spacing": 24,
+                  "accessibility": {
+                    "description": "Language selection"
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "SUBSCRIPTION PLAN"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "radio",
+                  "value_variable": "plan_choice",
+                  "options": [
+                    { "value": "free", "text": "Free \u2014 Basic features" },
+                    { "value": "pro", "text": "Pro \u2014 Advanced tools" },
+                    { "value": "enterprise", "text": "Enterprise \u2014 Full suite" }
+                  ],
+                  "selected_color": "#E67E22",
+                  "default_color": "#DEE2E6",
+                  "text_color": "#343A40",
+                  "font_size": 15,
+                  "font_weight": "medium",
+                  "item_spacing": 16,
+                  "accessibility": {
+                    "description": "Subscription plan selection"
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "QUICK FEEDBACK"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "label",
+                  "label_text": "How was your experience?"
+                },
+                {
+                  "type": "radio",
+                  "value_variable": "feedback_rating",
+                  "orientation": "horizontal",
+                  "options": [
+                    { "value": "bad", "text": "\uD83D\uDE1E" },
+                    { "value": "ok", "text": "\uD83D\uDE10" },
+                    { "value": "good", "text": "\uD83D\uDE0A" },
+                    { "value": "great", "text": "\uD83E\uDD29" }
+                  ],
+                  "selected_color": "#2ECC71",
+                  "default_color": "#DEE2E6",
+                  "font_size": 24,
+                  "item_spacing": 32,
+                  "accessibility": {
+                    "description": "Feedback rating"
+                  }
+                }
+              ]
+            },
+
+
+            {
+              "type": "section_header",
+              "title": "Progress"
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "LINEAR PROGRESS"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "Uploading...",
+                      "font_size": 14,
+                      "text_color": "#495057",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "73%",
+                      "font_size": 14,
+                      "font_weight": "medium",
+                      "text_color": "#129386"
+                    }
+                  ]
+                },
+                {
+                  "type": "progress",
+                  "value": "@{upload_progress}",
+                  "active_color": "#129386",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 6,
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": { "top": 8 }
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": {
+                    "color": "#00000000",
+                    "orientation": "horizontal"
+                  },
+                  "margins": { "top": 16 }
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "Downloading...",
+                      "font_size": 14,
+                      "text_color": "#495057",
+                      "width": {
+                        "type": "match_parent",
+                        "weight": 1
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "45%",
+                      "font_size": 14,
+                      "font_weight": "medium",
+                      "text_color": "#3498DB"
+                    }
+                  ]
+                },
+                {
+                  "type": "progress",
+                  "value": "@{download_progress}",
+                  "active_color": "#3498DB",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 6,
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "paddings": { "top": 8 }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "TRACK THICKNESS VARIANTS"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "text",
+                  "text": "Thin (2px)",
+                  "font_size": 12,
+                  "text_color": "#6C757D",
+                  "paddings": { "bottom": 6 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.6,
+                  "active_color": "#6C63FF",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 2,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "text",
+                  "text": "Regular (6px)",
+                  "font_size": 12,
+                  "text_color": "#6C757D",
+                  "paddings": { "top": 16, "bottom": 6 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.6,
+                  "active_color": "#6C63FF",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 6,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "text",
+                  "text": "Thick (12px)",
+                  "font_size": 12,
+                  "text_color": "#6C757D",
+                  "paddings": { "top": 16, "bottom": 6 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.6,
+                  "active_color": "#6C63FF",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 12,
+                  "width": { "type": "match_parent" }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "STATS DASHBOARD"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "text",
+                  "text": "Project Stats",
+                  "font_size": 16,
+                  "font_weight": "medium",
+                  "text_color": "#343A40",
+                  "paddings": { "bottom": 12 }
+                },
+                {
+                  "type": "stat_row",
+                  "stat_label": "Design",
+                  "stat_value": 0.95,
+                  "stat_color": "#2ECC71",
+                  "stat_pct": "95%"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 8 }
+                },
+                {
+                  "type": "stat_row",
+                  "stat_label": "Frontend",
+                  "stat_value": 0.73,
+                  "stat_color": "#3498DB",
+                  "stat_pct": "73%"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 8 }
+                },
+                {
+                  "type": "stat_row",
+                  "stat_label": "Backend",
+                  "stat_value": 0.55,
+                  "stat_color": "#F39C12",
+                  "stat_pct": "55%"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 8 }
+                },
+                {
+                  "type": "stat_row",
+                  "stat_label": "Testing",
+                  "stat_value": 0.30,
+                  "stat_color": "#E74C3C",
+                  "stat_pct": "30%"
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "CIRCULAR PROGRESS"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_horizontal": "space-evenly",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "value": "@{battery_level}",
+                          "style": "circular",
+                          "active_color": "#2ECC71",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 4,
+                          "width": { "type": "fixed", "value": 56 },
+                          "height": { "type": "fixed", "value": 56 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "82%",
+                          "font_size": 14,
+                          "font_weight": "bold",
+                          "text_color": "#2ECC71",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Battery",
+                          "font_size": 12,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 2 }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "value": "@{storage_used}",
+                          "style": "circular",
+                          "active_color": "#F39C12",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 4,
+                          "width": { "type": "fixed", "value": 56 },
+                          "height": { "type": "fixed", "value": 56 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "67%",
+                          "font_size": 14,
+                          "font_weight": "bold",
+                          "text_color": "#F39C12",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Storage",
+                          "font_size": 12,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 2 }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "value": "@{upload_progress}",
+                          "style": "circular",
+                          "active_color": "#3498DB",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 4,
+                          "width": { "type": "fixed", "value": 56 },
+                          "height": { "type": "fixed", "value": 56 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "73%",
+                          "font_size": 14,
+                          "font_weight": "bold",
+                          "text_color": "#3498DB",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Upload",
+                          "font_size": 12,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 2 }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "INDETERMINATE (LOADING)"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "text",
+                  "text": "Linear loading",
+                  "font_size": 13,
+                  "text_color": "#6C757D",
+                  "paddings": { "bottom": 8 }
+                },
+                {
+                  "type": "progress",
+                  "is_indeterminate": 1,
+                  "active_color": "#129386",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 4,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 16 }
+                },
+                {
+                  "type": "text",
+                  "text": "Circular loading",
+                  "font_size": 13,
+                  "text_color": "#6C757D",
+                  "paddings": { "bottom": 8 }
+                },
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_horizontal": "space-evenly",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "style": "circular",
+                          "is_indeterminate": 1,
+                          "active_color": "#129386",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 3,
+                          "width": { "type": "fixed", "value": 40 },
+                          "height": { "type": "fixed", "value": 40 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Small",
+                          "font_size": 11,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 6 }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "style": "circular",
+                          "is_indeterminate": 1,
+                          "active_color": "#6C63FF",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 4,
+                          "width": { "type": "fixed", "value": 56 },
+                          "height": { "type": "fixed", "value": 56 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Medium",
+                          "font_size": 11,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 6 }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "style": "circular",
+                          "is_indeterminate": 1,
+                          "active_color": "#E74C3C",
+                          "inactive_color": "#E9ECEF",
+                          "track_thickness": 5,
+                          "width": { "type": "fixed", "value": 72 },
+                          "height": { "type": "fixed", "value": 72 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Large",
+                          "font_size": 11,
+                          "text_color": "#6C757D",
+                          "paddings": { "top": 6 }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "COLOR VARIANTS"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "progress",
+                  "value": 0.8,
+                  "active_color": "#2ECC71",
+                  "inactive_color": "#D4EDDA",
+                  "track_thickness": 8,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 10 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.6,
+                  "active_color": "#3498DB",
+                  "inactive_color": "#D6EAF8",
+                  "track_thickness": 8,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 10 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.4,
+                  "active_color": "#F39C12",
+                  "inactive_color": "#FEF5E7",
+                  "track_thickness": 8,
+                  "width": { "type": "match_parent" }
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 10 }
+                },
+                {
+                  "type": "progress",
+                  "value": 0.2,
+                  "active_color": "#E74C3C",
+                  "inactive_color": "#FDEDEC",
+                  "track_thickness": 8,
+                  "width": { "type": "match_parent" }
+                }
+              ]
+            },
+
+
+            {
+              "type": "section_header",
+              "title": "Combined Examples"
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "ONBOARDING FORM"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_vertical": "center",
+                  "items": [
+                    {
+                      "type": "progress",
+                      "value": 0.33,
+                      "style": "circular",
+                      "active_color": "#667EEA",
+                      "inactive_color": "#E9ECEF",
+                      "track_thickness": 3,
+                      "width": { "type": "fixed", "value": 40 },
+                      "height": { "type": "fixed", "value": 40 }
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "paddings": { "left": 12 },
+                      "items": [
+                        {
+                          "type": "text",
+                          "text": "Step 1 of 3",
+                          "font_size": 16,
+                          "font_weight": "medium",
+                          "text_color": "#343A40"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Choose your preferences",
+                          "font_size": 13,
+                          "text_color": "#6C757D"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "progress",
+                  "value": 0.33,
+                  "active_color": "#667EEA",
+                  "inactive_color": "#E9ECEF",
+                  "track_thickness": 3,
+                  "width": { "type": "match_parent" },
+                  "paddings": { "top": 12, "bottom": 16 }
+                },
+                {
+                  "type": "label",
+                  "label_text": "Notification preferences"
+                },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "notifications",
+                  "check_label": "Email notifications",
+                  "check_on": "#667EEA",
+                  "check_off": "#CED4DA",
+                  "check_mark": "#FFFFFF"
+                },
+                { "type": "divider" },
+                {
+                  "type": "checkbox_row",
+                  "var_name": "agree_newsletter",
+                  "check_label": "Weekly digest",
+                  "check_on": "#667EEA",
+                  "check_off": "#CED4DA",
+                  "check_mark": "#FFFFFF"
+                },
+                {
+                  "type": "separator",
+                  "delimiter_style": { "color": "#00000000", "orientation": "horizontal" },
+                  "margins": { "top": 16 }
+                },
+                {
+                  "type": "label",
+                  "label_text": "Preferred language"
+                },
+                {
+                  "type": "radio",
+                  "value_variable": "language",
+                  "orientation": "horizontal",
+                  "options": [
+                    { "value": "en", "text": "English" },
+                    { "value": "ru", "text": "Russian" },
+                    { "value": "zh", "text": "Chinese" }
+                  ],
+                  "selected_color": "#667EEA",
+                  "default_color": "#CED4DA",
+                  "text_color": "#495057",
+                  "font_size": 14,
+                  "item_spacing": 20,
+                  "accessibility": {
+                    "description": "Language preference"
+                  }
+                }
+              ]
+            },
+
+            {
+              "type": "subsection_header",
+              "title": "DEVICE STATUS PANEL"
+            },
+            {
+              "type": "card",
+              "card_items": [
+                {
+                  "type": "container",
+                  "orientation": "horizontal",
+                  "content_alignment_horizontal": "space-evenly",
+                  "content_alignment_vertical": "top",
+                  "items": [
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "value": "@{battery_level}",
+                          "style": "circular",
+                          "active_color": "#2ECC71",
+                          "inactive_color": "#F1F3F5",
+                          "track_thickness": 5,
+                          "width": { "type": "fixed", "value": 64 },
+                          "height": { "type": "fixed", "value": 64 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Battery",
+                          "font_size": 12,
+                          "font_weight": "medium",
+                          "text_color": "#343A40",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "82% \u2022 Charging",
+                          "font_size": 11,
+                          "text_color": "#2ECC71"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "value": "@{storage_used}",
+                          "style": "circular",
+                          "active_color": "#F39C12",
+                          "inactive_color": "#F1F3F5",
+                          "track_thickness": 5,
+                          "width": { "type": "fixed", "value": 64 },
+                          "height": { "type": "fixed", "value": 64 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Storage",
+                          "font_size": 12,
+                          "font_weight": "medium",
+                          "text_color": "#343A40",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "67% \u2022 42 GB free",
+                          "font_size": 11,
+                          "text_color": "#F39C12"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "container",
+                      "orientation": "vertical",
+                      "content_alignment_horizontal": "center",
+                      "items": [
+                        {
+                          "type": "progress",
+                          "style": "circular",
+                          "is_indeterminate": 1,
+                          "active_color": "#3498DB",
+                          "inactive_color": "#F1F3F5",
+                          "track_thickness": 5,
+                          "width": { "type": "fixed", "value": 64 },
+                          "height": { "type": "fixed", "value": 64 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "Sync",
+                          "font_size": 12,
+                          "font_weight": "medium",
+                          "text_color": "#343A40",
+                          "paddings": { "top": 8 }
+                        },
+                        {
+                          "type": "text",
+                          "text": "In progress...",
+                          "font_size": 11,
+                          "text_color": "#3498DB"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "container",
+              "orientation": "vertical",
+              "height": {
+                "type": "fixed",
+                "value": 32
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
