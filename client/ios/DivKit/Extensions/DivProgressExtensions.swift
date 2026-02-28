@@ -20,7 +20,56 @@ extension DivProgress: DivBlockModeling {
     let activeColor = resolveActiveColor(resolver) ?? Color.colorWithARGBHexCode(0xFF129386)
     let inactiveColor = resolveInactiveColor(resolver) ?? Color.colorWithARGBHexCode(0x4D000000)
     let thickness = CGFloat(resolveTrackThickness(resolver))
+    let isCircular = resolveStyle(resolver) == .circular
 
+    if isCircular {
+      return makeCircularBlock(
+        clampedValue: clampedValue,
+        activeColor: activeColor,
+        inactiveColor: inactiveColor,
+        thickness: thickness,
+        context: context
+      )
+    } else {
+      return try makeLinearBlock(
+        clampedValue: clampedValue,
+        activeColor: activeColor,
+        inactiveColor: inactiveColor,
+        thickness: thickness,
+        context: context
+      )
+    }
+  }
+
+  private func makeCircularBlock(
+    clampedValue: Double,
+    activeColor: Color,
+    inactiveColor: Color,
+    thickness: CGFloat,
+    context: DivBlockModelingContext
+  ) -> Block {
+    let defaultSize: CGFloat = 48
+    let size = defaultSize
+
+    return EmptyBlock(
+      widthTrait: .fixed(size),
+      heightTrait: .fixed(size)
+    ).addingDecorations(
+      boundary: .clipCorner(radius: .init(floatLiteral: size / 2)),
+      border: BlockBorder(
+        color: clampedValue > 0 ? activeColor : inactiveColor,
+        width: thickness
+      )
+    )
+  }
+
+  private func makeLinearBlock(
+    clampedValue: Double,
+    activeColor: Color,
+    inactiveColor: Color,
+    thickness: CGFloat,
+    context: DivBlockModelingContext
+  ) throws -> Block {
     let widthTrait = resolveContentWidthTrait(context)
     let heightTrait: LayoutTrait = .fixed(thickness)
 
