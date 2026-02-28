@@ -58,10 +58,12 @@
         },
         "selected_color": {
           "$ref": "common.json#/color",
+          "default_value": "#129386",
           "$description": "translations.json#/div_radio_selected_color"
         },
         "default_color": {
           "$ref": "common.json#/color",
+          "default_value": "#4D000000",
           "$description": "translations.json#/div_radio_default_color"
         },
         "text_color": {

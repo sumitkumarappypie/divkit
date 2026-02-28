@@ -13,7 +13,7 @@ public final class DivCheckbox: DivBase, Sendable {
   public let animators: [DivAnimator]?
   public let background: [DivBackground]?
   public let border: DivBorder?
-  public let checkMarkColor: Expression<Color>?
+  public let checkMarkColor: Expression<Color> // default value: #FFFFFF
   public let columnSpan: Expression<Int>? // constraint: number >= 0
   public let disappearActions: [DivDisappearAction]?
   public let extensions: [DivExtension]?
@@ -25,8 +25,8 @@ public final class DivCheckbox: DivBase, Sendable {
   public let isEnabled: Expression<Bool> // default value: true
   public let layoutProvider: DivLayoutProvider?
   public let margins: DivEdgeInsets?
-  public let offColor: Expression<Color>?
-  public let onColor: Expression<Color>?
+  public let offColor: Expression<Color> // default value: #4D000000
+  public let onColor: Expression<Color> // default value: #129386
   public let paddings: DivEdgeInsets?
   public let reuseId: Expression<String>?
   public let rowSpan: Expression<Int>? // constraint: number >= 0
@@ -57,8 +57,8 @@ public final class DivCheckbox: DivBase, Sendable {
     resolver.resolveNumeric(alpha) ?? 1.0
   }
 
-  public func resolveCheckMarkColor(_ resolver: ExpressionResolver) -> Color? {
-    resolver.resolveColor(checkMarkColor)
+  public func resolveCheckMarkColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(checkMarkColor) ?? Color.colorWithARGBHexCode(0xFFFFFFFF)
   }
 
   public func resolveColumnSpan(_ resolver: ExpressionResolver) -> Int? {
@@ -69,12 +69,12 @@ public final class DivCheckbox: DivBase, Sendable {
     resolver.resolveNumeric(isEnabled) ?? true
   }
 
-  public func resolveOffColor(_ resolver: ExpressionResolver) -> Color? {
-    resolver.resolveColor(offColor)
+  public func resolveOffColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(offColor) ?? Color.colorWithARGBHexCode(0x4D000000)
   }
 
-  public func resolveOnColor(_ resolver: ExpressionResolver) -> Color? {
-    resolver.resolveColor(onColor)
+  public func resolveOnColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(onColor) ?? Color.colorWithARGBHexCode(0xFF129386)
   }
 
   public func resolveReuseId(_ resolver: ExpressionResolver) -> String? {
@@ -191,7 +191,7 @@ public final class DivCheckbox: DivBase, Sendable {
     self.animators = animators
     self.background = background
     self.border = border
-    self.checkMarkColor = checkMarkColor
+    self.checkMarkColor = checkMarkColor ?? .value(Color.colorWithARGBHexCode(0xFFFFFFFF))
     self.columnSpan = columnSpan
     self.disappearActions = disappearActions
     self.extensions = extensions
@@ -203,8 +203,8 @@ public final class DivCheckbox: DivBase, Sendable {
     self.isEnabled = isEnabled ?? .value(true)
     self.layoutProvider = layoutProvider
     self.margins = margins
-    self.offColor = offColor
-    self.onColor = onColor
+    self.offColor = offColor ?? .value(Color.colorWithARGBHexCode(0x4D000000))
+    self.onColor = onColor ?? .value(Color.colorWithARGBHexCode(0xFF129386))
     self.paddings = paddings
     self.reuseId = reuseId
     self.rowSpan = rowSpan
@@ -335,7 +335,7 @@ extension DivCheckbox: Serializable {
     result["animators"] = animators?.map { $0.toDictionary() }
     result["background"] = background?.map { $0.toDictionary() }
     result["border"] = border?.toDictionary()
-    result["check_mark_color"] = checkMarkColor?.toValidSerializationValue()
+    result["check_mark_color"] = checkMarkColor.toValidSerializationValue()
     result["column_span"] = columnSpan?.toValidSerializationValue()
     result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
     result["extensions"] = extensions?.map { $0.toDictionary() }
@@ -347,8 +347,8 @@ extension DivCheckbox: Serializable {
     result["is_enabled"] = isEnabled.toValidSerializationValue()
     result["layout_provider"] = layoutProvider?.toDictionary()
     result["margins"] = margins?.toDictionary()
-    result["off_color"] = offColor?.toValidSerializationValue()
-    result["on_color"] = onColor?.toValidSerializationValue()
+    result["off_color"] = offColor.toValidSerializationValue()
+    result["on_color"] = onColor.toValidSerializationValue()
     result["paddings"] = paddings?.toDictionary()
     result["reuse_id"] = reuseId?.toValidSerializationValue()
     result["row_span"] = rowSpan?.toValidSerializationValue()

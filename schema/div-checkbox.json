@@ -23,14 +23,17 @@
         },
         "on_color": {
           "$ref": "common.json#/color",
+          "default_value": "#129386",
           "$description": "translations.json#/div_checkbox_on_color"
         },
         "off_color": {
           "$ref": "common.json#/color",
+          "default_value": "#4D000000",
           "$description": "translations.json#/div_checkbox_off_color"
         },
         "check_mark_color": {
           "$ref": "common.json#/color",
+          "default_value": "#FFFFFF",
           "$description": "translations.json#/div_checkbox_check_mark_color"
         }
       }

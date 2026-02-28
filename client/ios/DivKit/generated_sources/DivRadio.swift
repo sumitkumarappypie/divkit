@@ -48,7 +48,7 @@ public final class DivRadio: DivBase, Sendable {
   public let background: [DivBackground]?
   public let border: DivBorder?
   public let columnSpan: Expression<Int>? // constraint: number >= 0
-  public let defaultColor: Expression<Color>?
+  public let defaultColor: Expression<Color> // default value: #4D000000
   public let disappearActions: [DivDisappearAction]?
   public let extensions: [DivExtension]?
   public let focus: DivFocus?
@@ -68,7 +68,7 @@ public final class DivRadio: DivBase, Sendable {
   public let reuseId: Expression<String>?
   public let rowSpan: Expression<Int>? // constraint: number >= 0
   public let selectedActions: [DivAction]?
-  public let selectedColor: Expression<Color>?
+  public let selectedColor: Expression<Color> // default value: #129386
   public let textColor: Expression<Color>?
   public let tooltips: [DivTooltip]?
   public let transform: DivTransform?
@@ -101,8 +101,8 @@ public final class DivRadio: DivBase, Sendable {
     resolver.resolveNumeric(columnSpan)
   }
 
-  public func resolveDefaultColor(_ resolver: ExpressionResolver) -> Color? {
-    resolver.resolveColor(defaultColor)
+  public func resolveDefaultColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(defaultColor) ?? Color.colorWithARGBHexCode(0x4D000000)
   }
 
   public func resolveFontFamily(_ resolver: ExpressionResolver) -> String? {
@@ -137,8 +137,8 @@ public final class DivRadio: DivBase, Sendable {
     resolver.resolveNumeric(rowSpan)
   }
 
-  public func resolveSelectedColor(_ resolver: ExpressionResolver) -> Color? {
-    resolver.resolveColor(selectedColor)
+  public func resolveSelectedColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(selectedColor) ?? Color.colorWithARGBHexCode(0xFF129386)
   }
 
   public func resolveTextColor(_ resolver: ExpressionResolver) -> Color? {
@@ -273,7 +273,7 @@ public final class DivRadio: DivBase, Sendable {
     self.background = background
     self.border = border
     self.columnSpan = columnSpan
-    self.defaultColor = defaultColor
+    self.defaultColor = defaultColor ?? .value(Color.colorWithARGBHexCode(0x4D000000))
     self.disappearActions = disappearActions
     self.extensions = extensions
     self.focus = focus
@@ -293,7 +293,7 @@ public final class DivRadio: DivBase, Sendable {
     self.reuseId = reuseId
     self.rowSpan = rowSpan
     self.selectedActions = selectedActions
-    self.selectedColor = selectedColor
+    self.selectedColor = selectedColor ?? .value(Color.colorWithARGBHexCode(0xFF129386))
     self.textColor = textColor
     self.tooltips = tooltips
     self.transform = transform
@@ -437,7 +437,7 @@ extension DivRadio: Serializable {
     result["background"] = background?.map { $0.toDictionary() }
     result["border"] = border?.toDictionary()
     result["column_span"] = columnSpan?.toValidSerializationValue()
-    result["default_color"] = defaultColor?.toValidSerializationValue()
+    result["default_color"] = defaultColor.toValidSerializationValue()
     result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
     result["extensions"] = extensions?.map { $0.toDictionary() }
     result["focus"] = focus?.toDictionary()
@@ -457,7 +457,7 @@ extension DivRadio: Serializable {
     result["reuse_id"] = reuseId?.toValidSerializationValue()
     result["row_span"] = rowSpan?.toValidSerializationValue()
     result["selected_actions"] = selectedActions?.map { $0.toDictionary() }
-    result["selected_color"] = selectedColor?.toValidSerializationValue()
+    result["selected_color"] = selectedColor.toValidSerializationValue()
     result["text_color"] = textColor?.toValidSerializationValue()
     result["tooltips"] = tooltips?.map { $0.toDictionary() }
     result["transform"] = transform?.toDictionary()

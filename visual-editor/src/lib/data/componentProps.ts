@@ -923,16 +923,19 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.on_color',
             prop: 'on_color',
             type: 'color',
+            default: '#129386',
             enableSources: true
         }, {
             name: 'props.off_color',
             prop: 'off_color',
             type: 'color',
+            default: '#4D000000',
             enableSources: true
         }, {
             name: 'props.check_mark_color',
             prop: 'check_mark_color',
             type: 'color',
+            default: '#FFFFFF',
             enableSources: true
         }]
     }],
@@ -963,11 +966,13 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.selected_color',
             prop: 'selected_color',
             type: 'color',
+            default: '#129386',
             enableSources: true
         }, {
             name: 'props.default_color',
             prop: 'default_color',
             type: 'color',
+            default: '#4D000000',
             enableSources: true
         }, {
             name: 'props.text_color',

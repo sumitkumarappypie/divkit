@@ -105,7 +105,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
   public let background: Field<[DivBackgroundTemplate]>?
   public let border: Field<DivBorderTemplate>?
   public let columnSpan: Field<Expression<Int>>? // constraint: number >= 0
-  public let defaultColor: Field<Expression<Color>>?
+  public let defaultColor: Field<Expression<Color>>? // default value: #4D000000
   public let disappearActions: Field<[DivDisappearActionTemplate]>?
   public let extensions: Field<[DivExtensionTemplate]>?
   public let focus: Field<DivFocusTemplate>?
@@ -125,7 +125,7 @@ public final class DivRadioTemplate: TemplateValue, Sendable {
   public let reuseId: Field<Expression<String>>?
   public let rowSpan: Field<Expression<Int>>? // constraint: number >= 0
   public let selectedActions: Field<[DivActionTemplate]>?
-  public let selectedColor: Field<Expression<Color>>?
+  public let selectedColor: Field<Expression<Color>>? // default value: #129386
   public let textColor: Field<Expression<Color>>?
   public let tooltips: Field<[DivTooltipTemplate]>?
   public let transform: Field<DivTransformTemplate>?
