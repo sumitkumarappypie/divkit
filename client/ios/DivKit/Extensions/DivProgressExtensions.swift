@@ -21,6 +21,7 @@ extension DivProgress: DivBlockModeling {
     let inactiveColor = resolveInactiveColor(resolver) ?? Color.colorWithARGBHexCode(0x4D000000)
     let thickness = CGFloat(resolveTrackThickness(resolver))
     let isCircular = resolveStyle(resolver) == .circular
+    let isIndeterminate = resolveIsIndeterminate(resolver)
 
     if isCircular {
       return makeCircularBlock(
@@ -28,6 +29,7 @@ extension DivProgress: DivBlockModeling {
         activeColor: activeColor,
         inactiveColor: inactiveColor,
         thickness: thickness,
+        isIndeterminate: isIndeterminate,
         context: context
       )
     } else {
@@ -36,6 +38,7 @@ extension DivProgress: DivBlockModeling {
         activeColor: activeColor,
         inactiveColor: inactiveColor,
         thickness: thickness,
+        isIndeterminate: isIndeterminate,
         context: context
       )
     }
@@ -46,10 +49,13 @@ extension DivProgress: DivBlockModeling {
     activeColor: Color,
     inactiveColor: Color,
     thickness: CGFloat,
+    isIndeterminate: Bool,
     context: DivBlockModelingContext
   ) -> Block {
-    let defaultSize: CGFloat = 48
-    let size = defaultSize
+    let size: CGFloat = 48
+
+    // For indeterminate circular, show partial arc via active color border
+    let borderColor = isIndeterminate ? activeColor : (clampedValue > 0 ? activeColor : inactiveColor)
 
     return EmptyBlock(
       widthTrait: .fixed(size),
@@ -57,7 +63,7 @@ extension DivProgress: DivBlockModeling {
     ).addingDecorations(
       boundary: .clipCorner(radius: .init(floatLiteral: size / 2)),
       border: BlockBorder(
-        color: clampedValue > 0 ? activeColor : inactiveColor,
+        color: borderColor,
         width: thickness
       )
     )
@@ -68,10 +74,44 @@ extension DivProgress: DivBlockModeling {
     activeColor: Color,
     inactiveColor: Color,
     thickness: CGFloat,
+    isIndeterminate: Bool,
     context: DivBlockModelingContext
   ) throws -> Block {
     let widthTrait = resolveContentWidthTrait(context)
     let heightTrait: LayoutTrait = .fixed(thickness)
+
+    if isIndeterminate {
+      // Indeterminate: show a 30% active segment in the center
+      let leadingWeight = LayoutTrait.Weight(floatLiteral: 0.35)
+      let activeWeight = LayoutTrait.Weight(floatLiteral: 0.3)
+      let trailingWeight = LayoutTrait.Weight(floatLiteral: 0.35)
+
+      let leadingBlock = EmptyBlock(
+        widthTrait: .weighted(leadingWeight),
+        heightTrait: heightTrait
+      ).addingDecorations(backgroundColor: inactiveColor)
+
+      let activeBlock = EmptyBlock(
+        widthTrait: .weighted(activeWeight),
+        heightTrait: heightTrait
+      ).addingDecorations(backgroundColor: activeColor)
+
+      let trailingBlock = EmptyBlock(
+        widthTrait: .weighted(trailingWeight),
+        heightTrait: heightTrait
+      ).addingDecorations(backgroundColor: inactiveColor)
+
+      return try ContainerBlock(
+        layoutDirection: .horizontal,
+        widthTrait: widthTrait,
+        heightTrait: heightTrait,
+        children: [
+          ContainerBlock.Child(content: leadingBlock),
+          ContainerBlock.Child(content: activeBlock),
+          ContainerBlock.Child(content: trailingBlock),
+        ]
+      )
+    }
 
     let activeWeight = LayoutTrait.Weight(floatLiteral: max(clampedValue, 0.001))
     let inactiveWeight = LayoutTrait.Weight(floatLiteral: max(1 - clampedValue, 0.001))
