@@ -39,6 +39,10 @@
       "$description": "translations.json#/div_tabs_short"
     },
     {
+      "$ref": "div-table.json",
+      "$description": "translations.json#/div_table"
+    },
+    {
       "$ref": "div-state.json",
       "$description": "translations.json#/div_state_short"
     },

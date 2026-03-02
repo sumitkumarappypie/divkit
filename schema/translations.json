@@ -2503,6 +2503,126 @@
     "en": "Indents in the tab name.",
     "ru": "Отступы в названии таба."
   },
+  "div_table": {
+    "en": "Table. A structured layout with columns, rows, headers, and optional separators.",
+    "ru": "Таблица. Структурированный макет со столбцами, строками, заголовками и необязательными разделителями."
+  },
+  "div_table_cell_background": {
+    "en": "Cell background.",
+    "ru": "Фон ячейки."
+  },
+  "div_table_cell_column_span": {
+    "en": "Number of columns a cell spans.",
+    "ru": "Количество столбцов, которое занимает ячейка."
+  },
+  "div_table_cell_content_alignment_horizontal": {
+    "en": "Horizontal alignment of cell content.",
+    "ru": "Горизонтальное выравнивание содержимого ячейки."
+  },
+  "div_table_cell_content_alignment_vertical": {
+    "en": "Vertical alignment of cell content.",
+    "ru": "Вертикальное выравнивание содержимого ячейки."
+  },
+  "div_table_cell_div": {
+    "en": "Cell content. A div element displayed inside the cell.",
+    "ru": "Содержимое ячейки. Элемент div, отображаемый внутри ячейки."
+  },
+  "div_table_cell_row_span": {
+    "en": "Number of rows a cell spans.",
+    "ru": "Количество строк, которое занимает ячейка."
+  },
+  "div_table_column_content_alignment_horizontal": {
+    "en": "Default horizontal alignment for cells in this column.",
+    "ru": "Горизонтальное выравнивание по умолчанию для ячеек в этом столбце."
+  },
+  "div_table_column_content_alignment_vertical": {
+    "en": "Default vertical alignment for cells in this column.",
+    "ru": "Вертикальное выравнивание по умолчанию для ячеек в этом столбце."
+  },
+  "div_table_column_separator": {
+    "en": "Separator between columns.",
+    "ru": "Разделитель между столбцами."
+  },
+  "div_table_column_width": {
+    "en": "Column width.",
+    "ru": "Ширина столбца."
+  },
+  "div_table_columns": {
+    "en": "Column definitions. Determines the number and sizing of table columns.",
+    "ru": "Определения столбцов. Определяет количество и размеры столбцов таблицы."
+  },
+  "div_table_content_alignment_horizontal": {
+    "en": "Default horizontal alignment of cell contents.",
+    "ru": "Горизонтальное выравнивание содержимого ячеек по умолчанию."
+  },
+  "div_table_content_alignment_vertical": {
+    "en": "Default vertical alignment of cell contents.",
+    "ru": "Вертикальное выравнивание содержимого ячеек по умолчанию."
+  },
+  "div_table_header_background": {
+    "en": "Background for the header row.",
+    "ru": "Фон строки заголовка."
+  },
+  "div_table_header_row": {
+    "en": "Header row. Displayed at the top of the table with distinct styling.",
+    "ru": "Строка заголовка. Отображается вверху таблицы с отдельным оформлением."
+  },
+  "div_table_header_separator": {
+    "en": "Separator between the header row and body rows.",
+    "ru": "Разделитель между строкой заголовка и строками тела."
+  },
+  "div_table_row_background": {
+    "en": "Row background.",
+    "ru": "Фон строки."
+  },
+  "div_table_row_builder": {
+    "en": "Dynamic row generation using item builder pattern. Generates rows from data array using prototypes.",
+    "ru": "Динамическая генерация строк с использованием паттерна item builder. Создаёт строки из массива данных с использованием прототипов."
+  },
+  "div_table_row_cells": {
+    "en": "Array of cells in this row.",
+    "ru": "Массив ячеек в этой строке."
+  },
+  "div_table_row_id": {
+    "en": "Row identifier for accessibility and animation purposes.",
+    "ru": "Идентификатор строки для доступности и анимации."
+  },
+  "div_table_row_separator": {
+    "en": "Separator between body rows.",
+    "ru": "Разделитель между строками тела."
+  },
+  "div_table_rows": {
+    "en": "Static array of table body rows.",
+    "ru": "Статический массив строк тела таблицы."
+  },
+  "div_table_separator_show_at_end": {
+    "en": "Enables displaying the separator after the last item.",
+    "ru": "Включает отображение разделителя после последнего элемента."
+  },
+  "div_table_separator_show_at_start": {
+    "en": "Enables displaying the separator before the first item.",
+    "ru": "Включает отображение разделителя перед первым элементом."
+  },
+  "div_table_separator_show_between": {
+    "en": "Enables displaying the separator between items.",
+    "ru": "Включает отображение разделителя между элементами."
+  },
+  "div_table_separator_style": {
+    "en": "Separator style.",
+    "ru": "Стиль разделителя."
+  },
+  "div_table_striped": {
+    "en": "Alternating row background colors for even and odd rows.",
+    "ru": "Чередующиеся цвета фона для чётных и нечётных строк."
+  },
+  "div_table_striped_even_row_background": {
+    "en": "Background for even rows (0-indexed).",
+    "ru": "Фон для чётных строк (с индексом 0)."
+  },
+  "div_table_striped_odd_row_background": {
+    "en": "Background for odd rows.",
+    "ru": "Фон для нечётных строк."
+  },
   "div_text": {
     "en": "Text.",
     "ru": "Текст."

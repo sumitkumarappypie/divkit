@@ -51,6 +51,7 @@ internal class ExistingToken(
             is Div.Pager -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)
             is Div.Tabs -> throw RebindTask.UnsupportedElementException(div::class.java) // Not supported yet. Only full rebind
             is Div.State -> stateToExistingTokenList(item.expressionResolver, parentToken)
+            is Div.Table -> emptyList()
         }
     }
 

@@ -276,6 +276,40 @@ export class State {
                         div: nodeToDivjson(it)
                     };
                 });
+            } else if (baseType === 'table') {
+                // Reconstruct rows[].cells[].div from children
+                const headerCells: Record<string, unknown>[] = [];
+                const rowGroups = new Map<number, Record<string, unknown>[]>();
+
+                leaf.childs?.forEach(child => {
+                    const info = child.props.info || {};
+                    const { rowIndex, cellIndex: _cellIndex, ...cellProps } = info;
+                    const cellObj: Record<string, unknown> = { ...cellProps, div: nodeToDivjson(child) };
+
+                    if (rowIndex === -1) {
+                        headerCells.push(cellObj);
+                    } else {
+                        const idx = rowIndex ?? 0;
+                        if (!rowGroups.has(idx)) rowGroups.set(idx, []);
+                        rowGroups.get(idx)!.push(cellObj);
+                    }
+                });
+
+                // Reconstruct header_row preserving row-level properties
+                if (headerCells.length > 0) {
+                    const origHeader = (json.header_row || {}) as Record<string, unknown>;
+                    json.header_row = { ...origHeader, cells: headerCells };
+                }
+
+                // Reconstruct rows preserving row-level properties
+                const origRows = Array.isArray(json.rows) ? json.rows : [];
+                json.rows = Array.from(rowGroups.entries())
+                    .sort(([a], [b]) => a - b)
+                    .map(([rowIdx, cells]) => {
+                        const origRow = (origRows[rowIdx] || {}) as Record<string, unknown>;
+                        const { cells: _cells, ...rowMeta } = origRow;
+                        return { ...rowMeta, cells };
+                    });
             } else if (leaf.childs?.length) {
                 fieldName ||= 'items';
                 json[fieldName] = leaf.childs.map(nodeToDivjson);
@@ -801,6 +835,18 @@ export class State {
                     type: 'match_parent'
                 }
             };
+        } else if (type === 'table') {
+            json = {
+                type,
+                columns: [
+                    { width: { type: 'match_parent', weight: 1 } },
+                    { width: { type: 'match_parent', weight: 1 } }
+                ],
+                rows: [],
+                width: {
+                    type: 'match_parent'
+                }
+            };
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {
@@ -816,7 +862,7 @@ export class State {
             }
         };
 
-        if (!isSimpleElement(type) && !(type in namedTemplates) && !this.userTemplates.has(type) && type !== 'custom') {
+        if (!isSimpleElement(type) && !(type in namedTemplates) && !this.userTemplates.has(type) && type !== 'custom' && type !== 'table') {
             const child: TreeLeaf = {
                 id: this.genId(),
                 parent: leaf,
@@ -841,6 +887,24 @@ export class State {
             }
 
             leaf.childs.push(child);
+        }
+
+        if (type === 'table') {
+            for (let r = 0; r < 2; r++) {
+                for (let c = 0; c < 2; c++) {
+                    const cellChild: TreeLeaf = {
+                        id: this.genId(),
+                        parent: leaf,
+                        childs: [],
+                        props: {
+                            json: { type: 'text', text: `R${r + 1}C${c + 1}` } as Record<string, unknown>,
+                            info: { rowIndex: r, cellIndex: c }
+                        }
+                    };
+                    leaf.childs.push(cellChild);
+                }
+            }
+            leaf.props.fromDataField = 'rows';
         }
 
         if (!leaf.props.json.width) {
@@ -1017,7 +1081,8 @@ export class State {
         const canHaveChilds = baseType &&
             !isSimpleElement(baseType) &&
             !isUserTemplateWithoutChilds(this, into.props.json) &&
-            !namedTemplates[into.props.json.type];
+            !namedTemplates[into.props.json.type] &&
+            baseType !== 'table';
 
         const target = canHaveChilds ? into : into.parent;
 

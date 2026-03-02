@@ -1,0 +1,200 @@
+{
+  "templates": {
+    "title": {
+      "type": "text",
+      "font_size": 20,
+      "line_height": 24,
+      "font_weight": "bold",
+      "paddings": {
+        "left": 24,
+        "right": 24,
+        "bottom": 16
+      }
+    },
+    "subtitle": {
+      "type": "text",
+      "font_size": 15,
+      "line_height": 20,
+      "paddings": {
+        "left": 24,
+        "right": 24
+      }
+    },
+    "header_cell": {
+      "type": "text",
+      "font_size": 14,
+      "font_weight": "bold",
+      "text_color": "#333333",
+      "paddings": {
+        "left": 12,
+        "top": 10,
+        "right": 12,
+        "bottom": 10
+      }
+    },
+    "data_cell": {
+      "type": "text",
+      "font_size": 14,
+      "text_color": "#000000",
+      "paddings": {
+        "left": 12,
+        "top": 10,
+        "right": 12,
+        "bottom": 10
+      }
+    }
+  },
+  "card": {
+    "log_id": "table_basic",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "margins": {
+            "top": 24,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "title",
+              "text": "Basic Table"
+            },
+            {
+              "type": "subtitle",
+              "text": "A simple 3-column table with a header row and product data.",
+              "margins": {
+                "bottom": 24
+              }
+            },
+            {
+              "type": "table",
+              "width": {
+                "type": "match_parent"
+              },
+              "columns": [
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 2
+                  }
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "content_alignment_horizontal": "center"
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "content_alignment_horizontal": "end"
+                }
+              ],
+              "header_row": {
+                "cells": [
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Product"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Quantity"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Price"
+                    }
+                  }
+                ]
+              },
+              "header_background": [
+                {
+                  "type": "solid",
+                  "color": "#F0F0F0"
+                }
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Wireless Mouse"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "3"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$29.99"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "USB-C Cable"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "10"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$9.99"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Mechanical Keyboard"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "1"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$79.95"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

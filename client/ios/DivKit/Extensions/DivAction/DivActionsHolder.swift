@@ -22,6 +22,7 @@ extension DivGifImage: DivActionsHolder {}
 extension DivContainer: DivActionsHolder {}
 extension DivGrid: DivActionsHolder {}
 extension DivState: DivActionsHolder {}
+extension DivTable: DivActionsHolder {}
 
 extension DivActionsHolder {
   fileprivate func makeActions(

@@ -75,6 +75,7 @@ private fun Div.printSelf(
         is Div.Pager -> this.value.items?.forEach { it.printSelf(reusableList, bindingPoints, builder, step + 1) }
         is Div.Tabs -> this.value.items.forEach { it.div.printSelf(reusableList, bindingPoints, builder, step + 1) }
         is Div.State -> this.value.states.forEach { it.div?.printSelf(reusableList, bindingPoints, builder, step + 1) }
+        is Div.Table -> Unit
         else -> Unit
     }
 }

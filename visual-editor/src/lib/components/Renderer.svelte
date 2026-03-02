@@ -730,7 +730,22 @@
         }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const proc = (json: Record<string, any>) => {
+        const proc = (json: Record<string, any>): any => {
+            if (Array.isArray(json)) {
+                return json.map(item => {
+                    if (typeof item === 'string' && item.includes('@{')) {
+                        const evalRes = evalExpression(item, {
+                            variables,
+                            type: 'json'
+                        });
+                        return evalRes.type !== 'error' ? evalRes.value : item;
+                    } else if (item && typeof item === 'object') {
+                        return proc(item);
+                    }
+                    return item;
+                });
+            }
+
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const res: Record<string, any> = {};
 

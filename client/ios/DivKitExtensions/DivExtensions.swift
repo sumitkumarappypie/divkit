@@ -42,6 +42,7 @@ extension Div {
          .divSlider,
          .divState,
          .divSwitch,
+         .divTable,
          .divVideo,
          .divTabs:
       break

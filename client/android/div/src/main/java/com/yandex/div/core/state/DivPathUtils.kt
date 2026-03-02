@@ -150,6 +150,7 @@ internal object DivPathUtils {
             is Div.Checkbox -> null
             is Div.Radio -> null
             is Div.Progress -> null
+            is Div.Table -> null
         }
     }
 

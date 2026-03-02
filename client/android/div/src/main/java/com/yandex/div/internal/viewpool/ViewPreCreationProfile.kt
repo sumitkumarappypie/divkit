@@ -29,6 +29,7 @@ data class ViewPreCreationProfile(
     val checkbox: PreCreationModel = PreCreationModel(2),
     val radio: PreCreationModel = PreCreationModel(2),
     val progress: PreCreationModel = PreCreationModel(2),
+    val table: PreCreationModel = PreCreationModel(2),
 ) {
     companion object {
         fun unconstrained(
@@ -53,7 +54,8 @@ data class ViewPreCreationProfile(
             switchCapacity: Int = 2,
             checkboxCapacity: Int = 2,
             radioCapacity: Int = 2,
-            progressCapacity: Int = 2
+            progressCapacity: Int = 2,
+            tableCapacity: Int = 2
         ): ViewPreCreationProfile = ViewPreCreationProfile(
             id = id,
             text = PreCreationModel(textCapacity),
@@ -76,7 +78,8 @@ data class ViewPreCreationProfile(
             switch = PreCreationModel(switchCapacity),
             checkbox = PreCreationModel(checkboxCapacity),
             radio = PreCreationModel(radioCapacity),
-            progress = PreCreationModel(progressCapacity)
+            progress = PreCreationModel(progressCapacity),
+            table = PreCreationModel(tableCapacity)
         )
     }
 }

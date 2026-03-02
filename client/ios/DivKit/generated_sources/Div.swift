@@ -15,6 +15,7 @@ public enum Div: Sendable {
   case divGallery(DivGallery)
   case divPager(DivPager)
   case divTabs(DivTabs)
+  case divTable(DivTable)
   case divState(DivState)
   case divCustom(DivCustom)
   case divIndicator(DivIndicator)
@@ -46,6 +47,8 @@ public enum Div: Sendable {
     case let .divPager(value):
       return value
     case let .divTabs(value):
+      return value
+    case let .divTable(value):
       return value
     case let .divState(value):
       return value
@@ -91,6 +94,8 @@ public enum Div: Sendable {
     case let .divPager(value):
       return value.id
     case let .divTabs(value):
+      return value.id
+    case let .divTable(value):
       return value.id
     case let .divState(value):
       return value.id
@@ -141,6 +146,8 @@ extension Div {
       self = .divPager(try DivPager(dictionary: dictionary, context: context))
     case DivTabs.type:
       self = .divTabs(try DivTabs(dictionary: dictionary, context: context))
+    case DivTable.type:
+      self = .divTable(try DivTable(dictionary: dictionary, context: context))
     case DivState.type:
       self = .divState(try DivState(dictionary: dictionary, context: context))
     case DivCustom.type:
@@ -190,6 +197,8 @@ extension Div: Equatable {
     case let (.divPager(l), .divPager(r)):
       return l == r
     case let (.divTabs(l), .divTabs(r)):
+      return l == r
+    case let (.divTable(l), .divTable(r)):
       return l == r
     case let (.divState(l), .divState(r)):
       return l == r

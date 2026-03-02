@@ -127,6 +127,7 @@ internal object DivComparator {
             is Div.Checkbox -> emptyList()
             is Div.Radio -> emptyList()
             is Div.Progress -> emptyList()
+            is Div.Table -> emptyList()
         }
     }
 

@@ -37,6 +37,7 @@ extension Div {
          .divSlider,
          .divState,
          .divSwitch,
+         .divTable,
          .divVideo,
          .divTabs:
       break
@@ -70,6 +71,7 @@ extension Div {
          .divSlider,
          .divState,
          .divSwitch,
+         .divTable,
          .divTabs:
       []
     }

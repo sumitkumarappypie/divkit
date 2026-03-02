@@ -26,6 +26,7 @@ abstract class DivVisitor<T> {
             is Div.Checkbox -> visit(div, resolver)
             is Div.Radio -> visit(div, resolver)
             is Div.Progress -> visit(div, resolver)
+            is Div.Table -> visit(div, resolver)
         }
     }
 
@@ -70,4 +71,6 @@ abstract class DivVisitor<T> {
     protected open fun visit(data: Div.Radio, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 
     protected open fun visit(data: Div.Progress, resolver: ExpressionResolver) = defaultVisit(data, resolver)
+
+    protected open fun visit(data: Div.Table, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 }

@@ -210,6 +210,38 @@ export function parseItems(state: State, div: any): {
         };
     }
 
+    // Table-specific extraction: extract cell divs from the nested rows[].cells[].div structure
+    if (base === 'table') {
+        const fullObj: any = { ...obj };
+        for (const [key, val] of templateProps) {
+            fullObj[key] = val;
+        }
+
+        // Extract header_row cells
+        if (fullObj.header_row && Array.isArray(fullObj.header_row.cells)) {
+            fullObj.header_row.cells.forEach((cell: any, cellIdx: number) => {
+                if (cell?.div) {
+                    const { div: _div, ...cellMeta } = cell;
+                    childs.push(resolveTemplateProps(cell.div, templateProps));
+                    infos.push({ ...cellMeta, rowIndex: -1, cellIndex: cellIdx });
+                }
+            });
+        }
+        // Extract body rows cells
+        const rows = Array.isArray(fullObj.rows) ? fullObj.rows : [];
+        rows.forEach((row: any, rowIdx: number) => {
+            if (!row || !Array.isArray(row.cells)) return;
+            row.cells.forEach((cell: any, cellIdx: number) => {
+                if (cell?.div) {
+                    const { div: _div, ...cellMeta } = cell;
+                    childs.push(resolveTemplateProps(cell.div, templateProps));
+                    infos.push({ ...cellMeta, rowIndex: rowIdx, cellIndex: cellIdx });
+                }
+            });
+        });
+        return { childs, infos, fromDataField: 'rows' };
+    }
+
     const schemaMod = getSchemaByType(base);
     if (!schemaMod) {
         return {
