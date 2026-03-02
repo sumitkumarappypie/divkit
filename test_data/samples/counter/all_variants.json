@@ -1,0 +1,611 @@
+{
+  "templates": {
+    "section_title": {
+      "type": "text",
+      "$text": "title",
+      "font_size": 18,
+      "font_weight": "bold",
+      "text_color": "#212121",
+      "margins": {
+        "bottom": 8
+      }
+    },
+    "counter_button": {
+      "type": "container",
+      "width": {
+        "type": "fixed",
+        "$value": "button_size"
+      },
+      "height": {
+        "type": "fixed",
+        "$value": "button_size"
+      },
+      "content_alignment_horizontal": "center",
+      "content_alignment_vertical": "center",
+      "border": {
+        "corner_radius": 8
+      },
+      "background": [
+        {
+          "type": "solid",
+          "$color": "btn_bg_color"
+        }
+      ],
+      "items": [
+        {
+          "type": "text",
+          "$text": "btn_label",
+          "$font_size": "btn_font_size",
+          "font_weight": "bold",
+          "$text_color": "btn_icon_color"
+        }
+      ],
+      "$actions": "btn_actions"
+    },
+    "counter_value_display": {
+      "type": "text",
+      "$text": "display_text",
+      "$font_size": "display_font_size",
+      "font_weight": "bold",
+      "$text_color": "display_text_color",
+      "text_alignment_horizontal": "center",
+      "text_alignment_vertical": "center",
+      "width": {
+        "type": "fixed",
+        "$value": "display_width"
+      }
+    },
+    "counter_widget": {
+      "type": "container",
+      "orientation": "horizontal",
+      "content_alignment_vertical": "center",
+      "content_alignment_horizontal": "center",
+      "background": [
+        {
+          "type": "solid",
+          "$color": "counter_bg_color"
+        }
+      ],
+      "border": {
+        "corner_radius": 12,
+        "stroke": {
+          "$color": "counter_border_color",
+          "width": 1
+        }
+      },
+      "paddings": {
+        "$left": "counter_padding",
+        "$top": "counter_padding",
+        "$right": "counter_padding",
+        "$bottom": "counter_padding"
+      },
+      "$items": "counter_items"
+    }
+  },
+  "card": {
+    "log_id": "counter_all_variants",
+    "variables": [
+      {
+        "name": "counter1",
+        "type": "integer",
+        "value": 5
+      },
+      {
+        "name": "counter2",
+        "type": "integer",
+        "value": 0
+      },
+      {
+        "name": "counter3",
+        "type": "integer",
+        "value": 50
+      },
+      {
+        "name": "counter4",
+        "type": "integer",
+        "value": 3
+      },
+      {
+        "name": "counter5",
+        "type": "integer",
+        "value": 10
+      },
+      {
+        "name": "counter6",
+        "type": "integer",
+        "value": 0
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": {
+            "type": "match_parent"
+          },
+          "paddings": {
+            "left": 16,
+            "top": 16,
+            "right": 16,
+            "bottom": 16
+          },
+          "items": [
+            {
+              "type": "text",
+              "text": "Counter Widget — All Variants",
+              "font_size": 22,
+              "font_weight": "bold",
+              "text_color": "#1A1A1A",
+              "paddings": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "1. Default Counter"
+            },
+            {
+              "type": "counter_widget",
+              "counter_bg_color": "#F5F5F5",
+              "counter_border_color": "#E0E0E0",
+              "counter_padding": 8,
+              "counter_items": [
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "@{if(counter1 > 0, '#4CAF50', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "\u2212",
+                  "btn_actions": [
+                    {
+                      "log_id": "dec_counter1",
+                      "url": "div-action://set_variable?name=counter1&value=@{max(counter1 - 1, 0)}"
+                    }
+                  ]
+                },
+                {
+                  "type": "counter_value_display",
+                  "display_text": "@{counter1}",
+                  "display_font_size": 20,
+                  "display_text_color": "#212121",
+                  "display_width": 56
+                },
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "#4CAF50",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "+",
+                  "btn_actions": [
+                    {
+                      "log_id": "inc_counter1",
+                      "url": "div-action://set_variable?name=counter1&value=@{counter1 + 1}"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "2. Custom Colors (Blue Theme)"
+            },
+            {
+              "type": "counter_widget",
+              "counter_bg_color": "#E3F2FD",
+              "counter_border_color": "#90CAF9",
+              "counter_padding": 8,
+              "counter_items": [
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "@{if(counter2 > 0, '#2196F3', '#B0BEC5')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "\u2212",
+                  "btn_actions": [
+                    {
+                      "log_id": "dec_counter2",
+                      "url": "div-action://set_variable?name=counter2&value=@{max(counter2 - 1, 0)}"
+                    }
+                  ]
+                },
+                {
+                  "type": "counter_value_display",
+                  "display_text": "@{counter2}",
+                  "display_font_size": 20,
+                  "display_text_color": "#0D47A1",
+                  "display_width": 56
+                },
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "#2196F3",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "+",
+                  "btn_actions": [
+                    {
+                      "log_id": "inc_counter2",
+                      "url": "div-action://set_variable?name=counter2&value=@{counter2 + 1}"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "3. Range 0\u2013100, Step 10"
+            },
+            {
+              "type": "counter_widget",
+              "counter_bg_color": "#F5F5F5",
+              "counter_border_color": "#E0E0E0",
+              "counter_padding": 8,
+              "counter_items": [
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "@{if(counter3 > 0, '#4CAF50', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "\u2212",
+                  "btn_actions": [
+                    {
+                      "log_id": "dec_counter3",
+                      "url": "div-action://set_variable?name=counter3&value=@{max(counter3 - 10, 0)}"
+                    }
+                  ]
+                },
+                {
+                  "type": "counter_value_display",
+                  "display_text": "@{counter3}",
+                  "display_font_size": 20,
+                  "display_text_color": "#212121",
+                  "display_width": 56
+                },
+                {
+                  "type": "counter_button",
+                  "button_size": 44,
+                  "btn_bg_color": "@{if(counter3 < 100, '#4CAF50', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 22,
+                  "btn_label": "+",
+                  "btn_actions": [
+                    {
+                      "log_id": "inc_counter3",
+                      "url": "div-action://set_variable?name=counter3&value=@{min(counter3 + 10, 100)}"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 4
+              }
+            },
+            {
+              "type": "text",
+              "text": "@{counter3} / 100",
+              "font_size": 13,
+              "text_color": "#757575",
+              "text_alignment_horizontal": "center",
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "4. Large Buttons (Orange Theme)"
+            },
+            {
+              "type": "counter_widget",
+              "counter_bg_color": "#FBE9E7",
+              "counter_border_color": "#FFCCBC",
+              "counter_padding": 10,
+              "counter_items": [
+                {
+                  "type": "counter_button",
+                  "button_size": 64,
+                  "btn_bg_color": "@{if(counter4 > 0, '#FF5722', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 32,
+                  "btn_label": "\u2212",
+                  "btn_actions": [
+                    {
+                      "log_id": "dec_counter4",
+                      "url": "div-action://set_variable?name=counter4&value=@{max(counter4 - 1, 0)}"
+                    }
+                  ]
+                },
+                {
+                  "type": "counter_value_display",
+                  "display_text": "@{counter4}",
+                  "display_font_size": 32,
+                  "display_text_color": "#BF360C",
+                  "display_width": 72
+                },
+                {
+                  "type": "counter_button",
+                  "button_size": 64,
+                  "btn_bg_color": "#FF5722",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 32,
+                  "btn_label": "+",
+                  "btn_actions": [
+                    {
+                      "log_id": "inc_counter4",
+                      "url": "div-action://set_variable?name=counter4&value=@{counter4 + 1}"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "5. Small Counter (Compact)"
+            },
+            {
+              "type": "counter_widget",
+              "counter_bg_color": "#F5F5F5",
+              "counter_border_color": "#E0E0E0",
+              "counter_padding": 4,
+              "counter_items": [
+                {
+                  "type": "counter_button",
+                  "button_size": 32,
+                  "btn_bg_color": "@{if(counter5 > 0, '#7B1FA2', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 16,
+                  "btn_label": "\u2212",
+                  "btn_actions": [
+                    {
+                      "log_id": "dec_counter5",
+                      "url": "div-action://set_variable?name=counter5&value=@{max(counter5 - 1, 0)}"
+                    }
+                  ]
+                },
+                {
+                  "type": "counter_value_display",
+                  "display_text": "@{counter5}",
+                  "display_font_size": 16,
+                  "display_text_color": "#4A148C",
+                  "display_width": 36
+                },
+                {
+                  "type": "counter_button",
+                  "button_size": 32,
+                  "btn_bg_color": "@{if(counter5 < 20, '#7B1FA2', '#BDBDBD')}",
+                  "btn_icon_color": "#FFFFFF",
+                  "btn_font_size": 16,
+                  "btn_label": "+",
+                  "btn_actions": [
+                    {
+                      "log_id": "inc_counter5",
+                      "url": "div-action://set_variable?name=counter5&value=@{min(counter5 + 1, 20)}"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 4
+              }
+            },
+            {
+              "type": "text",
+              "text": "Range: 0\u201320",
+              "font_size": 12,
+              "text_color": "#9E9E9E",
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "section_title",
+              "title": "6. Disabled Counter"
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "content_alignment_vertical": "center",
+              "content_alignment_horizontal": "center",
+              "background": [
+                {
+                  "type": "solid",
+                  "color": "#EEEEEE"
+                }
+              ],
+              "border": {
+                "corner_radius": 12,
+                "stroke": {
+                  "color": "#E0E0E0",
+                  "width": 1
+                }
+              },
+              "paddings": {
+                "left": 8,
+                "top": 8,
+                "right": 8,
+                "bottom": 8
+              },
+              "alpha": 0.5,
+              "items": [
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#BDBDBD"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "\u2212",
+                      "font_size": 22,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "@{counter6}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#9E9E9E",
+                  "text_alignment_horizontal": "center",
+                  "text_alignment_vertical": "center",
+                  "width": {
+                    "type": "fixed",
+                    "value": 56
+                  }
+                },
+                {
+                  "type": "container",
+                  "width": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "height": {
+                    "type": "fixed",
+                    "value": 44
+                  },
+                  "content_alignment_horizontal": "center",
+                  "content_alignment_vertical": "center",
+                  "border": {
+                    "corner_radius": 8
+                  },
+                  "background": [
+                    {
+                      "type": "solid",
+                      "color": "#BDBDBD"
+                    }
+                  ],
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "+",
+                      "font_size": 22,
+                      "font_weight": "bold",
+                      "text_color": "#FFFFFF"
+                    }
+                  ]
+                }
+              ],
+              "margins": {
+                "bottom": 24
+              }
+            },
+
+            {
+              "type": "separator",
+              "delimiter_style": {
+                "color": "#E0E0E0",
+                "orientation": "horizontal"
+              },
+              "margins": {
+                "top": 4,
+                "bottom": 16
+              }
+            },
+            {
+              "type": "container",
+              "orientation": "horizontal",
+              "width": {
+                "type": "match_parent"
+              },
+              "items": [
+                {
+                  "type": "text",
+                  "text": "Sum of all counters:",
+                  "font_size": 16,
+                  "text_color": "#757575",
+                  "width": {
+                    "type": "match_parent"
+                  },
+                  "weight": 1
+                },
+                {
+                  "type": "text",
+                  "text": "@{counter1 + counter2 + counter3 + counter4 + counter5 + counter6}",
+                  "font_size": 20,
+                  "font_weight": "bold",
+                  "text_color": "#212121"
+                }
+              ]
+            },
+
+            {
+              "type": "text",
+              "text": "Reset All",
+              "font_size": 14,
+              "font_weight": "medium",
+              "text_color": "#F44336",
+              "text_alignment_horizontal": "center",
+              "paddings": {
+                "top": 16
+              },
+              "actions": [
+                {
+                  "log_id": "reset_counter1",
+                  "url": "div-action://set_variable?name=counter1&value=5"
+                },
+                {
+                  "log_id": "reset_counter2",
+                  "url": "div-action://set_variable?name=counter2&value=0"
+                },
+                {
+                  "log_id": "reset_counter3",
+                  "url": "div-action://set_variable?name=counter3&value=50"
+                },
+                {
+                  "log_id": "reset_counter4",
+                  "url": "div-action://set_variable?name=counter4&value=3"
+                },
+                {
+                  "log_id": "reset_counter5",
+                  "url": "div-action://set_variable?name=counter5&value=10"
+                },
+                {
+                  "log_id": "reset_counter6",
+                  "url": "div-action://set_variable?name=counter6&value=0"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

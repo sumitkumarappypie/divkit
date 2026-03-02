@@ -27,6 +27,7 @@ import com.yandex.div.core.view2.divs.widgets.DivSwitchView
 import com.yandex.div.core.view2.divs.widgets.DivCheckboxView
 import com.yandex.div.core.view2.divs.widgets.DivRadioView
 import com.yandex.div.core.view2.divs.widgets.DivProgressView
+import com.yandex.div.core.view2.divs.widgets.DivCounterView
 import com.yandex.div.core.view2.divs.widgets.DivTableLayout
 import com.yandex.div.core.view2.divs.widgets.DivTabsLayout
 import com.yandex.div.core.view2.divs.widgets.DivVideoView
@@ -82,6 +83,7 @@ internal class DivViewCreator @Inject constructor(
                     changeCapacity(TAG_RADIO, radio.capacity)
                     changeCapacity(TAG_PROGRESS, progress.capacity)
                     changeCapacity(TAG_TABLE, table.capacity)
+                    changeCapacity(TAG_COUNTER, counter.capacity)
                 }
             }
             field = value
@@ -112,6 +114,7 @@ internal class DivViewCreator @Inject constructor(
                 register(TAG_RADIO, { DivRadioView(context) }, radio.capacity)
                 register(TAG_PROGRESS, { DivProgressView(context) }, progress.capacity)
                 register(TAG_TABLE, { DivTableLayout(context) }, table.capacity)
+                register(TAG_COUNTER, { DivCounterView(context) }, counter.capacity)
             }
         }
     }
@@ -177,6 +180,7 @@ internal class DivViewCreator @Inject constructor(
         const val TAG_RADIO = "DIV2.RADIO"
         const val TAG_PROGRESS = "DIV2.PROGRESS"
         const val TAG_TABLE = "DIV2.TABLE"
+        const val TAG_COUNTER = "DIV2.COUNTER"
         const val TAG_VIDEO = "DIV2.VIDEO"
 
         val TAGS = arrayOf(
@@ -201,7 +205,8 @@ internal class DivViewCreator @Inject constructor(
             TAG_CHECKBOX,
             TAG_RADIO,
             TAG_PROGRESS,
-            TAG_TABLE
+            TAG_TABLE,
+            TAG_COUNTER
         )
 
         private fun Div.getTag(resolver: ExpressionResolver) =
@@ -230,6 +235,7 @@ internal class DivViewCreator @Inject constructor(
                 is Div.Text -> TAG_TEXT
                 is Div.Video -> TAG_VIDEO
                 is Div.Table -> TAG_TABLE
+                is Div.Counter -> TAG_COUNTER
                 is Div.Separator -> ""
             }
     }

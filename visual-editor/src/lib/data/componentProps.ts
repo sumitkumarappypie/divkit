@@ -27,7 +27,8 @@ export const supportedComponents = new Set([
     'checkbox',
     'radio',
     'progress',
-    'table'
+    'table',
+    'counter'
 ]);
 
 export const containerComponents = new Set([
@@ -1055,6 +1056,175 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             type: 'integer',
             min: 1,
             max: 100,
+            default: 4,
+            enableSources: true
+        }]
+    }],
+    counter: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            name: 'props.a11y_description',
+            prop: 'accessibility.description',
+            type: 'string',
+            enableSources: true
+        }]
+    }, {
+        type: 'group',
+        title: 'counterProps.title',
+        list: [{
+            name: 'props.counter_value_variable',
+            prop: 'counter_value_variable',
+            type: 'variable-name',
+            required: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.min_value',
+                prop: 'min_value',
+                type: 'integer',
+                min: -99999,
+                max: 99999,
+                default: 0,
+                enableSources: true
+            }, {
+                name: 'props.max_value',
+                prop: 'max_value',
+                type: 'integer',
+                min: -99999,
+                max: 99999,
+                default: 99,
+                enableSources: true
+            }]
+        }, {
+            name: 'props.step',
+            prop: 'step',
+            type: 'integer',
+            min: 1,
+            max: 99999,
+            default: 1,
+            enableSources: true
+        }, {
+            name: 'props.is_enabled',
+            prop: 'is_enabled',
+            type: 'boolean',
+            default: true,
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.button_color',
+                prop: 'button_color',
+                type: 'color',
+                default: '#4CAF50',
+                enableSources: true
+            }, {
+                name: 'props.icon_color',
+                prop: 'icon_color',
+                type: 'color',
+                default: '#FFFFFF',
+                enableSources: true
+            }]
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.disabled_button_color',
+                prop: 'disabled_button_color',
+                type: 'color',
+                default: '#CCCCCC',
+                enableSources: true
+            }, {
+                name: 'props.button_size',
+                prop: 'button_size',
+                type: 'integer',
+                min: 8,
+                max: 200,
+                default: 20,
+                enableSources: true
+            }]
+        }, {
+            name: 'props.text_color',
+            prop: 'text_color',
+            type: 'color',
+            default: '#1B2630',
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.font_size',
+                prop: 'font_size',
+                type: 'integer',
+                min: 1,
+                max: 200,
+                default: 16,
+                enableSources: true
+            }, {
+                name: 'props.font_weight',
+                prop: 'font_weight',
+                type: 'select',
+                options: [{
+                    name: 'props.font_weight_light',
+                    value: 'light'
+                }, {
+                    name: 'props.font_weight_normal',
+                    value: 'regular'
+                }, {
+                    name: 'props.font_weight_medium',
+                    value: 'medium'
+                }, {
+                    name: 'props.font_weight_bold',
+                    value: 'bold'
+                }],
+                enableSources: true
+            }]
+        }, {
+            name: 'props.value_width',
+            prop: 'value_width',
+            type: 'integer',
+            min: 8,
+            max: 200,
+            default: 20,
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.background_color',
+                prop: 'background_color',
+                type: 'color',
+                default: '#F5F5F5',
+                enableSources: true
+            }, {
+                name: 'props.border_color',
+                prop: 'border_color',
+                type: 'color',
+                default: '#E0E0E0',
+                enableSources: true
+            }]
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.border_width',
+                prop: 'border_width',
+                type: 'integer',
+                min: 0,
+                max: 20,
+                default: 1,
+                enableSources: true
+            }, {
+                name: 'props.corner_radius',
+                prop: 'corner_radius',
+                type: 'integer',
+                min: 0,
+                max: 999,
+                default: 999,
+                enableSources: true
+            }]
+        }, {
+            name: 'props.padding',
+            prop: 'padding',
+            type: 'integer',
+            min: 0,
+            max: 50,
             default: 4,
             enableSources: true
         }]

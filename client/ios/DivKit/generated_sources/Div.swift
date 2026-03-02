@@ -27,6 +27,7 @@ public enum Div: Sendable {
   case divCheckbox(DivCheckbox)
   case divRadio(DivRadio)
   case divProgress(DivProgress)
+  case divCounter(DivCounter)
 
   public var value: Serializable & DivBase {
     switch self {
@@ -71,6 +72,8 @@ public enum Div: Sendable {
     case let .divRadio(value):
       return value
     case let .divProgress(value):
+      return value
+    case let .divCounter(value):
       return value
     }
   }
@@ -118,6 +121,8 @@ public enum Div: Sendable {
     case let .divRadio(value):
       return value.id
     case let .divProgress(value):
+      return value.id
+    case let .divCounter(value):
       return value.id
     }
   }
@@ -170,6 +175,8 @@ extension Div {
       self = .divRadio(try DivRadio(dictionary: dictionary, context: context))
     case DivProgress.type:
       self = .divProgress(try DivProgress(dictionary: dictionary, context: context))
+    case DivCounter.type:
+      self = .divCounter(try DivCounter(dictionary: dictionary, context: context))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
@@ -221,6 +228,8 @@ extension Div: Equatable {
     case let (.divRadio(l), .divRadio(r)):
       return l == r
     case let (.divProgress(l), .divProgress(r)):
+      return l == r
+    case let (.divCounter(l), .divCounter(r)):
       return l == r
     default:
       return false

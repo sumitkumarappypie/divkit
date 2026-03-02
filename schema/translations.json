@@ -723,6 +723,94 @@
     "en": "Color of the checkbox in the checked state.",
     "ru": "Цвет чекбокса во включенном состоянии."
   },
+  "div_counter": {
+    "en": "A counter/stepper widget with circular minus and plus buttons and a centered numeric value display. Binds to an integer variable for increment/decrement control.",
+    "ru": "Виджет счётчика с круглыми кнопками минус и плюс и центральным числовым дисплеем. Привязывается к целочисленной переменной для управления увеличением/уменьшением."
+  },
+  "div_counter_background_color": {
+    "en": "Background color of the counter container.",
+    "ru": "Цвет фона контейнера счётчика."
+  },
+  "div_counter_border_color": {
+    "en": "Border/stroke color of the counter container.",
+    "ru": "Цвет границы контейнера счётчика."
+  },
+  "div_counter_border_width": {
+    "en": "Border stroke width of the counter container in dp.",
+    "ru": "Толщина границы контейнера счётчика в dp."
+  },
+  "div_counter_button_color": {
+    "en": "Background color of the increment and decrement buttons.",
+    "ru": "Цвет фона кнопок увеличения и уменьшения."
+  },
+  "div_counter_button_size": {
+    "en": "Diameter of the circular increment/decrement buttons in dp.",
+    "ru": "Диаметр круглых кнопок увеличения/уменьшения в dp."
+  },
+  "div_counter_corner_radius": {
+    "en": "Corner radius of the counter container. Use 999 for a pill shape.",
+    "ru": "Радиус скругления контейнера счётчика. Используйте 999 для формы таблетки."
+  },
+  "div_counter_counter_value_variable": {
+    "en": "Name of the integer variable to bind the counter value to.",
+    "ru": "Имя целочисленной переменной для привязки значения счётчика."
+  },
+  "div_counter_disabled_button_color": {
+    "en": "Color of the buttons when the counter is at its minimum or maximum value.",
+    "ru": "Цвет кнопок, когда счётчик достигает минимального или максимального значения."
+  },
+  "div_counter_font_size": {
+    "en": "Font size of the counter value text in sp.",
+    "ru": "Размер шрифта текста значения счётчика в sp."
+  },
+  "div_counter_font_weight": {
+    "en": "Font weight of the counter value text.",
+    "ru": "Начертание шрифта текста значения счётчика."
+  },
+  "div_counter_icon_color": {
+    "en": "Color of the plus and minus icons on the buttons.",
+    "ru": "Цвет иконок плюса и минуса на кнопках."
+  },
+  "div_counter_is_enabled": {
+    "en": "Enables or disables the counter widget.",
+    "ru": "Включает или отключает виджет счётчика."
+  },
+  "div_counter_max_value": {
+    "en": "Maximum allowed value for the counter.",
+    "ru": "Максимально допустимое значение счётчика."
+  },
+  "div_counter_min_value": {
+    "en": "Minimum allowed value for the counter.",
+    "ru": "Минимально допустимое значение счётчика."
+  },
+  "div_counter_on_decrement_actions": {
+    "en": "Actions triggered when the decrement (minus) button is tapped.",
+    "ru": "Действия, срабатывающие при нажатии кнопки уменьшения (минус)."
+  },
+  "div_counter_on_increment_actions": {
+    "en": "Actions triggered when the increment (plus) button is tapped.",
+    "ru": "Действия, срабатывающие при нажатии кнопки увеличения (плюс)."
+  },
+  "div_counter_on_value_change_actions": {
+    "en": "Actions triggered when the counter value changes (both increment and decrement).",
+    "ru": "Действия, срабатывающие при изменении значения счётчика (как увеличение, так и уменьшение)."
+  },
+  "div_counter_padding": {
+    "en": "Internal padding around the counter content in dp.",
+    "ru": "Внутренний отступ вокруг содержимого счётчика в dp."
+  },
+  "div_counter_step": {
+    "en": "Step size for each increment or decrement operation.",
+    "ru": "Размер шага для каждой операции увеличения или уменьшения."
+  },
+  "div_counter_text_color": {
+    "en": "Color of the numeric value text.",
+    "ru": "Цвет текста числового значения."
+  },
+  "div_counter_value_width": {
+    "en": "Width allocated for the value display area in dp.",
+    "ru": "Ширина области отображения значения в dp."
+  },
   "div_circle_shape": {
     "en": "Circle.",
     "ru": "Круг."

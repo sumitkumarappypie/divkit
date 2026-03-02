@@ -61,6 +61,7 @@ import com.yandex.div2.DivState
 import com.yandex.div2.DivStroke
 import com.yandex.div2.DivSwitch
 import com.yandex.div2.DivCheckbox
+import com.yandex.div2.DivCounter
 import com.yandex.div2.DivRadio
 import com.yandex.div2.DivProgress
 import com.yandex.div2.DivTable
@@ -94,6 +95,7 @@ internal val Div.type: String
             is Div.Radio -> DivRadio.TYPE
             is Div.Progress -> DivProgress.TYPE
             is Div.Table -> DivTable.TYPE
+            is Div.Counter -> DivCounter.TYPE
         }
     }
 
@@ -208,6 +210,7 @@ internal fun Div.containsStateInnerTransitions(resolver: ExpressionResolver): Bo
         is Div.Radio -> false
         is Div.Progress -> false
         is Div.Table -> false
+        is Div.Counter -> false
     }
 }
 
@@ -233,6 +236,7 @@ internal val Div.isBranch: Boolean
         is Div.Checkbox -> false
         is Div.Radio -> false
         is Div.Progress -> false
+        is Div.Counter -> false
         is Div.Container -> true
         is Div.Grid -> true
         is Div.Gallery -> true

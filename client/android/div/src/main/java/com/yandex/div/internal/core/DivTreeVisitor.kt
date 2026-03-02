@@ -34,6 +34,7 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
             is Div.Radio -> visit(div, context, path)
             is Div.Progress -> visit(div, context, path)
             is Div.Table -> visit(div, context, path)
+            is Div.Counter -> visit(div, context, path)
         }
     }
 
@@ -156,6 +157,9 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
         defaultVisit(data, context, path)
 
     protected open fun visit(data: Div.Table, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Counter, context: BindingContext, path: DivStatePath) =
         defaultVisit(data, context, path)
 }
 

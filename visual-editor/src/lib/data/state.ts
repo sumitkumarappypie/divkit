@@ -835,6 +835,14 @@ export class State {
                     type: 'match_parent'
                 }
             };
+        } else if (type === 'counter') {
+            json = {
+                type,
+                counter_value_variable: 'counter_var',
+                button_color: '#4CAF50',
+                background_color: '#F5F5F5',
+                text_color: '#1B2630',
+            };
         } else if (type === 'table') {
             json = {
                 type,

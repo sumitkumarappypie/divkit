@@ -27,6 +27,7 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divCheckboxTemplate(DivCheckboxTemplate)
   case divRadioTemplate(DivRadioTemplate)
   case divProgressTemplate(DivProgressTemplate)
+  case divCounterTemplate(DivCounterTemplate)
 
   public var value: Any {
     switch self {
@@ -71,6 +72,8 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divRadioTemplate(value):
       return value
     case let .divProgressTemplate(value):
+      return value
+    case let .divCounterTemplate(value):
       return value
     }
   }
@@ -119,6 +122,8 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divRadioTemplate(try value.resolveParent(templates: templates))
     case let .divProgressTemplate(value):
       return .divProgressTemplate(try value.resolveParent(templates: templates))
+    case let .divCounterTemplate(value):
+      return .divCounterTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -300,6 +305,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divCounterTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCounter(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     }
   }
 
@@ -477,6 +490,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivCounter.type:
+      let result = DivCounterTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCounter(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     default:
       return .failure(NonEmptyArray(.requiredFieldIsMissing(field: "type")))
     }
@@ -530,6 +551,8 @@ extension DivTemplate {
       self = .divRadioTemplate(try DivRadioTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivProgressTemplate.type:
       self = .divProgressTemplate(try DivProgressTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivCounterTemplate.type:
+      self = .divCounterTemplate(try DivCounterTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }

@@ -79,6 +79,10 @@
       "$description": "translations.json#/div_checkbox"
     },
     {
+      "$ref": "div-counter.json",
+      "$description": "translations.json#/div_counter"
+    },
+    {
       "$ref": "div-radio.json",
       "$description": "translations.json#/div_radio"
     },

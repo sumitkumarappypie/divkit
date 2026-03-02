@@ -629,5 +629,7 @@ private fun Div.hasAction(): Boolean {
                 || !value.actions.isNullOrEmpty()
                 || !value.doubletapActions.isNullOrEmpty()
                 || !value.longtapActions.isNullOrEmpty()
+
+        is Div.Counter -> true
     }
 }
