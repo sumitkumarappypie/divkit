@@ -126,9 +126,10 @@ extension Div {
          .divSeparator,
          .divSlider,
          .divSwitch,
+         .divTable,
          .divVideo,
          .divText:
-      // no children
+      // no children (table cells are not patchable as array items)
       self
     case let .divContainer(value):
       .divContainer(value.applyPatch(patch, callbacks: callbacks))

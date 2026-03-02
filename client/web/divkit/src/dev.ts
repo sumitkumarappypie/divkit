@@ -12,21 +12,9 @@ import markdownCss from './devMarkdown.module.css';
 
 const md = markdownit();
 
-const json = {
-    "templates": {},
-    "card": {
-        "log_id": "snapshot_test_card",
-        "states": [
-            {
-                "state_id": 0,
-                "div": {
-                    "type": "text",
-                    "text": "Hello world"
-                }
-            }
-        ]
-    }
-};
+import tableJson from '../../../../test_data/samples/table/all_variants.json';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const json: any = tableJson;
 
 window.root = new Root({
     target: document.body,

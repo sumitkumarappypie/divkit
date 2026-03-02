@@ -10,6 +10,8 @@ extension Div {
     case let .divTabs(div): div.items.map(\.div)
     case let .divCustom(div): div.items ?? []
     case let .divState(div): div.states.compactMap(\.div)
+    case let .divTable(div):
+      div.collectAllCellDivs()
     case .divCheckbox,
          .divGifImage,
          .divImage,

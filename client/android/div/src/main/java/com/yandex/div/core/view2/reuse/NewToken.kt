@@ -41,6 +41,7 @@ internal class NewToken(
                 val stateToBindDiv = div.value.getDefaultState(resolver)?.div ?: return listOf()
                 listOf(stateToBindDiv.toItemBuilderResult(resolver)).itemsToNewTokenList()
             }
+            is Div.Table -> listOf()
         }
     }
 

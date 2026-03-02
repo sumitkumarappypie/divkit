@@ -26,7 +26,8 @@ export const supportedComponents = new Set([
     'switch',
     'checkbox',
     'radio',
-    'progress'
+    'progress',
+    'table'
 ]);
 
 export const containerComponents = new Set([
@@ -36,7 +37,8 @@ export const containerComponents = new Set([
     'pager',
     'tabs',
     'state',
-    'custom'
+    'custom',
+    'table'
 ]);
 
 export interface BaseProperty {
@@ -1055,6 +1057,31 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             max: 100,
             default: 4,
             enableSources: true
+        }]
+    }],
+    table: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'tableProps.title',
+        list: [{
+            name: 'props.column_count',
+            prop: 'columns.length',
+            type: 'integer',
+            min: 1,
+            max: 100,
+            enableSources: true
+        }, {
+            name: 'props.row_count',
+            prop: 'rows.length',
+            type: 'integer',
+            min: 0,
+            max: 100,
+            enableSources: true
+        }, {
+            name: 'props.content_alignment',
+            type: 'alignment',
+            horizontalProp: 'content_alignment_horizontal',
+            verticalProp: 'content_alignment_vertical',
+            isContent: true
         }]
     }],
     state: [...BASE_COMPONENT_PROPS, {

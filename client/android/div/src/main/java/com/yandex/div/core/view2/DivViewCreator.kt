@@ -27,6 +27,7 @@ import com.yandex.div.core.view2.divs.widgets.DivSwitchView
 import com.yandex.div.core.view2.divs.widgets.DivCheckboxView
 import com.yandex.div.core.view2.divs.widgets.DivRadioView
 import com.yandex.div.core.view2.divs.widgets.DivProgressView
+import com.yandex.div.core.view2.divs.widgets.DivTableLayout
 import com.yandex.div.core.view2.divs.widgets.DivTabsLayout
 import com.yandex.div.core.view2.divs.widgets.DivVideoView
 import com.yandex.div.core.view2.divs.widgets.DivWrapLayout
@@ -80,6 +81,7 @@ internal class DivViewCreator @Inject constructor(
                     changeCapacity(TAG_CHECKBOX, checkbox.capacity)
                     changeCapacity(TAG_RADIO, radio.capacity)
                     changeCapacity(TAG_PROGRESS, progress.capacity)
+                    changeCapacity(TAG_TABLE, table.capacity)
                 }
             }
             field = value
@@ -109,6 +111,7 @@ internal class DivViewCreator @Inject constructor(
                 register(TAG_CHECKBOX, { DivCheckboxView(context) }, checkbox.capacity)
                 register(TAG_RADIO, { DivRadioView(context) }, radio.capacity)
                 register(TAG_PROGRESS, { DivProgressView(context) }, progress.capacity)
+                register(TAG_TABLE, { DivTableLayout(context) }, table.capacity)
             }
         }
     }
@@ -138,6 +141,20 @@ internal class DivViewCreator @Inject constructor(
         return view
     }
 
+    override fun visit(data: Div.Table, resolver: ExpressionResolver): View {
+        val view = defaultVisit(data, resolver) as ViewGroup
+        val table = data.value
+        table.headerRow?.cells?.forEach { cell ->
+            cell.div?.let { view.addView(create(it, resolver)) }
+        }
+        table.rows?.forEach { row ->
+            row.cells.forEach { cell ->
+                cell.div?.let { view.addView(create(it, resolver)) }
+            }
+        }
+        return view
+    }
+
     companion object {
         const val TAG_TEXT = "DIV2.TEXT_VIEW"
         const val TAG_IMAGE = "DIV2.IMAGE_VIEW"
@@ -159,6 +176,7 @@ internal class DivViewCreator @Inject constructor(
         const val TAG_CHECKBOX = "DIV2.CHECKBOX"
         const val TAG_RADIO = "DIV2.RADIO"
         const val TAG_PROGRESS = "DIV2.PROGRESS"
+        const val TAG_TABLE = "DIV2.TABLE"
         const val TAG_VIDEO = "DIV2.VIDEO"
 
         val TAGS = arrayOf(
@@ -182,7 +200,8 @@ internal class DivViewCreator @Inject constructor(
             TAG_SWITCH,
             TAG_CHECKBOX,
             TAG_RADIO,
-            TAG_PROGRESS
+            TAG_PROGRESS,
+            TAG_TABLE
         )
 
         private fun Div.getTag(resolver: ExpressionResolver) =
@@ -210,6 +229,7 @@ internal class DivViewCreator @Inject constructor(
                 is Div.Tabs -> TAG_TABS
                 is Div.Text -> TAG_TEXT
                 is Div.Video -> TAG_VIDEO
+                is Div.Table -> TAG_TABLE
                 is Div.Separator -> ""
             }
     }

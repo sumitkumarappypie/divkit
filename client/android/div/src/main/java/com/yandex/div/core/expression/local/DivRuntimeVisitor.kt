@@ -90,6 +90,7 @@ internal class DivRuntimeVisitor @Inject constructor(
             is Div.Checkbox -> defaultVisit(div, divView, path, parentRuntime)
             is Div.Radio -> defaultVisit(div, divView, path, parentRuntime)
             is Div.Progress -> defaultVisit(div, divView, path, parentRuntime)
+            is Div.Table -> defaultVisit(div, divView, path, parentRuntime)
         }
     }
 

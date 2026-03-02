@@ -118,6 +118,7 @@ private fun Div.copy(id: String? = value().id): Div {
         is Div.Checkbox -> Div.Checkbox(value.copy(id = id))
         is Div.Radio -> Div.Radio(value.copy(id = id))
         is Div.Progress -> Div.Progress(value.copy(id = id))
+        is Div.Table -> Div.Table(value.copy(id = id))
     }
 }
 

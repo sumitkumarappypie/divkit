@@ -4,9 +4,12 @@
     import PropsSubGroup from './PropsSubGroup.svelte';
     import { getPropsList, resolveDesc, type PropItem } from '../../data/schema';
     import { getObjectProperty, setObjectProperty } from '../../utils/objectProperty';
-    import { SetPropertyCommand } from '../../data/commands/setProperty';
+    import { SetPropertyCommand, type SetPropertyItem } from '../../data/commands/setProperty';
+    import { CompoundCommand } from '../../data/commands/compoundCommand';
+    import { ReplaceLeafsCommand } from '../../data/commands/replaceLeafs';
     import Spoiler2 from '../controls/Spoiler2.svelte';
     import { APP_CTX, type AppContext } from '../../ctx/appContext';
+    import type { TreeLeaf } from '../../ctx/tree';
 
     export let group = '';
 
@@ -49,6 +52,94 @@
         }]));
     }
 
+    function tableCellLabel(rowIndex: number, cellIndex: number): string {
+        if (rowIndex === -1) return `H${cellIndex + 1}`;
+        return `R${rowIndex + 1}C${cellIndex + 1}`;
+    }
+
+    function handleTableColumnAdd(): void {
+        const leaf = $selectedLeaf!;
+        const json = leaf.props.json;
+        const columns = Array.isArray(json.columns) ? json.columns as unknown[] : [];
+        const changes: SetPropertyItem[] = [];
+
+        // Add new column definition
+        const newColumns = [...columns, { width: { type: 'match_parent', weight: 1 } }];
+        changes.push({
+            leafId: leaf.id,
+            property: 'columns',
+            value: newColumns
+        });
+
+        const newColIndex = newColumns.length - 1;
+
+        // Add empty cell to header_row.cells
+        const headerCells = json.header_row?.cells;
+        if (Array.isArray(headerCells)) {
+            changes.push({
+                leafId: leaf.id,
+                property: 'header_row.cells',
+                value: [...headerCells, { div: { type: 'text', text: tableCellLabel(-1, newColIndex) } }]
+            });
+        }
+
+        // Add empty cell to each body row
+        const rows = json.rows;
+        if (Array.isArray(rows)) {
+            rows.forEach((row: any, rowIdx: number) => {
+                if (row && Array.isArray(row.cells)) {
+                    changes.push({
+                        leafId: leaf.id,
+                        property: `rows[${rowIdx}].cells`,
+                        value: [...row.cells, { div: { type: 'text', text: tableCellLabel(rowIdx, newColIndex) } }]
+                    });
+                }
+            });
+        }
+
+        // Rebuild tree children with the new column
+        const rowCount = Array.isArray(rows) ? rows.length : 0;
+        const newChildren: TreeLeaf[] = [];
+
+        // Preserve existing children
+        leaf.childs.forEach(child => {
+            newChildren.push({ ...child });
+        });
+
+        // Add new header cell child
+        if (Array.isArray(headerCells)) {
+            newChildren.push({
+                id: state.genId(),
+                parent: leaf,
+                childs: [],
+                props: {
+                    json: { type: 'text', text: tableCellLabel(-1, newColIndex) } as Record<string, unknown>,
+                    info: { rowIndex: -1, cellIndex: newColIndex }
+                }
+            });
+        }
+
+        // Add new body cell children
+        for (let r = 0; r < rowCount; r++) {
+            newChildren.push({
+                id: state.genId(),
+                parent: leaf,
+                childs: [],
+                props: {
+                    json: { type: 'text', text: tableCellLabel(r, newColIndex) } as Record<string, unknown>,
+                    info: { rowIndex: r, cellIndex: newColIndex }
+                }
+            });
+        }
+
+        const propCmd = new SetPropertyCommand($tree, changes);
+        const replaceCmd = new ReplaceLeafsCommand({
+            parentId: leaf.id,
+            leafs: newChildren
+        });
+        state.pushCommand(new CompoundCommand([propCmd, replaceCmd]));
+    }
+
     function onAdd(event: CustomEvent<{
         prop: string;
         subtype: string;
@@ -59,6 +150,16 @@
         if ($readOnly) {
             console.error('Cannot edit readonly');
             return;
+        }
+
+        // Table column addition: cascade to cells
+        if (event.detail.prop === 'columns') {
+            const toSet = $selectedLeaf.props.json;
+            const baseType = state.getBaseType(toSet.type);
+            if (baseType === 'table') {
+                handleTableColumnAdd();
+                return;
+            }
         }
 
         const toSet = $selectedLeaf.props.json;
@@ -89,6 +190,101 @@
         tree.set($tree);
     }
 
+    function handleTableColumnDelete(colIndex: number): void {
+        const leaf = $selectedLeaf!;
+        const json = leaf.props.json;
+        const columns = json.columns as unknown[];
+        const changes: SetPropertyItem[] = [];
+
+        // Remove column definition
+        const newColumns = columns.slice();
+        newColumns.splice(colIndex, 1);
+        changes.push({
+            leafId: leaf.id,
+            property: 'columns',
+            value: newColumns.length === 0 ? undefined : newColumns
+        });
+
+        // Remove cell at colIndex from header_row.cells
+        const headerCells = json.header_row?.cells;
+        if (Array.isArray(headerCells) && colIndex < headerCells.length) {
+            const newHeaderCells = headerCells.slice();
+            newHeaderCells.splice(colIndex, 1);
+            changes.push({
+                leafId: leaf.id,
+                property: 'header_row.cells',
+                value: newHeaderCells
+            });
+        }
+
+        // Remove cell at colIndex from each body row
+        const rows = json.rows;
+        if (Array.isArray(rows)) {
+            rows.forEach((row: any, rowIdx: number) => {
+                if (row && Array.isArray(row.cells) && colIndex < row.cells.length) {
+                    const newCells = row.cells.slice();
+                    newCells.splice(colIndex, 1);
+                    changes.push({
+                        leafId: leaf.id,
+                        property: `rows[${rowIdx}].cells`,
+                        value: newCells
+                    });
+                }
+            });
+        }
+
+        // Rebuild tree children to match new cell layout
+        const newColCount = newColumns.length;
+        const rowCount = Array.isArray(rows) ? rows.length : 0;
+        const existingByPos = new Map<string, TreeLeaf>();
+        leaf.childs.forEach(child => {
+            const info = child.props.info || {};
+            if (info.rowIndex !== undefined && info.cellIndex !== undefined) {
+                // Map old cell positions, skipping removed column
+                const oldCellIdx = info.cellIndex as number;
+                if (oldCellIdx < colIndex) {
+                    existingByPos.set(`${info.rowIndex}:${oldCellIdx}`, child);
+                } else if (oldCellIdx > colIndex) {
+                    existingByPos.set(`${info.rowIndex}:${oldCellIdx - 1}`, child);
+                }
+                // cells at colIndex are dropped
+            }
+        });
+
+        const newChildren: TreeLeaf[] = [];
+        // Header row children (rowIndex = -1)
+        if (Array.isArray(headerCells)) {
+            for (let c = 0; c < newColCount; c++) {
+                const existing = existingByPos.get(`-1:${c}`);
+                if (existing) {
+                    newChildren.push({
+                        ...existing,
+                        props: { ...existing.props, info: { ...existing.props.info, cellIndex: c } }
+                    });
+                }
+            }
+        }
+        // Body row children
+        for (let r = 0; r < rowCount; r++) {
+            for (let c = 0; c < newColCount; c++) {
+                const existing = existingByPos.get(`${r}:${c}`);
+                if (existing) {
+                    newChildren.push({
+                        ...existing,
+                        props: { ...existing.props, info: { ...existing.props.info, cellIndex: c } }
+                    });
+                }
+            }
+        }
+
+        const propCmd = new SetPropertyCommand($tree, changes);
+        const replaceCmd = new ReplaceLeafsCommand({
+            parentId: leaf.id,
+            leafs: newChildren
+        });
+        state.pushCommand(new CompoundCommand([propCmd, replaceCmd]));
+    }
+
     function onDelete(event: CustomEvent<{
         prop: string;
         key: string | number;
@@ -105,6 +301,15 @@
         const key = event.detail.key;
         let toSet = $selectedLeaf.props.json;
         let val = getObjectProperty(toSet, event.detail.prop);
+
+        // Table column removal: cascade to cells
+        if (event.detail.prop === 'columns' && Array.isArray(val)) {
+            const baseType = state.getBaseType(toSet.type);
+            if (baseType === 'table') {
+                handleTableColumnDelete(Number(key));
+                return;
+            }
+        }
 
         if (event.detail.subtype === 'custom') {
             if (val && typeof val === 'object') {

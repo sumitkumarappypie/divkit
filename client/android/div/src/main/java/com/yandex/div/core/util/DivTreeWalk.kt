@@ -182,5 +182,6 @@ private fun Div.getItems(resolver: ExpressionResolver): List<DivItemBuilderResul
         is Div.Pager -> value.buildItems(resolver)
         is Div.Tabs -> value.itemsToDivItemBuilderResult(resolver)
         is Div.State -> value.statesToDivItemBuilderResult(resolver)
+        is Div.Table -> emptyList()
     }
 }

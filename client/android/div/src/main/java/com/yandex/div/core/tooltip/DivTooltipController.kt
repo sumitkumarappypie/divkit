@@ -625,5 +625,9 @@ private fun Div.hasAction(): Boolean {
                 || !value.longtapActions.isNullOrEmpty()
 
         is Div.Video -> false
+        is Div.Table -> value.action != null
+                || !value.actions.isNullOrEmpty()
+                || !value.doubletapActions.isNullOrEmpty()
+                || !value.longtapActions.isNullOrEmpty()
     }
 }

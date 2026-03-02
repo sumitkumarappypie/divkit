@@ -52,7 +52,11 @@
         !isUserTemplateWithoutChilds(state, leaf.props.json) &&
         !namedTemplates[leaf.props.json.type];
 
-    $: menuItems = [canHaveChilds && {
+    $: parentBaseType = leaf.parent ? state.getBaseType(leaf.parent.props.json.type) : null;
+    $: isTableCell = parentBaseType === 'table';
+    $: canAddChilds = canHaveChilds && baseType !== 'table';
+
+    $: menuItems = [canAddChilds && {
         text: $l10nString('addComponent'),
         submenu: items.map(it => {
             return {
@@ -69,7 +73,7 @@
         }),
     }, {
         text: $l10nString('cloneComponent'),
-        enabled: Boolean(leaf.parent),
+        enabled: Boolean(leaf.parent) && !isTableCell,
         callback() {
             dispatch('action', { action: 'duplicate', leaf, node });
         }
@@ -81,13 +85,13 @@
         }
     }, {
         text: $l10nString('pasteComponent'),
-        enabled: Boolean($copiedLeaf),
+        enabled: Boolean($copiedLeaf) && !isTableCell,
         callback() {
             dispatch('action', { action: 'paste', leaf, node });
         }
     }, {
         text: $l10nString('removeComponent'),
-        enabled: Boolean(leaf.parent),
+        enabled: Boolean(leaf.parent) && !isTableCell,
         callback() {
             dispatch('action', { action: 'delete', leaf, node });
         }

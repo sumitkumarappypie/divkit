@@ -15,6 +15,7 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divGalleryTemplate(DivGalleryTemplate)
   case divPagerTemplate(DivPagerTemplate)
   case divTabsTemplate(DivTabsTemplate)
+  case divTableTemplate(DivTableTemplate)
   case divStateTemplate(DivStateTemplate)
   case divCustomTemplate(DivCustomTemplate)
   case divIndicatorTemplate(DivIndicatorTemplate)
@@ -46,6 +47,8 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divPagerTemplate(value):
       return value
     case let .divTabsTemplate(value):
+      return value
+    case let .divTableTemplate(value):
       return value
     case let .divStateTemplate(value):
       return value
@@ -92,6 +95,8 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divPagerTemplate(try value.resolveParent(templates: templates))
     case let .divTabsTemplate(value):
       return .divTabsTemplate(try value.resolveParent(templates: templates))
+    case let .divTableTemplate(value):
+      return .divTableTemplate(try value.resolveParent(templates: templates))
     case let .divStateTemplate(value):
       return .divStateTemplate(try value.resolveParent(templates: templates))
     case let .divCustomTemplate(value):
@@ -196,6 +201,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       switch result {
       case let .success(value): return .success(.divTabs(value))
       case let .partialSuccess(value, warnings): return .partialSuccess(.divTabs(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case let .divTableTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divTable(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divTable(value), warnings: warnings)
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
@@ -368,6 +381,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivTable.type:
+      let result = DivTableTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divTable(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divTable(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     case DivState.type:
       let result = DivStateTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
@@ -485,6 +506,8 @@ extension DivTemplate {
       self = .divPagerTemplate(try DivPagerTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivTabsTemplate.type:
       self = .divTabsTemplate(try DivTabsTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivTableTemplate.type:
+      self = .divTableTemplate(try DivTableTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivStateTemplate.type:
       self = .divStateTemplate(try DivStateTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivCustomTemplate.type:

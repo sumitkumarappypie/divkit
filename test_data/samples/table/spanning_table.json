@@ -1,0 +1,258 @@
+{
+  "templates": {
+    "title": {
+      "type": "text",
+      "font_size": 20,
+      "line_height": 24,
+      "font_weight": "bold",
+      "paddings": {
+        "left": 24,
+        "right": 24,
+        "bottom": 16
+      }
+    },
+    "subtitle": {
+      "type": "text",
+      "font_size": 15,
+      "line_height": 20,
+      "paddings": {
+        "left": 24,
+        "right": 24
+      }
+    },
+    "header_cell": {
+      "type": "text",
+      "font_size": 13,
+      "font_weight": "bold",
+      "text_color": "#FFFFFF",
+      "paddings": {
+        "left": 10,
+        "top": 8,
+        "right": 10,
+        "bottom": 8
+      }
+    },
+    "cell": {
+      "type": "text",
+      "font_size": 13,
+      "text_color": "#333333",
+      "text_alignment_vertical": "center",
+      "text_alignment_horizontal": "center",
+      "paddings": {
+        "left": 10,
+        "top": 8,
+        "right": 10,
+        "bottom": 8
+      },
+      "background": [
+        {
+          "type": "solid",
+          "color": "#08000000"
+        }
+      ]
+    }
+  },
+  "card": {
+    "log_id": "table_spanning",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "margins": {
+            "top": 24,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "title",
+              "text": "Cell Spanning"
+            },
+            {
+              "type": "subtitle",
+              "text": "Table cells can span multiple columns with column_span and multiple rows with row_span.",
+              "margins": {
+                "bottom": 24
+              }
+            },
+            {
+              "type": "table",
+              "width": {
+                "type": "match_parent"
+              },
+              "columns": [
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  }
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  }
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  }
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  }
+                }
+              ],
+              "header_row": {
+                "cells": [
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Region"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Q1"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Q2"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Q3"
+                    }
+                  }
+                ]
+              },
+              "header_background": [
+                {
+                  "type": "solid",
+                  "color": "#4A90D9"
+                }
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "North America"
+                      },
+                      "row_span": 2
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$1.2M"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$1.5M"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$1.8M"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$0.9M"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "colspan 2",
+                        "font_weight": "medium"
+                      },
+                      "column_span": 2,
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#E8F0FE"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "Europe"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "colspan 2",
+                        "font_weight": "medium"
+                      },
+                      "column_span": 2,
+                      "background": [
+                        {
+                          "type": "solid",
+                          "color": "#E8F0FE"
+                        }
+                      ]
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$2.1M"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "Asia Pacific"
+                      },
+                      "column_span": 2
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$0.7M"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "cell",
+                        "text": "$0.9M"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

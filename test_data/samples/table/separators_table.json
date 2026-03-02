@@ -1,0 +1,317 @@
+{
+  "templates": {
+    "title": {
+      "type": "text",
+      "font_size": 20,
+      "line_height": 24,
+      "font_weight": "bold",
+      "paddings": {
+        "left": 24,
+        "right": 24,
+        "bottom": 16
+      }
+    },
+    "subtitle": {
+      "type": "text",
+      "font_size": 15,
+      "line_height": 20,
+      "paddings": {
+        "left": 24,
+        "right": 24
+      }
+    },
+    "header_cell": {
+      "type": "text",
+      "font_size": 14,
+      "font_weight": "bold",
+      "text_color": "#FFFFFF",
+      "paddings": {
+        "left": 12,
+        "top": 10,
+        "right": 12,
+        "bottom": 10
+      }
+    },
+    "data_cell": {
+      "type": "text",
+      "font_size": 14,
+      "text_color": "#333333",
+      "paddings": {
+        "left": 12,
+        "top": 10,
+        "right": 12,
+        "bottom": 10
+      }
+    }
+  },
+  "card": {
+    "log_id": "table_separators",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "margins": {
+            "top": 24,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "title",
+              "text": "Separator Styles"
+            },
+            {
+              "type": "subtitle",
+              "text": "Tables support row_separator, column_separator, and header_separator with configurable visibility at start, between cells, and at end.",
+              "margins": {
+                "bottom": 24
+              }
+            },
+            {
+              "type": "table",
+              "width": {
+                "type": "match_parent"
+              },
+              "columns": [
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 2
+                  }
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "content_alignment_horizontal": "center"
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "content_alignment_horizontal": "center"
+                },
+                {
+                  "width": {
+                    "type": "match_parent",
+                    "weight": 1
+                  },
+                  "content_alignment_horizontal": "end"
+                }
+              ],
+              "header_row": {
+                "cells": [
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Employee"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Department"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Role"
+                    }
+                  },
+                  {
+                    "div": {
+                      "type": "header_cell",
+                      "text": "Salary"
+                    }
+                  }
+                ]
+              },
+              "header_background": [
+                {
+                  "type": "solid",
+                  "color": "#1B5E20"
+                }
+              ],
+              "header_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#2E7D32",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": {
+                      "type": "fixed",
+                      "value": 3
+                    },
+                    "corner_radius": {
+                      "type": "fixed",
+                      "value": 0
+                    }
+                  }
+                },
+                "show_between": 1
+              },
+              "row_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#C8E6C9",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": {
+                      "type": "fixed",
+                      "value": 1
+                    },
+                    "corner_radius": {
+                      "type": "fixed",
+                      "value": 0
+                    }
+                  }
+                },
+                "show_at_start": 1,
+                "show_between": 1,
+                "show_at_end": 1
+              },
+              "column_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#C8E6C9",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_width": {
+                      "type": "fixed",
+                      "value": 1
+                    },
+                    "corner_radius": {
+                      "type": "fixed",
+                      "value": 0
+                    }
+                  }
+                },
+                "show_at_start": 1,
+                "show_between": 1,
+                "show_at_end": 1
+              },
+              "rows": [
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Alice Chen"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Engineering"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Senior Dev"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$145,000"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Bob Martinez"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Design"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Lead Designer"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$125,000"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Carol Kim"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Product"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "PM"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$135,000"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "David Okafor"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "Engineering"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "DevOps"
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "data_cell",
+                        "text": "$140,000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

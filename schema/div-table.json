@@ -1,0 +1,253 @@
+{
+  "$description": "translations.json#/div_table",
+  "codegen": {
+    "swift": {
+      "generate_optional_arguments": false
+    }
+  },
+  "definitions": {
+    "column": {
+      "type": "object",
+      "platforms": [
+        "android",
+        "ios",
+        "web"
+      ],
+      "properties": {
+        "width": {
+          "$ref": "div-size.json",
+          "$description": "translations.json#/div_table_column_width"
+        },
+        "content_alignment_horizontal": {
+          "$ref": "div-alignment-horizontal.json",
+          "$description": "translations.json#/div_table_column_content_alignment_horizontal"
+        },
+        "content_alignment_vertical": {
+          "$ref": "div-alignment-vertical.json",
+          "$description": "translations.json#/div_table_column_content_alignment_vertical"
+        }
+      }
+    },
+    "row": {
+      "type": "object",
+      "platforms": [
+        "android",
+        "ios",
+        "web"
+      ],
+      "properties": {
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cell"
+          },
+          "$description": "translations.json#/div_table_row_cells"
+        },
+        "id": {
+          "type": "string",
+          "supports_expressions": false,
+          "$description": "translations.json#/div_table_row_id"
+        },
+        "background": {
+          "type": "array",
+          "items": {
+            "$ref": "div-background.json"
+          },
+          "$description": "translations.json#/div_table_row_background"
+        }
+      },
+      "required": [
+        "cells"
+      ]
+    },
+    "cell": {
+      "type": "object",
+      "platforms": [
+        "android",
+        "ios",
+        "web"
+      ],
+      "properties": {
+        "div": {
+          "$ref": "div.json",
+          "$description": "translations.json#/div_table_cell_div"
+        },
+        "row_span": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "1",
+          "$description": "translations.json#/div_table_cell_row_span"
+        },
+        "column_span": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "1",
+          "$description": "translations.json#/div_table_cell_column_span"
+        },
+        "content_alignment_horizontal": {
+          "$ref": "div-alignment-horizontal.json",
+          "$description": "translations.json#/div_table_cell_content_alignment_horizontal"
+        },
+        "content_alignment_vertical": {
+          "$ref": "div-alignment-vertical.json",
+          "$description": "translations.json#/div_table_cell_content_alignment_vertical"
+        },
+        "background": {
+          "type": "array",
+          "items": {
+            "$ref": "div-background.json"
+          },
+          "$description": "translations.json#/div_table_cell_background"
+        }
+      },
+      "required": [
+        "div"
+      ]
+    },
+    "separator": {
+      "type": "object",
+      "platforms": [
+        "android",
+        "ios",
+        "web"
+      ],
+      "properties": {
+        "show_at_start": {
+          "$ref": "common.json#/boolean_int",
+          "$description": "translations.json#/div_table_separator_show_at_start",
+          "default_value": "false"
+        },
+        "show_between": {
+          "$ref": "common.json#/boolean_int",
+          "$description": "translations.json#/div_table_separator_show_between",
+          "default_value": "true"
+        },
+        "show_at_end": {
+          "$ref": "common.json#/boolean_int",
+          "$description": "translations.json#/div_table_separator_show_at_end",
+          "default_value": "false"
+        },
+        "style": {
+          "$ref": "div-drawable.json",
+          "$description": "translations.json#/div_table_separator_style"
+        },
+        "margins": {
+          "$ref": "div-edge-insets.json",
+          "$description": "translations.json#/div_base_margins"
+        }
+      },
+      "required": [
+        "style"
+      ]
+    },
+    "striped_style": {
+      "type": "object",
+      "platforms": [
+        "android",
+        "ios",
+        "web"
+      ],
+      "properties": {
+        "even_row_background": {
+          "type": "array",
+          "items": {
+            "$ref": "div-background.json"
+          },
+          "$description": "translations.json#/div_table_striped_even_row_background"
+        },
+        "odd_row_background": {
+          "type": "array",
+          "items": {
+            "$ref": "div-background.json"
+          },
+          "$description": "translations.json#/div_table_striped_odd_row_background"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "$ref": "div-actionable.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "table"
+          ]
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/column"
+          },
+          "$description": "translations.json#/div_table_columns"
+        },
+        "header_row": {
+          "$ref": "#/definitions/row",
+          "$description": "translations.json#/div_table_header_row"
+        },
+        "header_background": {
+          "type": "array",
+          "items": {
+            "$ref": "div-background.json"
+          },
+          "$description": "translations.json#/div_table_header_background"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/row"
+          },
+          "$description": "translations.json#/div_table_rows"
+        },
+        "row_builder": {
+          "$ref": "div-collection-item-builder.json",
+          "$description": "translations.json#/div_table_row_builder",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "row_separator": {
+          "$ref": "#/definitions/separator",
+          "$description": "translations.json#/div_table_row_separator"
+        },
+        "column_separator": {
+          "$ref": "#/definitions/separator",
+          "$description": "translations.json#/div_table_column_separator"
+        },
+        "header_separator": {
+          "$ref": "#/definitions/separator",
+          "$description": "translations.json#/div_table_header_separator"
+        },
+        "striped": {
+          "$ref": "#/definitions/striped_style",
+          "$description": "translations.json#/div_table_striped"
+        },
+        "content_alignment_vertical": {
+          "$ref": "div-alignment-vertical.json",
+          "default_value": "top",
+          "$description": "translations.json#/div_table_content_alignment_vertical"
+        },
+        "content_alignment_horizontal": {
+          "$ref": "div-alignment-horizontal.json",
+          "default_value": "start",
+          "$description": "translations.json#/div_table_content_alignment_horizontal"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "columns"
+  ]
+}

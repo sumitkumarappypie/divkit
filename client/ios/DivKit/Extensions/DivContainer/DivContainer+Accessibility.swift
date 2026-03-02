@@ -60,6 +60,7 @@ extension Div {
          .divSlider,
          .divState,
          .divSwitch,
+         .divTable,
          .divTabs,
          .divVideo:
       return accessibility?.resolveDescription(expressionResolver)

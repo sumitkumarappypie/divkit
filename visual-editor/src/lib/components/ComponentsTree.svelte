@@ -153,7 +153,8 @@
             expandOrMoveToChild();
         } else if (deleteComponent.isPressed(event) && !$readOnly) {
             const leaf = $selectedLeaf;
-            if (leaf?.parent) {
+            const parentType = leaf?.parent ? state.getBaseType(leaf.parent.props.json.type) : null;
+            if (leaf?.parent && parentType !== 'table') {
                 const current = getCurrentSelection();
                 state.deleteLeaf(leaf);
                 tick().then(() => {
@@ -295,6 +296,14 @@
 
         const newParent = best.type === 'inside' ? leafTarget : leafTarget.parent;
 
+        // Prevent dropping into a table
+        if (newParent) {
+            const newParentBaseType = state.getBaseType(newParent.props.json.type);
+            if (newParentBaseType === 'table') {
+                return;
+            }
+        }
+
         const movedChildId = event.dataTransfer?.getData('application/divnode');
         if (!movedChildId) {
             return;
@@ -384,6 +393,10 @@
         leaf: TreeLeaf;
     }>): void {
         const leaf = event.detail.leaf;
+        const parentType = leaf.parent ? state.getBaseType(leaf.parent.props.json.type) : null;
+        if (parentType === 'table') {
+            return;
+        }
 
         state.deleteLeaf(leaf);
     }

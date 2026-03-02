@@ -22,6 +22,7 @@ import com.yandex.div.core.view2.divs.DivSwitchBinder
 import com.yandex.div.core.view2.divs.DivCheckboxBinder
 import com.yandex.div.core.view2.divs.DivRadioBinder
 import com.yandex.div.core.view2.divs.DivProgressBinder
+import com.yandex.div.core.view2.divs.DivTableBinder
 import com.yandex.div.core.view2.divs.DivTextBinder
 import com.yandex.div.core.view2.divs.DivVideoBinder
 import com.yandex.div.core.view2.divs.applyMargins
@@ -47,6 +48,7 @@ import com.yandex.div.core.view2.divs.widgets.DivSwitchView
 import com.yandex.div.core.view2.divs.widgets.DivCheckboxView
 import com.yandex.div.core.view2.divs.widgets.DivRadioView
 import com.yandex.div.core.view2.divs.widgets.DivProgressView
+import com.yandex.div.core.view2.divs.widgets.DivTableLayout
 import com.yandex.div.core.view2.divs.widgets.DivTabsLayout
 import com.yandex.div.core.view2.divs.widgets.DivVideoView
 import com.yandex.div.internal.core.getChildContext
@@ -80,7 +82,8 @@ internal class DivBinder @Inject constructor(
     private val switchBinder: DivSwitchBinder,
     private val checkboxBinder: DivCheckboxBinder,
     private val radioBinder: DivRadioBinder,
-    private val progressBinder: DivProgressBinder
+    private val progressBinder: DivProgressBinder,
+    private val tableBinder: DivTableBinder
 ) {
 
     fun bind(parentContext: BindingContext, view: View, div: Div, path: DivStatePath) = suppressExpressionErrors {
@@ -123,6 +126,7 @@ internal class DivBinder @Inject constructor(
             is Div.Checkbox -> bindCheckbox(context, view, div, path)
             is Div.Radio -> bindRadio(context, view, div, path)
             is Div.Progress -> bindProgress(context, view, div, path)
+            is Div.Table -> bindTable(context, view, div, path)
         }.also {
             // extensionController bound new CustomView in DivCustomBinder after replacing in parent
             if (div !is Div.Custom) {
@@ -215,6 +219,10 @@ internal class DivBinder @Inject constructor(
         progressBinder.bindView(context, view as DivProgressView, data, path)
     }
 
+    private fun bindTable(context: BindingContext, view: View, data: Div.Table, path: DivStatePath) {
+        tableBinder.bindView(context, view as DivTableLayout, data, path)
+    }
+
     private fun bindLayoutParams(view: View, data: DivBase, resolver: ExpressionResolver) {
         view.applyMargins(data.margins, resolver)
     }
@@ -240,6 +248,7 @@ internal class DivBinder @Inject constructor(
         is Div.Checkbox -> (view as DivCheckboxView).setDataWithoutBinding(context, div)
         is Div.Radio -> (view as DivRadioView).setDataWithoutBinding(context, div)
         is Div.Progress -> (view as DivProgressView).setDataWithoutBinding(context, div)
+        is Div.Table -> setTableData(context, view, div)
     }
 
     private fun <T: Div> DivHolderView<T>.setDataWithoutBinding(context: BindingContext, newDiv: T) {
@@ -253,5 +262,9 @@ internal class DivBinder @Inject constructor(
 
     private fun setGridData(context: BindingContext, view: View, data: Div.Grid) {
         gridBinder.setDataWithoutBinding(context, view as DivGridLayout, data)
+    }
+
+    private fun setTableData(context: BindingContext, view: View, data: Div.Table) {
+        tableBinder.setDataWithoutBinding(context, view as DivTableLayout, data)
     }
 }

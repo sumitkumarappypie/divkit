@@ -19,6 +19,7 @@ import Switch from './switch/Switch.svelte';
 import Checkbox from './checkbox/Checkbox.svelte';
 import Radio from './radio/Radio.svelte';
 import Progress from './progress/Progress.svelte';
+import Table from './table/Table.svelte';
 import Custom from './custom/Custom.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
@@ -41,5 +42,6 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     checkbox: Checkbox,
     radio: Radio,
     progress: Progress,
+    table: Table,
     custom: Custom
 };

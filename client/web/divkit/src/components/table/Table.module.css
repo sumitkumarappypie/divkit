@@ -1,0 +1,82 @@
+.table {
+    display: grid;
+}
+
+.table_halign_start {
+    justify-content: start;
+}
+
+.table_halign_center {
+    justify-content: center;
+}
+
+.table_halign_end {
+    justify-content: end;
+}
+
+.table_valign_start {
+    align-content: start;
+}
+
+.table_valign_center {
+    align-content: center;
+}
+
+.table_valign_end {
+    align-content: end;
+}
+
+.table__cell {
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+}
+
+.table__cell_halign_left,
+.table__cell_halign_start {
+    justify-content: flex-start;
+}
+
+.table__cell_halign_center {
+    justify-content: center;
+}
+
+.table__cell_halign_right,
+.table__cell_halign_end {
+    justify-content: flex-end;
+}
+
+.table__cell_valign_top {
+    align-items: flex-start;
+}
+
+.table__cell_valign_center {
+    align-items: center;
+}
+
+.table__cell_valign_bottom {
+    align-items: flex-end;
+}
+
+.table__cell_valign_baseline {
+    align-items: baseline;
+}
+
+.table__separator {
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-width: 0;
+    min-height: 0;
+}
+
+.table__separator_row {
+    width: 100%;
+    min-height: 1px;
+}
+
+.table__separator_col {
+    height: 100%;
+    min-width: 1px;
+}

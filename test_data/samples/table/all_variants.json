@@ -1,0 +1,1139 @@
+{
+  "templates": {
+    "section_title": {
+      "type": "text",
+      "font_size": 22,
+      "line_height": 28,
+      "font_weight": "bold",
+      "text_color": "#1A1A1A",
+      "paddings": {
+        "left": 16,
+        "right": 16,
+        "top": 32,
+        "bottom": 12
+      }
+    },
+    "section_desc": {
+      "type": "text",
+      "font_size": 14,
+      "line_height": 20,
+      "text_color": "#666666",
+      "paddings": {
+        "left": 16,
+        "right": 16,
+        "bottom": 16
+      }
+    },
+    "hdr": {
+      "type": "text",
+      "font_size": 13,
+      "font_weight": "bold",
+      "text_color": "#FFFFFF",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    },
+    "cell_text": {
+      "type": "text",
+      "font_size": 13,
+      "text_color": "#333333",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    },
+    "cell_bold": {
+      "type": "text",
+      "font_size": 13,
+      "font_weight": "bold",
+      "text_color": "#333333",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    },
+    "cell_accent": {
+      "type": "text",
+      "font_size": 13,
+      "font_weight": "medium",
+      "text_color": "#2E7D32",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    },
+    "cell_negative": {
+      "type": "text",
+      "font_size": 13,
+      "font_weight": "medium",
+      "text_color": "#C62828",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    },
+    "cell_muted": {
+      "type": "text",
+      "font_size": 12,
+      "text_color": "#999999",
+      "paddings": { "left": 10, "top": 8, "right": 10, "bottom": 8 }
+    }
+  },
+  "card": {
+    "log_id": "table_all_variants",
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "width": { "type": "match_parent" },
+          "background": [{ "type": "solid", "color": "#FAFAFA" }],
+          "items": [
+
+            {
+              "type": "section_title",
+              "text": "1. Minimal Table"
+            },
+            {
+              "type": "section_desc",
+              "text": "Only required properties: type and columns. No header, no separators."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "A1" } },
+                    { "div": { "type": "cell_text", "text": "B1" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "A2" } },
+                    { "div": { "type": "cell_text", "text": "B2" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "2. Header Row + Header Background"
+            },
+            {
+              "type": "section_desc",
+              "text": "header_row with header_background gives a distinct header style."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 2 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Name" } },
+                  { "div": { "type": "hdr", "text": "Role" } },
+                  { "div": { "type": "hdr", "text": "Status" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#4A90D9" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Alice" } },
+                    { "div": { "type": "cell_text", "text": "Engineer" } },
+                    { "div": { "type": "cell_accent", "text": "Active" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Bob" } },
+                    { "div": { "type": "cell_text", "text": "Designer" } },
+                    { "div": { "type": "cell_negative", "text": "Away" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Carol" } },
+                    { "div": { "type": "cell_text", "text": "PM" } },
+                    { "div": { "type": "cell_accent", "text": "Active" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "3. Column Widths: Fixed, Weighted, Wrap"
+            },
+            {
+              "type": "section_desc",
+              "text": "Different column width strategies: fixed (80dp), weighted (2:1), and wrap_content."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "fixed", "value": 80 } },
+                { "width": { "type": "match_parent", "weight": 2 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "wrap_content" } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Fixed" } },
+                  { "div": { "type": "hdr", "text": "Weight 2" } },
+                  { "div": { "type": "hdr", "text": "Weight 1" } },
+                  { "div": { "type": "hdr", "text": "Wrap" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#607D8B" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "80dp" } },
+                    { "div": { "type": "cell_text", "text": "Takes 2/3 of remaining" } },
+                    { "div": { "type": "cell_text", "text": "Takes 1/3" } },
+                    { "div": { "type": "cell_text", "text": "Auto" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "80dp" } },
+                    { "div": { "type": "cell_text", "text": "Wide column" } },
+                    { "div": { "type": "cell_text", "text": "Narrow" } },
+                    { "div": { "type": "cell_text", "text": "OK" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "4. Column & Cell Alignment"
+            },
+            {
+              "type": "section_desc",
+              "text": "Column-level alignment (start, center, end) and cell-level overrides."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                {
+                  "width": { "type": "match_parent", "weight": 1 },
+                  "content_alignment_horizontal": "start"
+                },
+                {
+                  "width": { "type": "match_parent", "weight": 1 },
+                  "content_alignment_horizontal": "center"
+                },
+                {
+                  "width": { "type": "match_parent", "weight": 1 },
+                  "content_alignment_horizontal": "end"
+                }
+              ],
+              "content_alignment_vertical": "center",
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Left" } },
+                  { "div": { "type": "hdr", "text": "Center" } },
+                  { "div": { "type": "hdr", "text": "Right" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#795548" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Start aligned" } },
+                    { "div": { "type": "cell_text", "text": "Center aligned" } },
+                    { "div": { "type": "cell_text", "text": "End aligned" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": { "type": "cell_bold", "text": "Cell override: end" },
+                      "content_alignment_horizontal": "end"
+                    },
+                    {
+                      "div": { "type": "cell_bold", "text": "Cell override: start" },
+                      "content_alignment_horizontal": "start"
+                    },
+                    {
+                      "div": { "type": "cell_bold", "text": "Cell override: center" },
+                      "content_alignment_horizontal": "center"
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "5. Row & Column Spanning"
+            },
+            {
+              "type": "section_desc",
+              "text": "cell.row_span and cell.column_span merge cells across rows/columns."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Col A" } },
+                  { "div": { "type": "hdr", "text": "Col B" } },
+                  { "div": { "type": "hdr", "text": "Col C" } },
+                  { "div": { "type": "hdr", "text": "Col D" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#5C6BC0" }],
+              "rows": [
+                {
+                  "cells": [
+                    {
+                      "div": { "type": "cell_bold", "text": "Spans 2 rows" },
+                      "row_span": 2,
+                      "background": [{ "type": "solid", "color": "#E8EAF6" }]
+                    },
+                    { "div": { "type": "cell_text", "text": "B1" } },
+                    { "div": { "type": "cell_text", "text": "C1" } },
+                    { "div": { "type": "cell_text", "text": "D1" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "B2" } },
+                    {
+                      "div": { "type": "cell_bold", "text": "Spans 2 cols" },
+                      "column_span": 2,
+                      "background": [{ "type": "solid", "color": "#FFF3E0" }]
+                    }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": { "type": "cell_bold", "text": "Spans 2x2" },
+                      "row_span": 2,
+                      "column_span": 2,
+                      "background": [{ "type": "solid", "color": "#E8F5E9" }]
+                    },
+                    { "div": { "type": "cell_text", "text": "C3" } },
+                    { "div": { "type": "cell_text", "text": "D3" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "C4" } },
+                    { "div": { "type": "cell_text", "text": "D4" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "6. Row & Cell Backgrounds"
+            },
+            {
+              "type": "section_desc",
+              "text": "Rows and individual cells can have their own background arrays."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Item" } },
+                  { "div": { "type": "hdr", "text": "Category" } },
+                  { "div": { "type": "hdr", "text": "Priority" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#37474F" }],
+              "rows": [
+                {
+                  "background": [{ "type": "solid", "color": "#E3F2FD" }],
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Row bg: blue" } },
+                    { "div": { "type": "cell_text", "text": "Full row" } },
+                    { "div": { "type": "cell_text", "text": "Low" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Normal row" } },
+                    {
+                      "div": { "type": "cell_text", "text": "Cell bg: yellow" },
+                      "background": [{ "type": "solid", "color": "#FFF9C4" }]
+                    },
+                    {
+                      "div": { "type": "cell_negative", "text": "HIGH" },
+                      "background": [{ "type": "solid", "color": "#FFEBEE" }]
+                    }
+                  ]
+                },
+                {
+                  "background": [{ "type": "solid", "color": "#F3E5F5" }],
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Row bg: purple" } },
+                    { "div": { "type": "cell_text", "text": "Full row" } },
+                    {
+                      "div": { "type": "cell_accent", "text": "OK" },
+                      "background": [{ "type": "solid", "color": "#E8F5E9" }]
+                    }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "7. Striped Rows"
+            },
+            {
+              "type": "section_desc",
+              "text": "striped.even_row_background and striped.odd_row_background for zebra rows."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Month" } },
+                  { "div": { "type": "hdr", "text": "Revenue" } },
+                  { "div": { "type": "hdr", "text": "Growth" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#2E7D32" }],
+              "striped": {
+                "even_row_background": [{ "type": "solid", "color": "#F1F8E9" }],
+                "odd_row_background": [{ "type": "solid", "color": "#FFFFFF" }]
+              },
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "January" } },
+                    { "div": { "type": "cell_text", "text": "$12,500" } },
+                    { "div": { "type": "cell_accent", "text": "+5.2%" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "February" } },
+                    { "div": { "type": "cell_text", "text": "$13,100" } },
+                    { "div": { "type": "cell_accent", "text": "+4.8%" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "March" } },
+                    { "div": { "type": "cell_text", "text": "$11,900" } },
+                    { "div": { "type": "cell_negative", "text": "-9.2%" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "April" } },
+                    { "div": { "type": "cell_text", "text": "$14,200" } },
+                    { "div": { "type": "cell_accent", "text": "+19.3%" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "May" } },
+                    { "div": { "type": "cell_text", "text": "$14,800" } },
+                    { "div": { "type": "cell_accent", "text": "+4.2%" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "8. Row Separator"
+            },
+            {
+              "type": "section_desc",
+              "text": "row_separator with show_between, show_at_start, show_at_end options."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "row_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#CCCCCC",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "show_at_start": 0,
+                "show_between": 1,
+                "show_at_end": 0
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Task" } },
+                  { "div": { "type": "hdr", "text": "Owner" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#455A64" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Design review" } },
+                    { "div": { "type": "cell_text", "text": "Alice" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Code review" } },
+                    { "div": { "type": "cell_text", "text": "Bob" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "QA testing" } },
+                    { "div": { "type": "cell_text", "text": "Carol" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "9. Column Separator"
+            },
+            {
+              "type": "section_desc",
+              "text": "column_separator draws vertical lines between columns."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "column_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#B0BEC5",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_width": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "show_between": 1
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Mon" } },
+                  { "div": { "type": "hdr", "text": "Tue" } },
+                  { "div": { "type": "hdr", "text": "Wed" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#00695C" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "9am Standup" } },
+                    { "div": { "type": "cell_text", "text": "9am Standup" } },
+                    { "div": { "type": "cell_text", "text": "9am Standup" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Sprint review" } },
+                    { "div": { "type": "cell_muted", "text": "—" } },
+                    { "div": { "type": "cell_text", "text": "Retro" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "10. Header Separator"
+            },
+            {
+              "type": "section_desc",
+              "text": "header_separator draws a line between the header and body rows."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#1565C0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 3 }
+                  }
+                },
+                "show_between": 1
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "cell_bold", "text": "Feature" } },
+                  { "div": { "type": "cell_bold", "text": "Supported" } }
+                ]
+              },
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Row separators" } },
+                    { "div": { "type": "cell_accent", "text": "Yes" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Column separators" } },
+                    { "div": { "type": "cell_accent", "text": "Yes" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Header separator" } },
+                    { "div": { "type": "cell_accent", "text": "Yes" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "11. All Separators Combined"
+            },
+            {
+              "type": "section_desc",
+              "text": "Row, column, and header separators together with show_at_start/end."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "row_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#E0E0E0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "show_at_start": 1,
+                "show_between": 1,
+                "show_at_end": 1
+              },
+              "column_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#E0E0E0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_width": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "show_at_start": 1,
+                "show_between": 1,
+                "show_at_end": 1
+              },
+              "header_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#424242",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 2 }
+                  }
+                },
+                "show_between": 1
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "cell_bold", "text": "ID" } },
+                  { "div": { "type": "cell_bold", "text": "Name" } },
+                  { "div": { "type": "cell_bold", "text": "Score" } }
+                ]
+              },
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "#001" } },
+                    { "div": { "type": "cell_text", "text": "Alpha" } },
+                    { "div": { "type": "cell_accent", "text": "95" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "#002" } },
+                    { "div": { "type": "cell_text", "text": "Beta" } },
+                    { "div": { "type": "cell_text", "text": "87" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "#003" } },
+                    { "div": { "type": "cell_text", "text": "Gamma" } },
+                    { "div": { "type": "cell_negative", "text": "42" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "12. Row IDs"
+            },
+            {
+              "type": "section_desc",
+              "text": "Rows can have id for identification and animation purposes."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "ID" } },
+                  { "div": { "type": "hdr", "text": "Value" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#6A1B9A" }],
+              "rows": [
+                {
+                  "id": "row_first",
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "row_first" } },
+                    { "div": { "type": "cell_text", "text": "First row" } }
+                  ]
+                },
+                {
+                  "id": "row_second",
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "row_second" } },
+                    { "div": { "type": "cell_text", "text": "Second row" } }
+                  ]
+                },
+                {
+                  "id": "row_third",
+                  "cells": [
+                    { "div": { "type": "cell_muted", "text": "row_third" } },
+                    { "div": { "type": "cell_text", "text": "Third row" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "13. Rich Cell Content"
+            },
+            {
+              "type": "section_desc",
+              "text": "Cells can contain any DivKit component: images, containers, etc."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "fixed", "value": 60 } },
+                { "width": { "type": "match_parent", "weight": 2 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "" } },
+                  { "div": { "type": "hdr", "text": "Product" } },
+                  { "div": { "type": "hdr", "text": "Price" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#E65100" }],
+              "content_alignment_vertical": "center",
+              "rows": [
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "image",
+                        "image_url": "https://placehold.co/40x40/EEE/333.png?text=A",
+                        "width": { "type": "fixed", "value": 40 },
+                        "height": { "type": "fixed", "value": 40 },
+                        "margins": { "left": 10, "top": 6, "bottom": 6 }
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "paddings": { "left": 10, "top": 6, "bottom": 6 },
+                        "items": [
+                          { "type": "text", "text": "Widget Pro", "font_size": 14, "font_weight": "bold", "text_color": "#333" },
+                          { "type": "text", "text": "Advanced widget toolkit", "font_size": 12, "text_color": "#888" }
+                        ]
+                      }
+                    },
+                    { "div": { "type": "cell_bold", "text": "$49.99" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    {
+                      "div": {
+                        "type": "image",
+                        "image_url": "https://placehold.co/40x40/EEE/333.png?text=B",
+                        "width": { "type": "fixed", "value": 40 },
+                        "height": { "type": "fixed", "value": 40 },
+                        "margins": { "left": 10, "top": 6, "bottom": 6 }
+                      }
+                    },
+                    {
+                      "div": {
+                        "type": "container",
+                        "orientation": "vertical",
+                        "paddings": { "left": 10, "top": 6, "bottom": 6 },
+                        "items": [
+                          { "type": "text", "text": "DataSync", "font_size": 14, "font_weight": "bold", "text_color": "#333" },
+                          { "type": "text", "text": "Real-time sync engine", "font_size": 12, "text_color": "#888" }
+                        ]
+                      }
+                    },
+                    { "div": { "type": "cell_bold", "text": "$29.99" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "14. Table-Level Base Properties"
+            },
+            {
+              "type": "section_desc",
+              "text": "Tables support all base div properties: background, paddings, margins, border, etc."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "paddings": { "left": 4, "right": 4, "top": 4, "bottom": 4 },
+              "background": [
+                { "type": "solid", "color": "#FFFFFF" }
+              ],
+              "border": {
+                "corner_radius": 12,
+                "stroke": { "color": "#BDBDBD", "width": 1 },
+                "has_shadow": 1,
+                "shadow": { "color": "#1A000000", "blur": 8, "offset": { "x": { "value": 0 }, "y": { "value": 2 } } }
+              },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Setting" } },
+                  { "div": { "type": "hdr", "text": "Value" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#1976D2" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Border radius" } },
+                    { "div": { "type": "cell_text", "text": "12dp" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Shadow" } },
+                    { "div": { "type": "cell_accent", "text": "Enabled" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Padding" } },
+                    { "div": { "type": "cell_text", "text": "4dp all around" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "15. Separator Margins"
+            },
+            {
+              "type": "section_desc",
+              "text": "Separators support margins for spacing around the line."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "row_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#E0E0E0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "margins": { "left": 10, "right": 10 },
+                "show_between": 1
+              },
+              "column_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#E0E0E0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_width": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "margins": { "top": 6, "bottom": 6 },
+                "show_between": 1
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Key" } },
+                  { "div": { "type": "hdr", "text": "Value" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#546E7A" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Row sep margins" } },
+                    { "div": { "type": "cell_text", "text": "left: 10, right: 10" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Col sep margins" } },
+                    { "div": { "type": "cell_text", "text": "top: 6, bottom: 6" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "16. No Header (Body-Only Table)"
+            },
+            {
+              "type": "section_desc",
+              "text": "Tables work fine without a header_row — just body rows."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "striped": {
+                "even_row_background": [{ "type": "solid", "color": "#ECEFF1" }],
+                "odd_row_background": [{ "type": "solid", "color": "#FFFFFF" }]
+              },
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_bold", "text": "Name" } },
+                    { "div": { "type": "cell_bold", "text": "Type" } },
+                    { "div": { "type": "cell_bold", "text": "Size" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "readme.md" } },
+                    { "div": { "type": "cell_muted", "text": "Markdown" } },
+                    { "div": { "type": "cell_muted", "text": "2.4 KB" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "app.js" } },
+                    { "div": { "type": "cell_muted", "text": "JavaScript" } },
+                    { "div": { "type": "cell_muted", "text": "15.7 KB" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "style.css" } },
+                    { "div": { "type": "cell_muted", "text": "CSS" } },
+                    { "div": { "type": "cell_muted", "text": "8.1 KB" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "17. Single Column Table"
+            },
+            {
+              "type": "section_desc",
+              "text": "A table with only one column — effectively a styled list."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent" } }
+              ],
+              "row_separator": {
+                "style": {
+                  "type": "shape_drawable",
+                  "color": "#E0E0E0",
+                  "shape": {
+                    "type": "rounded_rectangle",
+                    "item_height": { "type": "fixed", "value": 1 }
+                  }
+                },
+                "show_between": 1
+              },
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Notifications" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#D32F2F" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "Build succeeded on branch main" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "PR #42 merged by alice" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_negative", "text": "Deploy failed on staging" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "section_title",
+              "text": "18. Wide Table (Many Columns)"
+            },
+            {
+              "type": "section_desc",
+              "text": "A table with 6 columns to demonstrate horizontal layout."
+            },
+            {
+              "type": "table",
+              "width": { "type": "match_parent" },
+              "margins": { "left": 16, "right": 16 },
+              "columns": [
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } },
+                { "width": { "type": "match_parent", "weight": 1 } }
+              ],
+              "header_row": {
+                "cells": [
+                  { "div": { "type": "hdr", "text": "Mon" } },
+                  { "div": { "type": "hdr", "text": "Tue" } },
+                  { "div": { "type": "hdr", "text": "Wed" } },
+                  { "div": { "type": "hdr", "text": "Thu" } },
+                  { "div": { "type": "hdr", "text": "Fri" } },
+                  { "div": { "type": "hdr", "text": "Sat" } }
+                ]
+              },
+              "header_background": [{ "type": "solid", "color": "#AD1457" }],
+              "rows": [
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "1" } },
+                    { "div": { "type": "cell_text", "text": "2" } },
+                    { "div": { "type": "cell_text", "text": "3" } },
+                    { "div": { "type": "cell_text", "text": "4" } },
+                    { "div": { "type": "cell_text", "text": "5" } },
+                    { "div": { "type": "cell_text", "text": "6" } }
+                  ]
+                },
+                {
+                  "cells": [
+                    { "div": { "type": "cell_text", "text": "7" } },
+                    { "div": { "type": "cell_text", "text": "8" } },
+                    { "div": { "type": "cell_text", "text": "9" } },
+                    { "div": { "type": "cell_text", "text": "10" } },
+                    { "div": { "type": "cell_text", "text": "11" } },
+                    { "div": { "type": "cell_text", "text": "12" } }
+                  ]
+                }
+              ]
+            },
+
+            {
+              "type": "separator",
+              "width": { "type": "match_parent" },
+              "height": { "type": "fixed", "value": 48 }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
