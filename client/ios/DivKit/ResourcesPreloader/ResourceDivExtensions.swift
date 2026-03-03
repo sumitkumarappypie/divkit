@@ -24,6 +24,7 @@ extension Div {
       }
     case .divCheckbox,
          .divContainer,
+         .divCounter,
          .divCustom,
          .divGallery,
          .divGrid,
@@ -39,6 +40,7 @@ extension Div {
          .divSwitch,
          .divTable,
          .divVideo,
+         .divWebview,
          .divTabs:
       break
     }
@@ -54,6 +56,7 @@ extension Div {
     case let .divVideo(divVideo):
       divVideo.preloadURLs(expressionResolver, filter: filter)
     case .divCheckbox,
+         .divCounter,
          .divImage,
          .divGifImage,
          .divText,
@@ -72,6 +75,7 @@ extension Div {
          .divState,
          .divSwitch,
          .divTable,
+         .divWebview,
          .divTabs:
       []
     }

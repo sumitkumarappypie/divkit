@@ -115,6 +115,7 @@ extension Div {
   private func applyPatchToChildren(_ patch: DivPatch, callbacks: DivPatchCallbacks) -> Div {
     switch self {
     case .divCheckbox,
+         .divCounter,
          .divCustom,
          .divGifImage,
          .divInput,
@@ -128,6 +129,7 @@ extension Div {
          .divSwitch,
          .divTable,
          .divVideo,
+         .divWebview,
          .divText:
       // no children (table cells are not patchable as array items)
       self

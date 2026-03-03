@@ -13,6 +13,7 @@ extension Div {
     case let .divTable(div):
       div.collectAllCellDivs()
     case .divCheckbox,
+         .divCounter,
          .divGifImage,
          .divImage,
          .divIndicator,
@@ -24,6 +25,7 @@ extension Div {
          .divSlider,
          .divSwitch,
          .divVideo,
+         .divWebview,
          .divText:
       []
     }

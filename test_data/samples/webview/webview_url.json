@@ -1,0 +1,31 @@
+{
+    "templates": {},
+    "card": {
+        "log_id": "webview_url_sample",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "items": [
+                        {
+                            "type": "text",
+                            "text": "WebView - URL Loading",
+                            "font_size": 20,
+                            "font_weight": "bold",
+                            "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 8 }
+                        },
+                        {
+                            "type": "webview",
+                            "url": "https://example.com",
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 400 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

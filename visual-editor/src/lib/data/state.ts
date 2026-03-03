@@ -835,6 +835,14 @@ export class State {
                     type: 'match_parent'
                 }
             };
+        } else if (type === 'counter') {
+            json = {
+                type,
+                counter_value_variable: 'counter_var',
+                button_color: '#4CAF50',
+                background_color: '#F5F5F5',
+                text_color: '#1B2630',
+            };
         } else if (type === 'table') {
             json = {
                 type,
@@ -843,6 +851,21 @@ export class State {
                     { width: { type: 'match_parent', weight: 1 } }
                 ],
                 rows: [],
+                width: {
+                    type: 'match_parent'
+                }
+            };
+        } else if (type === 'webview') {
+            json = {
+                type,
+                url: 'https://example.com',
+                javascript_enabled: 0,
+                allow_scrolling: 1,
+                allow_navigation: 0,
+                height: {
+                    type: 'fixed',
+                    value: 300
+                },
                 width: {
                     type: 'match_parent'
                 }

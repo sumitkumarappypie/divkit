@@ -1,0 +1,112 @@
+{
+    "templates": {},
+    "card": {
+        "log_id": "webview_showcase",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "items": [
+                        {
+                            "type": "text",
+                            "text": "WebView Showcase",
+                            "font_size": 24,
+                            "font_weight": "bold",
+                            "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 8 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "1. Basic URL",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "url": "https://example.com",
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 200 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "2. HTML Content",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "html": "<html><body style='background:#f0f0f0; padding:16px; font-family:sans-serif;'><h2>Inline HTML</h2><p>Rendered directly from the JSON.</p></body></html>",
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 150 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "3. JavaScript Enabled",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "html": "<html><body style='padding:16px; font-family:sans-serif;'><h3>JS Enabled</h3><p id='output'>Calculating...</p><script>document.getElementById('output').textContent = 'Result: ' + (2 + 2);</script></body></html>",
+                            "javascript_enabled": 1,
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 120 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "4. No Scrolling",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "html": "<html><body style='padding:16px; font-family:sans-serif;'><p>This webview has scrolling disabled.</p></body></html>",
+                            "allow_scrolling": 0,
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 80 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "5. With Aspect Ratio (16:9)",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "url": "https://example.com",
+                            "aspect": { "ratio": 1.78 },
+                            "width": { "type": "match_parent" },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        },
+                        {
+                            "type": "text",
+                            "text": "6. Navigation Allowed",
+                            "font_size": 16,
+                            "font_weight": "medium",
+                            "paddings": { "left": 16, "top": 8, "right": 16, "bottom": 4 }
+                        },
+                        {
+                            "type": "webview",
+                            "url": "https://example.com",
+                            "allow_navigation": 1,
+                            "javascript_enabled": 1,
+                            "width": { "type": "match_parent" },
+                            "height": { "type": "fixed", "value": 200 },
+                            "margins": { "left": 16, "right": 16, "bottom": 16 }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

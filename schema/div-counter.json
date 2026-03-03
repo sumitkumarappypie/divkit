@@ -1,0 +1,142 @@
+{
+  "$description": "translations.json#/div_counter",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "counter"
+          ]
+        },
+        "counter_value_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_counter_counter_value_variable"
+        },
+        "min_value": {
+          "type": "integer",
+          "default_value": "0",
+          "$description": "translations.json#/div_counter_min_value"
+        },
+        "max_value": {
+          "type": "integer",
+          "default_value": "99",
+          "$description": "translations.json#/div_counter_max_value"
+        },
+        "step": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "1",
+          "$description": "translations.json#/div_counter_step"
+        },
+        "button_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#4CAF50",
+          "$description": "translations.json#/div_counter_button_color"
+        },
+        "button_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "36",
+          "$description": "translations.json#/div_counter_button_size"
+        },
+        "icon_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#FFFFFF",
+          "$description": "translations.json#/div_counter_icon_color"
+        },
+        "disabled_button_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#CCCCCC",
+          "$description": "translations.json#/div_counter_disabled_button_color"
+        },
+        "text_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#1B2630",
+          "$description": "translations.json#/div_counter_text_color"
+        },
+        "font_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "16",
+          "$description": "translations.json#/div_counter_font_size"
+        },
+        "font_weight": {
+          "$ref": "div-font-weight.json",
+          "default_value": "bold",
+          "$description": "translations.json#/div_counter_font_weight"
+        },
+        "value_width": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "40",
+          "$description": "translations.json#/div_counter_value_width"
+        },
+        "background_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#F5F5F5",
+          "$description": "translations.json#/div_counter_background_color"
+        },
+        "border_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#E0E0E0",
+          "$description": "translations.json#/div_counter_border_color"
+        },
+        "border_width": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "1",
+          "$description": "translations.json#/div_counter_border_width"
+        },
+        "corner_radius": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "999",
+          "$description": "translations.json#/div_counter_corner_radius"
+        },
+        "padding": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "6",
+          "$description": "translations.json#/div_counter_padding"
+        },
+        "is_enabled": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_counter_is_enabled",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "on_increment_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_counter_on_increment_actions"
+        },
+        "on_decrement_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_counter_on_decrement_actions"
+        },
+        "on_value_change_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_counter_on_value_change_actions"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "counter_value_variable"
+  ]
+}

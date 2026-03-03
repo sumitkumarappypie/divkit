@@ -1,0 +1,72 @@
+{
+  "$description": "translations.json#/div_webview",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "webview"
+          ]
+        },
+        "url": {
+          "$ref": "common.json#/url",
+          "$description": "translations.json#/div_webview_url"
+        },
+        "html": {
+          "type": "string",
+          "$description": "translations.json#/div_webview_html"
+        },
+        "javascript_enabled": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_webview_javascript_enabled"
+        },
+        "allow_scrolling": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_webview_allow_scrolling"
+        },
+        "allow_navigation": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_webview_allow_navigation"
+        },
+        "scale_to_fit": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_webview_scale_to_fit"
+        },
+        "aspect": {
+          "$ref": "div-aspect.json",
+          "$description": "translations.json#/div_aspect"
+        },
+        "on_load_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_webview_on_load_actions"
+        },
+        "on_error_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_webview_on_error_actions"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type"
+  ]
+}

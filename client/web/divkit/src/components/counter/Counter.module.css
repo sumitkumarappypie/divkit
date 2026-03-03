@@ -1,0 +1,52 @@
+.counter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.counter__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--divkit-counter-bg, transparent);
+    border: var(--divkit-counter-border-width, 0) solid var(--divkit-counter-border-color, transparent);
+    border-radius: var(--divkit-counter-radius, 2.4em);
+    padding: var(--divkit-counter-padding, .4em);
+    gap: .4em;
+}
+
+.counter__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background-color .15s ease-in-out, opacity .15s ease-in-out;
+}
+
+.counter__button:disabled {
+    cursor: default;
+    opacity: .5;
+}
+
+.counter__button svg {
+    width: 50%;
+    height: 50%;
+}
+
+.counter__value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.counter_disabled .counter__container {
+    opacity: .4;
+}

@@ -31,6 +31,8 @@ internal class NewToken(
             is Div.Checkbox -> listOf()
             is Div.Radio -> listOf()
             is Div.Progress -> listOf()
+            is Div.Counter -> listOf()
+            is Div.Webview -> listOf()
             is Div.Container -> div.value.buildItems(resolver).itemsToNewTokenList()
             is Div.Custom -> div.value.nonNullItems.toDivItemBuilderResult(resolver).itemsToNewTokenList()
             is Div.Grid -> div.value.itemsToDivItemBuilderResult(resolver).itemsToNewTokenList()

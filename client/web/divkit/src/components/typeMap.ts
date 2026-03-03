@@ -20,6 +20,8 @@ import Checkbox from './checkbox/Checkbox.svelte';
 import Radio from './radio/Radio.svelte';
 import Progress from './progress/Progress.svelte';
 import Table from './table/Table.svelte';
+import Counter from './counter/Counter.svelte';
+import Webview from './webview/Webview.svelte';
 import Custom from './custom/Custom.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
@@ -43,5 +45,7 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     radio: Radio,
     progress: Progress,
     table: Table,
+    counter: Counter,
+    webview: Webview,
     custom: Custom
 };

@@ -45,6 +45,7 @@ extension Div {
     switch self {
     case .divCheckbox,
          .divContainer,
+         .divCounter,
          .divCustom,
          .divGallery,
          .divGifImage,
@@ -62,7 +63,8 @@ extension Div {
          .divSwitch,
          .divTable,
          .divTabs,
-         .divVideo:
+         .divVideo,
+         .divWebview:
       return accessibility?.resolveDescription(expressionResolver)
     case let .divText(divText):
       let extensionDescription = context

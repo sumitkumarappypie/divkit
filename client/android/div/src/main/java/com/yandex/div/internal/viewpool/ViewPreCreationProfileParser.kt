@@ -46,6 +46,7 @@ internal object ViewPreCreationProfileParser {
     private const val KEY_SELECT = "select"
     private const val KEY_VIDEO = "video"
     private const val KEY_SWITCH = "switch"
+    private const val KEY_WEBVIEW = "webview"
 
     fun serialize(profile: ViewPreCreationProfile): JSONObject {
         return JSONObject().apply {
@@ -68,6 +69,7 @@ internal object ViewPreCreationProfileParser {
             put(KEY_SELECT, PreCreationModelParser.serialize(profile.select))
             put(KEY_VIDEO, PreCreationModelParser.serialize(profile.video))
             put(KEY_SWITCH, PreCreationModelParser.serialize(profile.switch))
+            put(KEY_WEBVIEW, PreCreationModelParser.serialize(profile.webview))
         }
     }
 
@@ -92,6 +94,7 @@ internal object ViewPreCreationProfileParser {
             select = PreCreationModelParser.deserialize(json.getJSONObject(KEY_SELECT)),
             video = PreCreationModelParser.deserialize(json.getJSONObject(KEY_VIDEO)),
             switch = PreCreationModelParser.deserialize(json.getJSONObject(KEY_SWITCH)),
+            webview = PreCreationModelParser.deserialize(json.getJSONObject(KEY_WEBVIEW)),
         )
     }
 }

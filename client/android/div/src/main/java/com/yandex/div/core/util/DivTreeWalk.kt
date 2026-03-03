@@ -176,6 +176,8 @@ private fun Div.getItems(resolver: ExpressionResolver): List<DivItemBuilderResul
         is Div.Checkbox -> emptyList()
         is Div.Radio -> emptyList()
         is Div.Progress -> emptyList()
+        is Div.Counter -> emptyList()
+        is Div.Webview -> emptyList()
         is Div.Container -> value.buildItems(resolver)
         is Div.Grid -> value.itemsToDivItemBuilderResult(resolver)
         is Div.Gallery -> value.buildItems(resolver)

@@ -151,6 +151,8 @@ internal object DivPathUtils {
             is Div.Radio -> null
             is Div.Progress -> null
             is Div.Table -> null
+            is Div.Counter -> null
+            is Div.Webview -> null
         }
     }
 

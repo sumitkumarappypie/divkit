@@ -23,6 +23,8 @@ import checkboxIcon from '../../assets/components/checkbox.svg?url';
 import radioIcon from '../../assets/components/radio.svg?url';
 import progressIcon from '../../assets/components/progress.svg?url';
 import tableIcon from '../../assets/components/table.svg?url';
+import counterIcon from '../../assets/components/counter.svg?url';
+import webviewIcon from '../../assets/components/webview.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
@@ -46,7 +48,9 @@ const MAP = {
     checkbox: checkboxIcon,
     radio: radioIcon,
     progress: progressIcon,
-    table: tableIcon
+    table: tableIcon,
+    counter: counterIcon,
+    webview: webviewIcon
 };
 
 const MAP_BY_ORIENTATION = {
