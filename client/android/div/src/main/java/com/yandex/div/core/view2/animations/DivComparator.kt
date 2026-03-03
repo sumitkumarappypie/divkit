@@ -129,6 +129,7 @@ internal object DivComparator {
             is Div.Progress -> emptyList()
             is Div.Table -> emptyList()
             is Div.Counter -> emptyList()
+            is Div.Webview -> emptyList()
         }
     }
 

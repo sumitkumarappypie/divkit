@@ -28,7 +28,8 @@ export const supportedComponents = new Set([
     'radio',
     'progress',
     'table',
-    'counter'
+    'counter',
+    'webview'
 ]);
 
 export const containerComponents = new Set([
@@ -1252,6 +1253,45 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             horizontalProp: 'content_alignment_horizontal',
             verticalProp: 'content_alignment_vertical',
             isContent: true
+        }]
+    }],
+    webview: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'webviewProps.title',
+        list: [{
+            name: 'props.webview_url',
+            prop: 'url',
+            type: 'string',
+            enableSources: true
+        }, {
+            name: 'props.webview_html',
+            prop: 'html',
+            type: 'string',
+            enableSources: true
+        }, {
+            name: 'props.webview_javascript_enabled',
+            prop: 'javascript_enabled',
+            type: 'boolean',
+            default: false,
+            enableSources: true
+        }, {
+            name: 'props.webview_allow_scrolling',
+            prop: 'allow_scrolling',
+            type: 'boolean',
+            default: true,
+            enableSources: true
+        }, {
+            name: 'props.webview_allow_navigation',
+            prop: 'allow_navigation',
+            type: 'boolean',
+            default: false,
+            enableSources: true
+        }, {
+            name: 'props.webview_scale_to_fit',
+            prop: 'scale_to_fit',
+            type: 'boolean',
+            default: false,
+            enableSources: true
         }]
     }],
     state: [...BASE_COMPONENT_PROPS, {

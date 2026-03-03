@@ -28,6 +28,7 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divRadioTemplate(DivRadioTemplate)
   case divProgressTemplate(DivProgressTemplate)
   case divCounterTemplate(DivCounterTemplate)
+  case divWebviewTemplate(DivWebviewTemplate)
 
   public var value: Any {
     switch self {
@@ -74,6 +75,8 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divProgressTemplate(value):
       return value
     case let .divCounterTemplate(value):
+      return value
+    case let .divWebviewTemplate(value):
       return value
     }
   }
@@ -124,6 +127,8 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divProgressTemplate(try value.resolveParent(templates: templates))
     case let .divCounterTemplate(value):
       return .divCounterTemplate(try value.resolveParent(templates: templates))
+    case let .divWebviewTemplate(value):
+      return .divWebviewTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -313,6 +318,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divWebviewTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divWebview(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divWebview(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     }
   }
 
@@ -498,6 +511,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivWebview.type:
+      let result = DivWebviewTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divWebview(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divWebview(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     default:
       return .failure(NonEmptyArray(.requiredFieldIsMissing(field: "type")))
     }
@@ -553,6 +574,8 @@ extension DivTemplate {
       self = .divProgressTemplate(try DivProgressTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivCounterTemplate.type:
       self = .divCounterTemplate(try DivCounterTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivWebviewTemplate.type:
+      self = .divWebviewTemplate(try DivWebviewTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }

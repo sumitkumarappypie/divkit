@@ -15,6 +15,7 @@ import com.yandex.div.json.expressions.isConstantOrNull
 import com.yandex.div2.Div
 import com.yandex.div2.DivCounter
 import com.yandex.div2.DivFontWeight
+import androidx.annotation.ColorInt
 import javax.inject.Inject
 
 @DivScope
@@ -61,7 +62,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyButtonColor(div: DivCounter, resolver: ExpressionResolver) {
-        buttonColor = div.buttonColor.evaluate(resolver)
+        buttonColor = ensureAlpha(div.buttonColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindButtonSize(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -83,7 +84,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyIconColor(div: DivCounter, resolver: ExpressionResolver) {
-        iconColor = div.iconColor.evaluate(resolver)
+        iconColor = ensureAlpha(div.iconColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindDisabledButtonColor(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -94,7 +95,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyDisabledButtonColor(div: DivCounter, resolver: ExpressionResolver) {
-        disabledButtonColor = div.disabledButtonColor.evaluate(resolver)
+        disabledButtonColor = ensureAlpha(div.disabledButtonColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindTextColor(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -105,7 +106,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyTextColor(div: DivCounter, resolver: ExpressionResolver) {
-        textColor = div.textColor.evaluate(resolver)
+        textColor = ensureAlpha(div.textColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindFontSize(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -154,7 +155,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyBackgroundColor(div: DivCounter, resolver: ExpressionResolver) {
-        containerBackgroundColor = div.backgroundColor.evaluate(resolver)
+        containerBackgroundColor = ensureAlpha(div.backgroundColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindBorderColor(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -165,7 +166,7 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.applyBorderColor(div: DivCounter, resolver: ExpressionResolver) {
-        containerBorderColor = div.borderColor.evaluate(resolver)
+        containerBorderColor = ensureAlpha(div.borderColor.evaluate(resolver))
     }
 
     private fun DivCounterView.bindBorderWidth(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -191,14 +192,14 @@ internal class DivCounterBinder @Inject constructor(
     }
 
     private fun DivCounterView.bindPadding(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
-        if (div.counterPadding.equalsToConstant(oldDiv?.counterPadding)) return
+        if (div.padding.equalsToConstant(oldDiv?.padding)) return
         applyPadding(div, resolver)
-        if (div.counterPadding.isConstant()) return
-        addSubscription(div.counterPadding.observe(resolver) { applyPadding(div, resolver) })
+        if (div.padding.isConstant()) return
+        addSubscription(div.padding.observe(resolver) { applyPadding(div, resolver) })
     }
 
     private fun DivCounterView.applyPadding(div: DivCounter, resolver: ExpressionResolver) {
-        containerPaddingPx = div.counterPadding.evaluate(resolver).dpToPx(resources.displayMetrics)
+        containerPaddingPx = div.padding.evaluate(resolver).dpToPx(resources.displayMetrics)
     }
 
     private fun DivCounterView.bindMinValue(div: DivCounter, oldDiv: DivCounter?, resolver: ExpressionResolver) {
@@ -277,7 +278,14 @@ internal class DivCounterBinder @Inject constructor(
             }
         }
 
-        val subscription = variableBinder.bindVariable(bindingContext, div.valueVariable, callbacks, path)
+        val subscription = variableBinder.bindVariable(bindingContext, div.counterValueVariable, callbacks, path)
         addSubscription(subscription)
+    }
+
+    companion object {
+        /** Ensures the alpha channel is set to fully opaque if it's zero. */
+        @ColorInt
+        private fun ensureAlpha(@ColorInt color: Int): Int =
+            if (color and 0xFF000000.toInt() == 0) color or 0xFF000000.toInt() else color
     }
 }

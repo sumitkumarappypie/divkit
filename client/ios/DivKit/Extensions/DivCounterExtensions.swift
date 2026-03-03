@@ -139,8 +139,8 @@ extension DivCounter: DivBlockModeling {
     // Add container background with pill shape
     return container.addingDecorations(
       boundary: .cornerRadius(crnRadius),
-      backgroundColor: bgColor,
-      border: BlockBorder(color: bdrColor, width: bdrWidth)
+      border: BlockBorder(color: bdrColor, width: bdrWidth),
+      backgroundColor: bgColor
     )
   }
 

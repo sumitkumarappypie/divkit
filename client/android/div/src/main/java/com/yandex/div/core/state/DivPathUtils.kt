@@ -152,6 +152,7 @@ internal object DivPathUtils {
             is Div.Progress -> null
             is Div.Table -> null
             is Div.Counter -> null
+            is Div.Webview -> null
         }
     }
 

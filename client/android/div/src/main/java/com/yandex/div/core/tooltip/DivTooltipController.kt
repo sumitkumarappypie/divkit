@@ -631,5 +631,6 @@ private fun Div.hasAction(): Boolean {
                 || !value.longtapActions.isNullOrEmpty()
 
         is Div.Counter -> true
+        is Div.Webview -> false
     }
 }

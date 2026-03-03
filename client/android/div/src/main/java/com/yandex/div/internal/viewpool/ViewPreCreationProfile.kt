@@ -31,6 +31,7 @@ data class ViewPreCreationProfile(
     val progress: PreCreationModel = PreCreationModel(2),
     val table: PreCreationModel = PreCreationModel(2),
     val counter: PreCreationModel = PreCreationModel(2),
+    val webview: PreCreationModel = PreCreationModel(2),
 ) {
     companion object {
         fun unconstrained(
@@ -57,7 +58,8 @@ data class ViewPreCreationProfile(
             radioCapacity: Int = 2,
             progressCapacity: Int = 2,
             tableCapacity: Int = 2,
-            counterCapacity: Int = 2
+            counterCapacity: Int = 2,
+            webviewCapacity: Int = 2
         ): ViewPreCreationProfile = ViewPreCreationProfile(
             id = id,
             text = PreCreationModel(textCapacity),
@@ -82,7 +84,8 @@ data class ViewPreCreationProfile(
             radio = PreCreationModel(radioCapacity),
             progress = PreCreationModel(progressCapacity),
             table = PreCreationModel(tableCapacity),
-            counter = PreCreationModel(counterCapacity)
+            counter = PreCreationModel(counterCapacity),
+            webview = PreCreationModel(webviewCapacity)
         )
     }
 }

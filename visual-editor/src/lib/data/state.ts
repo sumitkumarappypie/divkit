@@ -855,6 +855,21 @@ export class State {
                     type: 'match_parent'
                 }
             };
+        } else if (type === 'webview') {
+            json = {
+                type,
+                url: 'https://example.com',
+                javascript_enabled: 0,
+                allow_scrolling: 1,
+                allow_navigation: 0,
+                height: {
+                    type: 'fixed',
+                    value: 300
+                },
+                width: {
+                    type: 'match_parent'
+                }
+            };
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {

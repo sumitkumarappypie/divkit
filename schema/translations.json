@@ -3335,6 +3335,42 @@
     "en": "Percentage of the visible part of an element that triggers `visibility-action`.",
     "ru": "Процент видимой части элемента, при котором срабатывает `visibility-action`."
   },
+  "div_webview": {
+    "en": "Web content viewer.",
+    "ru": "Просмотр веб-контента."
+  },
+  "div_webview_allow_navigation": {
+    "en": "Allows link navigation within the webview. Disabled by default for security.",
+    "ru": "Разрешает навигацию по ссылкам внутри веб-просмотрщика. По умолчанию отключено в целях безопасности."
+  },
+  "div_webview_allow_scrolling": {
+    "en": "Allows scrolling inside the webview.",
+    "ru": "Разрешает прокрутку внутри веб-просмотрщика."
+  },
+  "div_webview_html": {
+    "en": "Raw HTML content to render in the webview.",
+    "ru": "HTML-содержимое для отображения в веб-просмотрщике."
+  },
+  "div_webview_javascript_enabled": {
+    "en": "Enables JavaScript execution in the webview. Disabled by default for security.",
+    "ru": "Включает выполнение JavaScript в веб-просмотрщике. По умолчанию отключено в целях безопасности."
+  },
+  "div_webview_on_error_actions": {
+    "en": "Actions performed when content loading fails.",
+    "ru": "Действия, выполняемые при ошибке загрузки контента."
+  },
+  "div_webview_on_load_actions": {
+    "en": "Actions performed when content finishes loading.",
+    "ru": "Действия, выполняемые после завершения загрузки контента."
+  },
+  "div_webview_scale_to_fit": {
+    "en": "Scales the web content to fit the container width.",
+    "ru": "Масштабирует веб-контент под ширину контейнера."
+  },
+  "div_webview_url": {
+    "en": "URL of the web page to load.",
+    "ru": "URL веб-страницы для загрузки."
+  },
   "div_wrap_content_size": {
     "en": "The size of an element adjusts to its contents.",
     "ru": "Размер элемента подстраивается под его содержимое."

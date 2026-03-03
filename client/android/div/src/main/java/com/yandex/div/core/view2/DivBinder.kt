@@ -25,6 +25,7 @@ import com.yandex.div.core.view2.divs.DivRadioBinder
 import com.yandex.div.core.view2.divs.DivProgressBinder
 import com.yandex.div.core.view2.divs.DivTableBinder
 import com.yandex.div.core.view2.divs.DivTextBinder
+import com.yandex.div.core.view2.divs.DivWebviewBinder
 import com.yandex.div.core.view2.divs.DivVideoBinder
 import com.yandex.div.core.view2.divs.applyMargins
 import com.yandex.div.core.view2.divs.gallery.DivGalleryBinder
@@ -52,6 +53,7 @@ import com.yandex.div.core.view2.divs.widgets.DivRadioView
 import com.yandex.div.core.view2.divs.widgets.DivProgressView
 import com.yandex.div.core.view2.divs.widgets.DivTableLayout
 import com.yandex.div.core.view2.divs.widgets.DivTabsLayout
+import com.yandex.div.core.view2.divs.widgets.DivWebviewView
 import com.yandex.div.core.view2.divs.widgets.DivVideoView
 import com.yandex.div.internal.core.getChildContext
 import com.yandex.div.json.expressions.ExpressionResolver
@@ -86,7 +88,8 @@ internal class DivBinder @Inject constructor(
     private val radioBinder: DivRadioBinder,
     private val progressBinder: DivProgressBinder,
     private val tableBinder: DivTableBinder,
-    private val counterBinder: DivCounterBinder
+    private val counterBinder: DivCounterBinder,
+    private val webviewBinder: DivWebviewBinder
 ) {
 
     fun bind(parentContext: BindingContext, view: View, div: Div, path: DivStatePath) = suppressExpressionErrors {
@@ -131,6 +134,7 @@ internal class DivBinder @Inject constructor(
             is Div.Progress -> bindProgress(context, view, div, path)
             is Div.Table -> bindTable(context, view, div, path)
             is Div.Counter -> bindCounter(context, view, div, path)
+            is Div.Webview -> bindWebview(context, view, div, path)
         }.also {
             // extensionController bound new CustomView in DivCustomBinder after replacing in parent
             if (div !is Div.Custom) {
@@ -231,6 +235,10 @@ internal class DivBinder @Inject constructor(
         counterBinder.bindView(context, view as DivCounterView, data, path)
     }
 
+    private fun bindWebview(context: BindingContext, view: View, data: Div.Webview, path: DivStatePath) {
+        webviewBinder.bindView(context, view as DivWebviewView, data, path)
+    }
+
     private fun bindLayoutParams(view: View, data: DivBase, resolver: ExpressionResolver) {
         view.applyMargins(data.margins, resolver)
     }
@@ -258,6 +266,7 @@ internal class DivBinder @Inject constructor(
         is Div.Progress -> (view as DivProgressView).setDataWithoutBinding(context, div)
         is Div.Table -> setTableData(context, view, div)
         is Div.Counter -> (view as DivCounterView).setDataWithoutBinding(context, div)
+        is Div.Webview -> (view as DivWebviewView).setDataWithoutBinding(context, div)
     }
 
     private fun <T: Div> DivHolderView<T>.setDataWithoutBinding(context: BindingContext, newDiv: T) {

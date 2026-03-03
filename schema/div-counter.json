@@ -38,7 +38,7 @@
         },
         "button_size": {
           "$ref": "common.json#/non_negative_integer",
-          "default_value": "20",
+          "default_value": "36",
           "$description": "translations.json#/div_counter_button_size"
         },
         "icon_color": {
@@ -68,7 +68,7 @@
         },
         "value_width": {
           "$ref": "common.json#/non_negative_integer",
-          "default_value": "20",
+          "default_value": "40",
           "$description": "translations.json#/div_counter_value_width"
         },
         "background_color": {
@@ -93,7 +93,7 @@
         },
         "padding": {
           "$ref": "common.json#/non_negative_integer",
-          "default_value": "4",
+          "default_value": "6",
           "$description": "translations.json#/div_counter_padding"
         },
         "is_enabled": {

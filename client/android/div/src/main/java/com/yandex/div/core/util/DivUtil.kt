@@ -68,6 +68,7 @@ import com.yandex.div2.DivTable
 import com.yandex.div2.DivTabs
 import com.yandex.div2.DivText
 import com.yandex.div2.DivVideo
+import com.yandex.div2.DivWebview
 import com.yandex.div2.DivVisibilityAction
 import java.util.Collections.min
 
@@ -96,6 +97,7 @@ internal val Div.type: String
             is Div.Progress -> DivProgress.TYPE
             is Div.Table -> DivTable.TYPE
             is Div.Counter -> DivCounter.TYPE
+            is Div.Webview -> DivWebview.TYPE
         }
     }
 
@@ -211,6 +213,7 @@ internal fun Div.containsStateInnerTransitions(resolver: ExpressionResolver): Bo
         is Div.Progress -> false
         is Div.Table -> false
         is Div.Counter -> false
+        is Div.Webview -> false
     }
 }
 
@@ -237,6 +240,7 @@ internal val Div.isBranch: Boolean
         is Div.Radio -> false
         is Div.Progress -> false
         is Div.Counter -> false
+        is Div.Webview -> false
         is Div.Container -> true
         is Div.Grid -> true
         is Div.Gallery -> true

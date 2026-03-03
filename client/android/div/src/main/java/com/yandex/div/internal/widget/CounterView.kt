@@ -323,7 +323,7 @@ internal open class CounterView(context: Context) : FrameLayout(context) {
         private val iconPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             strokeWidth = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics
+                TypedValue.COMPLEX_UNIT_DIP, 1.5f, resources.displayMetrics
             )
             strokeCap = Paint.Cap.ROUND
             color = DEFAULT_ICON_COLOR
@@ -339,7 +339,7 @@ internal open class CounterView(context: Context) : FrameLayout(context) {
             canvas.drawCircle(cx, cy, radius, circlePaint)
 
             // Draw icon (minus or plus)
-            val iconSize = radius * 0.5f
+            val iconSize = radius * 0.35f
             // Horizontal line (common to both minus and plus)
             canvas.drawLine(cx - iconSize, cy, cx + iconSize, cy, iconPaint)
 
@@ -351,11 +351,11 @@ internal open class CounterView(context: Context) : FrameLayout(context) {
     }
 
     companion object {
-        private const val DEFAULT_BUTTON_SIZE_DP = 20
-        private const val DEFAULT_VALUE_WIDTH_DP = 20
+        private const val DEFAULT_BUTTON_SIZE_DP = 36
+        private const val DEFAULT_VALUE_WIDTH_DP = 40
         private const val DEFAULT_FONT_SIZE_SP = 16
         private const val DEFAULT_CORNER_RADIUS_DP = 999
-        private const val DEFAULT_PADDING_DP = 4
+        private const val DEFAULT_PADDING_DP = 6
         private const val DEFAULT_MIN_VALUE = 0
         private const val DEFAULT_MAX_VALUE = 99
         private const val DEFAULT_STEP = 1

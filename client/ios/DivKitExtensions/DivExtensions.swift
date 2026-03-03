@@ -29,6 +29,7 @@ extension Div {
       }
     case .divCheckbox,
          .divContainer,
+         .divCounter,
          .divCustom,
          .divGallery,
          .divGrid,
@@ -44,6 +45,7 @@ extension Div {
          .divSwitch,
          .divTable,
          .divVideo,
+         .divWebview,
          .divTabs:
       break
     }

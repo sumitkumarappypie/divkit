@@ -45,6 +45,7 @@ internal class ExistingToken(
             is Div.Radio -> emptyList()
             is Div.Progress -> emptyList()
             is Div.Counter -> emptyList()
+            is Div.Webview -> emptyList()
             is Div.Container -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)
             is Div.Custom -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)
             is Div.Grid -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)

@@ -89,6 +89,10 @@
     {
       "$ref": "div-progress.json",
       "$description": "translations.json#/div_progress"
+    },
+    {
+      "$ref": "div-webview.json",
+      "$description": "translations.json#/div_webview"
     }
   ]
 }
