@@ -29,7 +29,8 @@ export const supportedComponents = new Set([
     'progress',
     'table',
     'counter',
-    'webview'
+    'webview',
+    'breadcrumb'
 ]);
 
 export const containerComponents = new Set([
@@ -194,13 +195,17 @@ export interface TabsSelectedTabProperty extends BaseProperty {
     type: 'tabs-selected-tab';
 }
 
+export interface BreadcrumbCrumbsProperty extends BaseProperty {
+    type: 'breadcrumb-crumbs';
+}
+
 export type ComponentProperty = RadioProperty | IntegerProperty | BooleanProperty | SelectProperty |
     PercentProperty | RotationProperty | StringProperty |
     ColorProperty | FileProperty | GroupProperty | SplitProperty | AlignmentProperty |
     MarginsPaddingsProperty | Background2Property | TextAlignProperty | TextStylesProperty |
     Actions2Property | VideoSourcesProperty | NumberProperty | VariableNameProperty |
     SelectOptionsProperty | SelectFontFamily | ItemsProperty | StateDefaultIdProperty |
-    TabsSelectedTabProperty;
+    TabsSelectedTabProperty | BreadcrumbCrumbsProperty;
 
 export type SiblingComponentProperty = ComponentProperty & {
     related?: {
@@ -1380,6 +1385,47 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             name: 'props.tab_inactive_text_color',
             prop: 'tab_title_style.inactive_text_color',
             type: 'color',
+            enableSources: true
+        }]
+    }],
+    breadcrumb: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            name: 'props.a11y_description',
+            prop: 'accessibility.description',
+            type: 'string',
+            enableSources: true
+        }]
+    }, {
+        type: 'group',
+        title: 'breadcrumbProps.title',
+        list: [{
+            name: 'props.breadcrumb_crumbs',
+            prop: 'crumbs',
+            type: 'breadcrumb-crumbs'
+        }, {
+            name: 'props.separator',
+            prop: 'separator',
+            type: 'string',
+            enableSources: true
+        }, {
+            name: 'props.item_text_color',
+            prop: 'item_text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.active_text_color',
+            prop: 'active_text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.item_font_size',
+            prop: 'item_font_size',
+            type: 'integer',
+            min: 1,
+            max: 200,
+            default: 14,
             enableSources: true
         }]
     }]

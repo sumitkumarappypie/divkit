@@ -25,6 +25,7 @@ import progressIcon from '../../assets/components/progress.svg?url';
 import tableIcon from '../../assets/components/table.svg?url';
 import counterIcon from '../../assets/components/counter.svg?url';
 import webviewIcon from '../../assets/components/webview.svg?url';
+import breadcrumbIcon from '../../assets/components/breadcrumb.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
@@ -50,7 +51,8 @@ const MAP = {
     progress: progressIcon,
     table: tableIcon,
     counter: counterIcon,
-    webview: webviewIcon
+    webview: webviewIcon,
+    breadcrumb: breadcrumbIcon
 };
 
 const MAP_BY_ORIENTATION = {

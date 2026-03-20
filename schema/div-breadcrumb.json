@@ -1,0 +1,70 @@
+{
+  "$description": "translations.json#/div_breadcrumb",
+  "definitions": {
+    "crumb": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "$description": "translations.json#/div_breadcrumb_crumb_title"
+        },
+        "action": {
+          "$ref": "div-action.json",
+          "$description": "translations.json#/div_breadcrumb_crumb_action"
+        }
+      },
+      "required": ["title"]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "breadcrumb"
+          ]
+        },
+        "crumbs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/crumb",
+            "$description": "translations.json#/div_breadcrumb_crumb"
+          },
+          "minItems": 1,
+          "$description": "translations.json#/div_breadcrumb_crumbs"
+        },
+        "separator": {
+          "type": "string",
+          "default_value": "/",
+          "$description": "translations.json#/div_breadcrumb_separator"
+        },
+        "item_text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_breadcrumb_item_text_color"
+        },
+        "active_text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_breadcrumb_active_text_color"
+        },
+        "item_font_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "14",
+          "$description": "translations.json#/div_breadcrumb_item_font_size"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "crumbs"
+  ]
+}

@@ -3371,6 +3371,42 @@
     "en": "URL of the web page to load.",
     "ru": "URL веб-страницы для загрузки."
   },
+  "div_breadcrumb": {
+    "en": "Navigation breadcrumb trail showing the user's location in a hierarchy.",
+    "ru": "Навигационные хлебные крошки, показывающие положение пользователя в иерархии."
+  },
+  "div_breadcrumb_crumbs": {
+    "en": "Array of breadcrumb crumbs from root to current page. The last crumb represents the current page.",
+    "ru": "Массив элементов хлебных крошек от корня до текущей страницы. Последний элемент — текущая страница."
+  },
+  "div_breadcrumb_crumb": {
+    "en": "A single breadcrumb crumb.",
+    "ru": "Один элемент хлебных крошек."
+  },
+  "div_breadcrumb_crumb_title": {
+    "en": "Display text of the breadcrumb crumb.",
+    "ru": "Отображаемый текст элемента хлебных крошек."
+  },
+  "div_breadcrumb_crumb_action": {
+    "en": "Action triggered when the crumb is tapped. Omit for the current (last) crumb.",
+    "ru": "Действие при нажатии на элемент. Не указывается для текущего (последнего) элемента."
+  },
+  "div_breadcrumb_separator": {
+    "en": "Separator character or text rendered between items. Default: \"/\".",
+    "ru": "Символ или текст-разделитель между элементами. По умолчанию: \"/\"."
+  },
+  "div_breadcrumb_item_text_color": {
+    "en": "Text color for inactive (clickable) breadcrumb items.",
+    "ru": "Цвет текста неактивных (кликабельных) элементов хлебных крошек."
+  },
+  "div_breadcrumb_active_text_color": {
+    "en": "Text color for the active (current page, last) breadcrumb item.",
+    "ru": "Цвет текста активного (текущего, последнего) элемента хлебных крошек."
+  },
+  "div_breadcrumb_item_font_size": {
+    "en": "Font size in sp for all breadcrumb items. Default: 14.",
+    "ru": "Размер шрифта в sp для всех элементов хлебных крошек. По умолчанию: 14."
+  },
   "div_wrap_content_size": {
     "en": "The size of an element adjusts to its contents.",
     "ru": "Размер элемента подстраивается под его содержимое."

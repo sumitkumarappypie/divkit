@@ -870,6 +870,20 @@ export class State {
                     type: 'match_parent'
                 }
             };
+        } else if (type === 'breadcrumb') {
+            json = {
+                type,
+                crumbs: [
+                    { title: 'Home', action: { log_id: 'breadcrumb_home', url: 'div-action://home' } },
+                    { title: 'Category', action: { log_id: 'breadcrumb_category', url: 'div-action://category' } },
+                    { title: 'Current Page' }
+                ],
+                separator: '/',
+                item_text_color: '#0077CC',
+                active_text_color: '#111111',
+                item_font_size: 14,
+                width: { type: 'match_parent' }
+            };
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {

@@ -17,6 +17,7 @@
     import VideoSourcesProp from './VideoSourcesProp.svelte';
     import VariableNameProp from './VariableNameProp.svelte';
     import SelectOptionsProp from './SelectOptionsProp.svelte';
+    import BreadcrumbCrumbsProp from './BreadcrumbCrumbsProp.svelte';
     import SelectFontFamilyProp from './SelectFontFamilyProp.svelte';
     import ItemsProp from './ItemsProp.svelte';
     import StateDefaultIdProp from './StateDefaultIdProp.svelte';
@@ -172,6 +173,12 @@
     />
 {:else if item.type === 'select-options'}
     <SelectOptionsProp
+        {item}
+        {value}
+        on:change
+    />
+{:else if item.type === 'breadcrumb-crumbs'}
+    <BreadcrumbCrumbsProp
         {item}
         {value}
         on:change
