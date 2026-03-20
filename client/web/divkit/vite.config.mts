@@ -73,7 +73,7 @@ export default defineConfig(({ isSsrBuild, mode }) => {
         },
         css: {
             modules: {
-                generateScopedName: isProd ? 'divkit-[hash:5]' : undefined
+                generateScopedName: 'appkit-[local]'
             }
         },
         ssr: {

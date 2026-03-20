@@ -56,6 +56,7 @@
     import { isDeepEqual } from '../../utils/isDeepEqual';
     import { wrapError } from '../../utils/wrapError';
     import { correctNonNegativeNumber } from '../../utils/correctNonNegativeNumber';
+    import { pxToEm } from '../../utils/pxToEm';
     import ContainerSeparators from './ContainerSeparators.svelte';
     import Unknown from '../utilities/Unknown.svelte';
     import Outer from '../utilities/Outer.svelte';
@@ -77,6 +78,7 @@
     let childLayoutParams: LayoutParams = {};
     let itemSpacing = 0;
     let lineSpacing = 0;
+    let isFixedContainer = false;
 
     $: origJson = componentContext.origJson;
 
@@ -87,6 +89,7 @@
         aspect = undefined;
         itemSpacing = 0;
         lineSpacing = 0;
+        isFixedContainer = false;
     }
 
     $: if (origJson) {
@@ -111,6 +114,8 @@
     $: jsonWidth = componentContext.getDerivedFromVars(componentContext.json.width);
     $: jsonHeight = componentContext.getDerivedFromVars(componentContext.json.height);
     $: jsonClipToBounds = componentContext.getDerivedFromVars(componentContext.json.clip_to_bounds);
+    $: jsonMaxWidth = componentContext.getDerivedFromVars((componentContext.json as any).max_width);
+    $: jsonResponsive = componentContext.getDerivedFromVars((componentContext.json as any).responsive);
 
     function replaceItems(items: (MaybeMissing<DivBaseData> | undefined)[]): void {
         componentContext = prevContext = {
@@ -370,13 +375,56 @@
         childLayoutParams = assignIfDifferent(newChildLayoutParams, childLayoutParams);
     }
 
-    $: mods = {
-        orientation,
-        valign: contentVAlign,
-        halign: contentHAlign,
-        wrap,
-        overflow: ($jsonClipToBounds === false || $jsonClipToBounds === 0) ? 'visible' : undefined
-    };
+    $: {
+        isFixedContainer = $jsonMaxWidth?.type === 'fixed';
+    }
+
+    let mods: Record<string, string | boolean | undefined> = {};
+    let responsiveMobileHeight: number | undefined = undefined;
+    let responsiveTabletHeight: number | undefined = undefined;
+
+    $: {
+        let responsiveMobileOrientation: string | undefined;
+        let responsiveTabletOrientation: string | undefined;
+        responsiveMobileHeight = undefined;
+        responsiveTabletHeight = undefined;
+
+        if ($jsonResponsive) {
+            const mobile = ($jsonResponsive as any)?.mobile;
+            const tablet = ($jsonResponsive as any)?.tablet;
+
+            if (mobile?.orientation) {
+                responsiveMobileOrientation = String(mobile.orientation);
+            }
+            if (tablet?.orientation) {
+                responsiveTabletOrientation = String(tablet.orientation);
+            }
+
+            if (mobile?.height?.type === 'fixed' && mobile.height.value !== undefined) {
+                const heightVal = correctNonNegativeNumber(mobile.height.value, 0);
+                responsiveMobileHeight = heightVal > 0 ? heightVal : undefined;
+            }
+            if (tablet?.height?.type === 'fixed' && tablet.height.value !== undefined) {
+                const heightVal = correctNonNegativeNumber(tablet.height.value, 0);
+                responsiveTabletHeight = heightVal > 0 ? heightVal : undefined;
+            }
+        }
+
+        mods = {
+            orientation,
+            valign: contentVAlign,
+            halign: contentHAlign,
+            wrap,
+            overflow: ($jsonClipToBounds === false || $jsonClipToBounds === 0) ? 'visible' : undefined,
+            'fixed-container': isFixedContainer,
+            'responsive-mobile-vertical': responsiveMobileOrientation === 'vertical',
+            'responsive-mobile-horizontal': responsiveMobileOrientation === 'horizontal',
+            'responsive-tablet-vertical': responsiveTabletOrientation === 'vertical',
+            'responsive-tablet-horizontal': responsiveTabletOrientation === 'horizontal',
+            'responsive-mobile-has-height': responsiveMobileHeight !== undefined,
+            'responsive-tablet-has-height': responsiveTabletHeight !== undefined
+        };
+    }
 
     $: style = {
         gap: (separator || lineSeparator || itemSpacing || lineSpacing) ?
@@ -388,7 +436,9 @@
                 lineSpacing
             }) :
             undefined,
-        'aspect-ratio': aspect
+        'aspect-ratio': aspect,
+        '--responsive-mobile-height': responsiveMobileHeight !== undefined ? pxToEm(responsiveMobileHeight) : undefined,
+        '--responsive-tablet-height': responsiveTabletHeight !== undefined ? pxToEm(responsiveTabletHeight) : undefined
     };
 
     onDestroy(() => {

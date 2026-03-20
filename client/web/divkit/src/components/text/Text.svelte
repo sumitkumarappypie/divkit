@@ -82,6 +82,7 @@
     let wholeTextCloudBgOpacity: number | undefined;
     let usedTintColors: [string, TintMode][] = [];
     let rootTextStyles: typeof $jsonRootTextStyles = {};
+    let containerElement: 'div' | 'span' = 'span';
 
     $: if (componentContext.json) {
         fontSize = 12;
@@ -132,6 +133,20 @@
     $: jsonSelectable = componentContext.getDerivedFromVars(componentContext.json.selectable);
     $: jsonAutoEllipsize = componentContext.getDerivedFromVars(componentContext.json.auto_ellipsize);
     $: jsonPaddings = componentContext.getDerivedFromVars(componentContext.json.paddings);
+    $: jsonHeadingType = componentContext.getDerivedFromVars((componentContext.json as any).heading_type);
+
+    $: htmlTag = (() => {
+        const headingType = $jsonHeadingType;
+        if (headingType && typeof headingType === 'string') {
+            const normalized = headingType.toLowerCase();
+            if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(normalized)) {
+                return normalized;
+            }
+        }
+        return 'span';
+    })();
+
+    $: containerElement = (htmlTag !== 'span') ? 'div' : 'span';
 
     $: {
         if (typeof componentContext.json.text === 'string') {
@@ -502,9 +517,11 @@
     cls="{genClassName('text', css, mods)} {selectable ? rootCss.root__selectable : rootCss.root__unselectable}"
     {componentContext}
     {layoutParams}
+    {containerElement}
 >
     {#if hasCloudBg}
-        <span
+        <svelte:element
+            this={htmlTag}
             class={genClassName('text__inner', css, {
                 ...innerMods,
                 'cloud-bg': true
@@ -539,9 +556,10 @@
                     })}></span></span>
                 {/if}
             {/each}
-        </span>
+        </svelte:element>
     {/if}
-    <span
+    <svelte:element
+        this={htmlTag}
         class={genClassName('text__inner', css, innerMods)}
         style={makeStyle(style)}
         use:autoEllipsize={{
@@ -596,5 +614,5 @@
                 {customLineHeight}
             />
         {/if}
-    </span>
+    </svelte:element>
 </Outer>

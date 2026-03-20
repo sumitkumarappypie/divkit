@@ -23,6 +23,7 @@ import Table from './table/Table.svelte';
 import Counter from './counter/Counter.svelte';
 import Webview from './webview/Webview.svelte';
 import Custom from './custom/Custom.svelte';
+import Breadcrumb from './breadcrumb/Breadcrumb.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
     text: Text,
@@ -47,5 +48,6 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     table: Table,
     counter: Counter,
     webview: Webview,
-    custom: Custom
+    custom: Custom,
+    breadcrumb: Breadcrumb
 };

@@ -48,6 +48,7 @@
     export let hasInnerFocusable = false;
     export let customAccessibility: MaybeMissing<Accessibility> | undefined = undefined;
     export let captureFocusOnAction = true;
+    export let containerElement: 'span' | 'div' = 'span';
 
     const rootCtx = getContext<RootCtxValue>(ROOT_CTX);
     const actionCtx = getContext<ActionCtxValue>(ACTION_CTX);
@@ -443,7 +444,8 @@
         <slot />
     </button>
 {:else}
-    <span
+    <svelte:element
+        this={containerElement}
         bind:this={node}
         use:use
         class="{cls} {longTapActions?.length ? rootCss['root_disabled-context-menu'] : ''} {hasAnyActions ? rootCss['root__any-actions'] : ''}"
@@ -460,5 +462,5 @@
         {...attrs}
     >
         <slot />
-    </span>
+    </svelte:element>
 {/if}

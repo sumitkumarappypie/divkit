@@ -100,6 +100,7 @@
     export let replaceItems: ((items: (MaybeMissing<DivBaseData> | undefined)[]) => void) | undefined = undefined;
     export let hasInnerFocusable = false;
     export let alwaysCustomFocus = false;
+    export let containerElement: 'span' | 'div' = 'span';
     export let devapi: object | undefined = undefined;
 
     const rootCtx = getContext<RootCtxValue>(ROOT_CTX);
@@ -994,17 +995,59 @@
         '100%' :
         ((widthFlexGrow || heightFlexGrow) ? 0 : undefined);
 
+    $: customClass = (componentContext.json as Record<string, unknown>)['custom-class'] as string || '';
+
+    // Hover styles support
+    $: hoverConfig = componentContext.json['hover'] as Record<string, unknown> | undefined;
+    let hoverStyleEl: HTMLStyleElement | null = null;
+    let hoverClassName = '';
+
+    $: {
+        if (hoverConfig && typeof hoverConfig === 'object' && typeof document !== 'undefined') {
+            if (!hoverClassName) {
+                hoverClassName = 'divkit-hover-' + Math.random().toString(36).slice(2, 9);
+            }
+            let hoverCSS = '';
+            if (hoverConfig.background_color) hoverCSS += `background-color: ${hoverConfig.background_color} !important;`;
+            if (hoverConfig.opacity !== undefined) hoverCSS += `opacity: ${hoverConfig.opacity} !important;`;
+            if (hoverConfig.scale !== undefined) hoverCSS += `scale: ${hoverConfig.scale} !important;`;
+            if (hoverConfig.color) hoverCSS += `color: ${hoverConfig.color} !important;`;
+            if (hoverConfig.border_color) hoverCSS += `border-color: ${hoverConfig.border_color} !important;`;
+            if (hoverConfig['box-shadow'] || hoverConfig.box_shadow) hoverCSS += `box-shadow: ${hoverConfig['box-shadow'] || hoverConfig.box_shadow} !important;`;
+
+            if (hoverCSS) {
+                if (!hoverStyleEl) {
+                    hoverStyleEl = document.createElement('style');
+                    document.head.appendChild(hoverStyleEl);
+                }
+                hoverStyleEl.textContent = `.${hoverClassName}:hover { ${hoverCSS} }`;
+            }
+        } else if (hoverStyleEl) {
+            hoverStyleEl.remove();
+            hoverStyleEl = null;
+            hoverClassName = '';
+        }
+    }
+
     $: stl = {
         ...style,
         ...backgroundStyle,
         ...borderStyle,
         width,
         'min-width': widthMin,
-        'max-width': widthMax,
+        'max-width': widthMax || (() => {
+            const mw = (componentContext.json as any).max_width;
+            if (mw?.type === 'fixed' && mw?.value) return pxToEm(mw.value as number);
+            return undefined;
+        })(),
         height,
         'min-height': heightMin,
         // input max-height
-        'max-height': heightMax || style?.['max-height'],
+        'max-height': heightMax || style?.['max-height'] || (() => {
+            const mh = (componentContext.json as any).max_height;
+            if (mh?.type === 'fixed' && mh?.value) return pxToEm(mh.value as number);
+            return undefined;
+        })(),
         'grid-area': gridArea,
         padding,
         margin,
@@ -1195,6 +1238,11 @@
         prevTriggersUnsubscribe?.();
 
         unmountExtensions();
+
+        if (hoverStyleEl) {
+            hoverStyleEl.remove();
+            hoverStyleEl = null;
+        }
     });
 </script>
 
@@ -1203,7 +1251,7 @@
         {componentContext}
         id={componentContext.json.id}
         use={useAction}
-        cls="{cls} {genClassName('outer', css, mods)}"
+        cls="{cls} {genClassName('outer', css, mods)}{customClass ? ` ${customClass}` : ''}{hoverClassName ? ` ${hoverClassName}` : ''}"
         style={makeStyle(stl)}
         {actions}
         {doubleTapActions}
@@ -1217,6 +1265,7 @@
         isNativeActionAnimation={!actionAnimationList.length || hasNativeAnimation(actionAnimationList)}
         customAccessibility={$jsonAccessibility}
         {captureFocusOnAction}
+        {containerElement}
         on:focus={focusHandler}
         on:blur={blurHandler}
         on:pointerdown

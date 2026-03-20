@@ -12,6 +12,7 @@
     import type { SwitchElements } from '../../types/switch-elements';
     import type { Orientation } from '../../types/orientation';
     import type { MaybeMissing } from '../../expressions/json';
+    import type { Size } from '../../types/sizes';
     import type { Style } from '../../types/general';
     import type { ComponentContext, ComponentKey } from '../../types/componentContext';
     import type { Variable } from '../../expressions/variable';
@@ -26,6 +27,7 @@
     import { correctNonNegativeNumber } from '../../utils/correctNonNegativeNumber';
     import { correctEdgeInserts } from '../../utils/correctEdgeInserts';
     import { correctPositiveNumber } from '../../utils/correctPositiveNumber';
+    import { joinTemplateSizes } from '../../utils/joinTemplateSizes';
     import { debounce } from '../../utils/debounce';
     import { Truthy } from '../../utils/truthy';
     import { nonNegativeModulo } from '../../utils/nonNegativeModulo';
@@ -40,6 +42,7 @@
     export let layoutParams: LayoutParams | undefined = undefined;
 
     interface ChildInfo {
+        size?: MaybeMissing<Size>;
         visibility?: string;
     }
 
@@ -81,6 +84,7 @@
         'margin-right'?: string;
         'margin-bottom'?: string;
     } | undefined;
+    let templateSizes: string[] = [];
     let childStore: Readable<ChildInfo[]>;
     let scrollerStyle: Style = {};
     let scrollSnap = false;
@@ -109,6 +113,42 @@
 
     $: jsonColumnCount = componentContext.getDerivedFromVars(componentContext.json.column_count);
     $: jsonOrientation = componentContext.getDerivedFromVars(componentContext.json.orientation);
+
+    // Responsive column_count via responsive: { mobile: { column_count }, tablet: { column_count } }
+    let mobileQuery: MediaQueryList | null = null;
+    let tabletQuery: MediaQueryList | null = null;
+
+    function onResponsiveChange(): void {
+        const baseColumns = correctPositiveNumber($jsonColumnCount, columns);
+        const resp = (componentContext.json as any).responsive;
+        if (!resp || typeof resp !== 'object') {
+            columns = baseColumns;
+            return;
+        }
+        if (mobileQuery?.matches && resp.mobile?.column_count) {
+            columns = resp.mobile.column_count;
+        } else if (tabletQuery?.matches && resp.tablet?.column_count) {
+            columns = resp.tablet.column_count;
+        } else {
+            columns = baseColumns;
+        }
+    }
+
+    $: {
+        const baseColumns = correctPositiveNumber($jsonColumnCount, columns);
+        const resp = (componentContext.json as any).responsive;
+        if (resp && typeof resp === 'object' && typeof window !== 'undefined') {
+            if (!mobileQuery) {
+                mobileQuery = window.matchMedia('(max-width: 767px)');
+                tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+                mobileQuery.addEventListener('change', onResponsiveChange);
+                tabletQuery.addEventListener('change', onResponsiveChange);
+            }
+            onResponsiveChange();
+        } else {
+            columns = baseColumns;
+        }
+    }
     $: jsonCrossContentAlignment = componentContext.getDerivedFromVars(componentContext.json.cross_content_alignment);
     $: jsonItemSpacing = componentContext.getDerivedFromVars(componentContext.json.item_spacing);
     $: jsonCrossSpacing = componentContext.getDerivedFromVars(componentContext.json.cross_spacing);
@@ -226,10 +266,6 @@
         resizeObserver = null;
     }
 
-    $: {
-        columns = correctPositiveNumber($jsonColumnCount, columns);
-    }
-
     function rebuildItemsGrid(items: ComponentContext[], info: ChildInfo[], columns: number): Item[][] {
         let column = 0;
         let res: Item[][] = [];
@@ -292,7 +328,9 @@
         let children: Readable<ChildInfo>[] = [];
 
         items.forEach(item => {
+            const itemSize = orientation === 'horizontal' ? 'width' : 'height';
             children.push(item.getDerivedFromVars({
+                size: item.json[itemSize],
                 visibility: item.json.visibility
             }));
         });
@@ -302,6 +340,32 @@
     }
 
     $: itemsGrid = rebuildItemsGrid(items, $childStore, columns);
+
+    $: {
+        templateSizes = [];
+        if (columns > 1) {
+            templateSizes.push('auto');
+        } else {
+            $childStore.forEach((childInfo, index) => {
+                if (childInfo.visibility === 'gone') {
+                    return;
+                }
+
+                if ((!childInfo.size && orientation === 'horizontal') || childInfo.size?.type === 'match_parent') {
+                    templateSizes.push('100%');
+                } else {
+                    templateSizes.push('max-content');
+                }
+
+                if (index + 1 < $childStore.length) {
+                    templateSizes.push('auto');
+                }
+            });
+            templateSizes.push('auto');
+        }
+    }
+
+    $: fixedColumns = (componentContext.json as any).fixed_columns === true;
 
     $: {
         const newScrollerStyle: Style = {};
@@ -329,9 +393,19 @@
         childLayoutParams = assignIfDifferent(newChildLayoutParams, childLayoutParams);
     }
 
+    $: gridTemplate = orientation === 'horizontal' ? 'grid-template-columns' : 'grid-template-rows';
+
     $: gridStyle = {
         padding,
-        'grid-gap': crossGridGap
+        'grid-gap': crossGridGap,
+        ...(fixedColumns && columns > 1 && orientation === 'vertical' ? {
+            'display': 'grid',
+            'grid-template-columns': `repeat(${columns}, 1fr)`
+        } : {})
+    };
+
+    $: columnStyle = {
+        [gridTemplate]: joinTemplateSizes(templateSizes)
     };
 
     $: mods = {
@@ -637,6 +711,13 @@
             rootCtx.unregisterInstance(prevId);
             prevId = undefined;
         }
+
+        if (mobileQuery) {
+            mobileQuery.removeEventListener('change', onResponsiveChange);
+        }
+        if (tabletQuery) {
+            tabletQuery.removeEventListener('change', onResponsiveChange);
+        }
     });
 </script>
 
@@ -665,6 +746,7 @@
             {#each itemsGrid as itemsRow, rowIndex}
                 <div
                     class={css.gallery__items}
+                    style={makeStyle(columnStyle)}
                     bind:this={galleryItemsWrappers[rowIndex]}
                 >
                     {#each itemsRow as item}

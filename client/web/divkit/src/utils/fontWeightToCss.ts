@@ -5,7 +5,8 @@ export function fontWeightToCss(fontWeight?: FontWeight | undefined): number | u
         fontWeight === 'light' ||
         fontWeight === 'medium' ||
         fontWeight === 'bold' ||
-        fontWeight === 'regular'
+        fontWeight === 'regular' ||
+        (fontWeight as string) === 'semi_bold'
     ) {
         if (fontWeight === 'medium') {
             return 500;
@@ -13,6 +14,8 @@ export function fontWeightToCss(fontWeight?: FontWeight | undefined): number | u
             return 700;
         } else if (fontWeight === 'light') {
             return 300;
+        } else if ((fontWeight as string) === 'semi_bold') {
+            return 600;
         }
 
         return 400;
