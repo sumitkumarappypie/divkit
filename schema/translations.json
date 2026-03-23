@@ -3487,6 +3487,34 @@
     "en": "Font size in sp for all breadcrumb items. Default: 14.",
     "ru": "Размер шрифта в sp для всех элементов хлебных крошек. По умолчанию: 14."
   },
+  "div_breadcrumb_item_builder": {
+    "en": "Builder for generating breadcrumb crumbs from a data array and prototypes.",
+    "ru": "Генератор элементов хлебных крошек из массива данных и прототипов."
+  },
+  "div_breadcrumb_item_builder_data": {
+    "en": "Data array used to generate crumbs. Each element is bound to the prototype variable.",
+    "ru": "Массив данных для генерации элементов. Каждый элемент привязывается к переменной прототипа."
+  },
+  "div_breadcrumb_item_builder_data_element_name": {
+    "en": "Name of the variable that references the current data element. Default: \"it\".",
+    "ru": "Имя переменной, ссылающейся на текущий элемент данных. По умолчанию: \"it\"."
+  },
+  "div_breadcrumb_item_builder_prototypes": {
+    "en": "Array of crumb prototypes. The first prototype whose selector evaluates to true is used.",
+    "ru": "Массив прототипов элементов. Используется первый прототип, селектор которого истинен."
+  },
+  "div_breadcrumb_item_builder_prototypes_selector": {
+    "en": "Expression that determines whether this prototype should be used. Default: true.",
+    "ru": "Выражение, определяющее, следует ли использовать этот прототип. По умолчанию: true."
+  },
+  "div_breadcrumb_item_builder_prototypes_title": {
+    "en": "Expression for the crumb's display title.",
+    "ru": "Выражение для отображаемого заголовка элемента."
+  },
+  "div_breadcrumb_item_builder_prototypes_action": {
+    "en": "Action triggered when the generated crumb is tapped.",
+    "ru": "Действие при нажатии на сгенерированный элемент."
+  },
   "div_wrap_content_size": {
     "en": "The size of an element adjusts to its contents.",
     "ru": "Размер элемента подстраивается под его содержимое."

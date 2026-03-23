@@ -98,4 +98,5 @@ export interface DivInputData extends DivBaseData {
     is_enabled?: BooleanInt;
     autocapitalization?: InputAutocapitalization;
     validators?: InputValidator[];
+    max_input_height?: number;
 }
