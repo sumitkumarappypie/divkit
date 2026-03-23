@@ -119,31 +119,21 @@
 }
 
 .input__input_multiline {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: block;
     min-height: 100%;
-    height: max-content;
-}
-
-.input_alignment-vertical_start .input__input_multiline {
-    justify-content: flex-start;
-}
-
-.input_alignment-vertical_end .input__input_multiline {
-    justify-content: flex-end;
-}
-
-.input_alignment-vertical_baseline .input__input_multiline {
-    justify-content: flex-start;
+    height: 100%;
+    resize: none;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .input_alignment-horizontal_center .input__input_multiline {
-    align-items: center;
+    text-align: center;
 }
 
 .input_alignment-horizontal_end .input__input_multiline {
-    align-items: flex-end;
+    text-align: end;
 }
 
 .input__input_has-custom-focus:focus,

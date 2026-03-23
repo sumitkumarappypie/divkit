@@ -66,7 +66,7 @@
     import { CurrencyInputMask } from '../../utils/mask/currencyInputMask';
     import { correctAlignmentHorizontal } from '../../utils/correctAlignmentHorizontal';
     import { type AlignmentVerticalMapped, correctAlignmentVertical } from '../../utils/correctAlignmentVertical';
-    import { calcSelectionOffset, setSelectionOffset } from '../../utils/contenteditable';
+    // import { calcSelectionOffset, setSelectionOffset } from '../../utils/contenteditable';
     import { correctBooleanInt } from '../../utils/correctBooleanInt';
     import { updatePhoneMask } from '../../utils/updatePhoneMask';
     import { composeAccessibilityDescription } from '../../utils/composeAccessibilityDescription';
@@ -83,11 +83,11 @@
     const direction = rootCtx.direction;
 
     let prevId: string | undefined;
-    let input: HTMLInputElement | HTMLSpanElement;
+    let input: HTMLInputElement | HTMLTextAreaElement;
     let isPressed = false;
     let inputMask: BaseInputMask | null = null;
     let value = '';
-    let contentEditableValue = '';
+    // contentEditableValue no longer needed with textarea
     let hasError = false;
     let hintColor = '';
     let fontSize = 12;
@@ -183,6 +183,7 @@
     $: jsonEnterKeyType = componentContext.getDerivedFromVars(componentContext.json.enter_key_type);
     $: jsonValidators = componentContext.getDerivedFromVars(componentContext.json.validators);
     $: jsonFilters = componentContext.getDerivedFromVars(componentContext.json.filters);
+    $: jsonMaxInputHeight = componentContext.getDerivedFromVars(componentContext.json.max_input_height);
 
     $: {
         let newHasError = false;
@@ -221,7 +222,7 @@
             val = val.slice(0, maxLength);
             valueVariable.setValue(val);
         }
-        value = contentEditableValue = val;
+        value = val;
         runValidators();
     }
 
@@ -318,7 +319,9 @@
     $: isMultiline = keyboardType === 'multi_line_text';
 
     $: {
-        if (isPositiveNumber($jsonVisibleMaxLines)) {
+        if (isPositiveNumber($jsonMaxInputHeight)) {
+            maxHeight = pxToEmWithUnits($jsonMaxInputHeight);
+        } else if (isPositiveNumber($jsonVisibleMaxLines)) {
             maxHeight = `calc(${$jsonVisibleMaxLines * (lineHeight || 1.25) * (fontSize / 10) + 'em'} + ${pxToEmWithUnits(correctNonNegativeNumber($jsonPaddings?.top, 0) + correctNonNegativeNumber($jsonPaddings?.bottom, 0))})`;
         } else {
             maxHeight = '';
@@ -421,17 +424,14 @@
 
     function onInput(event: Event): void {
         const input = event.target;
-        let val = (isMultiline ?
-            (input as HTMLDivElement).innerText :
-            (input as HTMLInputElement).value
-        ) || '';
+        let val = ((input as HTMLInputElement | HTMLTextAreaElement).value) || '';
 
         if (val === '\n') {
             val = '';
         }
 
         if (val.length > maxLength) {
-            val = contentEditableValue = value;
+            val = value;
             if (input instanceof HTMLInputElement) {
                 input.value = val;
             }
@@ -439,14 +439,14 @@
 
         if (value !== val) {
             if (checkFilters(val)) {
-                value = contentEditableValue = val;
+                value = val;
                 valueVariable.setValue(val);
                 if (inputMask) {
                     runValueMask();
                 }
                 runValidators();
             } else {
-                value = contentEditableValue = val;
+                value = val;
                 if (input instanceof HTMLInputElement) {
                     input.value = val;
                 }
@@ -502,50 +502,24 @@
 
     function onClick() {
         if (!isPressed) {
-            if (input instanceof HTMLInputElement) {
-                input.select();
-            } else {
-                const selection = window.getSelection();
-                const range = document.createRange();
-                range.selectNodeContents(input);
-                if (selection) {
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                }
-            }
+            (input as HTMLInputElement | HTMLTextAreaElement).select();
         }
     }
 
     function getSelectionStart(): number | undefined {
-        if (input instanceof HTMLInputElement) {
-            return input.selectionStart === null ? undefined : input.selectionStart;
-        }
-
-        return calcSelectionOffset(input, 'start');
+        const el = input as HTMLInputElement | HTMLTextAreaElement;
+        return el.selectionStart === null ? undefined : el.selectionStart;
     }
 
     function getSelectionEnd(): number | undefined {
-        if (input instanceof HTMLInputElement) {
-            return input.selectionEnd === null ? undefined : input.selectionEnd;
-        }
-
-        return calcSelectionOffset(input, 'end');
+        const el = input as HTMLInputElement | HTMLTextAreaElement;
+        return el.selectionEnd === null ? undefined : el.selectionEnd;
     }
 
     function setCursorPosition(start: number, end: number): void {
-        if (input instanceof HTMLInputElement) {
-            input.selectionStart = start;
-            input.selectionEnd = end;
-        } else {
-            const sel = window.getSelection();
-            if (sel) {
-                sel.removeAllRanges();
-                const range = document.createRange();
-                setSelectionOffset(input, range, 'start', start);
-                setSelectionOffset(input, range, 'end', end);
-                sel.addRange(range);
-            }
-        }
+        const el = input as HTMLInputElement | HTMLTextAreaElement;
+        el.selectionStart = start;
+        el.selectionEnd = end;
     }
 
     async function runValueMask(): Promise<void> {
@@ -559,7 +533,7 @@
         inputMask.applyChangeFrom(value, end === start ? end : 0);
 
         rawValueVariable.set(inputMask.rawValue);
-        $valueVariable = value = contentEditableValue = inputMask.value;
+        $valueVariable = value = inputMask.value;
         const cursorPosition = inputMask.cursorPosition;
 
         await tick();
@@ -577,7 +551,7 @@
         inputMask.overrideRawValue($rawValueVariable);
 
         rawValueVariable.set(inputMask.rawValue);
-        $valueVariable = value = contentEditableValue = inputMask.value;
+        $valueVariable = value = inputMask.value;
         const cursorPosition = inputMask.cursorPosition;
 
         await tick();
@@ -680,7 +654,7 @@
         if (input && inputMask) {
             if ($rawValueVariable) {
                 inputMask.overrideRawValue($rawValueVariable);
-                $valueVariable = value = contentEditableValue = inputMask.value;
+                $valueVariable = value = inputMask.value;
             }
         }
     });
@@ -711,65 +685,25 @@
         {layoutParams}
     >
         {#if isMultiline}
-            <span class={css['input__scroll-wrapper']}>
-                {#if !contentEditableValue && placeholder}
-                    <div
-                        class={css.input__placeholder}
-                        aria-hidden="true"
-                        style={makeStyle(paddingStl)}
-                    >
-                        {placeholder}
-                    </div>
-                {/if}
-
-                <!-- zero-width space, so other baseline-elements could be aligned without value -->
-                <span
-                    class={css.input__aligner}
-                    aria-hidden="true"
-                    style={makeStyle(verticalPaddingStl)}
-                >​</span>
-
-                {#if isEnabled}
-                    <span
-                        bind:this={input}
-                        class={genClassName('input__input', css, { 'has-custom-focus': hasCustomFocus, multiline: true })}
-                        autocapitalize={autocapitalization}
-                        contenteditable="true"
-                        role="textbox"
-                        tabindex="0"
-                        aria-label={description}
-                        aria-multiline="true"
-                        enterkeyhint={enterKeyType === 'default' ? undefined : enterKeyType}
-                        aria-describedby={describedBy || undefined}
-                        style={makeStyle(paddingStl)}
-                        bind:innerText={contentEditableValue}
-                        on:input={onInput}
-                        on:keydown={blockOverflow}
-                        on:keydown={onKeyDown}
-                        on:paste={onPaste}
-                        on:mousedown={$jsonSelectAll ? onMousedown : undefined}
-                        on:click={$jsonSelectAll ? onClick : undefined}
-                        on:focus={focusHandler}
-                        on:blur={blurHandler}
-                    >
-                    </span>
-                {:else}
-                    <span
-                        bind:this={input}
-                        class={genClassName('input__input', css, { multiline: true })}
-                        autocapitalize={autocapitalization}
-                        contenteditable="false"
-                        role="textbox"
-                        aria-label={description}
-                        aria-disabled="true"
-                        aria-multiline="true"
-                        aria-describedby={describedBy || undefined}
-                        style={makeStyle(paddingStl)}
-                        bind:innerText={contentEditableValue}
-                    >
-                    </span>
-                {/if}
-            </span>
+            <textarea
+                bind:this={input}
+                class={genClassName('input__input', css, { 'has-custom-focus': hasCustomFocus, multiline: true })}
+                autocapitalize={autocapitalization}
+                aria-label={description}
+                aria-describedby={describedBy || undefined}
+                enterkeyhint={enterKeyType === 'default' ? undefined : enterKeyType}
+                style={makeStyle(paddingStl)}
+                disabled={!isEnabled}
+                maxlength={maxLength === Infinity ? undefined : maxLength}
+                placeholder={placeholder}
+                value={value}
+                on:input={onInput}
+                on:keydown={onKeyDown}
+                on:mousedown={$jsonSelectAll ? onMousedown : undefined}
+                on:click={$jsonSelectAll ? onClick : undefined}
+                on:focus={focusHandler}
+                on:blur={blurHandler}
+            ></textarea>
         {:else}
             <input
                 bind:this={input}

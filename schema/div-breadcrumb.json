@@ -54,17 +54,67 @@
           "$ref": "common.json#/non_negative_integer",
           "default_value": "14",
           "$description": "translations.json#/div_breadcrumb_item_font_size"
+        },
+        "item_builder": {
+          "type": "object",
+          "$description": "translations.json#/div_breadcrumb_item_builder",
+          "platforms": [
+            "web"
+          ],
+          "properties": {
+            "data_element_name": {
+              "type": "string",
+              "default_value": "it",
+              "supports_expressions": false,
+              "$description": "translations.json#/div_breadcrumb_item_builder_data_element_name"
+            },
+            "data": {
+              "type": "array",
+              "$description": "translations.json#/div_breadcrumb_item_builder_data"
+            },
+            "prototypes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "selector": {
+                    "$ref": "common.json#/boolean_int",
+                    "default_value": "true",
+                    "$description": "translations.json#/div_breadcrumb_item_builder_prototypes_selector"
+                  },
+                  "title": {
+                    "type": "string",
+                    "$description": "translations.json#/div_breadcrumb_item_builder_prototypes_title"
+                  },
+                  "action": {
+                    "$ref": "div-action.json",
+                    "$description": "translations.json#/div_breadcrumb_item_builder_prototypes_action"
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "$description": "translations.json#/div_breadcrumb_item_builder_prototypes"
+            }
+          },
+          "required": [
+            "data",
+            "prototypes"
+          ]
         }
       }
     }
   ],
   "platforms": [
-    "android",
-    "ios",
     "web"
   ],
   "required": [
-    "type",
-    "crumbs"
+    "type"
+  ],
+  "anyOf": [
+    { "required": ["crumbs"] },
+    { "required": ["item_builder"] }
   ]
 }

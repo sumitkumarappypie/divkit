@@ -11,6 +11,7 @@
     import { pxToEm } from '../../utils/pxToEm';
     import { correctColor } from '../../utils/correctColor';
     import { correctPositiveNumber } from '../../utils/correctPositiveNumber';
+    import { constStore } from '../../utils/constStore';
     import Outer from '../utilities/Outer.svelte';
     import DevtoolHolder from '../utilities/DevtoolHolder.svelte';
 
@@ -43,6 +44,11 @@
     $: jsonItemFontSize = componentContext.getDerivedFromVars(componentContext.json.item_font_size);
     $: jsonCrumbs = componentContext.getDerivedFromVars(componentContext.json.crumbs);
 
+    // eslint-disable-next-line no-nested-ternary
+    $: jsonItemBuilderData = typeof componentContext.json.item_builder?.data === 'string' ? componentContext.getDerivedFromVars(
+        componentContext.json.item_builder?.data, undefined, true
+    ) : (componentContext.json.item_builder?.data ? constStore(componentContext.json.item_builder.data) : undefined);
+
     $: {
         separator = (typeof $jsonSeparator === 'string' && $jsonSeparator.length > 0) ? $jsonSeparator : separator;
     }
@@ -59,7 +65,46 @@
         itemFontSize = correctPositiveNumber($jsonItemFontSize, itemFontSize);
     }
 
-    $: crumbs = Array.isArray($jsonCrumbs) ? $jsonCrumbs : (componentContext.json.crumbs || []);
+    $: crumbs = buildCrumbs($jsonCrumbs, $jsonItemBuilderData);
+
+    function buildCrumbs(jsonCrumbsVal: typeof $jsonCrumbs, itemBuilderData: unknown): BreadcrumbCrumb[] {
+        const builder = componentContext.json.item_builder;
+        if (builder && Array.isArray(itemBuilderData) && Array.isArray(builder.prototypes)) {
+            const result: BreadcrumbCrumb[] = [];
+            itemBuilderData.forEach((it, index) => {
+                if (it === null || typeof it !== 'object') {
+                    return;
+                }
+                const additionalVars = rootCtx.preparePrototypeVariables(builder.data_element_name || 'it', it as Record<string, unknown>, index);
+
+                for (let i = 0; i < builder.prototypes.length; ++i) {
+                    const prototype = builder.prototypes[i];
+                    if (!prototype.title) {
+                        continue;
+                    }
+                    if (prototype.selector !== undefined) {
+                        const selectorVal = componentContext.getJsonWithVars(prototype.selector, additionalVars);
+                        if (!selectorVal) {
+                            continue;
+                        }
+                    }
+
+                    const title = componentContext.getJsonWithVars(prototype.title, additionalVars);
+                    const crumb: BreadcrumbCrumb = { title };
+                    if (prototype.action) {
+                        const action = componentContext.getJsonWithVars(prototype.action, additionalVars);
+                        if (action) {
+                            crumb.action = action;
+                        }
+                    }
+                    result.push(crumb);
+                    break;
+                }
+            });
+            return result;
+        }
+        return Array.isArray(jsonCrumbsVal) ? jsonCrumbsVal : (componentContext.json.crumbs || []);
+    }
 
     $: stl = {
         '--divkit-breadcrumb-item-color': itemTextColor,
@@ -67,16 +112,17 @@
         '--divkit-breadcrumb-font-size': pxToEm(itemFontSize)
     };
 
-    function handleCrumbClick(crumb: BreadcrumbCrumb): void {
-        if (crumb.action) {
-            componentContext.execAnyActions([crumb.action]);
+    function getHref(crumb: BreadcrumbCrumb): string {
+        if (crumb.action?.url && !crumb.action.url.startsWith('div-action://')) {
+            return crumb.action.url;
         }
+        return '#';
     }
 
-    function handleCrumbKeydown(event: KeyboardEvent, crumb: BreadcrumbCrumb): void {
-        if (crumb.action && (event.key === 'Enter' || event.key === ' ')) {
-            componentContext.execAnyActions([crumb.action]);
+    function handleCrumbClick(event: MouseEvent, crumb: BreadcrumbCrumb): void {
+        if (crumb.action) {
             event.preventDefault();
+            componentContext.execAnyActions([crumb.action]);
         }
     }
 </script>
@@ -95,13 +141,11 @@
                         {#if index === crumbs.length - 1}
                             <span class={css.breadcrumb__label} aria-current="page">{crumb.title}</span>
                         {:else}
-                            <span
+                            <a
                                 class="{css.breadcrumb__label} {css['breadcrumb__label_link']}"
-                                role="link"
-                                tabindex="0"
-                                on:click={() => handleCrumbClick(crumb)}
-                                on:keydown={e => handleCrumbKeydown(e, crumb)}
-                            >{crumb.title}</span>
+                                href={getHref(crumb)}
+                                on:click={e => handleCrumbClick(e, crumb)}
+                            >{crumb.title}</a>
                             <span class={css.breadcrumb__separator} aria-hidden="true">{separator}</span>
                         {/if}
                     </li>
