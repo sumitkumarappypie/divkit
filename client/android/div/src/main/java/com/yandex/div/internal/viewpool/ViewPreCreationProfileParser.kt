@@ -47,6 +47,7 @@ internal object ViewPreCreationProfileParser {
     private const val KEY_VIDEO = "video"
     private const val KEY_SWITCH = "switch"
     private const val KEY_WEBVIEW = "webview"
+    private const val KEY_GOOGLE_MAP = "googleMap"
 
     fun serialize(profile: ViewPreCreationProfile): JSONObject {
         return JSONObject().apply {
@@ -70,6 +71,7 @@ internal object ViewPreCreationProfileParser {
             put(KEY_VIDEO, PreCreationModelParser.serialize(profile.video))
             put(KEY_SWITCH, PreCreationModelParser.serialize(profile.switch))
             put(KEY_WEBVIEW, PreCreationModelParser.serialize(profile.webview))
+            put(KEY_GOOGLE_MAP, PreCreationModelParser.serialize(profile.googleMap))
         }
     }
 
@@ -95,6 +97,7 @@ internal object ViewPreCreationProfileParser {
             video = PreCreationModelParser.deserialize(json.getJSONObject(KEY_VIDEO)),
             switch = PreCreationModelParser.deserialize(json.getJSONObject(KEY_SWITCH)),
             webview = PreCreationModelParser.deserialize(json.getJSONObject(KEY_WEBVIEW)),
+            googleMap = PreCreationModelParser.deserialize(json.getJSONObject(KEY_GOOGLE_MAP)),
         )
     }
 }

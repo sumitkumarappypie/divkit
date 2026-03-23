@@ -153,6 +153,7 @@ internal object DivPathUtils {
             is Div.Table -> null
             is Div.Counter -> null
             is Div.Webview -> null
+            is Div.GoogleMap -> null
         }
     }
 

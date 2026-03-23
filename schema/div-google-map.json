@@ -1,0 +1,112 @@
+{
+  "$description": "translations.json#/div_google_map",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "google_map"
+          ]
+        },
+        "latitude": {
+          "type": "number",
+          "$description": "translations.json#/div_google_map_latitude"
+        },
+        "longitude": {
+          "type": "number",
+          "$description": "translations.json#/div_google_map_longitude"
+        },
+        "zoom": {
+          "type": "number",
+          "default_value": "10",
+          "constraint": "number >= 1 && number <= 20",
+          "$description": "translations.json#/div_google_map_zoom"
+        },
+        "map_type": {
+          "$ref": "div-google-map-type.json",
+          "default_value": "normal",
+          "$description": "translations.json#/div_google_map_map_type"
+        },
+        "api_key": {
+          "type": "string",
+          "$description": "translations.json#/div_google_map_api_key"
+        },
+        "api_key_android": {
+          "type": "string",
+          "$description": "translations.json#/div_google_map_api_key_android",
+          "platforms": [
+            "android"
+          ]
+        },
+        "api_key_ios": {
+          "type": "string",
+          "$description": "translations.json#/div_google_map_api_key_ios",
+          "platforms": [
+            "ios"
+          ]
+        },
+        "api_key_web": {
+          "type": "string",
+          "$description": "translations.json#/div_google_map_api_key_web",
+          "platforms": [
+            "web"
+          ]
+        },
+        "markers": {
+          "type": "array",
+          "items": {
+            "$ref": "div-google-map-marker.json"
+          },
+          "$description": "translations.json#/div_google_map_markers"
+        },
+        "allow_zoom": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_google_map_allow_zoom"
+        },
+        "allow_scroll": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_google_map_allow_scroll"
+        },
+        "show_user_location": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_google_map_show_user_location"
+        },
+        "aspect": {
+          "$ref": "div-aspect.json",
+          "$description": "translations.json#/div_aspect"
+        },
+        "on_ready_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_google_map_on_ready_actions"
+        },
+        "on_error_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_google_map_on_error_actions"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "latitude",
+    "longitude"
+  ]
+}

@@ -130,6 +130,7 @@ extension Div {
          .divTable,
          .divVideo,
          .divWebview,
+         .divGoogleMap,
          .divText:
       // no children (table cells are not patchable as array items)
       self

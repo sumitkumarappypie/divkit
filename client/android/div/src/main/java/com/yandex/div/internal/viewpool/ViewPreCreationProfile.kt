@@ -32,6 +32,7 @@ data class ViewPreCreationProfile(
     val table: PreCreationModel = PreCreationModel(2),
     val counter: PreCreationModel = PreCreationModel(2),
     val webview: PreCreationModel = PreCreationModel(2),
+    val googleMap: PreCreationModel = PreCreationModel(2),
 ) {
     companion object {
         fun unconstrained(
@@ -59,7 +60,8 @@ data class ViewPreCreationProfile(
             progressCapacity: Int = 2,
             tableCapacity: Int = 2,
             counterCapacity: Int = 2,
-            webviewCapacity: Int = 2
+            webviewCapacity: Int = 2,
+            googleMapCapacity: Int = 2
         ): ViewPreCreationProfile = ViewPreCreationProfile(
             id = id,
             text = PreCreationModel(textCapacity),
@@ -85,7 +87,8 @@ data class ViewPreCreationProfile(
             progress = PreCreationModel(progressCapacity),
             table = PreCreationModel(tableCapacity),
             counter = PreCreationModel(counterCapacity),
-            webview = PreCreationModel(webviewCapacity)
+            webview = PreCreationModel(webviewCapacity),
+            googleMap = PreCreationModel(googleMapCapacity)
         )
     }
 }

@@ -1,0 +1,19 @@
+.google-map__frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: auto;
+}
+
+.google-map__aspect-wrapper {
+    position: relative;
+}
+
+.google-map__aspect-wrapper .google-map__frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

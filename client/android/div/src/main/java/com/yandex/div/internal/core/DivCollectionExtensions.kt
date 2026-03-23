@@ -121,6 +121,7 @@ private fun Div.copy(id: String? = value().id): Div {
         is Div.Table -> Div.Table(value.copy(id = id))
         is Div.Counter -> Div.Counter(value.copy(id = id))
         is Div.Webview -> Div.Webview(value.copy(id = id))
+        is Div.GoogleMap -> Div.GoogleMap(value.copy(id = id))
     }
 }
 

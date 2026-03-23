@@ -43,6 +43,13 @@ internal class MediaReleaseViewVisitor @Inject constructor(
         }
     }
 
+    override fun visit(view: DivGoogleMapView) {
+        criticalSection.runBindingAction {
+            view.release()
+            defaultVisit(view)
+        }
+    }
+
     override fun defaultVisit(view: DivHolderView<*>) {
         val bindingContext = view.bindingContext ?: return
         val div = view.div ?: return

@@ -4314,4 +4314,8 @@
     :global(.renderer__divkit-tabs > div:first-child > span) {
         pointer-events: auto;
     }
+
+    .renderer__content-inner :global(iframe) {
+        pointer-events: none !important;
+    }
 </style>

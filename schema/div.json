@@ -93,6 +93,10 @@
     {
       "$ref": "div-webview.json",
       "$description": "translations.json#/div_webview"
+    },
+    {
+      "$ref": "div-google-map.json",
+      "$description": "translations.json#/div_google_map"
     }
   ]
 }
