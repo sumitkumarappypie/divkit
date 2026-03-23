@@ -997,6 +997,91 @@
 
     $: customClass = (componentContext.json as Record<string, unknown>)['custom-class'] as string || '';
 
+    // Custom web-only properties
+    $: customPosition = componentContext.json['position'] as string | undefined;
+    $: customStickyTop = componentContext.json['sticky_top'] as number | undefined;
+    $: customStickyBottom = componentContext.json['sticky_bottom'] as number | undefined;
+    $: customZIndex = componentContext.json['z_index'] as number | undefined;
+    $: customCursor = componentContext.json['cursor'] as string | undefined;
+    $: customBackdropFilter = componentContext.json['backdrop_filter'] as string | undefined;
+    $: customOverflow = componentContext.json['overflow'] as string | undefined;
+    $: customBoxShadow = componentContext.json['box-shadow'] as string | undefined;
+    $: customTransition = componentContext.json['custom_transition'] as string | undefined;
+
+    // Responsive overrides support
+    let responsiveMobileQuery: MediaQueryList | null = null;
+    let responsiveTabletQuery: MediaQueryList | null = null;
+    let responsiveBreakpoint: 'mobile' | 'tablet' | 'desktop' = 'desktop';
+
+    function onResponsiveBreakpointChange(): void {
+        if (responsiveMobileQuery?.matches) {
+            responsiveBreakpoint = 'mobile';
+        } else if (responsiveTabletQuery?.matches) {
+            responsiveBreakpoint = 'tablet';
+        } else {
+            responsiveBreakpoint = 'desktop';
+        }
+    }
+
+    $: responsiveConfig = componentContext.json['responsive'] as Record<string, Record<string, unknown>> | undefined;
+
+    $: {
+        if (responsiveConfig && typeof responsiveConfig === 'object' && typeof window !== 'undefined') {
+            if (!responsiveMobileQuery) {
+                responsiveMobileQuery = window.matchMedia('(max-width: 767px)');
+                responsiveTabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+                responsiveMobileQuery.addEventListener('change', onResponsiveBreakpointChange);
+                responsiveTabletQuery.addEventListener('change', onResponsiveBreakpointChange);
+            }
+            onResponsiveBreakpointChange();
+        } else {
+            responsiveBreakpoint = 'desktop';
+        }
+    }
+
+    $: activeResponsive = responsiveBreakpoint !== 'desktop' && responsiveConfig?.[responsiveBreakpoint] || null;
+
+    $: responsivePadding = (() => {
+        if (!activeResponsive?.paddings) return undefined;
+        const p = activeResponsive.paddings as Record<string, number>;
+        return edgeInsertsToCss(correctEdgeInsertsObject(p, null), $direction);
+    })();
+
+    $: responsiveMargin = (() => {
+        if (!activeResponsive?.margins) return undefined;
+        const m = activeResponsive.margins as Record<string, number>;
+        return correctEdgeInserts(m, $direction, '');
+    })();
+
+    $: responsiveMaxWidth = (() => {
+        if (activeResponsive?.['max-width'] && typeof activeResponsive['max-width'] === 'string') {
+            return activeResponsive['max-width'] as string;
+        }
+        if (!activeResponsive?.max_width) return undefined;
+        const mw = activeResponsive.max_width as Record<string, unknown>;
+        if (mw.type === 'fixed' && mw.value) return (mw.value as number) + 'px';
+        return undefined;
+    })();
+
+    $: responsiveWidth = (() => {
+        if (!activeResponsive?.width) return undefined;
+        const w = activeResponsive.width as Record<string, unknown>;
+        if (w.type === 'fixed' && w.value) return pxToEm(w.value as number);
+        if (w.type === 'match_parent') return '100%';
+        return undefined;
+    })();
+
+    $: responsiveHeight = (() => {
+        if (!activeResponsive?.height) return undefined;
+        const h = activeResponsive.height as Record<string, unknown>;
+        if (h.type === 'fixed' && h.value) return pxToEm(h.value as number);
+        if (h.type === 'match_parent') return '100%';
+        return undefined;
+    })();
+
+    $: responsiveOpacity = activeResponsive?.opacity !== undefined ? activeResponsive.opacity as number : undefined;
+    $: responsiveVisibility = activeResponsive?.visibility as Visibility | undefined;
+
     // Hover styles support
     $: hoverConfig = componentContext.json['hover'] as Record<string, unknown> | undefined;
     let hoverStyleEl: HTMLStyleElement | null = null;
@@ -1033,14 +1118,14 @@
         ...style,
         ...backgroundStyle,
         ...borderStyle,
-        width,
+        width: responsiveWidth || width,
         'min-width': widthMin,
-        'max-width': widthMax || (() => {
+        'max-width': responsiveMaxWidth || widthMax || (() => {
             const mw = (componentContext.json as any).max_width;
             if (mw?.type === 'fixed' && mw?.value) return pxToEm(mw.value as number);
             return undefined;
         })(),
-        height,
+        height: responsiveHeight || height,
         'min-height': heightMin,
         // input max-height
         'max-height': heightMax || style?.['max-height'] || (() => {
@@ -1049,15 +1134,24 @@
             return undefined;
         })(),
         'grid-area': gridArea,
-        padding,
-        margin,
-        opacity,
-        transition: actionAnimationTransition,
+        padding: responsivePadding || padding,
+        margin: responsiveMargin || margin,
+        opacity: responsiveOpacity !== undefined ? responsiveOpacity : opacity,
+        transition: customTransition || actionAnimationTransition,
         'transform-origin': transform ? '0 0' : undefined,
         transform,
         'flex-grow': widthFlexGrow || heightFlexGrow || undefined,
         'flex-shrink': (widthFlexShrink || heightFlexShrink) ? 1 : undefined,
         'flex-basis': flexBasis,
+        'position': customPosition,
+        'top': customPosition === 'sticky' && customStickyTop !== undefined ? pxToEm(customStickyTop) : undefined,
+        'bottom': customPosition === 'sticky' && customStickyBottom !== undefined ? pxToEm(customStickyBottom) : undefined,
+        'z-index': customZIndex,
+        'cursor': customCursor,
+        'backdrop-filter': customBackdropFilter,
+        '-webkit-backdrop-filter': customBackdropFilter,
+        'overflow': customOverflow,
+        'box-shadow': customBoxShadow,
         '--divkit-animation-opacity-start': animationOpacityStart,
         '--divkit-animation-opacity-end': animationOpacityEnd,
         '--divkit-animation-scale-start': animationScaleStart,
@@ -1242,6 +1336,15 @@
         if (hoverStyleEl) {
             hoverStyleEl.remove();
             hoverStyleEl = null;
+        }
+
+        if (responsiveMobileQuery) {
+            responsiveMobileQuery.removeEventListener('change', onResponsiveBreakpointChange);
+            responsiveMobileQuery = null;
+        }
+        if (responsiveTabletQuery) {
+            responsiveTabletQuery.removeEventListener('change', onResponsiveBreakpointChange);
+            responsiveTabletQuery = null;
         }
     });
 </script>

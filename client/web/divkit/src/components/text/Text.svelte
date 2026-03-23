@@ -166,6 +166,16 @@
 
     $: {
         fontSize = correctPositiveNumber($jsonTextSize, fontSize);
+        const resp = (componentContext.json as any).responsive;
+        if (resp && typeof resp === 'object' && typeof window !== 'undefined') {
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches;
+            if (isMobile && resp.mobile?.font_size) {
+                fontSize = resp.mobile.font_size;
+            } else if (isTablet && resp.tablet?.font_size) {
+                fontSize = resp.tablet.font_size;
+            }
+        }
     }
 
     $: {
