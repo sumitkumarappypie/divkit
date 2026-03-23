@@ -1,0 +1,66 @@
+{
+    "templates": {},
+    "card": {
+        "log_id": "google_map_markers",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "google_map",
+                    "latitude": 40.7128,
+                    "longitude": -74.0060,
+                    "zoom": 13,
+                    "map_type": "normal",
+                    "width": {
+                        "type": "match_parent"
+                    },
+                    "height": {
+                        "type": "fixed",
+                        "value": 500
+                    },
+                    "markers": [
+                        {
+                            "type": "google_map_marker",
+                            "latitude": 40.7484,
+                            "longitude": -73.9857,
+                            "title": "Empire State Building",
+                            "color": "#FF0000",
+                            "on_click_actions": [
+                                {
+                                    "log_id": "marker_empire_state",
+                                    "url": "div-action://set_variable?name=selected_marker&value=empire_state"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "google_map_marker",
+                            "latitude": 40.7580,
+                            "longitude": -73.9855,
+                            "title": "Times Square",
+                            "color": "#00FF00",
+                            "on_click_actions": [
+                                {
+                                    "log_id": "marker_times_square",
+                                    "url": "div-action://set_variable?name=selected_marker&value=times_square"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "google_map_marker",
+                            "latitude": 40.6892,
+                            "longitude": -74.0445,
+                            "title": "Statue of Liberty",
+                            "color": "#0000FF",
+                            "on_click_actions": [
+                                {
+                                    "log_id": "marker_statue_liberty",
+                                    "url": "div-action://set_variable?name=selected_marker&value=statue_of_liberty"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

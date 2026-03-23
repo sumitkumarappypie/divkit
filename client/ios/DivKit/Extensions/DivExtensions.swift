@@ -26,6 +26,7 @@ extension Div {
          .divSwitch,
          .divVideo,
          .divWebview,
+         .divGoogleMap,
          .divText:
       []
     }

@@ -25,7 +25,7 @@
     $: max = limits.max;
 
     // eslint-disable-next-line no-nested-ternary
-    $: step = flags.subtype === 'integer' ? 1 : (flags.subtype === 'number' ? .01 : null);
+    $: step = flags.subtype === 'integer' ? 1 : (flags.subtype === 'number' ? 'any' : null);
 
     $: pattern = flags.subtype === 'integer' ? '\\d+' : null;
 

@@ -632,5 +632,6 @@ private fun Div.hasAction(): Boolean {
 
         is Div.Counter -> true
         is Div.Webview -> false
+        is Div.GoogleMap -> false
     }
 }

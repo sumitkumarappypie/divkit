@@ -42,7 +42,7 @@
     $: minValue = min ?? parsedConstraint.min;
     $: maxValue = max ?? parsedConstraint.max;
 
-    $: step = (subtype === 'integer' || subtype === 'percent' || subtype === 'angle') ? 1 : .01;
+    $: step = (subtype === 'integer' || subtype === 'percent' || subtype === 'angle') ? 1 : 'any';
 
     $: pattern = (subtype === 'integer' || subtype === 'percent' || subtype === 'angle') ?
         '\\d+' :
