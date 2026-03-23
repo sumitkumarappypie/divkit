@@ -31,6 +31,7 @@ import com.yandex.div.core.view2.divs.widgets.DivCounterView
 import com.yandex.div.core.view2.divs.widgets.DivTableLayout
 import com.yandex.div.core.view2.divs.widgets.DivTabsLayout
 import com.yandex.div.core.view2.divs.widgets.DivWebviewView
+import com.yandex.div.core.view2.divs.widgets.DivGoogleMapView
 import com.yandex.div.core.view2.divs.widgets.DivVideoView
 import com.yandex.div.core.view2.divs.widgets.DivWrapLayout
 import com.yandex.div.core.view2.drawable.NoOpDrawable
@@ -86,6 +87,7 @@ internal class DivViewCreator @Inject constructor(
                     changeCapacity(TAG_TABLE, table.capacity)
                     changeCapacity(TAG_COUNTER, counter.capacity)
                     changeCapacity(TAG_WEBVIEW, webview.capacity)
+                    changeCapacity(TAG_GOOGLE_MAP, googleMap.capacity)
                 }
             }
             field = value
@@ -118,6 +120,7 @@ internal class DivViewCreator @Inject constructor(
                 register(TAG_TABLE, { DivTableLayout(context) }, table.capacity)
                 register(TAG_COUNTER, { DivCounterView(context) }, counter.capacity)
                 register(TAG_WEBVIEW, { DivWebviewView(context) }, webview.capacity)
+                register(TAG_GOOGLE_MAP, { DivGoogleMapView(context) }, googleMap.capacity)
             }
         }
     }
@@ -185,6 +188,7 @@ internal class DivViewCreator @Inject constructor(
         const val TAG_TABLE = "DIV2.TABLE"
         const val TAG_COUNTER = "DIV2.COUNTER"
         const val TAG_WEBVIEW = "DIV2.WEBVIEW"
+        const val TAG_GOOGLE_MAP = "DIV2.GOOGLE_MAP"
         const val TAG_VIDEO = "DIV2.VIDEO"
 
         val TAGS = arrayOf(
@@ -211,7 +215,8 @@ internal class DivViewCreator @Inject constructor(
             TAG_PROGRESS,
             TAG_TABLE,
             TAG_COUNTER,
-            TAG_WEBVIEW
+            TAG_WEBVIEW,
+            TAG_GOOGLE_MAP
         )
 
         private fun Div.getTag(resolver: ExpressionResolver) =
@@ -242,6 +247,7 @@ internal class DivViewCreator @Inject constructor(
                 is Div.Table -> TAG_TABLE
                 is Div.Counter -> TAG_COUNTER
                 is Div.Webview -> TAG_WEBVIEW
+                is Div.GoogleMap -> TAG_GOOGLE_MAP
                 is Div.Separator -> ""
             }
     }

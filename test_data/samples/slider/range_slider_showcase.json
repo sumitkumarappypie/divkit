@@ -1,0 +1,678 @@
+{
+  "templates": {
+    "section_title": {
+      "type": "text",
+      "font_size": 20,
+      "line_height": 24,
+      "font_weight": "bold",
+      "paddings": {
+        "left": 24,
+        "right": 24,
+        "bottom": 8
+      }
+    },
+    "section_subtitle": {
+      "type": "text",
+      "font_size": 14,
+      "line_height": 20,
+      "text_color": "#80000000",
+      "paddings": {
+        "left": 24,
+        "right": 24,
+        "bottom": 16
+      }
+    },
+    "range_label": {
+      "type": "text",
+      "font_size": 15,
+      "text_alignment_horizontal": "center",
+      "text_color": "#666666",
+      "paddings": {
+        "left": 24,
+        "right": 24
+      },
+      "margins": {
+        "top": 4,
+        "bottom": 24
+      }
+    },
+    "divider": {
+      "type": "separator",
+      "delimiter_style": {
+        "color": "#14000000"
+      },
+      "margins": {
+        "top": 8,
+        "bottom": 24,
+        "left": 24,
+        "right": 24
+      }
+    }
+  },
+  "card": {
+    "log_id": "range_slider_showcase",
+    "variables": [
+      {
+        "name": "basic_min",
+        "type": "integer",
+        "value": 25
+      },
+      {
+        "name": "basic_max",
+        "type": "integer",
+        "value": 75
+      },
+      {
+        "name": "price_min",
+        "type": "integer",
+        "value": 200
+      },
+      {
+        "name": "price_max",
+        "type": "integer",
+        "value": 800
+      },
+      {
+        "name": "age_min",
+        "type": "integer",
+        "value": 2
+      },
+      {
+        "name": "age_max",
+        "type": "integer",
+        "value": 8
+      },
+      {
+        "name": "time_start",
+        "type": "integer",
+        "value": 9
+      },
+      {
+        "name": "time_end",
+        "type": "integer",
+        "value": 17
+      },
+      {
+        "name": "styled_min",
+        "type": "integer",
+        "value": 30
+      },
+      {
+        "name": "styled_max",
+        "type": "integer",
+        "value": 70
+      }
+    ],
+    "states": [
+      {
+        "state_id": 0,
+        "div": {
+          "type": "container",
+          "orientation": "vertical",
+          "margins": {
+            "top": 24,
+            "bottom": 24
+          },
+          "items": [
+            {
+              "type": "section_title",
+              "text": "Range Slider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Two-thumb sliders for selecting value ranges. Enabled by adding thumb_secondary_value_variable to a standard slider."
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Basic Range Slider",
+              "font_weight": "medium",
+              "text_color": "#CC000000"
+            },
+            {
+              "type": "slider",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "min_value": 0,
+              "max_value": 100,
+              "thumb_value_variable": "basic_min",
+              "thumb_secondary_value_variable": "basic_max",
+              "thumb_style": {
+                "type": "shape_drawable",
+                "color": "#FFCC00",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_secondary_style": {
+                "type": "shape_drawable",
+                "color": "#FFCC00",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "track_active_style": {
+                "type": "shape_drawable",
+                "color": "#FFCC00",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 6
+                  }
+                }
+              },
+              "track_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#20000000",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 6
+                  }
+                }
+              }
+            },
+            {
+              "type": "range_label",
+              "text": "@{toString(basic_min) + ' — ' + toString(basic_max)}"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Price Range Filter",
+              "font_weight": "medium",
+              "text_color": "#CC000000"
+            },
+            {
+              "type": "slider",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "min_value": 0,
+              "max_value": 1000,
+              "thumb_value_variable": "price_min",
+              "thumb_secondary_value_variable": "price_max",
+              "thumb_style": {
+                "type": "shape_drawable",
+                "color": "#3F28C3",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 28
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 28
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_secondary_style": {
+                "type": "shape_drawable",
+                "color": "#3F28C3",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 28
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 28
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_text_style": {
+                "font_size": 10,
+                "font_weight": "bold",
+                "text_color": "#ffffff"
+              },
+              "thumb_secondary_text_style": {
+                "font_size": 10,
+                "font_weight": "bold",
+                "text_color": "#ffffff"
+              },
+              "track_active_style": {
+                "type": "shape_drawable",
+                "color": "#3F28C3",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 4
+                  }
+                }
+              },
+              "track_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#E0E0E0",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 4
+                  }
+                }
+              },
+              "secondary_value_accessibility": {
+                "description": "Maximum price"
+              }
+            },
+            {
+              "type": "range_label",
+              "text": "@{'$' + toString(price_min) + ' — $' + toString(price_max)}"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Range with Tick Marks (Age Range)",
+              "font_weight": "medium",
+              "text_color": "#CC000000"
+            },
+            {
+              "type": "slider",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "min_value": 0,
+              "max_value": 10,
+              "thumb_value_variable": "age_min",
+              "thumb_secondary_value_variable": "age_max",
+              "thumb_style": {
+                "type": "shape_drawable",
+                "color": "#FF6B35",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 30
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 30
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_secondary_style": {
+                "type": "shape_drawable",
+                "color": "#FF6B35",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 30
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 30
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_text_style": {
+                "font_size": 12,
+                "font_weight": "bold",
+                "text_color": "#ffffff"
+              },
+              "thumb_secondary_text_style": {
+                "font_size": 12,
+                "font_weight": "bold",
+                "text_color": "#ffffff"
+              },
+              "tick_mark_active_style": {
+                "type": "shape_drawable",
+                "color": "#FF6B35",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 8
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 8
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 5
+                  }
+                }
+              },
+              "tick_mark_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#20000000",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 8
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 8
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 5
+                  }
+                }
+              },
+              "track_active_style": {
+                "type": "shape_drawable",
+                "color": "#FF6B35",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 6
+                  }
+                }
+              },
+              "track_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#20000000",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 6
+                  }
+                }
+              }
+            },
+            {
+              "type": "range_label",
+              "text": "@{toString(age_min) + ' — ' + toString(age_max) + ' years'}"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Time Range Selector (Hours)",
+              "font_weight": "medium",
+              "text_color": "#CC000000"
+            },
+            {
+              "type": "slider",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "min_value": 0,
+              "max_value": 24,
+              "thumb_value_variable": "time_start",
+              "thumb_secondary_value_variable": "time_end",
+              "thumb_style": {
+                "type": "shape_drawable",
+                "color": "#0A84FF",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 26
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 26
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "thumb_secondary_style": {
+                "type": "shape_drawable",
+                "color": "#0A84FF",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 2
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 26
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 26
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 100
+                  }
+                }
+              },
+              "track_active_style": {
+                "type": "shape_drawable",
+                "color": "#0A84FF",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 4
+                  }
+                }
+              },
+              "track_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#20000000",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 4
+                  }
+                }
+              }
+            },
+            {
+              "type": "range_label",
+              "text": "@{toString(time_start) + ':00 — ' + toString(time_end) + ':00'}"
+            },
+            {
+              "type": "divider"
+            },
+            {
+              "type": "section_subtitle",
+              "text": "Custom Styled Range (Pill Thumbs)",
+              "font_weight": "medium",
+              "text_color": "#CC000000"
+            },
+            {
+              "type": "slider",
+              "width": {
+                "type": "match_parent"
+              },
+              "paddings": {
+                "left": 16,
+                "right": 16
+              },
+              "min_value": 0,
+              "max_value": 100,
+              "thumb_value_variable": "styled_min",
+              "thumb_secondary_value_variable": "styled_max",
+              "thumb_style": {
+                "type": "shape_drawable",
+                "color": "#34C759",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 14
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 7
+                  }
+                }
+              },
+              "thumb_secondary_style": {
+                "type": "shape_drawable",
+                "color": "#34C759",
+                "stroke": {
+                  "color": "#ffffff",
+                  "width": 3
+                },
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 32
+                  },
+                  "item_width": {
+                    "type": "fixed",
+                    "value": 14
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 7
+                  }
+                }
+              },
+              "track_active_style": {
+                "type": "shape_drawable",
+                "color": "#34C759",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 8
+                  },
+                  "corner_radius": {
+                    "type": "fixed",
+                    "value": 4
+                  }
+                }
+              },
+              "track_inactive_style": {
+                "type": "shape_drawable",
+                "color": "#20000000",
+                "shape": {
+                  "type": "rounded_rectangle",
+                  "item_height": {
+                    "type": "fixed",
+                    "value": 6
+                  }
+                }
+              }
+            },
+            {
+              "type": "range_label",
+              "text": "@{toString(styled_min) + '% — ' + toString(styled_max) + '%'}"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

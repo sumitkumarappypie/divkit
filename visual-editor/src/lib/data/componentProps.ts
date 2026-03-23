@@ -30,7 +30,8 @@ export const supportedComponents = new Set([
     'table',
     'counter',
     'webview',
-    'breadcrumb'
+    'breadcrumb',
+    'google_map'
 ]);
 
 export const containerComponents = new Set([
@@ -1296,6 +1297,68 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             prop: 'scale_to_fit',
             type: 'boolean',
             default: false,
+            enableSources: true
+        }]
+    }],
+    google_map: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'googleMapProps.title',
+        list: [{
+            type: 'split',
+            list: [{
+                name: 'props.google_map_latitude',
+                prop: 'latitude',
+                type: 'number',
+                enableSources: true
+            }, {
+                name: 'props.google_map_longitude',
+                prop: 'longitude',
+                type: 'number',
+                enableSources: true
+            }]
+        }, {
+            name: 'props.google_map_zoom',
+            prop: 'zoom',
+            type: 'integer',
+            min: 1,
+            max: 20,
+            default: 10,
+            enableSources: true
+        }, {
+            name: 'props.google_map_map_type',
+            prop: 'map_type',
+            type: 'select',
+            default: 'normal',
+            options: [{
+                name: 'props.google_map_type_normal',
+                value: 'normal'
+            }, {
+                name: 'props.google_map_type_satellite',
+                value: 'satellite'
+            }, {
+                name: 'props.google_map_type_terrain',
+                value: 'terrain'
+            }, {
+                name: 'props.google_map_type_hybrid',
+                value: 'hybrid'
+            }],
+            enableSources: true
+        }, {
+            name: 'props.google_map_api_key',
+            prop: 'api_key',
+            type: 'string',
+            enableSources: true
+        }, {
+            name: 'props.google_map_allow_zoom',
+            prop: 'allow_zoom',
+            type: 'boolean',
+            default: true,
+            enableSources: true
+        }, {
+            name: 'props.google_map_allow_scroll',
+            prop: 'allow_scroll',
+            type: 'boolean',
+            default: true,
             enableSources: true
         }]
     }],

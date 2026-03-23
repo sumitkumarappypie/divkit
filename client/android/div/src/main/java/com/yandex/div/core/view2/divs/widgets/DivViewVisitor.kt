@@ -25,6 +25,7 @@ internal abstract class DivViewVisitor {
     open fun visit(view: DivCustomWrapper) = defaultVisit(view)
     open fun visit(view: DivSwitchView) = defaultVisit(view)
     open fun visit(view: DivWebviewView) = defaultVisit(view)
+    open fun visit(view: DivGoogleMapView) = defaultVisit(view)
     open fun visit(view: View) = Unit
 }
 
@@ -76,6 +77,7 @@ internal fun DivViewVisitor.visitViewTree(view: View) {
         is DivVideoView -> visit(view)
         is DivSwitchView -> visit(view)
         is DivWebviewView -> visit(view)
+        is DivGoogleMapView -> visit(view)
         else -> {
             if (view is ViewGroup) {
                 view.visitChild(this::visitViewTree)

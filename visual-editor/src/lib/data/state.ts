@@ -884,6 +884,20 @@ export class State {
                 item_font_size: 14,
                 width: { type: 'match_parent' }
             };
+        } else if (type === 'google_map') {
+            json = {
+                type,
+                latitude: 37.7749,
+                longitude: -122.4194,
+                zoom: 12,
+                width: {
+                    type: 'match_parent'
+                },
+                height: {
+                    type: 'fixed',
+                    value: 400
+                }
+            };
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {

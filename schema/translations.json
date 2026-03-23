@@ -1271,6 +1271,86 @@
     "en": "Animated GIF image.",
     "ru": "Анимированное gif-изображение."
   },
+  "div_google_map": {
+    "en": "Google Map widget for displaying interactive maps. Requires a Google Maps Platform API key on Android and Web. By using this widget, you agree to comply with [Google Maps Platform Terms of Service](https://cloud.google.com/maps-platform/terms). The iOS implementation uses Apple MapKit and does not require a Google API key.",
+    "ru": "Виджет Google Карты для отображения интерактивных карт. Для Android и Web требуется API-ключ Google Maps Platform. Используя этот виджет, вы соглашаетесь с [Условиями использования Google Maps Platform](https://cloud.google.com/maps-platform/terms). Реализация для iOS использует Apple MapKit и не требует API-ключа Google."
+  },
+  "div_google_map_latitude": {
+    "en": "Latitude of the map center.",
+    "ru": "Широта центра карты."
+  },
+  "div_google_map_longitude": {
+    "en": "Longitude of the map center.",
+    "ru": "Долгота центра карты."
+  },
+  "div_google_map_zoom": {
+    "en": "Map zoom level. Value from 1 (world) to 20 (buildings).",
+    "ru": "Уровень масштабирования карты. Значение от 1 (мир) до 20 (здания)."
+  },
+  "div_google_map_map_type": {
+    "en": "Type of map tiles to display.",
+    "ru": "Тип отображаемых тайлов карты."
+  },
+  "div_google_map_api_key": {
+    "en": "Google Maps Platform API key. Required for Android and Web platforms. Obtain from [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Not required for iOS (uses Apple MapKit). Used as fallback when platform-specific keys are not set.",
+    "ru": "API-ключ Google Maps Platform. Обязателен для платформ Android и Web. Получите в [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Не требуется для iOS (используется Apple MapKit). Используется по умолчанию, если не указаны ключи для конкретных платформ."
+  },
+  "div_google_map_api_key_android": {
+    "en": "Google Maps API key for Android platform.",
+    "ru": "API-ключ Google Карт для платформы Android."
+  },
+  "div_google_map_api_key_ios": {
+    "en": "Google Maps API key for iOS platform. Note: iOS uses Apple MapKit by default and does not require a Google API key.",
+    "ru": "API-ключ Google Карт для платформы iOS. Примечание: iOS по умолчанию использует Apple MapKit и не требует API-ключа Google."
+  },
+  "div_google_map_api_key_web": {
+    "en": "Google Maps API key for Web platform.",
+    "ru": "API-ключ Google Карт для платформы Web."
+  },
+  "div_google_map_markers": {
+    "en": "Array of markers to display on the map.",
+    "ru": "Массив маркеров для отображения на карте."
+  },
+  "div_google_map_allow_zoom": {
+    "en": "Enables zoom gestures on the map.",
+    "ru": "Разрешает жесты масштабирования на карте."
+  },
+  "div_google_map_allow_scroll": {
+    "en": "Enables scroll/pan gestures on the map.",
+    "ru": "Разрешает жесты прокрутки/перемещения на карте."
+  },
+  "div_google_map_show_user_location": {
+    "en": "Shows the user's current location on the map.",
+    "ru": "Показывает текущее местоположение пользователя на карте."
+  },
+  "div_google_map_on_ready_actions": {
+    "en": "Actions performed when the map finishes loading.",
+    "ru": "Действия, выполняемые после загрузки карты."
+  },
+  "div_google_map_on_error_actions": {
+    "en": "Actions performed when the map fails to load.",
+    "ru": "Действия, выполняемые при ошибке загрузки карты."
+  },
+  "div_google_map_marker_latitude": {
+    "en": "Latitude of the marker position.",
+    "ru": "Широта позиции маркера."
+  },
+  "div_google_map_marker_longitude": {
+    "en": "Longitude of the marker position.",
+    "ru": "Долгота позиции маркера."
+  },
+  "div_google_map_marker_title": {
+    "en": "Title text displayed on marker tap.",
+    "ru": "Текст заголовка, отображаемый при нажатии на маркер."
+  },
+  "div_google_map_marker_color": {
+    "en": "Color of the marker pin.",
+    "ru": "Цвет маркера."
+  },
+  "div_google_map_marker_on_click_actions": {
+    "en": "Actions performed when the marker is clicked.",
+    "ru": "Действия, выполняемые при нажатии на маркер."
+  },
   "div_gif_image_gif_url": {
     "en": "Direct URL to a GIF image.",
     "ru": "Прямая ссылка на gif-изображение."

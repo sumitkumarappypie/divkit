@@ -97,6 +97,10 @@
     {
       "$ref": "div-breadcrumb.json",
       "$description": "translations.json#/div_breadcrumb"
+    },
+    {
+      "$ref": "div-google-map.json",
+      "$description": "translations.json#/div_google_map"
     }
   ]
 }

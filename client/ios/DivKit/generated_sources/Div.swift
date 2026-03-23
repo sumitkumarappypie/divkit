@@ -29,6 +29,7 @@ public enum Div: Sendable {
   case divProgress(DivProgress)
   case divCounter(DivCounter)
   case divWebview(DivWebview)
+  case divGoogleMap(DivGoogleMap)
 
   public var value: Serializable & DivBase {
     switch self {
@@ -77,6 +78,8 @@ public enum Div: Sendable {
     case let .divCounter(value):
       return value
     case let .divWebview(value):
+      return value
+    case let .divGoogleMap(value):
       return value
     }
   }
@@ -128,6 +131,8 @@ public enum Div: Sendable {
     case let .divCounter(value):
       return value.id
     case let .divWebview(value):
+      return value.id
+    case let .divGoogleMap(value):
       return value.id
     }
   }
@@ -184,6 +189,8 @@ extension Div {
       self = .divCounter(try DivCounter(dictionary: dictionary, context: context))
     case DivWebview.type:
       self = .divWebview(try DivWebview(dictionary: dictionary, context: context))
+    case DivGoogleMap.type:
+      self = .divGoogleMap(try DivGoogleMap(dictionary: dictionary, context: context))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
@@ -239,6 +246,8 @@ extension Div: Equatable {
     case let (.divCounter(l), .divCounter(r)):
       return l == r
     case let (.divWebview(l), .divWebview(r)):
+      return l == r
+    case let (.divGoogleMap(l), .divGoogleMap(r)):
       return l == r
     default:
       return false

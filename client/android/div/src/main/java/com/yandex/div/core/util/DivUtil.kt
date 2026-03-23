@@ -69,6 +69,7 @@ import com.yandex.div2.DivTabs
 import com.yandex.div2.DivText
 import com.yandex.div2.DivVideo
 import com.yandex.div2.DivWebview
+import com.yandex.div2.DivGoogleMap
 import com.yandex.div2.DivVisibilityAction
 import java.util.Collections.min
 
@@ -98,6 +99,7 @@ internal val Div.type: String
             is Div.Table -> DivTable.TYPE
             is Div.Counter -> DivCounter.TYPE
             is Div.Webview -> DivWebview.TYPE
+            is Div.GoogleMap -> DivGoogleMap.TYPE
         }
     }
 
@@ -214,6 +216,7 @@ internal fun Div.containsStateInnerTransitions(resolver: ExpressionResolver): Bo
         is Div.Table -> false
         is Div.Counter -> false
         is Div.Webview -> false
+        is Div.GoogleMap -> false
     }
 }
 
@@ -241,6 +244,7 @@ internal val Div.isBranch: Boolean
         is Div.Progress -> false
         is Div.Counter -> false
         is Div.Webview -> false
+        is Div.GoogleMap -> false
         is Div.Container -> true
         is Div.Grid -> true
         is Div.Gallery -> true

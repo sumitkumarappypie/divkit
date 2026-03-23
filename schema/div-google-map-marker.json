@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "google_map_marker"
+      ]
+    },
+    "latitude": {
+      "type": "number",
+      "$description": "translations.json#/div_google_map_marker_latitude"
+    },
+    "longitude": {
+      "type": "number",
+      "$description": "translations.json#/div_google_map_marker_longitude"
+    },
+    "title": {
+      "type": "string",
+      "$description": "translations.json#/div_google_map_marker_title"
+    },
+    "color": {
+      "$ref": "common.json#/color",
+      "$description": "translations.json#/div_google_map_marker_color"
+    },
+    "on_click_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "div-action.json"
+      },
+      "$description": "translations.json#/div_google_map_marker_on_click_actions"
+    }
+  },
+  "required": [
+    "type",
+    "latitude",
+    "longitude"
+  ]
+}

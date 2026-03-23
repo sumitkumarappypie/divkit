@@ -29,6 +29,7 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divProgressTemplate(DivProgressTemplate)
   case divCounterTemplate(DivCounterTemplate)
   case divWebviewTemplate(DivWebviewTemplate)
+  case divGoogleMapTemplate(DivGoogleMapTemplate)
 
   public var value: Any {
     switch self {
@@ -77,6 +78,8 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divCounterTemplate(value):
       return value
     case let .divWebviewTemplate(value):
+      return value
+    case let .divGoogleMapTemplate(value):
       return value
     }
   }
@@ -129,6 +132,8 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divCounterTemplate(try value.resolveParent(templates: templates))
     case let .divWebviewTemplate(value):
       return .divWebviewTemplate(try value.resolveParent(templates: templates))
+    case let .divGoogleMapTemplate(value):
+      return .divGoogleMapTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -326,6 +331,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divGoogleMapTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divGoogleMap(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divGoogleMap(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     }
   }
 
@@ -519,6 +532,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivGoogleMap.type:
+      let result = DivGoogleMapTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divGoogleMap(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divGoogleMap(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     default:
       return .failure(NonEmptyArray(.requiredFieldIsMissing(field: "type")))
     }
@@ -576,6 +597,8 @@ extension DivTemplate {
       self = .divCounterTemplate(try DivCounterTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivWebviewTemplate.type:
       self = .divWebviewTemplate(try DivWebviewTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivGoogleMapTemplate.type:
+      self = .divGoogleMapTemplate(try DivGoogleMapTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }

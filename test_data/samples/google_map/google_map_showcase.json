@@ -1,0 +1,162 @@
+{
+    "templates": {},
+    "card": {
+        "log_id": "google_map_showcase",
+        "states": [
+            {
+                "state_id": 0,
+                "div": {
+                    "type": "container",
+                    "orientation": "vertical",
+                    "width": {
+                        "type": "match_parent"
+                    },
+                    "height": {
+                        "type": "wrap_content"
+                    },
+                    "items": [
+                        {
+                            "type": "text",
+                            "text": "Google Map - Normal",
+                            "font_size": 18,
+                            "font_weight": "bold",
+                            "paddings": {
+                                "top": 16,
+                                "left": 16,
+                                "bottom": 8
+                            },
+                            "width": {
+                                "type": "match_parent"
+                            }
+                        },
+                        {
+                            "type": "google_map",
+                            "latitude": 48.8566,
+                            "longitude": 2.3522,
+                            "zoom": 14,
+                            "map_type": "normal",
+                            "allow_zoom": 1,
+                            "allow_scroll": 1,
+                            "width": {
+                                "type": "match_parent"
+                            },
+                            "height": {
+                                "type": "fixed",
+                                "value": 300
+                            },
+                            "markers": [
+                                {
+                                    "type": "google_map_marker",
+                                    "latitude": 48.8584,
+                                    "longitude": 2.2945,
+                                    "title": "Eiffel Tower"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "text": "Google Map - Satellite",
+                            "font_size": 18,
+                            "font_weight": "bold",
+                            "paddings": {
+                                "top": 16,
+                                "left": 16,
+                                "bottom": 8
+                            },
+                            "width": {
+                                "type": "match_parent"
+                            }
+                        },
+                        {
+                            "type": "google_map",
+                            "latitude": 35.6762,
+                            "longitude": 139.6503,
+                            "zoom": 15,
+                            "map_type": "satellite",
+                            "width": {
+                                "type": "match_parent"
+                            },
+                            "height": {
+                                "type": "fixed",
+                                "value": 300
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": "Google Map - Terrain",
+                            "font_size": 18,
+                            "font_weight": "bold",
+                            "paddings": {
+                                "top": 16,
+                                "left": 16,
+                                "bottom": 8
+                            },
+                            "width": {
+                                "type": "match_parent"
+                            }
+                        },
+                        {
+                            "type": "google_map",
+                            "latitude": 27.9881,
+                            "longitude": 86.9250,
+                            "zoom": 11,
+                            "map_type": "terrain",
+                            "allow_zoom": 0,
+                            "allow_scroll": 0,
+                            "width": {
+                                "type": "match_parent"
+                            },
+                            "height": {
+                                "type": "fixed",
+                                "value": 300
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": "Google Map - Hybrid with Aspect Ratio",
+                            "font_size": 18,
+                            "font_weight": "bold",
+                            "paddings": {
+                                "top": 16,
+                                "left": 16,
+                                "bottom": 8
+                            },
+                            "width": {
+                                "type": "match_parent"
+                            }
+                        },
+                        {
+                            "type": "google_map",
+                            "latitude": -33.8688,
+                            "longitude": 151.2093,
+                            "zoom": 13,
+                            "map_type": "hybrid",
+                            "aspect": {
+                                "ratio": 1.5
+                            },
+                            "width": {
+                                "type": "match_parent"
+                            },
+                            "markers": [
+                                {
+                                    "type": "google_map_marker",
+                                    "latitude": -33.8568,
+                                    "longitude": 151.2153,
+                                    "title": "Sydney Opera House",
+                                    "color": "#FF5722"
+                                },
+                                {
+                                    "type": "google_map_marker",
+                                    "latitude": -33.8523,
+                                    "longitude": 151.2108,
+                                    "title": "Sydney Harbour Bridge",
+                                    "color": "#2196F3"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

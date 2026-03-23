@@ -41,6 +41,7 @@ extension Div {
          .divTable,
          .divVideo,
          .divWebview,
+         .divGoogleMap,
          .divTabs:
       break
     }
@@ -76,6 +77,7 @@ extension Div {
          .divSwitch,
          .divTable,
          .divWebview,
+         .divGoogleMap,
          .divTabs:
       []
     }
