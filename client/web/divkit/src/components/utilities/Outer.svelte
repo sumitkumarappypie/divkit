@@ -494,7 +494,9 @@
             }
         }
 
-        if (widthType === 'parent') {
+        if (responsiveAlignmentHorizontal) {
+            newWidthMods['halign-self'] = responsiveAlignmentHorizontal;
+        } else if (widthType === 'parent') {
             newWidthMods['halign-self'] = 'stretch';
         } else {
             const align = $jsonAlignmentHorizontal;
@@ -622,7 +624,9 @@
             }
         }
 
-        if (heightType === 'parent') {
+        if (responsiveAlignmentVertical) {
+            newHeightMods['valign-self'] = responsiveAlignmentVertical;
+        } else if (heightType === 'parent') {
             newHeightMods['valign-self'] = 'stretch';
         } else {
             const align = $jsonAlignmentVertical;
@@ -958,12 +962,14 @@
     $: mods = {
         ...widthMods,
         ...heightMods,
+        ...(responsiveAlignmentHorizontal ? { 'halign-self': responsiveAlignmentHorizontal } : {}),
+        ...(responsiveAlignmentVertical ? { 'valign-self': responsiveAlignmentVertical } : {}),
         'parent-overlap': parentOverlapMod,
         'scroll-snap': layoutParams.scrollSnap,
         'hide-on-transition-in': stateChangingInProgress ||
             visibilityChangingInProgress ||
             transitionChangeInProgress,
-        visibility,
+        visibility: responsiveVisibility || visibility,
         'has-action-animation': Boolean(actionAnimationTransition),
         'parent-flex': layoutParams.parentContainerOrientation || undefined,
         'parent-grid': Boolean(layoutParams.gridArea) || undefined,
@@ -1081,6 +1087,24 @@
 
     $: responsiveOpacity = activeResponsive?.opacity !== undefined ? activeResponsive.opacity as number : undefined;
     $: responsiveVisibility = activeResponsive?.visibility as Visibility | undefined;
+
+    // Responsive alignment_horizontal override
+    $: responsiveAlignmentHorizontal = (() => {
+        const align = activeResponsive?.alignment_horizontal as string | undefined;
+        if (align === 'left' || align === 'center' || align === 'right' || align === 'start' || align === 'end') {
+            return ($direction === 'ltr' ? HORIZONTAL_ALIGN_TO_GENERAL_LTR : HORIZONTAL_ALIGN_TO_GENERAL_RTL)[align];
+        }
+        return undefined;
+    })();
+
+    // Responsive alignment_vertical override
+    $: responsiveAlignmentVertical = (() => {
+        const align = activeResponsive?.alignment_vertical as string | undefined;
+        if (align === 'top' || align === 'center' || align === 'bottom' || align === 'baseline') {
+            return VERTICAL_ALIGN_TO_GENERAL[align];
+        }
+        return undefined;
+    })();
 
     // Hover styles support
     $: hoverConfig = componentContext.json['hover'] as Record<string, unknown> | undefined;

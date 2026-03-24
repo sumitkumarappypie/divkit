@@ -131,6 +131,16 @@
         flex-direction: column;
     }
 
+    /* When parent switches to vertical on mobile, children with flex-grow (from weight)
+       need full width instead of proportional width. flex-basis: 0 causes 0-width children
+       when flex-direction changes from row to column. */
+    .container_responsive-mobile-vertical > :global(.appkit-outer) {
+        flex-basis: auto !important;
+        flex-grow: 0 !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
     .container_responsive-mobile-horizontal {
         flex-direction: row;
     }
