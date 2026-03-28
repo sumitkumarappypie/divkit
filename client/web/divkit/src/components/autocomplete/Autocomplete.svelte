@@ -21,6 +21,7 @@
     import { makeStyle } from '../../utils/makeStyle';
     import { composeAccessibilityDescription } from '../../utils/composeAccessibilityDescription';
     import { variationSettingsToString } from '../../utils/variationSettings';
+    import { correctBooleanInt } from '../../utils/correctBooleanInt';
     import { createVariable } from '../../expressions/variable';
     import Outer from '../utilities/Outer.svelte';
     import DevtoolHolder from '../utilities/DevtoolHolder.svelte';
@@ -119,10 +120,10 @@
     // Computed values
     $: minQueryLength = Math.max(1, Number($jsonMinQueryLength) || 1);
     $: maxVisibleSuggestions = Math.max(1, Number($jsonMaxVisibleSuggestions) || 5);
-    $: dismissOnSelection = $jsonDismissOnSelection !== 0 && $jsonDismissOnSelection !== false;
-    $: dismissOnBlur = $jsonDismissOnBlur !== 0 && $jsonDismissOnBlur !== false;
-    $: dismissOnEmpty = $jsonDismissOnEmpty !== 0 && $jsonDismissOnEmpty !== false;
-    $: isEnabled = $jsonIsEnabled !== 0 && $jsonIsEnabled !== false;
+    $: dismissOnSelection = correctBooleanInt($jsonDismissOnSelection, true);
+    $: dismissOnBlur = correctBooleanInt($jsonDismissOnBlur, true);
+    $: dismissOnEmpty = correctBooleanInt($jsonDismissOnEmpty, true);
+    $: isEnabled = correctBooleanInt($jsonIsEnabled, true);
     $: inputType = ($jsonKeyboardType === 'password') ? 'password' :
                    ($jsonKeyboardType === 'email') ? 'email' :
                    ($jsonKeyboardType === 'uri') ? 'url' :
