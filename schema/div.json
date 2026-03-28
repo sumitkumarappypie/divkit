@@ -101,6 +101,10 @@
     {
       "$ref": "div-google-map.json",
       "$description": "translations.json#/div_google_map"
+    },
+    {
+      "$ref": "div-autocomplete.json",
+      "$description": "translations.json#/div_autocomplete_short"
     }
   ]
 }

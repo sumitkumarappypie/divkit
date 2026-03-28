@@ -1,0 +1,21 @@
+{
+  "$description": "translations.json#/div_autocomplete_suggestion",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "$description": "translations.json#/div_autocomplete_suggestion_value"
+    },
+    "text": {
+      "type": "string",
+      "$description": "translations.json#/div_autocomplete_suggestion_text"
+    },
+    "secondary_text": {
+      "type": "string",
+      "$description": "translations.json#/div_autocomplete_suggestion_secondary_text"
+    }
+  },
+  "required": [
+    "value"
+  ]
+}

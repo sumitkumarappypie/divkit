@@ -3522,5 +3522,133 @@
   "div_wrap_content_size_constrained": {
     "en": "The final size mustn't exceed the parent one. On iOS and in a default browser `false`. On Android always `true`.",
     "ru": "Итоговый размер не должен превышать родительский. На iOS и в браузере по умолчанию `false`. На Android всегда `true`."
+  },
+  "div_autocomplete": {
+    "en": "Autocomplete input field with dynamic suggestions dropdown.",
+    "ru": "Поле ввода с автодополнением и выпадающим списком подсказок."
+  },
+  "div_autocomplete_short": {
+    "en": "Autocomplete input.",
+    "ru": "Поле автодополнения."
+  },
+  "div_autocomplete_text_variable": {
+    "en": "Name of the variable that stores the text entered by the user.",
+    "ru": "Имя переменной, которая хранит текст, введённый пользователем."
+  },
+  "div_autocomplete_keyboard_type": {
+    "en": "Keyboard type for the input field.",
+    "ru": "Тип клавиатуры для поля ввода."
+  },
+  "div_autocomplete_hint_text": {
+    "en": "Hint text displayed when the input is empty.",
+    "ru": "Подсказка, отображаемая при пустом поле ввода."
+  },
+  "div_autocomplete_hint_color": {
+    "en": "Color of the hint text.",
+    "ru": "Цвет текста подсказки."
+  },
+  "div_autocomplete_highlight_color": {
+    "en": "Color of the text selection highlight.",
+    "ru": "Цвет выделения текста."
+  },
+  "div_autocomplete_max_length": {
+    "en": "Maximum number of characters that can be entered.",
+    "ru": "Максимальное количество символов, которое можно ввести."
+  },
+  "div_autocomplete_is_enabled": {
+    "en": "Whether the input field is enabled for user interaction.",
+    "ru": "Включено ли поле ввода для взаимодействия с пользователем."
+  },
+  "div_autocomplete_select_all_on_focus": {
+    "en": "Whether to select all text when the input receives focus.",
+    "ru": "Выделять ли весь текст при получении фокуса."
+  },
+  "div_autocomplete_enter_key_type": {
+    "en": "Type of action button on the keyboard.",
+    "ru": "Тип кнопки действия на клавиатуре."
+  },
+  "div_autocomplete_enter_key_actions": {
+    "en": "Actions to perform when the enter key is pressed.",
+    "ru": "Действия при нажатии клавиши ввода."
+  },
+  "div_autocomplete_filters": {
+    "en": "Filters that restrict user input in real-time.",
+    "ru": "Фильтры, ограничивающие ввод в реальном времени."
+  },
+  "div_autocomplete_validators": {
+    "en": "Validators that check input after text changes.",
+    "ru": "Валидаторы, проверяющие ввод после изменения текста."
+  },
+  "div_autocomplete_text_alignment_horizontal": {
+    "en": "Horizontal text alignment.",
+    "ru": "Горизонтальное выравнивание текста."
+  },
+  "div_autocomplete_text_alignment_vertical": {
+    "en": "Vertical text alignment.",
+    "ru": "Вертикальное выравнивание текста."
+  },
+  "div_autocomplete_line_height": {
+    "en": "Line height of the input text.",
+    "ru": "Высота строки текста ввода."
+  },
+  "div_autocomplete_suggestions_variable": {
+    "en": "Name of the array variable containing suggestion items. Each item should have a 'value' field (required), and optional 'text' and 'secondary_text' fields.",
+    "ru": "Имя переменной-массива с элементами подсказок. Каждый элемент должен иметь поле 'value' (обязательно), а также необязательные поля 'text' и 'secondary_text'."
+  },
+  "div_autocomplete_value_variable": {
+    "en": "Name of the variable that stores the selected suggestion's value.",
+    "ru": "Имя переменной, хранящей значение выбранной подсказки."
+  },
+  "div_autocomplete_text_change_actions": {
+    "en": "Actions fired when the input text changes and meets the minimum query length.",
+    "ru": "Действия, выполняемые при изменении текста и достижении минимальной длины запроса."
+  },
+  "div_autocomplete_selection_actions": {
+    "en": "Actions fired when the user selects a suggestion.",
+    "ru": "Действия, выполняемые при выборе подсказки пользователем."
+  },
+  "div_autocomplete_min_query_length": {
+    "en": "Minimum number of characters before text_change_actions fire and suggestions are shown.",
+    "ru": "Минимальное количество символов для срабатывания text_change_actions и отображения подсказок."
+  },
+  "div_autocomplete_max_visible_suggestions": {
+    "en": "Maximum number of suggestions visible before the dropdown scrolls.",
+    "ru": "Максимальное количество видимых подсказок до прокрутки."
+  },
+  "div_autocomplete_max_suggestions_height": {
+    "en": "Maximum height of the suggestions dropdown.",
+    "ru": "Максимальная высота выпадающего списка подсказок."
+  },
+  "div_autocomplete_dismiss_on_selection": {
+    "en": "Whether to hide the dropdown when a suggestion is selected.",
+    "ru": "Скрывать ли выпадающий список при выборе подсказки."
+  },
+  "div_autocomplete_dismiss_on_blur": {
+    "en": "Whether to hide the dropdown when the input loses focus.",
+    "ru": "Скрывать ли выпадающий список при потере фокуса."
+  },
+  "div_autocomplete_dismiss_on_empty": {
+    "en": "Whether to hide the dropdown when the suggestions array is empty.",
+    "ru": "Скрывать ли выпадающий список при пустом массиве подсказок."
+  },
+  "div_autocomplete_suggestion_text_color": {
+    "en": "Text color for suggestion items in the dropdown.",
+    "ru": "Цвет текста элементов подсказок в выпадающем списке."
+  },
+  "div_autocomplete_suggestion": {
+    "en": "A single suggestion item for the autocomplete dropdown.",
+    "ru": "Элемент подсказки для выпадающего списка автодополнения."
+  },
+  "div_autocomplete_suggestion_value": {
+    "en": "The underlying value stored when this suggestion is selected.",
+    "ru": "Значение, сохраняемое при выборе этой подсказки."
+  },
+  "div_autocomplete_suggestion_text": {
+    "en": "Display text for the suggestion. Falls back to value if absent.",
+    "ru": "Отображаемый текст подсказки. Если отсутствует, используется value."
+  },
+  "div_autocomplete_suggestion_secondary_text": {
+    "en": "Secondary text shown below the main suggestion text.",
+    "ru": "Дополнительный текст, отображаемый под основным текстом подсказки."
   }
 }

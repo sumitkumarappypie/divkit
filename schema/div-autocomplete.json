@@ -1,0 +1,224 @@
+{
+  "$description": "translations.json#/div_autocomplete",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "$ref": "div-font-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "autocomplete"
+          ]
+        },
+        "text_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_autocomplete_text_variable"
+        },
+        "keyboard_type": {
+          "type": "string",
+          "enum": [
+            "single_line_text",
+            "multi_line_text",
+            "phone",
+            "number",
+            "email",
+            "uri",
+            "password"
+          ],
+          "default_value": "single_line_text",
+          "$description": "translations.json#/div_autocomplete_keyboard_type"
+        },
+        "hint_text": {
+          "type": "string",
+          "$description": "translations.json#/div_autocomplete_hint_text"
+        },
+        "hint_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#73000000",
+          "$description": "translations.json#/div_autocomplete_hint_color"
+        },
+        "highlight_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_autocomplete_highlight_color",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "max_length": {
+          "$ref": "common.json#/positive_integer",
+          "$description": "translations.json#/div_autocomplete_max_length",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "is_enabled": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_autocomplete_is_enabled"
+        },
+        "select_all_on_focus": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_autocomplete_select_all_on_focus",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "enter_key_type": {
+          "type": "string",
+          "enum": [
+            "default",
+            "go",
+            "search",
+            "send",
+            "done"
+          ],
+          "default_value": "default",
+          "$description": "translations.json#/div_autocomplete_enter_key_type",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "enter_key_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_autocomplete_enter_key_actions",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "filters": {
+          "type": "array",
+          "$description": "translations.json#/div_autocomplete_filters",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ],
+          "items": {
+            "$ref": "div-input-filter.json"
+          }
+        },
+        "validators": {
+          "type": "array",
+          "$description": "translations.json#/div_autocomplete_validators",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ],
+          "items": {
+            "$ref": "div-input-validator.json"
+          }
+        },
+        "text_alignment_horizontal": {
+          "$ref": "div-alignment-horizontal.json",
+          "default_value": "start",
+          "$description": "translations.json#/div_autocomplete_text_alignment_horizontal"
+        },
+        "text_alignment_vertical": {
+          "$ref": "div-alignment-vertical.json",
+          "default_value": "center",
+          "$description": "translations.json#/div_autocomplete_text_alignment_vertical"
+        },
+        "line_height": {
+          "$ref": "common.json#/non_negative_integer",
+          "$description": "translations.json#/div_autocomplete_line_height"
+        },
+        "suggestions_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_autocomplete_suggestions_variable"
+        },
+        "value_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_autocomplete_value_variable"
+        },
+        "text_change_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_autocomplete_text_change_actions",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "selection_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_autocomplete_selection_actions",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "min_query_length": {
+          "$ref": "common.json#/positive_integer",
+          "default_value": "1",
+          "$description": "translations.json#/div_autocomplete_min_query_length"
+        },
+        "max_visible_suggestions": {
+          "$ref": "common.json#/positive_integer",
+          "default_value": "5",
+          "$description": "translations.json#/div_autocomplete_max_visible_suggestions"
+        },
+        "max_suggestions_height": {
+          "$ref": "div-fixed-size.json",
+          "$description": "translations.json#/div_autocomplete_max_suggestions_height"
+        },
+        "dismiss_on_selection": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_autocomplete_dismiss_on_selection"
+        },
+        "dismiss_on_blur": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_autocomplete_dismiss_on_blur"
+        },
+        "dismiss_on_empty": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_autocomplete_dismiss_on_empty"
+        },
+        "suggestion_text_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#FF000000",
+          "$description": "translations.json#/div_autocomplete_suggestion_text_color"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "text_variable",
+    "suggestions_variable"
+  ]
+}
