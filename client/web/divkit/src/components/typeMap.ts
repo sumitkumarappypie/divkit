@@ -25,6 +25,7 @@ import Webview from './webview/Webview.svelte';
 import GoogleMap from './google-map/GoogleMap.svelte';
 import Custom from './custom/Custom.svelte';
 import Breadcrumb from './breadcrumb/Breadcrumb.svelte';
+import Autocomplete from './autocomplete/Autocomplete.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
     text: Text,
@@ -51,5 +52,6 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     webview: Webview,
     google_map: GoogleMap,
     custom: Custom,
-    breadcrumb: Breadcrumb
+    breadcrumb: Breadcrumb,
+    autocomplete: Autocomplete
 };
