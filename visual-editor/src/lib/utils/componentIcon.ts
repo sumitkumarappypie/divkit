@@ -27,6 +27,7 @@ import counterIcon from '../../assets/components/counter.svg?url';
 import webviewIcon from '../../assets/components/webview.svg?url';
 import breadcrumbIcon from '../../assets/components/breadcrumb.svg?url';
 import googleMapIcon from '../../assets/components/google-map.svg?url';
+import autocompleteIcon from '../../assets/components/input.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
@@ -54,7 +55,8 @@ const MAP = {
     counter: counterIcon,
     webview: webviewIcon,
     breadcrumb: breadcrumbIcon,
-    google_map: googleMapIcon
+    google_map: googleMapIcon,
+    autocomplete: autocompleteIcon
 };
 
 const MAP_BY_ORIENTATION = {

@@ -31,7 +31,8 @@ export const supportedComponents = new Set([
     'counter',
     'webview',
     'breadcrumb',
-    'google_map'
+    'google_map',
+    'autocomplete'
 ]);
 
 export const containerComponents = new Set([
@@ -1359,6 +1360,115 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             prop: 'allow_scroll',
             type: 'boolean',
             default: true,
+            enableSources: true
+        }]
+    }],
+    autocomplete: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            name: 'props.a11y_description',
+            prop: 'accessibility.description',
+            type: 'string',
+            enableSources: true
+        }]
+    }, {
+        type: 'group',
+        title: 'autocompleteProps.title',
+        list: [{
+            name: 'props.text_variable',
+            prop: 'text_variable',
+            type: 'variable-name',
+            required: true
+        }, {
+            name: 'props.suggestions_variable',
+            prop: 'suggestions_variable',
+            type: 'variable-name',
+            required: true
+        }, {
+            name: 'props.value_variable',
+            prop: 'value_variable',
+            type: 'variable-name'
+        }, {
+            name: 'props.keyboard_type',
+            prop: 'keyboard_type',
+            type: 'select',
+            default: 'single_line_text',
+            options: [{
+                name: 'props.keyboard_single_line_text',
+                value: 'single_line_text'
+            }, {
+                name: 'props.keyboard_multi_line_text',
+                value: 'multi_line_text'
+            }, {
+                name: 'props.keyboard_phone',
+                value: 'phone'
+            }, {
+                name: 'props.keyboard_number',
+                value: 'number'
+            }, {
+                name: 'props.keyboard_email',
+                value: 'email'
+            }, {
+                name: 'props.keyboard_uri',
+                value: 'uri'
+            }, {
+                name: 'props.keyboard_password',
+                value: 'password'
+            }],
+            enableSources: true
+        }, {
+            name: 'props.min_query_length',
+            prop: 'min_query_length',
+            type: 'integer',
+            min: 1,
+            max: 100,
+            enableSources: true
+        }, {
+            name: 'props.max_visible_suggestions',
+            prop: 'max_visible_suggestions',
+            type: 'integer',
+            min: 1,
+            max: 50,
+            enableSources: true
+        }, {
+            name: 'props.max_length',
+            prop: 'max_length',
+            type: 'integer',
+            min: 0,
+            max: 99999,
+            enableSources: true
+        }, {
+            type: 'split',
+            list: [{
+                name: 'props.font_size',
+                prop: 'font_size',
+                type: 'integer',
+                min: 1,
+                max: 1000,
+                enableSources: true
+            }, {
+                name: 'props.line_height',
+                prop: 'line_height',
+                type: 'integer',
+                min: 0,
+                max: 1000,
+                enableSources: true
+            }]
+        }, {
+            name: 'props.text_color',
+            prop: 'text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.suggestion_text_color',
+            prop: 'suggestion_text_color',
+            type: 'color',
+            enableSources: true
+        }, {
+            name: 'props.hint_text',
+            prop: 'hint_text',
+            type: 'string',
             enableSources: true
         }]
     }],
