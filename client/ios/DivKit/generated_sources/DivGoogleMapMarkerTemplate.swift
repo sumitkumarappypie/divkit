@@ -5,6 +5,8 @@ import Serialization
 import VGSL
 
 public final class DivGoogleMapMarkerTemplate: TemplateValue, Sendable {
+  public static let type: String = "google_map_marker"
+  public let parent: String?
   public let color: Field<Expression<Color>>?
   public let latitude: Field<Expression<Double>>?
   public let longitude: Field<Expression<Double>>?
@@ -13,6 +15,7 @@ public final class DivGoogleMapMarkerTemplate: TemplateValue, Sendable {
 
   public convenience init(dictionary: [String: Any], templateToType: [TemplateName: String]) throws {
     self.init(
+      parent: dictionary["type"] as? String,
       color: dictionary.getOptionalExpressionField("color", transform: Color.color(withHexString:)),
       latitude: dictionary.getOptionalExpressionField("latitude"),
       longitude: dictionary.getOptionalExpressionField("longitude"),
@@ -22,12 +25,14 @@ public final class DivGoogleMapMarkerTemplate: TemplateValue, Sendable {
   }
 
   init(
+    parent: String?,
     color: Field<Expression<Color>>? = nil,
     latitude: Field<Expression<Double>>? = nil,
     longitude: Field<Expression<Double>>? = nil,
     onClickActions: Field<[DivActionTemplate]>? = nil,
     title: Field<Expression<String>>? = nil
   ) {
+    self.parent = parent
     self.color = color
     self.latitude = latitude
     self.longitude = longitude
@@ -137,10 +142,32 @@ public final class DivGoogleMapMarkerTemplate: TemplateValue, Sendable {
   }
 
   private func mergedWithParent(templates: [TemplateName: Any]) throws -> DivGoogleMapMarkerTemplate {
-    return self
+    guard let parent = parent, parent != Self.type else { return self }
+    guard let parentTemplate = templates[parent] as? DivGoogleMapMarkerTemplate else {
+      throw DeserializationError.unknownType(type: parent)
+    }
+    let mergedParent = try parentTemplate.mergedWithParent(templates: templates)
+
+    return DivGoogleMapMarkerTemplate(
+      parent: nil,
+      color: color ?? mergedParent.color,
+      latitude: latitude ?? mergedParent.latitude,
+      longitude: longitude ?? mergedParent.longitude,
+      onClickActions: onClickActions ?? mergedParent.onClickActions,
+      title: title ?? mergedParent.title
+    )
   }
 
   public func resolveParent(templates: [TemplateName: Any]) throws -> DivGoogleMapMarkerTemplate {
-    return try mergedWithParent(templates: templates)
+    let merged = try mergedWithParent(templates: templates)
+
+    return DivGoogleMapMarkerTemplate(
+      parent: nil,
+      color: merged.color,
+      latitude: merged.latitude,
+      longitude: merged.longitude,
+      onClickActions: merged.onClickActions?.tryResolveParent(templates: templates),
+      title: merged.title
+    )
   }
 }

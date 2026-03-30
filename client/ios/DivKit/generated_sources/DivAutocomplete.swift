@@ -1,0 +1,703 @@
+// Generated code. Do not modify.
+
+import Foundation
+import Serialization
+import VGSL
+
+public final class DivAutocomplete: DivBase, @unchecked Sendable {
+  @frozen
+  public enum EnterKeyType: String, CaseIterable, Sendable {
+    case `default` = "default"
+    case go = "go"
+    case search = "search"
+    case send = "send"
+    case done = "done"
+  }
+
+  @frozen
+  public enum KeyboardType: String, CaseIterable, Sendable {
+    case singleLineText = "single_line_text"
+    case multiLineText = "multi_line_text"
+    case phone = "phone"
+    case number = "number"
+    case email = "email"
+    case uri = "uri"
+    case password = "password"
+  }
+
+  public static let type: String = "autocomplete"
+  public let accessibility: DivAccessibility?
+  public let alignmentHorizontal: Expression<DivAlignmentHorizontal>?
+  public let alignmentVertical: Expression<DivAlignmentVertical>?
+  public let alpha: Expression<Double> // constraint: number >= 0.0 && number <= 1.0; default value: 1.0
+  public let animators: [DivAnimator]?
+  public let background: [DivBackground]?
+  public let border: DivBorder?
+  public let columnSpan: Expression<Int>? // constraint: number >= 0
+  public let disappearActions: [DivDisappearAction]?
+  public let dismissOnBlur: Expression<Bool> // default value: true
+  public let dismissOnEmpty: Expression<Bool> // default value: true
+  public let dismissOnSelection: Expression<Bool> // default value: true
+  public let enterKeyActions: [DivAction]?
+  public let enterKeyType: Expression<EnterKeyType> // default value: default
+  public let extensions: [DivExtension]?
+  public let filters: [DivInputFilter]?
+  public let focus: DivFocus?
+  public let fontFamily: Expression<String>?
+  public let fontSize: Expression<Int> // constraint: number >= 0; default value: 12
+  public let fontSizeUnit: Expression<DivSizeUnit> // default value: sp
+  public let fontVariationSettings: Expression<[String: Any]>?
+  public let fontWeight: Expression<DivFontWeight>?
+  public let fontWeightValue: Expression<Int>? // constraint: number > 0
+  public let functions: [DivFunction]?
+  public let height: DivSize // default value: .divWrapContentSize(DivWrapContentSize())
+  public let highlightColor: Expression<Color>?
+  public let hintColor: Expression<Color> // default value: #73000000
+  public let hintText: Expression<String>?
+  public let id: String?
+  public let isEnabled: Expression<Bool> // default value: true
+  public let keyboardType: Expression<KeyboardType> // default value: single_line_text
+  public let layoutProvider: DivLayoutProvider?
+  public let letterSpacing: Expression<Double> // default value: 0
+  public let lineHeight: Expression<Int>? // constraint: number >= 0
+  public let margins: DivEdgeInsets?
+  public let maxLength: Expression<Int>? // constraint: number > 0
+  public let maxSuggestionsHeight: DivFixedSize?
+  public let maxVisibleSuggestions: Expression<Int> // constraint: number > 0; default value: 5
+  public let minQueryLength: Expression<Int> // constraint: number > 0; default value: 1
+  public let paddings: DivEdgeInsets?
+  public let reuseId: Expression<String>?
+  public let rowSpan: Expression<Int>? // constraint: number >= 0
+  public let selectAllOnFocus: Expression<Bool> // default value: false
+  public let selectedActions: [DivAction]?
+  public let selectionActions: [DivAction]?
+  public let suggestionTextColor: Expression<Color> // default value: #FF000000
+  public let suggestionsVariable: String
+  public let textAlignmentHorizontal: Expression<DivAlignmentHorizontal> // default value: start
+  public let textAlignmentVertical: Expression<DivAlignmentVertical> // default value: center
+  public let textChangeActions: [DivAction]?
+  public let textColor: Expression<Color> // default value: #FF000000
+  public let textVariable: String
+  public let tooltips: [DivTooltip]?
+  public let transform: DivTransform?
+  public let transformations: [DivTransformation]?
+  public let transitionChange: DivChangeTransition?
+  public let transitionIn: DivAppearanceTransition?
+  public let transitionOut: DivAppearanceTransition?
+  public let transitionTriggers: [DivTransitionTrigger]? // at least 1 elements
+  public let validators: [DivInputValidator]?
+  public let valueVariable: String?
+  public let variableTriggers: [DivTrigger]?
+  public let variables: [DivVariable]?
+  public let visibility: Expression<DivVisibility> // default value: visible
+  public let visibilityAction: DivVisibilityAction?
+  public let visibilityActions: [DivVisibilityAction]?
+  public let width: DivSize // default value: .divMatchParentSize(DivMatchParentSize())
+
+  public func resolveAlignmentHorizontal(_ resolver: ExpressionResolver) -> DivAlignmentHorizontal? {
+    resolver.resolveEnum(alignmentHorizontal)
+  }
+
+  public func resolveAlignmentVertical(_ resolver: ExpressionResolver) -> DivAlignmentVertical? {
+    resolver.resolveEnum(alignmentVertical)
+  }
+
+  public func resolveAlpha(_ resolver: ExpressionResolver) -> Double {
+    resolver.resolveNumeric(alpha) ?? 1.0
+  }
+
+  public func resolveColumnSpan(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(columnSpan)
+  }
+
+  public func resolveDismissOnBlur(_ resolver: ExpressionResolver) -> Bool {
+    resolver.resolveNumeric(dismissOnBlur) ?? true
+  }
+
+  public func resolveDismissOnEmpty(_ resolver: ExpressionResolver) -> Bool {
+    resolver.resolveNumeric(dismissOnEmpty) ?? true
+  }
+
+  public func resolveDismissOnSelection(_ resolver: ExpressionResolver) -> Bool {
+    resolver.resolveNumeric(dismissOnSelection) ?? true
+  }
+
+  public func resolveEnterKeyType(_ resolver: ExpressionResolver) -> EnterKeyType {
+    resolver.resolveEnum(enterKeyType) ?? EnterKeyType.default
+  }
+
+  public func resolveFontFamily(_ resolver: ExpressionResolver) -> String? {
+    resolver.resolveString(fontFamily)
+  }
+
+  public func resolveFontSize(_ resolver: ExpressionResolver) -> Int {
+    resolver.resolveNumeric(fontSize) ?? 12
+  }
+
+  public func resolveFontSizeUnit(_ resolver: ExpressionResolver) -> DivSizeUnit {
+    resolver.resolveEnum(fontSizeUnit) ?? DivSizeUnit.sp
+  }
+
+  public func resolveFontVariationSettings(_ resolver: ExpressionResolver) -> [String: Any]? {
+    resolver.resolveDict(fontVariationSettings)
+  }
+
+  public func resolveFontWeight(_ resolver: ExpressionResolver) -> DivFontWeight? {
+    resolver.resolveEnum(fontWeight)
+  }
+
+  public func resolveFontWeightValue(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(fontWeightValue)
+  }
+
+  public func resolveHighlightColor(_ resolver: ExpressionResolver) -> Color? {
+    resolver.resolveColor(highlightColor)
+  }
+
+  public func resolveHintColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(hintColor) ?? Color.colorWithARGBHexCode(0x73000000)
+  }
+
+  public func resolveHintText(_ resolver: ExpressionResolver) -> String? {
+    resolver.resolveString(hintText)
+  }
+
+  public func resolveIsEnabled(_ resolver: ExpressionResolver) -> Bool {
+    resolver.resolveNumeric(isEnabled) ?? true
+  }
+
+  public func resolveKeyboardType(_ resolver: ExpressionResolver) -> KeyboardType {
+    resolver.resolveEnum(keyboardType) ?? KeyboardType.singleLineText
+  }
+
+  public func resolveLetterSpacing(_ resolver: ExpressionResolver) -> Double {
+    resolver.resolveNumeric(letterSpacing) ?? 0
+  }
+
+  public func resolveLineHeight(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(lineHeight)
+  }
+
+  public func resolveMaxLength(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(maxLength)
+  }
+
+  public func resolveMaxVisibleSuggestions(_ resolver: ExpressionResolver) -> Int {
+    resolver.resolveNumeric(maxVisibleSuggestions) ?? 5
+  }
+
+  public func resolveMinQueryLength(_ resolver: ExpressionResolver) -> Int {
+    resolver.resolveNumeric(minQueryLength) ?? 1
+  }
+
+  public func resolveReuseId(_ resolver: ExpressionResolver) -> String? {
+    resolver.resolveString(reuseId)
+  }
+
+  public func resolveRowSpan(_ resolver: ExpressionResolver) -> Int? {
+    resolver.resolveNumeric(rowSpan)
+  }
+
+  public func resolveSelectAllOnFocus(_ resolver: ExpressionResolver) -> Bool {
+    resolver.resolveNumeric(selectAllOnFocus) ?? false
+  }
+
+  public func resolveSuggestionTextColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(suggestionTextColor) ?? Color.colorWithARGBHexCode(0xFF000000)
+  }
+
+  public func resolveTextAlignmentHorizontal(_ resolver: ExpressionResolver) -> DivAlignmentHorizontal {
+    resolver.resolveEnum(textAlignmentHorizontal) ?? DivAlignmentHorizontal.start
+  }
+
+  public func resolveTextAlignmentVertical(_ resolver: ExpressionResolver) -> DivAlignmentVertical {
+    resolver.resolveEnum(textAlignmentVertical) ?? DivAlignmentVertical.center
+  }
+
+  public func resolveTextColor(_ resolver: ExpressionResolver) -> Color {
+    resolver.resolveColor(textColor) ?? Color.colorWithARGBHexCode(0xFF000000)
+  }
+
+  public func resolveVisibility(_ resolver: ExpressionResolver) -> DivVisibility {
+    resolver.resolveEnum(visibility) ?? DivVisibility.visible
+  }
+
+  static let alphaValidator: AnyValueValidator<Double> =
+    makeValueValidator(valueValidator: { $0 >= 0.0 && $0 <= 1.0 })
+
+  static let columnSpanValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 >= 0 })
+
+  static let fontSizeValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 >= 0 })
+
+  static let fontWeightValueValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 > 0 })
+
+  static let lineHeightValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 >= 0 })
+
+  static let maxLengthValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 > 0 })
+
+  static let maxVisibleSuggestionsValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 > 0 })
+
+  static let minQueryLengthValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 > 0 })
+
+  static let rowSpanValidator: AnyValueValidator<Int> =
+    makeValueValidator(valueValidator: { $0 >= 0 })
+
+  static let transitionTriggersValidator: AnyArrayValueValidator<DivTransitionTrigger> =
+    makeArrayValidator(minItems: 1)
+
+  public convenience init(dictionary: [String: Any], context: ParsingContext) throws {
+    self.init(
+      accessibility: try dictionary.getOptionalField("accessibility", transform: { (dict: [String: Any]) in try DivAccessibility(dictionary: dict, context: context) }),
+      alignmentHorizontal: try dictionary.getOptionalExpressionField("alignment_horizontal", context: context),
+      alignmentVertical: try dictionary.getOptionalExpressionField("alignment_vertical", context: context),
+      alpha: try dictionary.getOptionalExpressionField("alpha", validator: Self.alphaValidator, context: context),
+      animators: try dictionary.getOptionalArray("animators", transform: { (dict: [String: Any]) in try? DivAnimator(dictionary: dict, context: context) }),
+      background: try dictionary.getOptionalArray("background", transform: { (dict: [String: Any]) in try? DivBackground(dictionary: dict, context: context) }),
+      border: try dictionary.getOptionalField("border", transform: { (dict: [String: Any]) in try DivBorder(dictionary: dict, context: context) }),
+      columnSpan: try dictionary.getOptionalExpressionField("column_span", validator: Self.columnSpanValidator, context: context),
+      disappearActions: try dictionary.getOptionalArray("disappear_actions", transform: { (dict: [String: Any]) in try? DivDisappearAction(dictionary: dict, context: context) }),
+      dismissOnBlur: try dictionary.getOptionalExpressionField("dismiss_on_blur", context: context),
+      dismissOnEmpty: try dictionary.getOptionalExpressionField("dismiss_on_empty", context: context),
+      dismissOnSelection: try dictionary.getOptionalExpressionField("dismiss_on_selection", context: context),
+      enterKeyActions: try dictionary.getOptionalArray("enter_key_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
+      enterKeyType: try dictionary.getOptionalExpressionField("enter_key_type", context: context),
+      extensions: try dictionary.getOptionalArray("extensions", transform: { (dict: [String: Any]) in try? DivExtension(dictionary: dict, context: context) }),
+      filters: try dictionary.getOptionalArray("filters", transform: { (dict: [String: Any]) in try? DivInputFilter(dictionary: dict, context: context) }),
+      focus: try dictionary.getOptionalField("focus", transform: { (dict: [String: Any]) in try DivFocus(dictionary: dict, context: context) }),
+      fontFamily: try dictionary.getOptionalExpressionField("font_family", context: context),
+      fontSize: try dictionary.getOptionalExpressionField("font_size", validator: Self.fontSizeValidator, context: context),
+      fontSizeUnit: try dictionary.getOptionalExpressionField("font_size_unit", context: context),
+      fontVariationSettings: try dictionary.getOptionalExpressionField("font_variation_settings", context: context),
+      fontWeight: try dictionary.getOptionalExpressionField("font_weight", context: context),
+      fontWeightValue: try dictionary.getOptionalExpressionField("font_weight_value", validator: Self.fontWeightValueValidator, context: context),
+      functions: try dictionary.getOptionalArray("functions", transform: { (dict: [String: Any]) in try? DivFunction(dictionary: dict, context: context) }),
+      height: try dictionary.getOptionalField("height", transform: { (dict: [String: Any]) in try DivSize(dictionary: dict, context: context) }),
+      highlightColor: try dictionary.getOptionalExpressionField("highlight_color", transform: Color.color(withHexString:), context: context),
+      hintColor: try dictionary.getOptionalExpressionField("hint_color", transform: Color.color(withHexString:), context: context),
+      hintText: try dictionary.getOptionalExpressionField("hint_text", context: context),
+      id: try dictionary.getOptionalField("id", context: context),
+      isEnabled: try dictionary.getOptionalExpressionField("is_enabled", context: context),
+      keyboardType: try dictionary.getOptionalExpressionField("keyboard_type", context: context),
+      layoutProvider: try dictionary.getOptionalField("layout_provider", transform: { (dict: [String: Any]) in try DivLayoutProvider(dictionary: dict, context: context) }),
+      letterSpacing: try dictionary.getOptionalExpressionField("letter_spacing", context: context),
+      lineHeight: try dictionary.getOptionalExpressionField("line_height", validator: Self.lineHeightValidator, context: context),
+      margins: try dictionary.getOptionalField("margins", transform: { (dict: [String: Any]) in try DivEdgeInsets(dictionary: dict, context: context) }),
+      maxLength: try dictionary.getOptionalExpressionField("max_length", validator: Self.maxLengthValidator, context: context),
+      maxSuggestionsHeight: try dictionary.getOptionalField("max_suggestions_height", transform: { (dict: [String: Any]) in try DivFixedSize(dictionary: dict, context: context) }),
+      maxVisibleSuggestions: try dictionary.getOptionalExpressionField("max_visible_suggestions", validator: Self.maxVisibleSuggestionsValidator, context: context),
+      minQueryLength: try dictionary.getOptionalExpressionField("min_query_length", validator: Self.minQueryLengthValidator, context: context),
+      paddings: try dictionary.getOptionalField("paddings", transform: { (dict: [String: Any]) in try DivEdgeInsets(dictionary: dict, context: context) }),
+      reuseId: try dictionary.getOptionalExpressionField("reuse_id", context: context),
+      rowSpan: try dictionary.getOptionalExpressionField("row_span", validator: Self.rowSpanValidator, context: context),
+      selectAllOnFocus: try dictionary.getOptionalExpressionField("select_all_on_focus", context: context),
+      selectedActions: try dictionary.getOptionalArray("selected_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
+      selectionActions: try dictionary.getOptionalArray("selection_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
+      suggestionTextColor: try dictionary.getOptionalExpressionField("suggestion_text_color", transform: Color.color(withHexString:), context: context),
+      suggestionsVariable: try dictionary.getField("suggestions_variable", context: context),
+      textAlignmentHorizontal: try dictionary.getOptionalExpressionField("text_alignment_horizontal", context: context),
+      textAlignmentVertical: try dictionary.getOptionalExpressionField("text_alignment_vertical", context: context),
+      textChangeActions: try dictionary.getOptionalArray("text_change_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
+      textColor: try dictionary.getOptionalExpressionField("text_color", transform: Color.color(withHexString:), context: context),
+      textVariable: try dictionary.getField("text_variable", context: context),
+      tooltips: try dictionary.getOptionalArray("tooltips", transform: { (dict: [String: Any]) in try? DivTooltip(dictionary: dict, context: context) }),
+      transform: try dictionary.getOptionalField("transform", transform: { (dict: [String: Any]) in try DivTransform(dictionary: dict, context: context) }),
+      transformations: try dictionary.getOptionalArray("transformations", transform: { (dict: [String: Any]) in try? DivTransformation(dictionary: dict, context: context) }),
+      transitionChange: try dictionary.getOptionalField("transition_change", transform: { (dict: [String: Any]) in try DivChangeTransition(dictionary: dict, context: context) }),
+      transitionIn: try dictionary.getOptionalField("transition_in", transform: { (dict: [String: Any]) in try DivAppearanceTransition(dictionary: dict, context: context) }),
+      transitionOut: try dictionary.getOptionalField("transition_out", transform: { (dict: [String: Any]) in try DivAppearanceTransition(dictionary: dict, context: context) }),
+      transitionTriggers: try dictionary.getOptionalArray("transition_triggers", validator: Self.transitionTriggersValidator, context: context),
+      validators: try dictionary.getOptionalArray("validators", transform: { (dict: [String: Any]) in try? DivInputValidator(dictionary: dict, context: context) }),
+      valueVariable: try dictionary.getOptionalField("value_variable", context: context),
+      variableTriggers: try dictionary.getOptionalArray("variable_triggers", transform: { (dict: [String: Any]) in try? DivTrigger(dictionary: dict, context: context) }),
+      variables: try dictionary.getOptionalArray("variables", transform: { (dict: [String: Any]) in try? DivVariable(dictionary: dict, context: context) }),
+      visibility: try dictionary.getOptionalExpressionField("visibility", context: context),
+      visibilityAction: try dictionary.getOptionalField("visibility_action", transform: { (dict: [String: Any]) in try DivVisibilityAction(dictionary: dict, context: context) }),
+      visibilityActions: try dictionary.getOptionalArray("visibility_actions", transform: { (dict: [String: Any]) in try? DivVisibilityAction(dictionary: dict, context: context) }),
+      width: try dictionary.getOptionalField("width", transform: { (dict: [String: Any]) in try DivSize(dictionary: dict, context: context) })
+    )
+  }
+
+  init(
+    accessibility: DivAccessibility? = nil,
+    alignmentHorizontal: Expression<DivAlignmentHorizontal>? = nil,
+    alignmentVertical: Expression<DivAlignmentVertical>? = nil,
+    alpha: Expression<Double>? = nil,
+    animators: [DivAnimator]? = nil,
+    background: [DivBackground]? = nil,
+    border: DivBorder? = nil,
+    columnSpan: Expression<Int>? = nil,
+    disappearActions: [DivDisappearAction]? = nil,
+    dismissOnBlur: Expression<Bool>? = nil,
+    dismissOnEmpty: Expression<Bool>? = nil,
+    dismissOnSelection: Expression<Bool>? = nil,
+    enterKeyActions: [DivAction]? = nil,
+    enterKeyType: Expression<EnterKeyType>? = nil,
+    extensions: [DivExtension]? = nil,
+    filters: [DivInputFilter]? = nil,
+    focus: DivFocus? = nil,
+    fontFamily: Expression<String>? = nil,
+    fontSize: Expression<Int>? = nil,
+    fontSizeUnit: Expression<DivSizeUnit>? = nil,
+    fontVariationSettings: Expression<[String: Any]>? = nil,
+    fontWeight: Expression<DivFontWeight>? = nil,
+    fontWeightValue: Expression<Int>? = nil,
+    functions: [DivFunction]? = nil,
+    height: DivSize? = nil,
+    highlightColor: Expression<Color>? = nil,
+    hintColor: Expression<Color>? = nil,
+    hintText: Expression<String>? = nil,
+    id: String? = nil,
+    isEnabled: Expression<Bool>? = nil,
+    keyboardType: Expression<KeyboardType>? = nil,
+    layoutProvider: DivLayoutProvider? = nil,
+    letterSpacing: Expression<Double>? = nil,
+    lineHeight: Expression<Int>? = nil,
+    margins: DivEdgeInsets? = nil,
+    maxLength: Expression<Int>? = nil,
+    maxSuggestionsHeight: DivFixedSize? = nil,
+    maxVisibleSuggestions: Expression<Int>? = nil,
+    minQueryLength: Expression<Int>? = nil,
+    paddings: DivEdgeInsets? = nil,
+    reuseId: Expression<String>? = nil,
+    rowSpan: Expression<Int>? = nil,
+    selectAllOnFocus: Expression<Bool>? = nil,
+    selectedActions: [DivAction]? = nil,
+    selectionActions: [DivAction]? = nil,
+    suggestionTextColor: Expression<Color>? = nil,
+    suggestionsVariable: String,
+    textAlignmentHorizontal: Expression<DivAlignmentHorizontal>? = nil,
+    textAlignmentVertical: Expression<DivAlignmentVertical>? = nil,
+    textChangeActions: [DivAction]? = nil,
+    textColor: Expression<Color>? = nil,
+    textVariable: String,
+    tooltips: [DivTooltip]? = nil,
+    transform: DivTransform? = nil,
+    transformations: [DivTransformation]? = nil,
+    transitionChange: DivChangeTransition? = nil,
+    transitionIn: DivAppearanceTransition? = nil,
+    transitionOut: DivAppearanceTransition? = nil,
+    transitionTriggers: [DivTransitionTrigger]? = nil,
+    validators: [DivInputValidator]? = nil,
+    valueVariable: String? = nil,
+    variableTriggers: [DivTrigger]? = nil,
+    variables: [DivVariable]? = nil,
+    visibility: Expression<DivVisibility>? = nil,
+    visibilityAction: DivVisibilityAction? = nil,
+    visibilityActions: [DivVisibilityAction]? = nil,
+    width: DivSize? = nil
+  ) {
+    self.accessibility = accessibility
+    self.alignmentHorizontal = alignmentHorizontal
+    self.alignmentVertical = alignmentVertical
+    self.alpha = alpha ?? .value(1.0)
+    self.animators = animators
+    self.background = background
+    self.border = border
+    self.columnSpan = columnSpan
+    self.disappearActions = disappearActions
+    self.dismissOnBlur = dismissOnBlur ?? .value(true)
+    self.dismissOnEmpty = dismissOnEmpty ?? .value(true)
+    self.dismissOnSelection = dismissOnSelection ?? .value(true)
+    self.enterKeyActions = enterKeyActions
+    self.enterKeyType = enterKeyType ?? .value(.default)
+    self.extensions = extensions
+    self.filters = filters
+    self.focus = focus
+    self.fontFamily = fontFamily
+    self.fontSize = fontSize ?? .value(12)
+    self.fontSizeUnit = fontSizeUnit ?? .value(.sp)
+    self.fontVariationSettings = fontVariationSettings
+    self.fontWeight = fontWeight
+    self.fontWeightValue = fontWeightValue
+    self.functions = functions
+    self.height = height ?? .divWrapContentSize(DivWrapContentSize())
+    self.highlightColor = highlightColor
+    self.hintColor = hintColor ?? .value(Color.colorWithARGBHexCode(0x73000000))
+    self.hintText = hintText
+    self.id = id
+    self.isEnabled = isEnabled ?? .value(true)
+    self.keyboardType = keyboardType ?? .value(.singleLineText)
+    self.layoutProvider = layoutProvider
+    self.letterSpacing = letterSpacing ?? .value(0)
+    self.lineHeight = lineHeight
+    self.margins = margins
+    self.maxLength = maxLength
+    self.maxSuggestionsHeight = maxSuggestionsHeight
+    self.maxVisibleSuggestions = maxVisibleSuggestions ?? .value(5)
+    self.minQueryLength = minQueryLength ?? .value(1)
+    self.paddings = paddings
+    self.reuseId = reuseId
+    self.rowSpan = rowSpan
+    self.selectAllOnFocus = selectAllOnFocus ?? .value(false)
+    self.selectedActions = selectedActions
+    self.selectionActions = selectionActions
+    self.suggestionTextColor = suggestionTextColor ?? .value(Color.colorWithARGBHexCode(0xFF000000))
+    self.suggestionsVariable = suggestionsVariable
+    self.textAlignmentHorizontal = textAlignmentHorizontal ?? .value(.start)
+    self.textAlignmentVertical = textAlignmentVertical ?? .value(.center)
+    self.textChangeActions = textChangeActions
+    self.textColor = textColor ?? .value(Color.colorWithARGBHexCode(0xFF000000))
+    self.textVariable = textVariable
+    self.tooltips = tooltips
+    self.transform = transform
+    self.transformations = transformations
+    self.transitionChange = transitionChange
+    self.transitionIn = transitionIn
+    self.transitionOut = transitionOut
+    self.transitionTriggers = transitionTriggers
+    self.validators = validators
+    self.valueVariable = valueVariable
+    self.variableTriggers = variableTriggers
+    self.variables = variables
+    self.visibility = visibility ?? .value(.visible)
+    self.visibilityAction = visibilityAction
+    self.visibilityActions = visibilityActions
+    self.width = width ?? .divMatchParentSize(DivMatchParentSize())
+  }
+}
+
+#if DEBUG
+// WARNING: this == is incomplete because of [String: Any] in class fields
+extension DivAutocomplete: Equatable {
+  public static func ==(lhs: DivAutocomplete, rhs: DivAutocomplete) -> Bool {
+    guard
+      lhs.accessibility == rhs.accessibility,
+      lhs.alignmentHorizontal == rhs.alignmentHorizontal,
+      lhs.alignmentVertical == rhs.alignmentVertical
+    else {
+      return false
+    }
+    guard
+      lhs.alpha == rhs.alpha,
+      lhs.animators == rhs.animators,
+      lhs.background == rhs.background
+    else {
+      return false
+    }
+    guard
+      lhs.border == rhs.border,
+      lhs.columnSpan == rhs.columnSpan,
+      lhs.disappearActions == rhs.disappearActions
+    else {
+      return false
+    }
+    guard
+      lhs.dismissOnBlur == rhs.dismissOnBlur,
+      lhs.dismissOnEmpty == rhs.dismissOnEmpty,
+      lhs.dismissOnSelection == rhs.dismissOnSelection
+    else {
+      return false
+    }
+    guard
+      lhs.enterKeyActions == rhs.enterKeyActions,
+      lhs.enterKeyType == rhs.enterKeyType,
+      lhs.extensions == rhs.extensions
+    else {
+      return false
+    }
+    guard
+      lhs.filters == rhs.filters,
+      lhs.focus == rhs.focus,
+      lhs.fontFamily == rhs.fontFamily
+    else {
+      return false
+    }
+    guard
+      lhs.fontSize == rhs.fontSize,
+      lhs.fontSizeUnit == rhs.fontSizeUnit,
+      lhs.fontWeight == rhs.fontWeight
+    else {
+      return false
+    }
+    guard
+      lhs.fontWeightValue == rhs.fontWeightValue,
+      lhs.functions == rhs.functions,
+      lhs.height == rhs.height
+    else {
+      return false
+    }
+    guard
+      lhs.highlightColor == rhs.highlightColor,
+      lhs.hintColor == rhs.hintColor,
+      lhs.hintText == rhs.hintText
+    else {
+      return false
+    }
+    guard
+      lhs.id == rhs.id,
+      lhs.isEnabled == rhs.isEnabled,
+      lhs.keyboardType == rhs.keyboardType
+    else {
+      return false
+    }
+    guard
+      lhs.layoutProvider == rhs.layoutProvider,
+      lhs.letterSpacing == rhs.letterSpacing,
+      lhs.lineHeight == rhs.lineHeight
+    else {
+      return false
+    }
+    guard
+      lhs.margins == rhs.margins,
+      lhs.maxLength == rhs.maxLength,
+      lhs.maxSuggestionsHeight == rhs.maxSuggestionsHeight
+    else {
+      return false
+    }
+    guard
+      lhs.maxVisibleSuggestions == rhs.maxVisibleSuggestions,
+      lhs.minQueryLength == rhs.minQueryLength,
+      lhs.paddings == rhs.paddings
+    else {
+      return false
+    }
+    guard
+      lhs.reuseId == rhs.reuseId,
+      lhs.rowSpan == rhs.rowSpan,
+      lhs.selectAllOnFocus == rhs.selectAllOnFocus
+    else {
+      return false
+    }
+    guard
+      lhs.selectedActions == rhs.selectedActions,
+      lhs.selectionActions == rhs.selectionActions,
+      lhs.suggestionTextColor == rhs.suggestionTextColor
+    else {
+      return false
+    }
+    guard
+      lhs.suggestionsVariable == rhs.suggestionsVariable,
+      lhs.textAlignmentHorizontal == rhs.textAlignmentHorizontal,
+      lhs.textAlignmentVertical == rhs.textAlignmentVertical
+    else {
+      return false
+    }
+    guard
+      lhs.textChangeActions == rhs.textChangeActions,
+      lhs.textColor == rhs.textColor,
+      lhs.textVariable == rhs.textVariable
+    else {
+      return false
+    }
+    guard
+      lhs.tooltips == rhs.tooltips,
+      lhs.transform == rhs.transform,
+      lhs.transformations == rhs.transformations
+    else {
+      return false
+    }
+    guard
+      lhs.transitionChange == rhs.transitionChange,
+      lhs.transitionIn == rhs.transitionIn,
+      lhs.transitionOut == rhs.transitionOut
+    else {
+      return false
+    }
+    guard
+      lhs.transitionTriggers == rhs.transitionTriggers,
+      lhs.validators == rhs.validators,
+      lhs.valueVariable == rhs.valueVariable
+    else {
+      return false
+    }
+    guard
+      lhs.variableTriggers == rhs.variableTriggers,
+      lhs.variables == rhs.variables,
+      lhs.visibility == rhs.visibility
+    else {
+      return false
+    }
+    guard
+      lhs.visibilityAction == rhs.visibilityAction,
+      lhs.visibilityActions == rhs.visibilityActions,
+      lhs.width == rhs.width
+    else {
+      return false
+    }
+    return true
+  }
+}
+#endif
+
+extension DivAutocomplete: Serializable {
+  @_optimize(size)
+  public func toDictionary() -> [String: ValidSerializationValue] {
+    var result: [String: ValidSerializationValue] = [:]
+    result["type"] = Self.type
+    result["accessibility"] = accessibility?.toDictionary()
+    result["alignment_horizontal"] = alignmentHorizontal?.toValidSerializationValue()
+    result["alignment_vertical"] = alignmentVertical?.toValidSerializationValue()
+    result["alpha"] = alpha.toValidSerializationValue()
+    result["animators"] = animators?.map { $0.toDictionary() }
+    result["background"] = background?.map { $0.toDictionary() }
+    result["border"] = border?.toDictionary()
+    result["column_span"] = columnSpan?.toValidSerializationValue()
+    result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
+    result["dismiss_on_blur"] = dismissOnBlur.toValidSerializationValue()
+    result["dismiss_on_empty"] = dismissOnEmpty.toValidSerializationValue()
+    result["dismiss_on_selection"] = dismissOnSelection.toValidSerializationValue()
+    result["enter_key_actions"] = enterKeyActions?.map { $0.toDictionary() }
+    result["enter_key_type"] = enterKeyType.toValidSerializationValue()
+    result["extensions"] = extensions?.map { $0.toDictionary() }
+    result["filters"] = filters?.map { $0.toDictionary() }
+    result["focus"] = focus?.toDictionary()
+    result["font_family"] = fontFamily?.toValidSerializationValue()
+    result["font_size"] = fontSize.toValidSerializationValue()
+    result["font_size_unit"] = fontSizeUnit.toValidSerializationValue()
+    result["font_variation_settings"] = fontVariationSettings?.toValidSerializationValue()
+    result["font_weight"] = fontWeight?.toValidSerializationValue()
+    result["font_weight_value"] = fontWeightValue?.toValidSerializationValue()
+    result["functions"] = functions?.map { $0.toDictionary() }
+    result["height"] = height.toDictionary()
+    result["highlight_color"] = highlightColor?.toValidSerializationValue()
+    result["hint_color"] = hintColor.toValidSerializationValue()
+    result["hint_text"] = hintText?.toValidSerializationValue()
+    result["id"] = id
+    result["is_enabled"] = isEnabled.toValidSerializationValue()
+    result["keyboard_type"] = keyboardType.toValidSerializationValue()
+    result["layout_provider"] = layoutProvider?.toDictionary()
+    result["letter_spacing"] = letterSpacing.toValidSerializationValue()
+    result["line_height"] = lineHeight?.toValidSerializationValue()
+    result["margins"] = margins?.toDictionary()
+    result["max_length"] = maxLength?.toValidSerializationValue()
+    result["max_suggestions_height"] = maxSuggestionsHeight?.toDictionary()
+    result["max_visible_suggestions"] = maxVisibleSuggestions.toValidSerializationValue()
+    result["min_query_length"] = minQueryLength.toValidSerializationValue()
+    result["paddings"] = paddings?.toDictionary()
+    result["reuse_id"] = reuseId?.toValidSerializationValue()
+    result["row_span"] = rowSpan?.toValidSerializationValue()
+    result["select_all_on_focus"] = selectAllOnFocus.toValidSerializationValue()
+    result["selected_actions"] = selectedActions?.map { $0.toDictionary() }
+    result["selection_actions"] = selectionActions?.map { $0.toDictionary() }
+    result["suggestion_text_color"] = suggestionTextColor.toValidSerializationValue()
+    result["suggestions_variable"] = suggestionsVariable
+    result["text_alignment_horizontal"] = textAlignmentHorizontal.toValidSerializationValue()
+    result["text_alignment_vertical"] = textAlignmentVertical.toValidSerializationValue()
+    result["text_change_actions"] = textChangeActions?.map { $0.toDictionary() }
+    result["text_color"] = textColor.toValidSerializationValue()
+    result["text_variable"] = textVariable
+    result["tooltips"] = tooltips?.map { $0.toDictionary() }
+    result["transform"] = transform?.toDictionary()
+    result["transformations"] = transformations?.map { $0.toDictionary() }
+    result["transition_change"] = transitionChange?.toDictionary()
+    result["transition_in"] = transitionIn?.toDictionary()
+    result["transition_out"] = transitionOut?.toDictionary()
+    result["transition_triggers"] = transitionTriggers?.map { $0.rawValue }
+    result["validators"] = validators?.map { $0.toDictionary() }
+    result["value_variable"] = valueVariable
+    result["variable_triggers"] = variableTriggers?.map { $0.toDictionary() }
+    result["variables"] = variables?.map { $0.toDictionary() }
+    result["visibility"] = visibility.toValidSerializationValue()
+    result["visibility_action"] = visibilityAction?.toDictionary()
+    result["visibility_actions"] = visibilityActions?.map { $0.toDictionary() }
+    result["width"] = width.toDictionary()
+    return result
+  }
+}

@@ -150,7 +150,7 @@ public final class DivWebview: DivBase, Sendable {
       transitionIn: try dictionary.getOptionalField("transition_in", transform: { (dict: [String: Any]) in try DivAppearanceTransition(dictionary: dict, context: context) }),
       transitionOut: try dictionary.getOptionalField("transition_out", transform: { (dict: [String: Any]) in try DivAppearanceTransition(dictionary: dict, context: context) }),
       transitionTriggers: try dictionary.getOptionalArray("transition_triggers", validator: Self.transitionTriggersValidator, context: context),
-      url: try dictionary.getOptionalExpressionField("url", transform: URL.init(string:), context: context),
+      url: try dictionary.getOptionalExpressionField("url", transform: URL.makeFromNonEncodedString, context: context),
       variableTriggers: try dictionary.getOptionalArray("variable_triggers", transform: { (dict: [String: Any]) in try? DivTrigger(dictionary: dict, context: context) }),
       variables: try dictionary.getOptionalArray("variables", transform: { (dict: [String: Any]) in try? DivVariable(dictionary: dict, context: context) }),
       visibility: try dictionary.getOptionalExpressionField("visibility", context: context),

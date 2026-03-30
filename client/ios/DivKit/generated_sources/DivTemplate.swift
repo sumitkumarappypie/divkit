@@ -25,11 +25,13 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divSelectTemplate(DivSelectTemplate)
   case divVideoTemplate(DivVideoTemplate)
   case divCheckboxTemplate(DivCheckboxTemplate)
+  case divCounterTemplate(DivCounterTemplate)
   case divRadioTemplate(DivRadioTemplate)
   case divProgressTemplate(DivProgressTemplate)
-  case divCounterTemplate(DivCounterTemplate)
   case divWebviewTemplate(DivWebviewTemplate)
+  case divBreadcrumbTemplate(DivBreadcrumbTemplate)
   case divGoogleMapTemplate(DivGoogleMapTemplate)
+  case divAutocompleteTemplate(DivAutocompleteTemplate)
 
   public var value: Any {
     switch self {
@@ -71,15 +73,19 @@ public enum DivTemplate: TemplateValue, Sendable {
       return value
     case let .divCheckboxTemplate(value):
       return value
+    case let .divCounterTemplate(value):
+      return value
     case let .divRadioTemplate(value):
       return value
     case let .divProgressTemplate(value):
       return value
-    case let .divCounterTemplate(value):
-      return value
     case let .divWebviewTemplate(value):
       return value
+    case let .divBreadcrumbTemplate(value):
+      return value
     case let .divGoogleMapTemplate(value):
+      return value
+    case let .divAutocompleteTemplate(value):
       return value
     }
   }
@@ -124,16 +130,20 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divVideoTemplate(try value.resolveParent(templates: templates))
     case let .divCheckboxTemplate(value):
       return .divCheckboxTemplate(try value.resolveParent(templates: templates))
+    case let .divCounterTemplate(value):
+      return .divCounterTemplate(try value.resolveParent(templates: templates))
     case let .divRadioTemplate(value):
       return .divRadioTemplate(try value.resolveParent(templates: templates))
     case let .divProgressTemplate(value):
       return .divProgressTemplate(try value.resolveParent(templates: templates))
-    case let .divCounterTemplate(value):
-      return .divCounterTemplate(try value.resolveParent(templates: templates))
     case let .divWebviewTemplate(value):
       return .divWebviewTemplate(try value.resolveParent(templates: templates))
+    case let .divBreadcrumbTemplate(value):
+      return .divBreadcrumbTemplate(try value.resolveParent(templates: templates))
     case let .divGoogleMapTemplate(value):
       return .divGoogleMapTemplate(try value.resolveParent(templates: templates))
+    case let .divAutocompleteTemplate(value):
+      return .divAutocompleteTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -299,6 +309,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divCounterTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCounter(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     case let .divRadioTemplate(value):
       let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
@@ -315,14 +333,6 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
-    case let .divCounterTemplate(value):
-      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
-      switch result {
-      case let .success(value): return .success(.divCounter(value))
-      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
-      case let .failure(errors): return .failure(errors)
-      case .noValue: return .noValue
-      }
     case let .divWebviewTemplate(value):
       let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
@@ -331,11 +341,27 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divBreadcrumbTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divBreadcrumb(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divBreadcrumb(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     case let .divGoogleMapTemplate(value):
       let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
       case let .success(value): return .success(.divGoogleMap(value))
       case let .partialSuccess(value, warnings): return .partialSuccess(.divGoogleMap(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case let .divAutocompleteTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divAutocomplete(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divAutocomplete(value), warnings: warnings)
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
@@ -500,6 +526,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivCounter.type:
+      let result = DivCounterTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divCounter(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     case DivRadio.type:
       let result = DivRadioTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
@@ -516,14 +550,6 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
-    case DivCounter.type:
-      let result = DivCounterTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
-      switch result {
-      case let .success(value): return .success(.divCounter(value))
-      case let .partialSuccess(value, warnings): return .partialSuccess(.divCounter(value), warnings: warnings)
-      case let .failure(errors): return .failure(errors)
-      case .noValue: return .noValue
-      }
     case DivWebview.type:
       let result = DivWebviewTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
@@ -532,11 +558,27 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivBreadcrumb.type:
+      let result = DivBreadcrumbTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divBreadcrumb(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divBreadcrumb(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     case DivGoogleMap.type:
       let result = DivGoogleMapTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
       switch result {
       case let .success(value): return .success(.divGoogleMap(value))
       case let .partialSuccess(value, warnings): return .partialSuccess(.divGoogleMap(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
+    case DivAutocomplete.type:
+      let result = DivAutocompleteTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divAutocomplete(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divAutocomplete(value), warnings: warnings)
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
@@ -589,16 +631,20 @@ extension DivTemplate {
       self = .divVideoTemplate(try DivVideoTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivCheckboxTemplate.type:
       self = .divCheckboxTemplate(try DivCheckboxTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivCounterTemplate.type:
+      self = .divCounterTemplate(try DivCounterTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivRadioTemplate.type:
       self = .divRadioTemplate(try DivRadioTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivProgressTemplate.type:
       self = .divProgressTemplate(try DivProgressTemplate(dictionary: dictionary, templateToType: templateToType))
-    case DivCounterTemplate.type:
-      self = .divCounterTemplate(try DivCounterTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivWebviewTemplate.type:
       self = .divWebviewTemplate(try DivWebviewTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivBreadcrumbTemplate.type:
+      self = .divBreadcrumbTemplate(try DivBreadcrumbTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivGoogleMapTemplate.type:
       self = .divGoogleMapTemplate(try DivGoogleMapTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivAutocompleteTemplate.type:
+      self = .divAutocompleteTemplate(try DivAutocompleteTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }

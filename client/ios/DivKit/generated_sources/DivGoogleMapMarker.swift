@@ -5,6 +5,7 @@ import Serialization
 import VGSL
 
 public final class DivGoogleMapMarker: Sendable {
+  public static let type: String = "google_map_marker"
   public let color: Expression<Color>?
   public let latitude: Expression<Double>
   public let longitude: Expression<Double>
@@ -30,8 +31,8 @@ public final class DivGoogleMapMarker: Sendable {
   public convenience init(dictionary: [String: Any], context: ParsingContext) throws {
     self.init(
       color: try dictionary.getOptionalExpressionField("color", transform: Color.color(withHexString:), context: context),
-      latitude: try dictionary.getOptionalExpressionField("latitude", context: context),
-      longitude: try dictionary.getOptionalExpressionField("longitude", context: context),
+      latitude: try dictionary.getExpressionField("latitude", context: context),
+      longitude: try dictionary.getExpressionField("longitude", context: context),
       onClickActions: try dictionary.getOptionalArray("on_click_actions", transform: { (dict: [String: Any]) in try? DivAction(dictionary: dict, context: context) }),
       title: try dictionary.getOptionalExpressionField("title", context: context)
     )
@@ -77,6 +78,7 @@ extension DivGoogleMapMarker: Serializable {
   @_optimize(size)
   public func toDictionary() -> [String: ValidSerializationValue] {
     var result: [String: ValidSerializationValue] = [:]
+    result["type"] = Self.type
     result["color"] = color?.toValidSerializationValue()
     result["latitude"] = latitude.toValidSerializationValue()
     result["longitude"] = longitude.toValidSerializationValue()

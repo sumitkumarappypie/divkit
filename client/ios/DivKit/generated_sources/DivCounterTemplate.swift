@@ -18,16 +18,16 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
   public let borderColor: Field<Expression<Color>>? // default value: #E0E0E0
   public let borderWidth: Field<Expression<Int>>? // constraint: number >= 0; default value: 1
   public let buttonColor: Field<Expression<Color>>? // default value: #4CAF50
-  public let buttonSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 48
+  public let buttonSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 36
   public let columnSpan: Field<Expression<Int>>? // constraint: number >= 0
   public let cornerRadius: Field<Expression<Int>>? // constraint: number >= 0; default value: 999
   public let counterValueVariable: Field<String>?
-  public let disappearActions: Field<[DivDisappearActionTemplate]>?
   public let disabledButtonColor: Field<Expression<Color>>? // default value: #CCCCCC
+  public let disappearActions: Field<[DivDisappearActionTemplate]>?
   public let extensions: Field<[DivExtensionTemplate]>?
   public let focus: Field<DivFocusTemplate>?
-  public let fontSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 24
-  public let fontWeight: Field<Expression<DivFontWeight>>? // default value: medium
+  public let fontSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 16
+  public let fontWeight: Field<Expression<DivFontWeight>>? // default value: bold
   public let functions: Field<[DivFunctionTemplate]>?
   public let height: Field<DivSizeTemplate>? // default value: .divWrapContentSize(DivWrapContentSize())
   public let iconColor: Field<Expression<Color>>? // default value: #FFFFFF
@@ -40,7 +40,7 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
   public let onDecrementActions: Field<[DivActionTemplate]>?
   public let onIncrementActions: Field<[DivActionTemplate]>?
   public let onValueChangeActions: Field<[DivActionTemplate]>?
-  public let padding: Field<Expression<Int>>? // constraint: number >= 0; default value: 4
+  public let padding: Field<Expression<Int>>? // constraint: number >= 0; default value: 6
   public let paddings: Field<DivEdgeInsetsTemplate>?
   public let reuseId: Field<Expression<String>>?
   public let rowSpan: Field<Expression<Int>>? // constraint: number >= 0
@@ -54,7 +54,7 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
   public let transitionIn: Field<DivAppearanceTransitionTemplate>?
   public let transitionOut: Field<DivAppearanceTransitionTemplate>?
   public let transitionTriggers: Field<[DivTransitionTrigger]>? // at least 1 elements
-  public let valueWidth: Field<Expression<Int>>? // constraint: number >= 0; default value: 48
+  public let valueWidth: Field<Expression<Int>>? // constraint: number >= 0; default value: 40
   public let variableTriggers: Field<[DivTriggerTemplate]>?
   public let variables: Field<[DivVariableTemplate]>?
   public let visibility: Field<Expression<DivVisibility>>? // default value: visible
@@ -80,8 +80,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpan: dictionary.getOptionalExpressionField("column_span"),
       cornerRadius: dictionary.getOptionalExpressionField("corner_radius"),
       counterValueVariable: dictionary.getOptionalField("counter_value_variable"),
-      disappearActions: dictionary.getOptionalArray("disappear_actions", templateToType: templateToType),
       disabledButtonColor: dictionary.getOptionalExpressionField("disabled_button_color", transform: Color.color(withHexString:)),
+      disappearActions: dictionary.getOptionalArray("disappear_actions", templateToType: templateToType),
       extensions: dictionary.getOptionalArray("extensions", templateToType: templateToType),
       focus: dictionary.getOptionalField("focus", templateToType: templateToType),
       fontSize: dictionary.getOptionalExpressionField("font_size"),
@@ -139,8 +139,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
     columnSpan: Field<Expression<Int>>? = nil,
     cornerRadius: Field<Expression<Int>>? = nil,
     counterValueVariable: Field<String>? = nil,
-    disappearActions: Field<[DivDisappearActionTemplate]>? = nil,
     disabledButtonColor: Field<Expression<Color>>? = nil,
+    disappearActions: Field<[DivDisappearActionTemplate]>? = nil,
     extensions: Field<[DivExtensionTemplate]>? = nil,
     focus: Field<DivFocusTemplate>? = nil,
     fontSize: Field<Expression<Int>>? = nil,
@@ -195,8 +195,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
     self.columnSpan = columnSpan
     self.cornerRadius = cornerRadius
     self.counterValueVariable = counterValueVariable
-    self.disappearActions = disappearActions
     self.disabledButtonColor = disabledButtonColor
+    self.disappearActions = disappearActions
     self.extensions = extensions
     self.focus = focus
     self.fontSize = fontSize
@@ -236,9 +236,6 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
     self.width = width
   }
 
-  private static let counterValueVariableValidator: AnyValueValidator<String> =
-    makeStringValidator(minLength: 1)
-
   private static func resolveOnlyLinks(context: TemplatesContext, parent: DivCounterTemplate?) -> DeserializationResult<DivCounter> {
     let accessibilityValue = parent?.accessibility?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let alignmentHorizontalValue = parent?.alignmentHorizontal?.resolveOptionalValue(context: context) ?? .noValue
@@ -255,8 +252,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
     let columnSpanValue = parent?.columnSpan?.resolveOptionalValue(context: context, validator: ResolvedValue.columnSpanValidator) ?? .noValue
     let cornerRadiusValue = parent?.cornerRadius?.resolveOptionalValue(context: context, validator: ResolvedValue.cornerRadiusValidator) ?? .noValue
     let counterValueVariableValue = parent?.counterValueVariable?.resolveValue(context: context) ?? .noValue
-    let disappearActionsValue = parent?.disappearActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let disabledButtonColorValue = parent?.disabledButtonColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let disappearActionsValue = parent?.disappearActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let extensionsValue = parent?.extensions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let focusValue = parent?.focus?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let fontSizeValue = parent?.fontSize?.resolveOptionalValue(context: context, validator: ResolvedValue.fontSizeValidator) ?? .noValue
@@ -310,8 +307,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
       cornerRadiusValue.errorsOrWarnings?.map { .nestedObjectError(field: "corner_radius", error: $0) },
       counterValueVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "counter_value_variable", error: $0) },
-      disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       disabledButtonColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "disabled_button_color", error: $0) },
+      disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
       fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
@@ -374,8 +371,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpan: columnSpanValue.value,
       cornerRadius: cornerRadiusValue.value,
       counterValueVariable: counterValueVariableNonNil,
-      disappearActions: disappearActionsValue.value,
       disabledButtonColor: disabledButtonColorValue.value,
+      disappearActions: disappearActionsValue.value,
       extensions: extensionsValue.value,
       focus: focusValue.value,
       fontSize: fontSizeValue.value,
@@ -436,8 +433,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
     var columnSpanValue: DeserializationResult<Expression<Int>> = parent?.columnSpan?.value() ?? .noValue
     var cornerRadiusValue: DeserializationResult<Expression<Int>> = parent?.cornerRadius?.value() ?? .noValue
     var counterValueVariableValue: DeserializationResult<String> = parent?.counterValueVariable?.value() ?? .noValue
-    var disappearActionsValue: DeserializationResult<[DivDisappearAction]> = .noValue
     var disabledButtonColorValue: DeserializationResult<Expression<Color>> = parent?.disabledButtonColor?.value() ?? .noValue
+    var disappearActionsValue: DeserializationResult<[DivDisappearAction]> = .noValue
     var extensionsValue: DeserializationResult<[DivExtension]> = .noValue
     var focusValue: DeserializationResult<DivFocus> = .noValue
     var fontSizeValue: DeserializationResult<Expression<Int>> = parent?.fontSize?.value() ?? .noValue
@@ -507,10 +504,10 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
         cornerRadiusValue = deserialize(__dictValue, validator: ResolvedValue.cornerRadiusValidator).merged(with: cornerRadiusValue)
       case "counter_value_variable":
         counterValueVariableValue = deserialize(__dictValue).merged(with: counterValueVariableValue)
-      case "disappear_actions":
-        disappearActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self).merged(with: disappearActionsValue)
       case "disabled_button_color":
         disabledButtonColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: disabledButtonColorValue)
+      case "disappear_actions":
+        disappearActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self).merged(with: disappearActionsValue)
       case "extensions":
         extensionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self).merged(with: extensionsValue)
       case "focus":
@@ -615,10 +612,10 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
         cornerRadiusValue = cornerRadiusValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.cornerRadiusValidator) })
       case parent?.counterValueVariable?.link:
         counterValueVariableValue = counterValueVariableValue.merged(with: { deserialize(__dictValue) })
-      case parent?.disappearActions?.link:
-        disappearActionsValue = disappearActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self) })
       case parent?.disabledButtonColor?.link:
         disabledButtonColorValue = disabledButtonColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.disappearActions?.link:
+        disappearActionsValue = disappearActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self) })
       case parent?.extensions?.link:
         extensionsValue = extensionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self) })
       case parent?.focus?.link:
@@ -741,8 +738,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
       cornerRadiusValue.errorsOrWarnings?.map { .nestedObjectError(field: "corner_radius", error: $0) },
       counterValueVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "counter_value_variable", error: $0) },
-      disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       disabledButtonColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "disabled_button_color", error: $0) },
+      disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
       fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
@@ -805,8 +802,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpan: columnSpanValue.value,
       cornerRadius: cornerRadiusValue.value,
       counterValueVariable: counterValueVariableNonNil,
-      disappearActions: disappearActionsValue.value,
       disabledButtonColor: disabledButtonColorValue.value,
+      disappearActions: disappearActionsValue.value,
       extensions: extensionsValue.value,
       focus: focusValue.value,
       fontSize: fontSizeValue.value,
@@ -872,8 +869,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpan: columnSpan ?? mergedParent.columnSpan,
       cornerRadius: cornerRadius ?? mergedParent.cornerRadius,
       counterValueVariable: counterValueVariable ?? mergedParent.counterValueVariable,
-      disappearActions: disappearActions ?? mergedParent.disappearActions,
       disabledButtonColor: disabledButtonColor ?? mergedParent.disabledButtonColor,
+      disappearActions: disappearActions ?? mergedParent.disappearActions,
       extensions: extensions ?? mergedParent.extensions,
       focus: focus ?? mergedParent.focus,
       fontSize: fontSize ?? mergedParent.fontSize,
@@ -934,8 +931,8 @@ public final class DivCounterTemplate: TemplateValue, Sendable {
       columnSpan: merged.columnSpan,
       cornerRadius: merged.cornerRadius,
       counterValueVariable: merged.counterValueVariable,
-      disappearActions: merged.disappearActions?.tryResolveParent(templates: templates),
       disabledButtonColor: merged.disabledButtonColor,
+      disappearActions: merged.disappearActions?.tryResolveParent(templates: templates),
       extensions: merged.extensions?.tryResolveParent(templates: templates),
       focus: merged.focus?.tryResolveParent(templates: templates),
       fontSize: merged.fontSize,

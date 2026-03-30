@@ -17,12 +17,12 @@ public final class DivCounter: DivBase, Sendable {
   public let borderColor: Expression<Color> // default value: #E0E0E0
   public let borderWidth: Expression<Int> // constraint: number >= 0; default value: 1
   public let buttonColor: Expression<Color> // default value: #4CAF50
-  public let buttonSize: Expression<Int> // constraint: number >= 0; default value: 20
+  public let buttonSize: Expression<Int> // constraint: number >= 0; default value: 36
   public let columnSpan: Expression<Int>? // constraint: number >= 0
   public let cornerRadius: Expression<Int> // constraint: number >= 0; default value: 999
   public let counterValueVariable: String
-  public let disappearActions: [DivDisappearAction]?
   public let disabledButtonColor: Expression<Color> // default value: #CCCCCC
+  public let disappearActions: [DivDisappearAction]?
   public let extensions: [DivExtension]?
   public let focus: DivFocus?
   public let fontSize: Expression<Int> // constraint: number >= 0; default value: 16
@@ -39,7 +39,7 @@ public final class DivCounter: DivBase, Sendable {
   public let onDecrementActions: [DivAction]?
   public let onIncrementActions: [DivAction]?
   public let onValueChangeActions: [DivAction]?
-  public let padding: Expression<Int> // constraint: number >= 0; default value: 4
+  public let padding: Expression<Int> // constraint: number >= 0; default value: 6
   public let paddings: DivEdgeInsets?
   public let reuseId: Expression<String>?
   public let rowSpan: Expression<Int>? // constraint: number >= 0
@@ -53,7 +53,7 @@ public final class DivCounter: DivBase, Sendable {
   public let transitionIn: DivAppearanceTransition?
   public let transitionOut: DivAppearanceTransition?
   public let transitionTriggers: [DivTransitionTrigger]? // at least 1 elements
-  public let valueWidth: Expression<Int> // constraint: number >= 0; default value: 20
+  public let valueWidth: Expression<Int> // constraint: number >= 0; default value: 40
   public let variableTriggers: [DivTrigger]?
   public let variables: [DivVariable]?
   public let visibility: Expression<DivVisibility> // default value: visible
@@ -207,8 +207,8 @@ public final class DivCounter: DivBase, Sendable {
       columnSpan: try dictionary.getOptionalExpressionField("column_span", validator: Self.columnSpanValidator, context: context),
       cornerRadius: try dictionary.getOptionalExpressionField("corner_radius", validator: Self.cornerRadiusValidator, context: context),
       counterValueVariable: try dictionary.getField("counter_value_variable", context: context),
-      disappearActions: try dictionary.getOptionalArray("disappear_actions", transform: { (dict: [String: Any]) in try? DivDisappearAction(dictionary: dict, context: context) }),
       disabledButtonColor: try dictionary.getOptionalExpressionField("disabled_button_color", transform: Color.color(withHexString:), context: context),
+      disappearActions: try dictionary.getOptionalArray("disappear_actions", transform: { (dict: [String: Any]) in try? DivDisappearAction(dictionary: dict, context: context) }),
       extensions: try dictionary.getOptionalArray("extensions", transform: { (dict: [String: Any]) in try? DivExtension(dictionary: dict, context: context) }),
       focus: try dictionary.getOptionalField("focus", transform: { (dict: [String: Any]) in try DivFocus(dictionary: dict, context: context) }),
       fontSize: try dictionary.getOptionalExpressionField("font_size", validator: Self.fontSizeValidator, context: context),
@@ -265,8 +265,8 @@ public final class DivCounter: DivBase, Sendable {
     columnSpan: Expression<Int>? = nil,
     cornerRadius: Expression<Int>? = nil,
     counterValueVariable: String,
-    disappearActions: [DivDisappearAction]? = nil,
     disabledButtonColor: Expression<Color>? = nil,
+    disappearActions: [DivDisappearAction]? = nil,
     extensions: [DivExtension]? = nil,
     focus: DivFocus? = nil,
     fontSize: Expression<Int>? = nil,
@@ -320,8 +320,8 @@ public final class DivCounter: DivBase, Sendable {
     self.columnSpan = columnSpan
     self.cornerRadius = cornerRadius ?? .value(999)
     self.counterValueVariable = counterValueVariable
-    self.disappearActions = disappearActions
     self.disabledButtonColor = disabledButtonColor ?? .value(Color.colorWithARGBHexCode(0xFFCCCCCC))
+    self.disappearActions = disappearActions
     self.extensions = extensions
     self.focus = focus
     self.fontSize = fontSize ?? .value(16)
@@ -401,8 +401,8 @@ extension DivCounter: Equatable {
       return false
     }
     guard
-      lhs.disappearActions == rhs.disappearActions,
       lhs.disabledButtonColor == rhs.disabledButtonColor,
+      lhs.disappearActions == rhs.disappearActions,
       lhs.extensions == rhs.extensions
     else {
       return false
@@ -516,8 +516,8 @@ extension DivCounter: Serializable {
     result["column_span"] = columnSpan?.toValidSerializationValue()
     result["corner_radius"] = cornerRadius.toValidSerializationValue()
     result["counter_value_variable"] = counterValueVariable
-    result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
     result["disabled_button_color"] = disabledButtonColor.toValidSerializationValue()
+    result["disappear_actions"] = disappearActions?.map { $0.toDictionary() }
     result["extensions"] = extensions?.map { $0.toDictionary() }
     result["focus"] = focus?.toDictionary()
     result["font_size"] = fontSize.toValidSerializationValue()

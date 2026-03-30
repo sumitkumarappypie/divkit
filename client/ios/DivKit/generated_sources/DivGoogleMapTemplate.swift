@@ -4,7 +4,7 @@ import Foundation
 import Serialization
 import VGSL
 
-public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
+public final class DivGoogleMapTemplate: TemplateValue, Sendable {
   public static let type: String = "google_map"
   public let parent: String?
   public let accessibility: Field<DivAccessibilityTemplate>?
@@ -15,7 +15,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
   public let alpha: Field<Expression<Double>>? // constraint: number >= 0.0 && number <= 1.0; default value: 1.0
   public let animators: Field<[DivAnimatorTemplate]>?
   public let apiKey: Field<Expression<String>>?
+  public let apiKeyAndroid: Field<Expression<String>>?
   public let apiKeyIos: Field<Expression<String>>?
+  public let apiKeyWeb: Field<Expression<String>>?
   public let aspect: Field<DivAspectTemplate>?
   public let background: Field<[DivBackgroundTemplate]>?
   public let border: Field<DivBorderTemplate>?
@@ -29,7 +31,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
   public let latitude: Field<Expression<Double>>?
   public let layoutProvider: Field<DivLayoutProviderTemplate>?
   public let longitude: Field<Expression<Double>>?
-  public let mapType: Field<Expression<DivGoogleMap.MapType>>? // default value: normal
+  public let mapType: Field<Expression<DivGoogleMapType>>? // default value: normal
   public let margins: Field<DivEdgeInsetsTemplate>?
   public let markers: Field<[DivGoogleMapMarkerTemplate]>?
   public let onErrorActions: Field<[DivActionTemplate]>?
@@ -52,7 +54,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
   public let visibilityAction: Field<DivVisibilityActionTemplate>?
   public let visibilityActions: Field<[DivVisibilityActionTemplate]>?
   public let width: Field<DivSizeTemplate>? // default value: .divMatchParentSize(DivMatchParentSize())
-  public let zoom: Field<Expression<Double>>? // default value: 10
+  public let zoom: Field<Expression<Double>>? // constraint: number >= 1 && number <= 20; default value: 10
 
   public convenience init(dictionary: [String: Any], templateToType: [TemplateName: String]) throws {
     self.init(
@@ -65,7 +67,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alpha: dictionary.getOptionalExpressionField("alpha"),
       animators: dictionary.getOptionalArray("animators", templateToType: templateToType),
       apiKey: dictionary.getOptionalExpressionField("api_key"),
+      apiKeyAndroid: dictionary.getOptionalExpressionField("api_key_android"),
       apiKeyIos: dictionary.getOptionalExpressionField("api_key_ios"),
+      apiKeyWeb: dictionary.getOptionalExpressionField("api_key_web"),
       aspect: dictionary.getOptionalField("aspect", templateToType: templateToType),
       background: dictionary.getOptionalArray("background", templateToType: templateToType),
       border: dictionary.getOptionalField("border", templateToType: templateToType),
@@ -116,7 +120,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     alpha: Field<Expression<Double>>? = nil,
     animators: Field<[DivAnimatorTemplate]>? = nil,
     apiKey: Field<Expression<String>>? = nil,
+    apiKeyAndroid: Field<Expression<String>>? = nil,
     apiKeyIos: Field<Expression<String>>? = nil,
+    apiKeyWeb: Field<Expression<String>>? = nil,
     aspect: Field<DivAspectTemplate>? = nil,
     background: Field<[DivBackgroundTemplate]>? = nil,
     border: Field<DivBorderTemplate>? = nil,
@@ -130,7 +136,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     latitude: Field<Expression<Double>>? = nil,
     layoutProvider: Field<DivLayoutProviderTemplate>? = nil,
     longitude: Field<Expression<Double>>? = nil,
-    mapType: Field<Expression<DivGoogleMap.MapType>>? = nil,
+    mapType: Field<Expression<DivGoogleMapType>>? = nil,
     margins: Field<DivEdgeInsetsTemplate>? = nil,
     markers: Field<[DivGoogleMapMarkerTemplate]>? = nil,
     onErrorActions: Field<[DivActionTemplate]>? = nil,
@@ -164,7 +170,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     self.alpha = alpha
     self.animators = animators
     self.apiKey = apiKey
+    self.apiKeyAndroid = apiKeyAndroid
     self.apiKeyIos = apiKeyIos
+    self.apiKeyWeb = apiKeyWeb
     self.aspect = aspect
     self.background = background
     self.border = border
@@ -213,7 +221,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     let alphaValue = parent?.alpha?.resolveOptionalValue(context: context, validator: ResolvedValue.alphaValidator) ?? .noValue
     let animatorsValue = parent?.animators?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let apiKeyValue = parent?.apiKey?.resolveOptionalValue(context: context) ?? .noValue
+    let apiKeyAndroidValue = parent?.apiKeyAndroid?.resolveOptionalValue(context: context) ?? .noValue
     let apiKeyIosValue = parent?.apiKeyIos?.resolveOptionalValue(context: context) ?? .noValue
+    let apiKeyWebValue = parent?.apiKeyWeb?.resolveOptionalValue(context: context) ?? .noValue
     let aspectValue = parent?.aspect?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let backgroundValue = parent?.background?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let borderValue = parent?.border?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
@@ -250,7 +260,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     let visibilityActionValue = parent?.visibilityAction?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let visibilityActionsValue = parent?.visibilityActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let widthValue = parent?.width?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let zoomValue = parent?.zoom?.resolveOptionalValue(context: context) ?? .noValue
+    let zoomValue = parent?.zoom?.resolveOptionalValue(context: context, validator: ResolvedValue.zoomValidator) ?? .noValue
     var errors = mergeErrors(
       accessibilityValue.errorsOrWarnings?.map { .nestedObjectError(field: "accessibility", error: $0) },
       alignmentHorizontalValue.errorsOrWarnings?.map { .nestedObjectError(field: "alignment_horizontal", error: $0) },
@@ -260,7 +270,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alphaValue.errorsOrWarnings?.map { .nestedObjectError(field: "alpha", error: $0) },
       animatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "animators", error: $0) },
       apiKeyValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key", error: $0) },
+      apiKeyAndroidValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_android", error: $0) },
       apiKeyIosValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_ios", error: $0) },
+      apiKeyWebValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_web", error: $0) },
       aspectValue.errorsOrWarnings?.map { .nestedObjectError(field: "aspect", error: $0) },
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
@@ -320,7 +332,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alpha: alphaValue.value,
       animators: animatorsValue.value,
       apiKey: apiKeyValue.value,
+      apiKeyAndroid: apiKeyAndroidValue.value,
       apiKeyIos: apiKeyIosValue.value,
+      apiKeyWeb: apiKeyWebValue.value,
       aspect: aspectValue.value,
       background: backgroundValue.value,
       border: borderValue.value,
@@ -374,7 +388,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     var alphaValue: DeserializationResult<Expression<Double>> = parent?.alpha?.value() ?? .noValue
     var animatorsValue: DeserializationResult<[DivAnimator]> = .noValue
     var apiKeyValue: DeserializationResult<Expression<String>> = parent?.apiKey?.value() ?? .noValue
+    var apiKeyAndroidValue: DeserializationResult<Expression<String>> = parent?.apiKeyAndroid?.value() ?? .noValue
     var apiKeyIosValue: DeserializationResult<Expression<String>> = parent?.apiKeyIos?.value() ?? .noValue
+    var apiKeyWebValue: DeserializationResult<Expression<String>> = parent?.apiKeyWeb?.value() ?? .noValue
     var aspectValue: DeserializationResult<DivAspect> = .noValue
     var backgroundValue: DeserializationResult<[DivBackground]> = .noValue
     var borderValue: DeserializationResult<DivBorder> = .noValue
@@ -388,7 +404,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
     var latitudeValue: DeserializationResult<Expression<Double>> = parent?.latitude?.value() ?? .noValue
     var layoutProviderValue: DeserializationResult<DivLayoutProvider> = .noValue
     var longitudeValue: DeserializationResult<Expression<Double>> = parent?.longitude?.value() ?? .noValue
-    var mapTypeValue: DeserializationResult<Expression<DivGoogleMap.MapType>> = parent?.mapType?.value() ?? .noValue
+    var mapTypeValue: DeserializationResult<Expression<DivGoogleMapType>> = parent?.mapType?.value() ?? .noValue
     var marginsValue: DeserializationResult<DivEdgeInsets> = .noValue
     var markersValue: DeserializationResult<[DivGoogleMapMarker]> = .noValue
     var onErrorActionsValue: DeserializationResult<[DivAction]> = .noValue
@@ -430,8 +446,12 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
         animatorsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAnimatorTemplate.self).merged(with: animatorsValue)
       case "api_key":
         apiKeyValue = deserialize(__dictValue).merged(with: apiKeyValue)
+      case "api_key_android":
+        apiKeyAndroidValue = deserialize(__dictValue).merged(with: apiKeyAndroidValue)
       case "api_key_ios":
         apiKeyIosValue = deserialize(__dictValue).merged(with: apiKeyIosValue)
+      case "api_key_web":
+        apiKeyWebValue = deserialize(__dictValue).merged(with: apiKeyWebValue)
       case "aspect":
         aspectValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAspectTemplate.self).merged(with: aspectValue)
       case "background":
@@ -505,7 +525,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       case "width":
         widthValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivSizeTemplate.self).merged(with: widthValue)
       case "zoom":
-        zoomValue = deserialize(__dictValue).merged(with: zoomValue)
+        zoomValue = deserialize(__dictValue, validator: ResolvedValue.zoomValidator).merged(with: zoomValue)
       case parent?.accessibility?.link:
         accessibilityValue = accessibilityValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAccessibilityTemplate.self) })
       case parent?.alignmentHorizontal?.link:
@@ -522,8 +542,12 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
         animatorsValue = animatorsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAnimatorTemplate.self) })
       case parent?.apiKey?.link:
         apiKeyValue = apiKeyValue.merged(with: { deserialize(__dictValue) })
+      case parent?.apiKeyAndroid?.link:
+        apiKeyAndroidValue = apiKeyAndroidValue.merged(with: { deserialize(__dictValue) })
       case parent?.apiKeyIos?.link:
         apiKeyIosValue = apiKeyIosValue.merged(with: { deserialize(__dictValue) })
+      case parent?.apiKeyWeb?.link:
+        apiKeyWebValue = apiKeyWebValue.merged(with: { deserialize(__dictValue) })
       case parent?.aspect?.link:
         aspectValue = aspectValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAspectTemplate.self) })
       case parent?.background?.link:
@@ -597,7 +621,7 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       case parent?.width?.link:
         widthValue = widthValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivSizeTemplate.self) })
       case parent?.zoom?.link:
-        zoomValue = zoomValue.merged(with: { deserialize(__dictValue) })
+        zoomValue = zoomValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.zoomValidator) })
       default: break
       }
     }
@@ -640,7 +664,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alphaValue.errorsOrWarnings?.map { .nestedObjectError(field: "alpha", error: $0) },
       animatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "animators", error: $0) },
       apiKeyValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key", error: $0) },
+      apiKeyAndroidValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_android", error: $0) },
       apiKeyIosValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_ios", error: $0) },
+      apiKeyWebValue.errorsOrWarnings?.map { .nestedObjectError(field: "api_key_web", error: $0) },
       aspectValue.errorsOrWarnings?.map { .nestedObjectError(field: "aspect", error: $0) },
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
@@ -700,7 +726,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alpha: alphaValue.value,
       animators: animatorsValue.value,
       apiKey: apiKeyValue.value,
+      apiKeyAndroid: apiKeyAndroidValue.value,
       apiKeyIos: apiKeyIosValue.value,
+      apiKeyWeb: apiKeyWebValue.value,
       aspect: aspectValue.value,
       background: backgroundValue.value,
       border: borderValue.value,
@@ -759,7 +787,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alpha: alpha ?? mergedParent.alpha,
       animators: animators ?? mergedParent.animators,
       apiKey: apiKey ?? mergedParent.apiKey,
+      apiKeyAndroid: apiKeyAndroid ?? mergedParent.apiKeyAndroid,
       apiKeyIos: apiKeyIos ?? mergedParent.apiKeyIos,
+      apiKeyWeb: apiKeyWeb ?? mergedParent.apiKeyWeb,
       aspect: aspect ?? mergedParent.aspect,
       background: background ?? mergedParent.background,
       border: border ?? mergedParent.border,
@@ -813,7 +843,9 @@ public final class DivGoogleMapTemplate: TemplateValue, @unchecked Sendable {
       alpha: merged.alpha,
       animators: merged.animators?.tryResolveParent(templates: templates),
       apiKey: merged.apiKey,
+      apiKeyAndroid: merged.apiKeyAndroid,
       apiKeyIos: merged.apiKeyIos,
+      apiKeyWeb: merged.apiKeyWeb,
       aspect: merged.aspect?.tryResolveParent(templates: templates),
       background: merged.background?.tryResolveParent(templates: templates),
       border: merged.border?.tryResolveParent(templates: templates),

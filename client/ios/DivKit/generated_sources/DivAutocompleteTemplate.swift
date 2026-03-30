@@ -4,37 +4,65 @@ import Foundation
 import Serialization
 import VGSL
 
-public final class DivWebviewTemplate: TemplateValue, Sendable {
-  public static let type: String = "webview"
+public final class DivAutocompleteTemplate: TemplateValue, @unchecked Sendable {
+  public typealias EnterKeyType = DivAutocomplete.EnterKeyType
+
+  public typealias KeyboardType = DivAutocomplete.KeyboardType
+
+  public static let type: String = "autocomplete"
   public let parent: String?
   public let accessibility: Field<DivAccessibilityTemplate>?
   public let alignmentHorizontal: Field<Expression<DivAlignmentHorizontal>>?
   public let alignmentVertical: Field<Expression<DivAlignmentVertical>>?
-  public let allowNavigation: Field<Expression<Bool>>? // default value: false
-  public let allowScrolling: Field<Expression<Bool>>? // default value: true
   public let alpha: Field<Expression<Double>>? // constraint: number >= 0.0 && number <= 1.0; default value: 1.0
   public let animators: Field<[DivAnimatorTemplate]>?
-  public let aspect: Field<DivAspectTemplate>?
   public let background: Field<[DivBackgroundTemplate]>?
   public let border: Field<DivBorderTemplate>?
   public let columnSpan: Field<Expression<Int>>? // constraint: number >= 0
   public let disappearActions: Field<[DivDisappearActionTemplate]>?
+  public let dismissOnBlur: Field<Expression<Bool>>? // default value: true
+  public let dismissOnEmpty: Field<Expression<Bool>>? // default value: true
+  public let dismissOnSelection: Field<Expression<Bool>>? // default value: true
+  public let enterKeyActions: Field<[DivActionTemplate]>?
+  public let enterKeyType: Field<Expression<EnterKeyType>>? // default value: default
   public let extensions: Field<[DivExtensionTemplate]>?
+  public let filters: Field<[DivInputFilterTemplate]>?
   public let focus: Field<DivFocusTemplate>?
+  public let fontFamily: Field<Expression<String>>?
+  public let fontSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 12
+  public let fontSizeUnit: Field<Expression<DivSizeUnit>>? // default value: sp
+  public let fontVariationSettings: Field<Expression<[String: Any]>>?
+  public let fontWeight: Field<Expression<DivFontWeight>>?
+  public let fontWeightValue: Field<Expression<Int>>? // constraint: number > 0
   public let functions: Field<[DivFunctionTemplate]>?
   public let height: Field<DivSizeTemplate>? // default value: .divWrapContentSize(DivWrapContentSize())
-  public let html: Field<Expression<String>>?
+  public let highlightColor: Field<Expression<Color>>?
+  public let hintColor: Field<Expression<Color>>? // default value: #73000000
+  public let hintText: Field<Expression<String>>?
   public let id: Field<String>?
-  public let javascriptEnabled: Field<Expression<Bool>>? // default value: false
+  public let isEnabled: Field<Expression<Bool>>? // default value: true
+  public let keyboardType: Field<Expression<KeyboardType>>? // default value: single_line_text
   public let layoutProvider: Field<DivLayoutProviderTemplate>?
+  public let letterSpacing: Field<Expression<Double>>? // default value: 0
+  public let lineHeight: Field<Expression<Int>>? // constraint: number >= 0
   public let margins: Field<DivEdgeInsetsTemplate>?
-  public let onErrorActions: Field<[DivActionTemplate]>?
-  public let onLoadActions: Field<[DivActionTemplate]>?
+  public let maxLength: Field<Expression<Int>>? // constraint: number > 0
+  public let maxSuggestionsHeight: Field<DivFixedSizeTemplate>?
+  public let maxVisibleSuggestions: Field<Expression<Int>>? // constraint: number > 0; default value: 5
+  public let minQueryLength: Field<Expression<Int>>? // constraint: number > 0; default value: 1
   public let paddings: Field<DivEdgeInsetsTemplate>?
   public let reuseId: Field<Expression<String>>?
   public let rowSpan: Field<Expression<Int>>? // constraint: number >= 0
-  public let scaleToFit: Field<Expression<Bool>>? // default value: false
+  public let selectAllOnFocus: Field<Expression<Bool>>? // default value: false
   public let selectedActions: Field<[DivActionTemplate]>?
+  public let selectionActions: Field<[DivActionTemplate]>?
+  public let suggestionTextColor: Field<Expression<Color>>? // default value: #FF000000
+  public let suggestionsVariable: Field<String>?
+  public let textAlignmentHorizontal: Field<Expression<DivAlignmentHorizontal>>? // default value: start
+  public let textAlignmentVertical: Field<Expression<DivAlignmentVertical>>? // default value: center
+  public let textChangeActions: Field<[DivActionTemplate]>?
+  public let textColor: Field<Expression<Color>>? // default value: #FF000000
+  public let textVariable: Field<String>?
   public let tooltips: Field<[DivTooltipTemplate]>?
   public let transform: Field<DivTransformTemplate>?
   public let transformations: Field<[DivTransformationTemplate]>?
@@ -42,7 +70,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
   public let transitionIn: Field<DivAppearanceTransitionTemplate>?
   public let transitionOut: Field<DivAppearanceTransitionTemplate>?
   public let transitionTriggers: Field<[DivTransitionTrigger]>? // at least 1 elements
-  public let url: Field<Expression<URL>>?
+  public let validators: Field<[DivInputValidatorTemplate]>?
+  public let valueVariable: Field<String>?
   public let variableTriggers: Field<[DivTriggerTemplate]>?
   public let variables: Field<[DivVariableTemplate]>?
   public let visibility: Field<Expression<DivVisibility>>? // default value: visible
@@ -56,31 +85,55 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       accessibility: dictionary.getOptionalField("accessibility", templateToType: templateToType),
       alignmentHorizontal: dictionary.getOptionalExpressionField("alignment_horizontal"),
       alignmentVertical: dictionary.getOptionalExpressionField("alignment_vertical"),
-      allowNavigation: dictionary.getOptionalExpressionField("allow_navigation"),
-      allowScrolling: dictionary.getOptionalExpressionField("allow_scrolling"),
       alpha: dictionary.getOptionalExpressionField("alpha"),
       animators: dictionary.getOptionalArray("animators", templateToType: templateToType),
-      aspect: dictionary.getOptionalField("aspect", templateToType: templateToType),
       background: dictionary.getOptionalArray("background", templateToType: templateToType),
       border: dictionary.getOptionalField("border", templateToType: templateToType),
       columnSpan: dictionary.getOptionalExpressionField("column_span"),
       disappearActions: dictionary.getOptionalArray("disappear_actions", templateToType: templateToType),
+      dismissOnBlur: dictionary.getOptionalExpressionField("dismiss_on_blur"),
+      dismissOnEmpty: dictionary.getOptionalExpressionField("dismiss_on_empty"),
+      dismissOnSelection: dictionary.getOptionalExpressionField("dismiss_on_selection"),
+      enterKeyActions: dictionary.getOptionalArray("enter_key_actions", templateToType: templateToType),
+      enterKeyType: dictionary.getOptionalExpressionField("enter_key_type"),
       extensions: dictionary.getOptionalArray("extensions", templateToType: templateToType),
+      filters: dictionary.getOptionalArray("filters", templateToType: templateToType),
       focus: dictionary.getOptionalField("focus", templateToType: templateToType),
+      fontFamily: dictionary.getOptionalExpressionField("font_family"),
+      fontSize: dictionary.getOptionalExpressionField("font_size"),
+      fontSizeUnit: dictionary.getOptionalExpressionField("font_size_unit"),
+      fontVariationSettings: dictionary.getOptionalExpressionField("font_variation_settings"),
+      fontWeight: dictionary.getOptionalExpressionField("font_weight"),
+      fontWeightValue: dictionary.getOptionalExpressionField("font_weight_value"),
       functions: dictionary.getOptionalArray("functions", templateToType: templateToType),
       height: dictionary.getOptionalField("height", templateToType: templateToType),
-      html: dictionary.getOptionalExpressionField("html"),
+      highlightColor: dictionary.getOptionalExpressionField("highlight_color", transform: Color.color(withHexString:)),
+      hintColor: dictionary.getOptionalExpressionField("hint_color", transform: Color.color(withHexString:)),
+      hintText: dictionary.getOptionalExpressionField("hint_text"),
       id: dictionary.getOptionalField("id"),
-      javascriptEnabled: dictionary.getOptionalExpressionField("javascript_enabled"),
+      isEnabled: dictionary.getOptionalExpressionField("is_enabled"),
+      keyboardType: dictionary.getOptionalExpressionField("keyboard_type"),
       layoutProvider: dictionary.getOptionalField("layout_provider", templateToType: templateToType),
+      letterSpacing: dictionary.getOptionalExpressionField("letter_spacing"),
+      lineHeight: dictionary.getOptionalExpressionField("line_height"),
       margins: dictionary.getOptionalField("margins", templateToType: templateToType),
-      onErrorActions: dictionary.getOptionalArray("on_error_actions", templateToType: templateToType),
-      onLoadActions: dictionary.getOptionalArray("on_load_actions", templateToType: templateToType),
+      maxLength: dictionary.getOptionalExpressionField("max_length"),
+      maxSuggestionsHeight: dictionary.getOptionalField("max_suggestions_height", templateToType: templateToType),
+      maxVisibleSuggestions: dictionary.getOptionalExpressionField("max_visible_suggestions"),
+      minQueryLength: dictionary.getOptionalExpressionField("min_query_length"),
       paddings: dictionary.getOptionalField("paddings", templateToType: templateToType),
       reuseId: dictionary.getOptionalExpressionField("reuse_id"),
       rowSpan: dictionary.getOptionalExpressionField("row_span"),
-      scaleToFit: dictionary.getOptionalExpressionField("scale_to_fit"),
+      selectAllOnFocus: dictionary.getOptionalExpressionField("select_all_on_focus"),
       selectedActions: dictionary.getOptionalArray("selected_actions", templateToType: templateToType),
+      selectionActions: dictionary.getOptionalArray("selection_actions", templateToType: templateToType),
+      suggestionTextColor: dictionary.getOptionalExpressionField("suggestion_text_color", transform: Color.color(withHexString:)),
+      suggestionsVariable: dictionary.getOptionalField("suggestions_variable"),
+      textAlignmentHorizontal: dictionary.getOptionalExpressionField("text_alignment_horizontal"),
+      textAlignmentVertical: dictionary.getOptionalExpressionField("text_alignment_vertical"),
+      textChangeActions: dictionary.getOptionalArray("text_change_actions", templateToType: templateToType),
+      textColor: dictionary.getOptionalExpressionField("text_color", transform: Color.color(withHexString:)),
+      textVariable: dictionary.getOptionalField("text_variable"),
       tooltips: dictionary.getOptionalArray("tooltips", templateToType: templateToType),
       transform: dictionary.getOptionalField("transform", templateToType: templateToType),
       transformations: dictionary.getOptionalArray("transformations", templateToType: templateToType),
@@ -88,7 +141,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionIn: dictionary.getOptionalField("transition_in", templateToType: templateToType),
       transitionOut: dictionary.getOptionalField("transition_out", templateToType: templateToType),
       transitionTriggers: dictionary.getOptionalArray("transition_triggers"),
-      url: dictionary.getOptionalExpressionField("url", transform: URL.makeFromNonEncodedString),
+      validators: dictionary.getOptionalArray("validators", templateToType: templateToType),
+      valueVariable: dictionary.getOptionalField("value_variable"),
       variableTriggers: dictionary.getOptionalArray("variable_triggers", templateToType: templateToType),
       variables: dictionary.getOptionalArray("variables", templateToType: templateToType),
       visibility: dictionary.getOptionalExpressionField("visibility"),
@@ -103,31 +157,55 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     accessibility: Field<DivAccessibilityTemplate>? = nil,
     alignmentHorizontal: Field<Expression<DivAlignmentHorizontal>>? = nil,
     alignmentVertical: Field<Expression<DivAlignmentVertical>>? = nil,
-    allowNavigation: Field<Expression<Bool>>? = nil,
-    allowScrolling: Field<Expression<Bool>>? = nil,
     alpha: Field<Expression<Double>>? = nil,
     animators: Field<[DivAnimatorTemplate]>? = nil,
-    aspect: Field<DivAspectTemplate>? = nil,
     background: Field<[DivBackgroundTemplate]>? = nil,
     border: Field<DivBorderTemplate>? = nil,
     columnSpan: Field<Expression<Int>>? = nil,
     disappearActions: Field<[DivDisappearActionTemplate]>? = nil,
+    dismissOnBlur: Field<Expression<Bool>>? = nil,
+    dismissOnEmpty: Field<Expression<Bool>>? = nil,
+    dismissOnSelection: Field<Expression<Bool>>? = nil,
+    enterKeyActions: Field<[DivActionTemplate]>? = nil,
+    enterKeyType: Field<Expression<EnterKeyType>>? = nil,
     extensions: Field<[DivExtensionTemplate]>? = nil,
+    filters: Field<[DivInputFilterTemplate]>? = nil,
     focus: Field<DivFocusTemplate>? = nil,
+    fontFamily: Field<Expression<String>>? = nil,
+    fontSize: Field<Expression<Int>>? = nil,
+    fontSizeUnit: Field<Expression<DivSizeUnit>>? = nil,
+    fontVariationSettings: Field<Expression<[String: Any]>>? = nil,
+    fontWeight: Field<Expression<DivFontWeight>>? = nil,
+    fontWeightValue: Field<Expression<Int>>? = nil,
     functions: Field<[DivFunctionTemplate]>? = nil,
     height: Field<DivSizeTemplate>? = nil,
-    html: Field<Expression<String>>? = nil,
+    highlightColor: Field<Expression<Color>>? = nil,
+    hintColor: Field<Expression<Color>>? = nil,
+    hintText: Field<Expression<String>>? = nil,
     id: Field<String>? = nil,
-    javascriptEnabled: Field<Expression<Bool>>? = nil,
+    isEnabled: Field<Expression<Bool>>? = nil,
+    keyboardType: Field<Expression<KeyboardType>>? = nil,
     layoutProvider: Field<DivLayoutProviderTemplate>? = nil,
+    letterSpacing: Field<Expression<Double>>? = nil,
+    lineHeight: Field<Expression<Int>>? = nil,
     margins: Field<DivEdgeInsetsTemplate>? = nil,
-    onErrorActions: Field<[DivActionTemplate]>? = nil,
-    onLoadActions: Field<[DivActionTemplate]>? = nil,
+    maxLength: Field<Expression<Int>>? = nil,
+    maxSuggestionsHeight: Field<DivFixedSizeTemplate>? = nil,
+    maxVisibleSuggestions: Field<Expression<Int>>? = nil,
+    minQueryLength: Field<Expression<Int>>? = nil,
     paddings: Field<DivEdgeInsetsTemplate>? = nil,
     reuseId: Field<Expression<String>>? = nil,
     rowSpan: Field<Expression<Int>>? = nil,
-    scaleToFit: Field<Expression<Bool>>? = nil,
+    selectAllOnFocus: Field<Expression<Bool>>? = nil,
     selectedActions: Field<[DivActionTemplate]>? = nil,
+    selectionActions: Field<[DivActionTemplate]>? = nil,
+    suggestionTextColor: Field<Expression<Color>>? = nil,
+    suggestionsVariable: Field<String>? = nil,
+    textAlignmentHorizontal: Field<Expression<DivAlignmentHorizontal>>? = nil,
+    textAlignmentVertical: Field<Expression<DivAlignmentVertical>>? = nil,
+    textChangeActions: Field<[DivActionTemplate]>? = nil,
+    textColor: Field<Expression<Color>>? = nil,
+    textVariable: Field<String>? = nil,
     tooltips: Field<[DivTooltipTemplate]>? = nil,
     transform: Field<DivTransformTemplate>? = nil,
     transformations: Field<[DivTransformationTemplate]>? = nil,
@@ -135,7 +213,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     transitionIn: Field<DivAppearanceTransitionTemplate>? = nil,
     transitionOut: Field<DivAppearanceTransitionTemplate>? = nil,
     transitionTriggers: Field<[DivTransitionTrigger]>? = nil,
-    url: Field<Expression<URL>>? = nil,
+    validators: Field<[DivInputValidatorTemplate]>? = nil,
+    valueVariable: Field<String>? = nil,
     variableTriggers: Field<[DivTriggerTemplate]>? = nil,
     variables: Field<[DivVariableTemplate]>? = nil,
     visibility: Field<Expression<DivVisibility>>? = nil,
@@ -147,31 +226,55 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     self.accessibility = accessibility
     self.alignmentHorizontal = alignmentHorizontal
     self.alignmentVertical = alignmentVertical
-    self.allowNavigation = allowNavigation
-    self.allowScrolling = allowScrolling
     self.alpha = alpha
     self.animators = animators
-    self.aspect = aspect
     self.background = background
     self.border = border
     self.columnSpan = columnSpan
     self.disappearActions = disappearActions
+    self.dismissOnBlur = dismissOnBlur
+    self.dismissOnEmpty = dismissOnEmpty
+    self.dismissOnSelection = dismissOnSelection
+    self.enterKeyActions = enterKeyActions
+    self.enterKeyType = enterKeyType
     self.extensions = extensions
+    self.filters = filters
     self.focus = focus
+    self.fontFamily = fontFamily
+    self.fontSize = fontSize
+    self.fontSizeUnit = fontSizeUnit
+    self.fontVariationSettings = fontVariationSettings
+    self.fontWeight = fontWeight
+    self.fontWeightValue = fontWeightValue
     self.functions = functions
     self.height = height
-    self.html = html
+    self.highlightColor = highlightColor
+    self.hintColor = hintColor
+    self.hintText = hintText
     self.id = id
-    self.javascriptEnabled = javascriptEnabled
+    self.isEnabled = isEnabled
+    self.keyboardType = keyboardType
     self.layoutProvider = layoutProvider
+    self.letterSpacing = letterSpacing
+    self.lineHeight = lineHeight
     self.margins = margins
-    self.onErrorActions = onErrorActions
-    self.onLoadActions = onLoadActions
+    self.maxLength = maxLength
+    self.maxSuggestionsHeight = maxSuggestionsHeight
+    self.maxVisibleSuggestions = maxVisibleSuggestions
+    self.minQueryLength = minQueryLength
     self.paddings = paddings
     self.reuseId = reuseId
     self.rowSpan = rowSpan
-    self.scaleToFit = scaleToFit
+    self.selectAllOnFocus = selectAllOnFocus
     self.selectedActions = selectedActions
+    self.selectionActions = selectionActions
+    self.suggestionTextColor = suggestionTextColor
+    self.suggestionsVariable = suggestionsVariable
+    self.textAlignmentHorizontal = textAlignmentHorizontal
+    self.textAlignmentVertical = textAlignmentVertical
+    self.textChangeActions = textChangeActions
+    self.textColor = textColor
+    self.textVariable = textVariable
     self.tooltips = tooltips
     self.transform = transform
     self.transformations = transformations
@@ -179,7 +282,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     self.transitionIn = transitionIn
     self.transitionOut = transitionOut
     self.transitionTriggers = transitionTriggers
-    self.url = url
+    self.validators = validators
+    self.valueVariable = valueVariable
     self.variableTriggers = variableTriggers
     self.variables = variables
     self.visibility = visibility
@@ -188,35 +292,59 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     self.width = width
   }
 
-  private static func resolveOnlyLinks(context: TemplatesContext, parent: DivWebviewTemplate?) -> DeserializationResult<DivWebview> {
+  private static func resolveOnlyLinks(context: TemplatesContext, parent: DivAutocompleteTemplate?) -> DeserializationResult<DivAutocomplete> {
     let accessibilityValue = parent?.accessibility?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let alignmentHorizontalValue = parent?.alignmentHorizontal?.resolveOptionalValue(context: context) ?? .noValue
     let alignmentVerticalValue = parent?.alignmentVertical?.resolveOptionalValue(context: context) ?? .noValue
-    let allowNavigationValue = parent?.allowNavigation?.resolveOptionalValue(context: context) ?? .noValue
-    let allowScrollingValue = parent?.allowScrolling?.resolveOptionalValue(context: context) ?? .noValue
     let alphaValue = parent?.alpha?.resolveOptionalValue(context: context, validator: ResolvedValue.alphaValidator) ?? .noValue
     let animatorsValue = parent?.animators?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let aspectValue = parent?.aspect?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let backgroundValue = parent?.background?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let borderValue = parent?.border?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let columnSpanValue = parent?.columnSpan?.resolveOptionalValue(context: context, validator: ResolvedValue.columnSpanValidator) ?? .noValue
     let disappearActionsValue = parent?.disappearActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let dismissOnBlurValue = parent?.dismissOnBlur?.resolveOptionalValue(context: context) ?? .noValue
+    let dismissOnEmptyValue = parent?.dismissOnEmpty?.resolveOptionalValue(context: context) ?? .noValue
+    let dismissOnSelectionValue = parent?.dismissOnSelection?.resolveOptionalValue(context: context) ?? .noValue
+    let enterKeyActionsValue = parent?.enterKeyActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let enterKeyTypeValue = parent?.enterKeyType?.resolveOptionalValue(context: context) ?? .noValue
     let extensionsValue = parent?.extensions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let filtersValue = parent?.filters?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let focusValue = parent?.focus?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let fontFamilyValue = parent?.fontFamily?.resolveOptionalValue(context: context) ?? .noValue
+    let fontSizeValue = parent?.fontSize?.resolveOptionalValue(context: context, validator: ResolvedValue.fontSizeValidator) ?? .noValue
+    let fontSizeUnitValue = parent?.fontSizeUnit?.resolveOptionalValue(context: context) ?? .noValue
+    let fontVariationSettingsValue = parent?.fontVariationSettings?.resolveOptionalValue(context: context) ?? .noValue
+    let fontWeightValue = parent?.fontWeight?.resolveOptionalValue(context: context) ?? .noValue
+    let fontWeightValueValue = parent?.fontWeightValue?.resolveOptionalValue(context: context, validator: ResolvedValue.fontWeightValueValidator) ?? .noValue
     let functionsValue = parent?.functions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let heightValue = parent?.height?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let htmlValue = parent?.html?.resolveOptionalValue(context: context) ?? .noValue
+    let highlightColorValue = parent?.highlightColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let hintColorValue = parent?.hintColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let hintTextValue = parent?.hintText?.resolveOptionalValue(context: context) ?? .noValue
     let idValue = parent?.id?.resolveOptionalValue(context: context) ?? .noValue
-    let javascriptEnabledValue = parent?.javascriptEnabled?.resolveOptionalValue(context: context) ?? .noValue
+    let isEnabledValue = parent?.isEnabled?.resolveOptionalValue(context: context) ?? .noValue
+    let keyboardTypeValue = parent?.keyboardType?.resolveOptionalValue(context: context) ?? .noValue
     let layoutProviderValue = parent?.layoutProvider?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let letterSpacingValue = parent?.letterSpacing?.resolveOptionalValue(context: context) ?? .noValue
+    let lineHeightValue = parent?.lineHeight?.resolveOptionalValue(context: context, validator: ResolvedValue.lineHeightValidator) ?? .noValue
     let marginsValue = parent?.margins?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let onErrorActionsValue = parent?.onErrorActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let onLoadActionsValue = parent?.onLoadActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let maxLengthValue = parent?.maxLength?.resolveOptionalValue(context: context, validator: ResolvedValue.maxLengthValidator) ?? .noValue
+    let maxSuggestionsHeightValue = parent?.maxSuggestionsHeight?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let maxVisibleSuggestionsValue = parent?.maxVisibleSuggestions?.resolveOptionalValue(context: context, validator: ResolvedValue.maxVisibleSuggestionsValidator) ?? .noValue
+    let minQueryLengthValue = parent?.minQueryLength?.resolveOptionalValue(context: context, validator: ResolvedValue.minQueryLengthValidator) ?? .noValue
     let paddingsValue = parent?.paddings?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let reuseIdValue = parent?.reuseId?.resolveOptionalValue(context: context) ?? .noValue
     let rowSpanValue = parent?.rowSpan?.resolveOptionalValue(context: context, validator: ResolvedValue.rowSpanValidator) ?? .noValue
-    let scaleToFitValue = parent?.scaleToFit?.resolveOptionalValue(context: context) ?? .noValue
+    let selectAllOnFocusValue = parent?.selectAllOnFocus?.resolveOptionalValue(context: context) ?? .noValue
     let selectedActionsValue = parent?.selectedActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let selectionActionsValue = parent?.selectionActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let suggestionTextColorValue = parent?.suggestionTextColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let suggestionsVariableValue = parent?.suggestionsVariable?.resolveValue(context: context) ?? .noValue
+    let textAlignmentHorizontalValue = parent?.textAlignmentHorizontal?.resolveOptionalValue(context: context) ?? .noValue
+    let textAlignmentVerticalValue = parent?.textAlignmentVertical?.resolveOptionalValue(context: context) ?? .noValue
+    let textChangeActionsValue = parent?.textChangeActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let textColorValue = parent?.textColor?.resolveOptionalValue(context: context, transform: Color.color(withHexString:)) ?? .noValue
+    let textVariableValue = parent?.textVariable?.resolveValue(context: context) ?? .noValue
     let tooltipsValue = parent?.tooltips?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transformValue = parent?.transform?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transformationsValue = parent?.transformations?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
@@ -224,42 +352,67 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     let transitionInValue = parent?.transitionIn?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transitionOutValue = parent?.transitionOut?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let transitionTriggersValue = parent?.transitionTriggers?.resolveOptionalValue(context: context, validator: ResolvedValue.transitionTriggersValidator) ?? .noValue
-    let urlValue = parent?.url?.resolveOptionalValue(context: context, transform: URL.makeFromNonEncodedString) ?? .noValue
+    let validatorsValue = parent?.validators?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let valueVariableValue = parent?.valueVariable?.resolveOptionalValue(context: context) ?? .noValue
     let variableTriggersValue = parent?.variableTriggers?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let variablesValue = parent?.variables?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let visibilityValue = parent?.visibility?.resolveOptionalValue(context: context) ?? .noValue
     let visibilityActionValue = parent?.visibilityAction?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let visibilityActionsValue = parent?.visibilityActions?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let widthValue = parent?.width?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
-    let errors = mergeErrors(
+    var errors = mergeErrors(
       accessibilityValue.errorsOrWarnings?.map { .nestedObjectError(field: "accessibility", error: $0) },
       alignmentHorizontalValue.errorsOrWarnings?.map { .nestedObjectError(field: "alignment_horizontal", error: $0) },
       alignmentVerticalValue.errorsOrWarnings?.map { .nestedObjectError(field: "alignment_vertical", error: $0) },
-      allowNavigationValue.errorsOrWarnings?.map { .nestedObjectError(field: "allow_navigation", error: $0) },
-      allowScrollingValue.errorsOrWarnings?.map { .nestedObjectError(field: "allow_scrolling", error: $0) },
       alphaValue.errorsOrWarnings?.map { .nestedObjectError(field: "alpha", error: $0) },
       animatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "animators", error: $0) },
-      aspectValue.errorsOrWarnings?.map { .nestedObjectError(field: "aspect", error: $0) },
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
       disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
+      dismissOnBlurValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_blur", error: $0) },
+      dismissOnEmptyValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_empty", error: $0) },
+      dismissOnSelectionValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_selection", error: $0) },
+      enterKeyActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "enter_key_actions", error: $0) },
+      enterKeyTypeValue.errorsOrWarnings?.map { .nestedObjectError(field: "enter_key_type", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
+      filtersValue.errorsOrWarnings?.map { .nestedObjectError(field: "filters", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
+      fontFamilyValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_family", error: $0) },
+      fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
+      fontSizeUnitValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size_unit", error: $0) },
+      fontVariationSettingsValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_variation_settings", error: $0) },
+      fontWeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight", error: $0) },
+      fontWeightValueValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight_value", error: $0) },
       functionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "functions", error: $0) },
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
-      htmlValue.errorsOrWarnings?.map { .nestedObjectError(field: "html", error: $0) },
+      highlightColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "highlight_color", error: $0) },
+      hintColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "hint_color", error: $0) },
+      hintTextValue.errorsOrWarnings?.map { .nestedObjectError(field: "hint_text", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
-      javascriptEnabledValue.errorsOrWarnings?.map { .nestedObjectError(field: "javascript_enabled", error: $0) },
+      isEnabledValue.errorsOrWarnings?.map { .nestedObjectError(field: "is_enabled", error: $0) },
+      keyboardTypeValue.errorsOrWarnings?.map { .nestedObjectError(field: "keyboard_type", error: $0) },
       layoutProviderValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_provider", error: $0) },
+      letterSpacingValue.errorsOrWarnings?.map { .nestedObjectError(field: "letter_spacing", error: $0) },
+      lineHeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "line_height", error: $0) },
       marginsValue.errorsOrWarnings?.map { .nestedObjectError(field: "margins", error: $0) },
-      onErrorActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "on_error_actions", error: $0) },
-      onLoadActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "on_load_actions", error: $0) },
+      maxLengthValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_length", error: $0) },
+      maxSuggestionsHeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_suggestions_height", error: $0) },
+      maxVisibleSuggestionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_visible_suggestions", error: $0) },
+      minQueryLengthValue.errorsOrWarnings?.map { .nestedObjectError(field: "min_query_length", error: $0) },
       paddingsValue.errorsOrWarnings?.map { .nestedObjectError(field: "paddings", error: $0) },
       reuseIdValue.errorsOrWarnings?.map { .nestedObjectError(field: "reuse_id", error: $0) },
       rowSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "row_span", error: $0) },
-      scaleToFitValue.errorsOrWarnings?.map { .nestedObjectError(field: "scale_to_fit", error: $0) },
+      selectAllOnFocusValue.errorsOrWarnings?.map { .nestedObjectError(field: "select_all_on_focus", error: $0) },
       selectedActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_actions", error: $0) },
+      selectionActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selection_actions", error: $0) },
+      suggestionTextColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "suggestion_text_color", error: $0) },
+      suggestionsVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "suggestions_variable", error: $0) },
+      textAlignmentHorizontalValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_alignment_horizontal", error: $0) },
+      textAlignmentVerticalValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_alignment_vertical", error: $0) },
+      textChangeActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_change_actions", error: $0) },
+      textColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_color", error: $0) },
+      textVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_variable", error: $0) },
       tooltipsValue.errorsOrWarnings?.map { .nestedObjectError(field: "tooltips", error: $0) },
       transformValue.errorsOrWarnings?.map { .nestedObjectError(field: "transform", error: $0) },
       transformationsValue.errorsOrWarnings?.map { .nestedObjectError(field: "transformations", error: $0) },
@@ -267,7 +420,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionInValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_in", error: $0) },
       transitionOutValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_out", error: $0) },
       transitionTriggersValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_triggers", error: $0) },
-      urlValue.errorsOrWarnings?.map { .nestedObjectError(field: "url", error: $0) },
+      validatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "validators", error: $0) },
+      valueVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "value_variable", error: $0) },
       variableTriggersValue.errorsOrWarnings?.map { .nestedObjectError(field: "variable_triggers", error: $0) },
       variablesValue.errorsOrWarnings?.map { .nestedObjectError(field: "variables", error: $0) },
       visibilityValue.errorsOrWarnings?.map { .nestedObjectError(field: "visibility", error: $0) },
@@ -275,35 +429,71 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       visibilityActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "visibility_actions", error: $0) },
       widthValue.errorsOrWarnings?.map { .nestedObjectError(field: "width", error: $0) }
     )
-    let result = DivWebview(
+    if case .noValue = suggestionsVariableValue {
+      errors.append(.requiredFieldIsMissing(field: "suggestions_variable"))
+    }
+    if case .noValue = textVariableValue {
+      errors.append(.requiredFieldIsMissing(field: "text_variable"))
+    }
+    guard
+      let suggestionsVariableNonNil = suggestionsVariableValue.value,
+      let textVariableNonNil = textVariableValue.value
+    else {
+      return .failure(NonEmptyArray(errors)!)
+    }
+    let result = DivAutocomplete(
       accessibility: accessibilityValue.value,
       alignmentHorizontal: alignmentHorizontalValue.value,
       alignmentVertical: alignmentVerticalValue.value,
-      allowNavigation: allowNavigationValue.value,
-      allowScrolling: allowScrollingValue.value,
       alpha: alphaValue.value,
       animators: animatorsValue.value,
-      aspect: aspectValue.value,
       background: backgroundValue.value,
       border: borderValue.value,
       columnSpan: columnSpanValue.value,
       disappearActions: disappearActionsValue.value,
+      dismissOnBlur: dismissOnBlurValue.value,
+      dismissOnEmpty: dismissOnEmptyValue.value,
+      dismissOnSelection: dismissOnSelectionValue.value,
+      enterKeyActions: enterKeyActionsValue.value,
+      enterKeyType: enterKeyTypeValue.value,
       extensions: extensionsValue.value,
+      filters: filtersValue.value,
       focus: focusValue.value,
+      fontFamily: fontFamilyValue.value,
+      fontSize: fontSizeValue.value,
+      fontSizeUnit: fontSizeUnitValue.value,
+      fontVariationSettings: fontVariationSettingsValue.value,
+      fontWeight: fontWeightValue.value,
+      fontWeightValue: fontWeightValueValue.value,
       functions: functionsValue.value,
       height: heightValue.value,
-      html: htmlValue.value,
+      highlightColor: highlightColorValue.value,
+      hintColor: hintColorValue.value,
+      hintText: hintTextValue.value,
       id: idValue.value,
-      javascriptEnabled: javascriptEnabledValue.value,
+      isEnabled: isEnabledValue.value,
+      keyboardType: keyboardTypeValue.value,
       layoutProvider: layoutProviderValue.value,
+      letterSpacing: letterSpacingValue.value,
+      lineHeight: lineHeightValue.value,
       margins: marginsValue.value,
-      onErrorActions: onErrorActionsValue.value,
-      onLoadActions: onLoadActionsValue.value,
+      maxLength: maxLengthValue.value,
+      maxSuggestionsHeight: maxSuggestionsHeightValue.value,
+      maxVisibleSuggestions: maxVisibleSuggestionsValue.value,
+      minQueryLength: minQueryLengthValue.value,
       paddings: paddingsValue.value,
       reuseId: reuseIdValue.value,
       rowSpan: rowSpanValue.value,
-      scaleToFit: scaleToFitValue.value,
+      selectAllOnFocus: selectAllOnFocusValue.value,
       selectedActions: selectedActionsValue.value,
+      selectionActions: selectionActionsValue.value,
+      suggestionTextColor: suggestionTextColorValue.value,
+      suggestionsVariable: suggestionsVariableNonNil,
+      textAlignmentHorizontal: textAlignmentHorizontalValue.value,
+      textAlignmentVertical: textAlignmentVerticalValue.value,
+      textChangeActions: textChangeActionsValue.value,
+      textColor: textColorValue.value,
+      textVariable: textVariableNonNil,
       tooltips: tooltipsValue.value,
       transform: transformValue.value,
       transformations: transformationsValue.value,
@@ -311,7 +501,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionIn: transitionInValue.value,
       transitionOut: transitionOutValue.value,
       transitionTriggers: transitionTriggersValue.value,
-      url: urlValue.value,
+      validators: validatorsValue.value,
+      valueVariable: valueVariableValue.value,
       variableTriggers: variableTriggersValue.value,
       variables: variablesValue.value,
       visibility: visibilityValue.value,
@@ -322,38 +513,62 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     return errors.isEmpty ? .success(result) : .partialSuccess(result, warnings: NonEmptyArray(errors)!)
   }
 
-  public static func resolveValue(context: TemplatesContext, parent: DivWebviewTemplate?, useOnlyLinks: Bool) -> DeserializationResult<DivWebview> {
+  public static func resolveValue(context: TemplatesContext, parent: DivAutocompleteTemplate?, useOnlyLinks: Bool) -> DeserializationResult<DivAutocomplete> {
     if useOnlyLinks {
       return resolveOnlyLinks(context: context, parent: parent)
     }
     var accessibilityValue: DeserializationResult<DivAccessibility> = .noValue
     var alignmentHorizontalValue: DeserializationResult<Expression<DivAlignmentHorizontal>> = parent?.alignmentHorizontal?.value() ?? .noValue
     var alignmentVerticalValue: DeserializationResult<Expression<DivAlignmentVertical>> = parent?.alignmentVertical?.value() ?? .noValue
-    var allowNavigationValue: DeserializationResult<Expression<Bool>> = parent?.allowNavigation?.value() ?? .noValue
-    var allowScrollingValue: DeserializationResult<Expression<Bool>> = parent?.allowScrolling?.value() ?? .noValue
     var alphaValue: DeserializationResult<Expression<Double>> = parent?.alpha?.value() ?? .noValue
     var animatorsValue: DeserializationResult<[DivAnimator]> = .noValue
-    var aspectValue: DeserializationResult<DivAspect> = .noValue
     var backgroundValue: DeserializationResult<[DivBackground]> = .noValue
     var borderValue: DeserializationResult<DivBorder> = .noValue
     var columnSpanValue: DeserializationResult<Expression<Int>> = parent?.columnSpan?.value() ?? .noValue
     var disappearActionsValue: DeserializationResult<[DivDisappearAction]> = .noValue
+    var dismissOnBlurValue: DeserializationResult<Expression<Bool>> = parent?.dismissOnBlur?.value() ?? .noValue
+    var dismissOnEmptyValue: DeserializationResult<Expression<Bool>> = parent?.dismissOnEmpty?.value() ?? .noValue
+    var dismissOnSelectionValue: DeserializationResult<Expression<Bool>> = parent?.dismissOnSelection?.value() ?? .noValue
+    var enterKeyActionsValue: DeserializationResult<[DivAction]> = .noValue
+    var enterKeyTypeValue: DeserializationResult<Expression<DivAutocomplete.EnterKeyType>> = parent?.enterKeyType?.value() ?? .noValue
     var extensionsValue: DeserializationResult<[DivExtension]> = .noValue
+    var filtersValue: DeserializationResult<[DivInputFilter]> = .noValue
     var focusValue: DeserializationResult<DivFocus> = .noValue
+    var fontFamilyValue: DeserializationResult<Expression<String>> = parent?.fontFamily?.value() ?? .noValue
+    var fontSizeValue: DeserializationResult<Expression<Int>> = parent?.fontSize?.value() ?? .noValue
+    var fontSizeUnitValue: DeserializationResult<Expression<DivSizeUnit>> = parent?.fontSizeUnit?.value() ?? .noValue
+    var fontVariationSettingsValue: DeserializationResult<Expression<[String: Any]>> = parent?.fontVariationSettings?.value() ?? .noValue
+    var fontWeightValue: DeserializationResult<Expression<DivFontWeight>> = parent?.fontWeight?.value() ?? .noValue
+    var fontWeightValueValue: DeserializationResult<Expression<Int>> = parent?.fontWeightValue?.value() ?? .noValue
     var functionsValue: DeserializationResult<[DivFunction]> = .noValue
     var heightValue: DeserializationResult<DivSize> = .noValue
-    var htmlValue: DeserializationResult<Expression<String>> = parent?.html?.value() ?? .noValue
+    var highlightColorValue: DeserializationResult<Expression<Color>> = parent?.highlightColor?.value() ?? .noValue
+    var hintColorValue: DeserializationResult<Expression<Color>> = parent?.hintColor?.value() ?? .noValue
+    var hintTextValue: DeserializationResult<Expression<String>> = parent?.hintText?.value() ?? .noValue
     var idValue: DeserializationResult<String> = parent?.id?.value() ?? .noValue
-    var javascriptEnabledValue: DeserializationResult<Expression<Bool>> = parent?.javascriptEnabled?.value() ?? .noValue
+    var isEnabledValue: DeserializationResult<Expression<Bool>> = parent?.isEnabled?.value() ?? .noValue
+    var keyboardTypeValue: DeserializationResult<Expression<DivAutocomplete.KeyboardType>> = parent?.keyboardType?.value() ?? .noValue
     var layoutProviderValue: DeserializationResult<DivLayoutProvider> = .noValue
+    var letterSpacingValue: DeserializationResult<Expression<Double>> = parent?.letterSpacing?.value() ?? .noValue
+    var lineHeightValue: DeserializationResult<Expression<Int>> = parent?.lineHeight?.value() ?? .noValue
     var marginsValue: DeserializationResult<DivEdgeInsets> = .noValue
-    var onErrorActionsValue: DeserializationResult<[DivAction]> = .noValue
-    var onLoadActionsValue: DeserializationResult<[DivAction]> = .noValue
+    var maxLengthValue: DeserializationResult<Expression<Int>> = parent?.maxLength?.value() ?? .noValue
+    var maxSuggestionsHeightValue: DeserializationResult<DivFixedSize> = .noValue
+    var maxVisibleSuggestionsValue: DeserializationResult<Expression<Int>> = parent?.maxVisibleSuggestions?.value() ?? .noValue
+    var minQueryLengthValue: DeserializationResult<Expression<Int>> = parent?.minQueryLength?.value() ?? .noValue
     var paddingsValue: DeserializationResult<DivEdgeInsets> = .noValue
     var reuseIdValue: DeserializationResult<Expression<String>> = parent?.reuseId?.value() ?? .noValue
     var rowSpanValue: DeserializationResult<Expression<Int>> = parent?.rowSpan?.value() ?? .noValue
-    var scaleToFitValue: DeserializationResult<Expression<Bool>> = parent?.scaleToFit?.value() ?? .noValue
+    var selectAllOnFocusValue: DeserializationResult<Expression<Bool>> = parent?.selectAllOnFocus?.value() ?? .noValue
     var selectedActionsValue: DeserializationResult<[DivAction]> = .noValue
+    var selectionActionsValue: DeserializationResult<[DivAction]> = .noValue
+    var suggestionTextColorValue: DeserializationResult<Expression<Color>> = parent?.suggestionTextColor?.value() ?? .noValue
+    var suggestionsVariableValue: DeserializationResult<String> = parent?.suggestionsVariable?.value() ?? .noValue
+    var textAlignmentHorizontalValue: DeserializationResult<Expression<DivAlignmentHorizontal>> = parent?.textAlignmentHorizontal?.value() ?? .noValue
+    var textAlignmentVerticalValue: DeserializationResult<Expression<DivAlignmentVertical>> = parent?.textAlignmentVertical?.value() ?? .noValue
+    var textChangeActionsValue: DeserializationResult<[DivAction]> = .noValue
+    var textColorValue: DeserializationResult<Expression<Color>> = parent?.textColor?.value() ?? .noValue
+    var textVariableValue: DeserializationResult<String> = parent?.textVariable?.value() ?? .noValue
     var tooltipsValue: DeserializationResult<[DivTooltip]> = .noValue
     var transformValue: DeserializationResult<DivTransform> = .noValue
     var transformationsValue: DeserializationResult<[DivTransformation]> = .noValue
@@ -361,7 +576,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     var transitionInValue: DeserializationResult<DivAppearanceTransition> = .noValue
     var transitionOutValue: DeserializationResult<DivAppearanceTransition> = .noValue
     var transitionTriggersValue: DeserializationResult<[DivTransitionTrigger]> = parent?.transitionTriggers?.value(validatedBy: ResolvedValue.transitionTriggersValidator) ?? .noValue
-    var urlValue: DeserializationResult<Expression<URL>> = parent?.url?.value() ?? .noValue
+    var validatorsValue: DeserializationResult<[DivInputValidator]> = .noValue
+    var valueVariableValue: DeserializationResult<String> = parent?.valueVariable?.value() ?? .noValue
     var variableTriggersValue: DeserializationResult<[DivTrigger]> = .noValue
     var variablesValue: DeserializationResult<[DivVariable]> = .noValue
     var visibilityValue: DeserializationResult<Expression<DivVisibility>> = parent?.visibility?.value() ?? .noValue
@@ -376,16 +592,10 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         alignmentHorizontalValue = deserialize(__dictValue).merged(with: alignmentHorizontalValue)
       case "alignment_vertical":
         alignmentVerticalValue = deserialize(__dictValue).merged(with: alignmentVerticalValue)
-      case "allow_navigation":
-        allowNavigationValue = deserialize(__dictValue).merged(with: allowNavigationValue)
-      case "allow_scrolling":
-        allowScrollingValue = deserialize(__dictValue).merged(with: allowScrollingValue)
       case "alpha":
         alphaValue = deserialize(__dictValue, validator: ResolvedValue.alphaValidator).merged(with: alphaValue)
       case "animators":
         animatorsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAnimatorTemplate.self).merged(with: animatorsValue)
-      case "aspect":
-        aspectValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAspectTemplate.self).merged(with: aspectValue)
       case "background":
         backgroundValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivBackgroundTemplate.self).merged(with: backgroundValue)
       case "border":
@@ -394,38 +604,92 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         columnSpanValue = deserialize(__dictValue, validator: ResolvedValue.columnSpanValidator).merged(with: columnSpanValue)
       case "disappear_actions":
         disappearActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self).merged(with: disappearActionsValue)
+      case "dismiss_on_blur":
+        dismissOnBlurValue = deserialize(__dictValue).merged(with: dismissOnBlurValue)
+      case "dismiss_on_empty":
+        dismissOnEmptyValue = deserialize(__dictValue).merged(with: dismissOnEmptyValue)
+      case "dismiss_on_selection":
+        dismissOnSelectionValue = deserialize(__dictValue).merged(with: dismissOnSelectionValue)
+      case "enter_key_actions":
+        enterKeyActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: enterKeyActionsValue)
+      case "enter_key_type":
+        enterKeyTypeValue = deserialize(__dictValue).merged(with: enterKeyTypeValue)
       case "extensions":
         extensionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self).merged(with: extensionsValue)
+      case "filters":
+        filtersValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivInputFilterTemplate.self).merged(with: filtersValue)
       case "focus":
         focusValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFocusTemplate.self).merged(with: focusValue)
+      case "font_family":
+        fontFamilyValue = deserialize(__dictValue).merged(with: fontFamilyValue)
+      case "font_size":
+        fontSizeValue = deserialize(__dictValue, validator: ResolvedValue.fontSizeValidator).merged(with: fontSizeValue)
+      case "font_size_unit":
+        fontSizeUnitValue = deserialize(__dictValue).merged(with: fontSizeUnitValue)
+      case "font_variation_settings":
+        fontVariationSettingsValue = deserialize(__dictValue).merged(with: fontVariationSettingsValue)
+      case "font_weight":
+        fontWeightValue = deserialize(__dictValue).merged(with: fontWeightValue)
+      case "font_weight_value":
+        fontWeightValueValue = deserialize(__dictValue, validator: ResolvedValue.fontWeightValueValidator).merged(with: fontWeightValueValue)
       case "functions":
         functionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFunctionTemplate.self).merged(with: functionsValue)
       case "height":
         heightValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivSizeTemplate.self).merged(with: heightValue)
-      case "html":
-        htmlValue = deserialize(__dictValue).merged(with: htmlValue)
+      case "highlight_color":
+        highlightColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: highlightColorValue)
+      case "hint_color":
+        hintColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: hintColorValue)
+      case "hint_text":
+        hintTextValue = deserialize(__dictValue).merged(with: hintTextValue)
       case "id":
         idValue = deserialize(__dictValue).merged(with: idValue)
-      case "javascript_enabled":
-        javascriptEnabledValue = deserialize(__dictValue).merged(with: javascriptEnabledValue)
+      case "is_enabled":
+        isEnabledValue = deserialize(__dictValue).merged(with: isEnabledValue)
+      case "keyboard_type":
+        keyboardTypeValue = deserialize(__dictValue).merged(with: keyboardTypeValue)
       case "layout_provider":
         layoutProviderValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivLayoutProviderTemplate.self).merged(with: layoutProviderValue)
+      case "letter_spacing":
+        letterSpacingValue = deserialize(__dictValue).merged(with: letterSpacingValue)
+      case "line_height":
+        lineHeightValue = deserialize(__dictValue, validator: ResolvedValue.lineHeightValidator).merged(with: lineHeightValue)
       case "margins":
         marginsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivEdgeInsetsTemplate.self).merged(with: marginsValue)
-      case "on_error_actions":
-        onErrorActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: onErrorActionsValue)
-      case "on_load_actions":
-        onLoadActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: onLoadActionsValue)
+      case "max_length":
+        maxLengthValue = deserialize(__dictValue, validator: ResolvedValue.maxLengthValidator).merged(with: maxLengthValue)
+      case "max_suggestions_height":
+        maxSuggestionsHeightValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFixedSizeTemplate.self).merged(with: maxSuggestionsHeightValue)
+      case "max_visible_suggestions":
+        maxVisibleSuggestionsValue = deserialize(__dictValue, validator: ResolvedValue.maxVisibleSuggestionsValidator).merged(with: maxVisibleSuggestionsValue)
+      case "min_query_length":
+        minQueryLengthValue = deserialize(__dictValue, validator: ResolvedValue.minQueryLengthValidator).merged(with: minQueryLengthValue)
       case "paddings":
         paddingsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivEdgeInsetsTemplate.self).merged(with: paddingsValue)
       case "reuse_id":
         reuseIdValue = deserialize(__dictValue).merged(with: reuseIdValue)
       case "row_span":
         rowSpanValue = deserialize(__dictValue, validator: ResolvedValue.rowSpanValidator).merged(with: rowSpanValue)
-      case "scale_to_fit":
-        scaleToFitValue = deserialize(__dictValue).merged(with: scaleToFitValue)
+      case "select_all_on_focus":
+        selectAllOnFocusValue = deserialize(__dictValue).merged(with: selectAllOnFocusValue)
       case "selected_actions":
         selectedActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: selectedActionsValue)
+      case "selection_actions":
+        selectionActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: selectionActionsValue)
+      case "suggestion_text_color":
+        suggestionTextColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: suggestionTextColorValue)
+      case "suggestions_variable":
+        suggestionsVariableValue = deserialize(__dictValue).merged(with: suggestionsVariableValue)
+      case "text_alignment_horizontal":
+        textAlignmentHorizontalValue = deserialize(__dictValue).merged(with: textAlignmentHorizontalValue)
+      case "text_alignment_vertical":
+        textAlignmentVerticalValue = deserialize(__dictValue).merged(with: textAlignmentVerticalValue)
+      case "text_change_actions":
+        textChangeActionsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self).merged(with: textChangeActionsValue)
+      case "text_color":
+        textColorValue = deserialize(__dictValue, transform: Color.color(withHexString:)).merged(with: textColorValue)
+      case "text_variable":
+        textVariableValue = deserialize(__dictValue).merged(with: textVariableValue)
       case "tooltips":
         tooltipsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTooltipTemplate.self).merged(with: tooltipsValue)
       case "transform":
@@ -440,8 +704,10 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         transitionOutValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAppearanceTransitionTemplate.self).merged(with: transitionOutValue)
       case "transition_triggers":
         transitionTriggersValue = deserialize(__dictValue, validator: ResolvedValue.transitionTriggersValidator).merged(with: transitionTriggersValue)
-      case "url":
-        urlValue = deserialize(__dictValue, transform: URL.makeFromNonEncodedString).merged(with: urlValue)
+      case "validators":
+        validatorsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivInputValidatorTemplate.self).merged(with: validatorsValue)
+      case "value_variable":
+        valueVariableValue = deserialize(__dictValue).merged(with: valueVariableValue)
       case "variable_triggers":
         variableTriggersValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTriggerTemplate.self).merged(with: variableTriggersValue)
       case "variables":
@@ -460,16 +726,10 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         alignmentHorizontalValue = alignmentHorizontalValue.merged(with: { deserialize(__dictValue) })
       case parent?.alignmentVertical?.link:
         alignmentVerticalValue = alignmentVerticalValue.merged(with: { deserialize(__dictValue) })
-      case parent?.allowNavigation?.link:
-        allowNavigationValue = allowNavigationValue.merged(with: { deserialize(__dictValue) })
-      case parent?.allowScrolling?.link:
-        allowScrollingValue = allowScrollingValue.merged(with: { deserialize(__dictValue) })
       case parent?.alpha?.link:
         alphaValue = alphaValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.alphaValidator) })
       case parent?.animators?.link:
         animatorsValue = animatorsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAnimatorTemplate.self) })
-      case parent?.aspect?.link:
-        aspectValue = aspectValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAspectTemplate.self) })
       case parent?.background?.link:
         backgroundValue = backgroundValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivBackgroundTemplate.self) })
       case parent?.border?.link:
@@ -478,38 +738,92 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         columnSpanValue = columnSpanValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.columnSpanValidator) })
       case parent?.disappearActions?.link:
         disappearActionsValue = disappearActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivDisappearActionTemplate.self) })
+      case parent?.dismissOnBlur?.link:
+        dismissOnBlurValue = dismissOnBlurValue.merged(with: { deserialize(__dictValue) })
+      case parent?.dismissOnEmpty?.link:
+        dismissOnEmptyValue = dismissOnEmptyValue.merged(with: { deserialize(__dictValue) })
+      case parent?.dismissOnSelection?.link:
+        dismissOnSelectionValue = dismissOnSelectionValue.merged(with: { deserialize(__dictValue) })
+      case parent?.enterKeyActions?.link:
+        enterKeyActionsValue = enterKeyActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
+      case parent?.enterKeyType?.link:
+        enterKeyTypeValue = enterKeyTypeValue.merged(with: { deserialize(__dictValue) })
       case parent?.extensions?.link:
         extensionsValue = extensionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivExtensionTemplate.self) })
+      case parent?.filters?.link:
+        filtersValue = filtersValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivInputFilterTemplate.self) })
       case parent?.focus?.link:
         focusValue = focusValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFocusTemplate.self) })
+      case parent?.fontFamily?.link:
+        fontFamilyValue = fontFamilyValue.merged(with: { deserialize(__dictValue) })
+      case parent?.fontSize?.link:
+        fontSizeValue = fontSizeValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.fontSizeValidator) })
+      case parent?.fontSizeUnit?.link:
+        fontSizeUnitValue = fontSizeUnitValue.merged(with: { deserialize(__dictValue) })
+      case parent?.fontVariationSettings?.link:
+        fontVariationSettingsValue = fontVariationSettingsValue.merged(with: { deserialize(__dictValue) })
+      case parent?.fontWeight?.link:
+        fontWeightValue = fontWeightValue.merged(with: { deserialize(__dictValue) })
+      case parent?.fontWeightValue?.link:
+        fontWeightValueValue = fontWeightValueValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.fontWeightValueValidator) })
       case parent?.functions?.link:
         functionsValue = functionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFunctionTemplate.self) })
       case parent?.height?.link:
         heightValue = heightValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivSizeTemplate.self) })
-      case parent?.html?.link:
-        htmlValue = htmlValue.merged(with: { deserialize(__dictValue) })
+      case parent?.highlightColor?.link:
+        highlightColorValue = highlightColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.hintColor?.link:
+        hintColorValue = hintColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.hintText?.link:
+        hintTextValue = hintTextValue.merged(with: { deserialize(__dictValue) })
       case parent?.id?.link:
         idValue = idValue.merged(with: { deserialize(__dictValue) })
-      case parent?.javascriptEnabled?.link:
-        javascriptEnabledValue = javascriptEnabledValue.merged(with: { deserialize(__dictValue) })
+      case parent?.isEnabled?.link:
+        isEnabledValue = isEnabledValue.merged(with: { deserialize(__dictValue) })
+      case parent?.keyboardType?.link:
+        keyboardTypeValue = keyboardTypeValue.merged(with: { deserialize(__dictValue) })
       case parent?.layoutProvider?.link:
         layoutProviderValue = layoutProviderValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivLayoutProviderTemplate.self) })
+      case parent?.letterSpacing?.link:
+        letterSpacingValue = letterSpacingValue.merged(with: { deserialize(__dictValue) })
+      case parent?.lineHeight?.link:
+        lineHeightValue = lineHeightValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.lineHeightValidator) })
       case parent?.margins?.link:
         marginsValue = marginsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivEdgeInsetsTemplate.self) })
-      case parent?.onErrorActions?.link:
-        onErrorActionsValue = onErrorActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
-      case parent?.onLoadActions?.link:
-        onLoadActionsValue = onLoadActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
+      case parent?.maxLength?.link:
+        maxLengthValue = maxLengthValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.maxLengthValidator) })
+      case parent?.maxSuggestionsHeight?.link:
+        maxSuggestionsHeightValue = maxSuggestionsHeightValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivFixedSizeTemplate.self) })
+      case parent?.maxVisibleSuggestions?.link:
+        maxVisibleSuggestionsValue = maxVisibleSuggestionsValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.maxVisibleSuggestionsValidator) })
+      case parent?.minQueryLength?.link:
+        minQueryLengthValue = minQueryLengthValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.minQueryLengthValidator) })
       case parent?.paddings?.link:
         paddingsValue = paddingsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivEdgeInsetsTemplate.self) })
       case parent?.reuseId?.link:
         reuseIdValue = reuseIdValue.merged(with: { deserialize(__dictValue) })
       case parent?.rowSpan?.link:
         rowSpanValue = rowSpanValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.rowSpanValidator) })
-      case parent?.scaleToFit?.link:
-        scaleToFitValue = scaleToFitValue.merged(with: { deserialize(__dictValue) })
+      case parent?.selectAllOnFocus?.link:
+        selectAllOnFocusValue = selectAllOnFocusValue.merged(with: { deserialize(__dictValue) })
       case parent?.selectedActions?.link:
         selectedActionsValue = selectedActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
+      case parent?.selectionActions?.link:
+        selectionActionsValue = selectionActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
+      case parent?.suggestionTextColor?.link:
+        suggestionTextColorValue = suggestionTextColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.suggestionsVariable?.link:
+        suggestionsVariableValue = suggestionsVariableValue.merged(with: { deserialize(__dictValue) })
+      case parent?.textAlignmentHorizontal?.link:
+        textAlignmentHorizontalValue = textAlignmentHorizontalValue.merged(with: { deserialize(__dictValue) })
+      case parent?.textAlignmentVertical?.link:
+        textAlignmentVerticalValue = textAlignmentVerticalValue.merged(with: { deserialize(__dictValue) })
+      case parent?.textChangeActions?.link:
+        textChangeActionsValue = textChangeActionsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivActionTemplate.self) })
+      case parent?.textColor?.link:
+        textColorValue = textColorValue.merged(with: { deserialize(__dictValue, transform: Color.color(withHexString:)) })
+      case parent?.textVariable?.link:
+        textVariableValue = textVariableValue.merged(with: { deserialize(__dictValue) })
       case parent?.tooltips?.link:
         tooltipsValue = tooltipsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTooltipTemplate.self) })
       case parent?.transform?.link:
@@ -524,8 +838,10 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
         transitionOutValue = transitionOutValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivAppearanceTransitionTemplate.self) })
       case parent?.transitionTriggers?.link:
         transitionTriggersValue = transitionTriggersValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.transitionTriggersValidator) })
-      case parent?.url?.link:
-        urlValue = urlValue.merged(with: { deserialize(__dictValue, transform: URL.makeFromNonEncodedString) })
+      case parent?.validators?.link:
+        validatorsValue = validatorsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivInputValidatorTemplate.self) })
+      case parent?.valueVariable?.link:
+        valueVariableValue = valueVariableValue.merged(with: { deserialize(__dictValue) })
       case parent?.variableTriggers?.link:
         variableTriggersValue = variableTriggersValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivTriggerTemplate.self) })
       case parent?.variables?.link:
@@ -544,61 +860,88 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     if let parent = parent {
       _ = accessibilityValue = accessibilityValue.merged(with: { parent.accessibility?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = animatorsValue = animatorsValue.merged(with: { parent.animators?.resolveOptionalValue(context: context, useOnlyLinks: true) })
-      _ = aspectValue = aspectValue.merged(with: { parent.aspect?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = backgroundValue = backgroundValue.merged(with: { parent.background?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = borderValue = borderValue.merged(with: { parent.border?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = disappearActionsValue = disappearActionsValue.merged(with: { parent.disappearActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = enterKeyActionsValue = enterKeyActionsValue.merged(with: { parent.enterKeyActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = extensionsValue = extensionsValue.merged(with: { parent.extensions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = filtersValue = filtersValue.merged(with: { parent.filters?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = focusValue = focusValue.merged(with: { parent.focus?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = functionsValue = functionsValue.merged(with: { parent.functions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = heightValue = heightValue.merged(with: { parent.height?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = layoutProviderValue = layoutProviderValue.merged(with: { parent.layoutProvider?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = marginsValue = marginsValue.merged(with: { parent.margins?.resolveOptionalValue(context: context, useOnlyLinks: true) })
-      _ = onErrorActionsValue = onErrorActionsValue.merged(with: { parent.onErrorActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
-      _ = onLoadActionsValue = onLoadActionsValue.merged(with: { parent.onLoadActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = maxSuggestionsHeightValue = maxSuggestionsHeightValue.merged(with: { parent.maxSuggestionsHeight?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = paddingsValue = paddingsValue.merged(with: { parent.paddings?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = selectedActionsValue = selectedActionsValue.merged(with: { parent.selectedActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = selectionActionsValue = selectionActionsValue.merged(with: { parent.selectionActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = textChangeActionsValue = textChangeActionsValue.merged(with: { parent.textChangeActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = tooltipsValue = tooltipsValue.merged(with: { parent.tooltips?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = transformValue = transformValue.merged(with: { parent.transform?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = transformationsValue = transformationsValue.merged(with: { parent.transformations?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = transitionChangeValue = transitionChangeValue.merged(with: { parent.transitionChange?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = transitionInValue = transitionInValue.merged(with: { parent.transitionIn?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = transitionOutValue = transitionOutValue.merged(with: { parent.transitionOut?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = validatorsValue = validatorsValue.merged(with: { parent.validators?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = variableTriggersValue = variableTriggersValue.merged(with: { parent.variableTriggers?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = variablesValue = variablesValue.merged(with: { parent.variables?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = visibilityActionValue = visibilityActionValue.merged(with: { parent.visibilityAction?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = visibilityActionsValue = visibilityActionsValue.merged(with: { parent.visibilityActions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = widthValue = widthValue.merged(with: { parent.width?.resolveOptionalValue(context: context, useOnlyLinks: true) })
     }
-    let errors = mergeErrors(
+    var errors = mergeErrors(
       accessibilityValue.errorsOrWarnings?.map { .nestedObjectError(field: "accessibility", error: $0) },
       alignmentHorizontalValue.errorsOrWarnings?.map { .nestedObjectError(field: "alignment_horizontal", error: $0) },
       alignmentVerticalValue.errorsOrWarnings?.map { .nestedObjectError(field: "alignment_vertical", error: $0) },
-      allowNavigationValue.errorsOrWarnings?.map { .nestedObjectError(field: "allow_navigation", error: $0) },
-      allowScrollingValue.errorsOrWarnings?.map { .nestedObjectError(field: "allow_scrolling", error: $0) },
       alphaValue.errorsOrWarnings?.map { .nestedObjectError(field: "alpha", error: $0) },
       animatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "animators", error: $0) },
-      aspectValue.errorsOrWarnings?.map { .nestedObjectError(field: "aspect", error: $0) },
       backgroundValue.errorsOrWarnings?.map { .nestedObjectError(field: "background", error: $0) },
       borderValue.errorsOrWarnings?.map { .nestedObjectError(field: "border", error: $0) },
       columnSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "column_span", error: $0) },
       disappearActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "disappear_actions", error: $0) },
+      dismissOnBlurValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_blur", error: $0) },
+      dismissOnEmptyValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_empty", error: $0) },
+      dismissOnSelectionValue.errorsOrWarnings?.map { .nestedObjectError(field: "dismiss_on_selection", error: $0) },
+      enterKeyActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "enter_key_actions", error: $0) },
+      enterKeyTypeValue.errorsOrWarnings?.map { .nestedObjectError(field: "enter_key_type", error: $0) },
       extensionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "extensions", error: $0) },
+      filtersValue.errorsOrWarnings?.map { .nestedObjectError(field: "filters", error: $0) },
       focusValue.errorsOrWarnings?.map { .nestedObjectError(field: "focus", error: $0) },
+      fontFamilyValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_family", error: $0) },
+      fontSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size", error: $0) },
+      fontSizeUnitValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_size_unit", error: $0) },
+      fontVariationSettingsValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_variation_settings", error: $0) },
+      fontWeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight", error: $0) },
+      fontWeightValueValue.errorsOrWarnings?.map { .nestedObjectError(field: "font_weight_value", error: $0) },
       functionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "functions", error: $0) },
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
-      htmlValue.errorsOrWarnings?.map { .nestedObjectError(field: "html", error: $0) },
+      highlightColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "highlight_color", error: $0) },
+      hintColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "hint_color", error: $0) },
+      hintTextValue.errorsOrWarnings?.map { .nestedObjectError(field: "hint_text", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
-      javascriptEnabledValue.errorsOrWarnings?.map { .nestedObjectError(field: "javascript_enabled", error: $0) },
+      isEnabledValue.errorsOrWarnings?.map { .nestedObjectError(field: "is_enabled", error: $0) },
+      keyboardTypeValue.errorsOrWarnings?.map { .nestedObjectError(field: "keyboard_type", error: $0) },
       layoutProviderValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_provider", error: $0) },
+      letterSpacingValue.errorsOrWarnings?.map { .nestedObjectError(field: "letter_spacing", error: $0) },
+      lineHeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "line_height", error: $0) },
       marginsValue.errorsOrWarnings?.map { .nestedObjectError(field: "margins", error: $0) },
-      onErrorActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "on_error_actions", error: $0) },
-      onLoadActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "on_load_actions", error: $0) },
+      maxLengthValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_length", error: $0) },
+      maxSuggestionsHeightValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_suggestions_height", error: $0) },
+      maxVisibleSuggestionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "max_visible_suggestions", error: $0) },
+      minQueryLengthValue.errorsOrWarnings?.map { .nestedObjectError(field: "min_query_length", error: $0) },
       paddingsValue.errorsOrWarnings?.map { .nestedObjectError(field: "paddings", error: $0) },
       reuseIdValue.errorsOrWarnings?.map { .nestedObjectError(field: "reuse_id", error: $0) },
       rowSpanValue.errorsOrWarnings?.map { .nestedObjectError(field: "row_span", error: $0) },
-      scaleToFitValue.errorsOrWarnings?.map { .nestedObjectError(field: "scale_to_fit", error: $0) },
+      selectAllOnFocusValue.errorsOrWarnings?.map { .nestedObjectError(field: "select_all_on_focus", error: $0) },
       selectedActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selected_actions", error: $0) },
+      selectionActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "selection_actions", error: $0) },
+      suggestionTextColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "suggestion_text_color", error: $0) },
+      suggestionsVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "suggestions_variable", error: $0) },
+      textAlignmentHorizontalValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_alignment_horizontal", error: $0) },
+      textAlignmentVerticalValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_alignment_vertical", error: $0) },
+      textChangeActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_change_actions", error: $0) },
+      textColorValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_color", error: $0) },
+      textVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "text_variable", error: $0) },
       tooltipsValue.errorsOrWarnings?.map { .nestedObjectError(field: "tooltips", error: $0) },
       transformValue.errorsOrWarnings?.map { .nestedObjectError(field: "transform", error: $0) },
       transformationsValue.errorsOrWarnings?.map { .nestedObjectError(field: "transformations", error: $0) },
@@ -606,7 +949,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionInValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_in", error: $0) },
       transitionOutValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_out", error: $0) },
       transitionTriggersValue.errorsOrWarnings?.map { .nestedObjectError(field: "transition_triggers", error: $0) },
-      urlValue.errorsOrWarnings?.map { .nestedObjectError(field: "url", error: $0) },
+      validatorsValue.errorsOrWarnings?.map { .nestedObjectError(field: "validators", error: $0) },
+      valueVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "value_variable", error: $0) },
       variableTriggersValue.errorsOrWarnings?.map { .nestedObjectError(field: "variable_triggers", error: $0) },
       variablesValue.errorsOrWarnings?.map { .nestedObjectError(field: "variables", error: $0) },
       visibilityValue.errorsOrWarnings?.map { .nestedObjectError(field: "visibility", error: $0) },
@@ -614,35 +958,71 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       visibilityActionsValue.errorsOrWarnings?.map { .nestedObjectError(field: "visibility_actions", error: $0) },
       widthValue.errorsOrWarnings?.map { .nestedObjectError(field: "width", error: $0) }
     )
-    let result = DivWebview(
+    if case .noValue = suggestionsVariableValue {
+      errors.append(.requiredFieldIsMissing(field: "suggestions_variable"))
+    }
+    if case .noValue = textVariableValue {
+      errors.append(.requiredFieldIsMissing(field: "text_variable"))
+    }
+    guard
+      let suggestionsVariableNonNil = suggestionsVariableValue.value,
+      let textVariableNonNil = textVariableValue.value
+    else {
+      return .failure(NonEmptyArray(errors)!)
+    }
+    let result = DivAutocomplete(
       accessibility: accessibilityValue.value,
       alignmentHorizontal: alignmentHorizontalValue.value,
       alignmentVertical: alignmentVerticalValue.value,
-      allowNavigation: allowNavigationValue.value,
-      allowScrolling: allowScrollingValue.value,
       alpha: alphaValue.value,
       animators: animatorsValue.value,
-      aspect: aspectValue.value,
       background: backgroundValue.value,
       border: borderValue.value,
       columnSpan: columnSpanValue.value,
       disappearActions: disappearActionsValue.value,
+      dismissOnBlur: dismissOnBlurValue.value,
+      dismissOnEmpty: dismissOnEmptyValue.value,
+      dismissOnSelection: dismissOnSelectionValue.value,
+      enterKeyActions: enterKeyActionsValue.value,
+      enterKeyType: enterKeyTypeValue.value,
       extensions: extensionsValue.value,
+      filters: filtersValue.value,
       focus: focusValue.value,
+      fontFamily: fontFamilyValue.value,
+      fontSize: fontSizeValue.value,
+      fontSizeUnit: fontSizeUnitValue.value,
+      fontVariationSettings: fontVariationSettingsValue.value,
+      fontWeight: fontWeightValue.value,
+      fontWeightValue: fontWeightValueValue.value,
       functions: functionsValue.value,
       height: heightValue.value,
-      html: htmlValue.value,
+      highlightColor: highlightColorValue.value,
+      hintColor: hintColorValue.value,
+      hintText: hintTextValue.value,
       id: idValue.value,
-      javascriptEnabled: javascriptEnabledValue.value,
+      isEnabled: isEnabledValue.value,
+      keyboardType: keyboardTypeValue.value,
       layoutProvider: layoutProviderValue.value,
+      letterSpacing: letterSpacingValue.value,
+      lineHeight: lineHeightValue.value,
       margins: marginsValue.value,
-      onErrorActions: onErrorActionsValue.value,
-      onLoadActions: onLoadActionsValue.value,
+      maxLength: maxLengthValue.value,
+      maxSuggestionsHeight: maxSuggestionsHeightValue.value,
+      maxVisibleSuggestions: maxVisibleSuggestionsValue.value,
+      minQueryLength: minQueryLengthValue.value,
       paddings: paddingsValue.value,
       reuseId: reuseIdValue.value,
       rowSpan: rowSpanValue.value,
-      scaleToFit: scaleToFitValue.value,
+      selectAllOnFocus: selectAllOnFocusValue.value,
       selectedActions: selectedActionsValue.value,
+      selectionActions: selectionActionsValue.value,
+      suggestionTextColor: suggestionTextColorValue.value,
+      suggestionsVariable: suggestionsVariableNonNil,
+      textAlignmentHorizontal: textAlignmentHorizontalValue.value,
+      textAlignmentVertical: textAlignmentVerticalValue.value,
+      textChangeActions: textChangeActionsValue.value,
+      textColor: textColorValue.value,
+      textVariable: textVariableNonNil,
       tooltips: tooltipsValue.value,
       transform: transformValue.value,
       transformations: transformationsValue.value,
@@ -650,7 +1030,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionIn: transitionInValue.value,
       transitionOut: transitionOutValue.value,
       transitionTriggers: transitionTriggersValue.value,
-      url: urlValue.value,
+      validators: validatorsValue.value,
+      valueVariable: valueVariableValue.value,
       variableTriggers: variableTriggersValue.value,
       variables: variablesValue.value,
       visibility: visibilityValue.value,
@@ -661,43 +1042,67 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     return errors.isEmpty ? .success(result) : .partialSuccess(result, warnings: NonEmptyArray(errors)!)
   }
 
-  private func mergedWithParent(templates: [TemplateName: Any]) throws -> DivWebviewTemplate {
+  private func mergedWithParent(templates: [TemplateName: Any]) throws -> DivAutocompleteTemplate {
     guard let parent = parent, parent != Self.type else { return self }
-    guard let parentTemplate = templates[parent] as? DivWebviewTemplate else {
+    guard let parentTemplate = templates[parent] as? DivAutocompleteTemplate else {
       throw DeserializationError.unknownType(type: parent)
     }
     let mergedParent = try parentTemplate.mergedWithParent(templates: templates)
 
-    return DivWebviewTemplate(
+    return DivAutocompleteTemplate(
       parent: nil,
       accessibility: accessibility ?? mergedParent.accessibility,
       alignmentHorizontal: alignmentHorizontal ?? mergedParent.alignmentHorizontal,
       alignmentVertical: alignmentVertical ?? mergedParent.alignmentVertical,
-      allowNavigation: allowNavigation ?? mergedParent.allowNavigation,
-      allowScrolling: allowScrolling ?? mergedParent.allowScrolling,
       alpha: alpha ?? mergedParent.alpha,
       animators: animators ?? mergedParent.animators,
-      aspect: aspect ?? mergedParent.aspect,
       background: background ?? mergedParent.background,
       border: border ?? mergedParent.border,
       columnSpan: columnSpan ?? mergedParent.columnSpan,
       disappearActions: disappearActions ?? mergedParent.disappearActions,
+      dismissOnBlur: dismissOnBlur ?? mergedParent.dismissOnBlur,
+      dismissOnEmpty: dismissOnEmpty ?? mergedParent.dismissOnEmpty,
+      dismissOnSelection: dismissOnSelection ?? mergedParent.dismissOnSelection,
+      enterKeyActions: enterKeyActions ?? mergedParent.enterKeyActions,
+      enterKeyType: enterKeyType ?? mergedParent.enterKeyType,
       extensions: extensions ?? mergedParent.extensions,
+      filters: filters ?? mergedParent.filters,
       focus: focus ?? mergedParent.focus,
+      fontFamily: fontFamily ?? mergedParent.fontFamily,
+      fontSize: fontSize ?? mergedParent.fontSize,
+      fontSizeUnit: fontSizeUnit ?? mergedParent.fontSizeUnit,
+      fontVariationSettings: fontVariationSettings ?? mergedParent.fontVariationSettings,
+      fontWeight: fontWeight ?? mergedParent.fontWeight,
+      fontWeightValue: fontWeightValue ?? mergedParent.fontWeightValue,
       functions: functions ?? mergedParent.functions,
       height: height ?? mergedParent.height,
-      html: html ?? mergedParent.html,
+      highlightColor: highlightColor ?? mergedParent.highlightColor,
+      hintColor: hintColor ?? mergedParent.hintColor,
+      hintText: hintText ?? mergedParent.hintText,
       id: id ?? mergedParent.id,
-      javascriptEnabled: javascriptEnabled ?? mergedParent.javascriptEnabled,
+      isEnabled: isEnabled ?? mergedParent.isEnabled,
+      keyboardType: keyboardType ?? mergedParent.keyboardType,
       layoutProvider: layoutProvider ?? mergedParent.layoutProvider,
+      letterSpacing: letterSpacing ?? mergedParent.letterSpacing,
+      lineHeight: lineHeight ?? mergedParent.lineHeight,
       margins: margins ?? mergedParent.margins,
-      onErrorActions: onErrorActions ?? mergedParent.onErrorActions,
-      onLoadActions: onLoadActions ?? mergedParent.onLoadActions,
+      maxLength: maxLength ?? mergedParent.maxLength,
+      maxSuggestionsHeight: maxSuggestionsHeight ?? mergedParent.maxSuggestionsHeight,
+      maxVisibleSuggestions: maxVisibleSuggestions ?? mergedParent.maxVisibleSuggestions,
+      minQueryLength: minQueryLength ?? mergedParent.minQueryLength,
       paddings: paddings ?? mergedParent.paddings,
       reuseId: reuseId ?? mergedParent.reuseId,
       rowSpan: rowSpan ?? mergedParent.rowSpan,
-      scaleToFit: scaleToFit ?? mergedParent.scaleToFit,
+      selectAllOnFocus: selectAllOnFocus ?? mergedParent.selectAllOnFocus,
       selectedActions: selectedActions ?? mergedParent.selectedActions,
+      selectionActions: selectionActions ?? mergedParent.selectionActions,
+      suggestionTextColor: suggestionTextColor ?? mergedParent.suggestionTextColor,
+      suggestionsVariable: suggestionsVariable ?? mergedParent.suggestionsVariable,
+      textAlignmentHorizontal: textAlignmentHorizontal ?? mergedParent.textAlignmentHorizontal,
+      textAlignmentVertical: textAlignmentVertical ?? mergedParent.textAlignmentVertical,
+      textChangeActions: textChangeActions ?? mergedParent.textChangeActions,
+      textColor: textColor ?? mergedParent.textColor,
+      textVariable: textVariable ?? mergedParent.textVariable,
       tooltips: tooltips ?? mergedParent.tooltips,
       transform: transform ?? mergedParent.transform,
       transformations: transformations ?? mergedParent.transformations,
@@ -705,7 +1110,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionIn: transitionIn ?? mergedParent.transitionIn,
       transitionOut: transitionOut ?? mergedParent.transitionOut,
       transitionTriggers: transitionTriggers ?? mergedParent.transitionTriggers,
-      url: url ?? mergedParent.url,
+      validators: validators ?? mergedParent.validators,
+      valueVariable: valueVariable ?? mergedParent.valueVariable,
       variableTriggers: variableTriggers ?? mergedParent.variableTriggers,
       variables: variables ?? mergedParent.variables,
       visibility: visibility ?? mergedParent.visibility,
@@ -715,39 +1121,63 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
     )
   }
 
-  public func resolveParent(templates: [TemplateName: Any]) throws -> DivWebviewTemplate {
+  public func resolveParent(templates: [TemplateName: Any]) throws -> DivAutocompleteTemplate {
     let merged = try mergedWithParent(templates: templates)
 
-    return DivWebviewTemplate(
+    return DivAutocompleteTemplate(
       parent: nil,
       accessibility: merged.accessibility?.tryResolveParent(templates: templates),
       alignmentHorizontal: merged.alignmentHorizontal,
       alignmentVertical: merged.alignmentVertical,
-      allowNavigation: merged.allowNavigation,
-      allowScrolling: merged.allowScrolling,
       alpha: merged.alpha,
       animators: merged.animators?.tryResolveParent(templates: templates),
-      aspect: merged.aspect?.tryResolveParent(templates: templates),
       background: merged.background?.tryResolveParent(templates: templates),
       border: merged.border?.tryResolveParent(templates: templates),
       columnSpan: merged.columnSpan,
       disappearActions: merged.disappearActions?.tryResolveParent(templates: templates),
+      dismissOnBlur: merged.dismissOnBlur,
+      dismissOnEmpty: merged.dismissOnEmpty,
+      dismissOnSelection: merged.dismissOnSelection,
+      enterKeyActions: merged.enterKeyActions?.tryResolveParent(templates: templates),
+      enterKeyType: merged.enterKeyType,
       extensions: merged.extensions?.tryResolveParent(templates: templates),
+      filters: merged.filters?.tryResolveParent(templates: templates),
       focus: merged.focus?.tryResolveParent(templates: templates),
+      fontFamily: merged.fontFamily,
+      fontSize: merged.fontSize,
+      fontSizeUnit: merged.fontSizeUnit,
+      fontVariationSettings: merged.fontVariationSettings,
+      fontWeight: merged.fontWeight,
+      fontWeightValue: merged.fontWeightValue,
       functions: merged.functions?.tryResolveParent(templates: templates),
       height: merged.height?.tryResolveParent(templates: templates),
-      html: merged.html,
+      highlightColor: merged.highlightColor,
+      hintColor: merged.hintColor,
+      hintText: merged.hintText,
       id: merged.id,
-      javascriptEnabled: merged.javascriptEnabled,
+      isEnabled: merged.isEnabled,
+      keyboardType: merged.keyboardType,
       layoutProvider: merged.layoutProvider?.tryResolveParent(templates: templates),
+      letterSpacing: merged.letterSpacing,
+      lineHeight: merged.lineHeight,
       margins: merged.margins?.tryResolveParent(templates: templates),
-      onErrorActions: merged.onErrorActions?.tryResolveParent(templates: templates),
-      onLoadActions: merged.onLoadActions?.tryResolveParent(templates: templates),
+      maxLength: merged.maxLength,
+      maxSuggestionsHeight: merged.maxSuggestionsHeight?.tryResolveParent(templates: templates),
+      maxVisibleSuggestions: merged.maxVisibleSuggestions,
+      minQueryLength: merged.minQueryLength,
       paddings: merged.paddings?.tryResolveParent(templates: templates),
       reuseId: merged.reuseId,
       rowSpan: merged.rowSpan,
-      scaleToFit: merged.scaleToFit,
+      selectAllOnFocus: merged.selectAllOnFocus,
       selectedActions: merged.selectedActions?.tryResolveParent(templates: templates),
+      selectionActions: merged.selectionActions?.tryResolveParent(templates: templates),
+      suggestionTextColor: merged.suggestionTextColor,
+      suggestionsVariable: merged.suggestionsVariable,
+      textAlignmentHorizontal: merged.textAlignmentHorizontal,
+      textAlignmentVertical: merged.textAlignmentVertical,
+      textChangeActions: merged.textChangeActions?.tryResolveParent(templates: templates),
+      textColor: merged.textColor,
+      textVariable: merged.textVariable,
       tooltips: merged.tooltips?.tryResolveParent(templates: templates),
       transform: merged.transform?.tryResolveParent(templates: templates),
       transformations: merged.transformations?.tryResolveParent(templates: templates),
@@ -755,7 +1185,8 @@ public final class DivWebviewTemplate: TemplateValue, Sendable {
       transitionIn: merged.transitionIn?.tryResolveParent(templates: templates),
       transitionOut: merged.transitionOut?.tryResolveParent(templates: templates),
       transitionTriggers: merged.transitionTriggers,
-      url: merged.url,
+      validators: merged.validators?.tryResolveParent(templates: templates),
+      valueVariable: merged.valueVariable,
       variableTriggers: merged.variableTriggers?.tryResolveParent(templates: templates),
       variables: merged.variables?.tryResolveParent(templates: templates),
       visibility: merged.visibility,

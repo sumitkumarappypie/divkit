@@ -25,11 +25,13 @@ public enum Div: Sendable {
   case divSelect(DivSelect)
   case divVideo(DivVideo)
   case divCheckbox(DivCheckbox)
+  case divCounter(DivCounter)
   case divRadio(DivRadio)
   case divProgress(DivProgress)
-  case divCounter(DivCounter)
   case divWebview(DivWebview)
+  case divBreadcrumb(DivBreadcrumb)
   case divGoogleMap(DivGoogleMap)
+  case divAutocomplete(DivAutocomplete)
 
   public var value: Serializable & DivBase {
     switch self {
@@ -71,15 +73,19 @@ public enum Div: Sendable {
       return value
     case let .divCheckbox(value):
       return value
+    case let .divCounter(value):
+      return value
     case let .divRadio(value):
       return value
     case let .divProgress(value):
       return value
-    case let .divCounter(value):
-      return value
     case let .divWebview(value):
       return value
+    case let .divBreadcrumb(value):
+      return value
     case let .divGoogleMap(value):
+      return value
+    case let .divAutocomplete(value):
       return value
     }
   }
@@ -124,15 +130,19 @@ public enum Div: Sendable {
       return value.id
     case let .divCheckbox(value):
       return value.id
+    case let .divCounter(value):
+      return value.id
     case let .divRadio(value):
       return value.id
     case let .divProgress(value):
       return value.id
-    case let .divCounter(value):
-      return value.id
     case let .divWebview(value):
       return value.id
+    case let .divBreadcrumb(value):
+      return value.id
     case let .divGoogleMap(value):
+      return value.id
+    case let .divAutocomplete(value):
       return value.id
     }
   }
@@ -181,16 +191,20 @@ extension Div {
       self = .divVideo(try DivVideo(dictionary: dictionary, context: context))
     case DivCheckbox.type:
       self = .divCheckbox(try DivCheckbox(dictionary: dictionary, context: context))
+    case DivCounter.type:
+      self = .divCounter(try DivCounter(dictionary: dictionary, context: context))
     case DivRadio.type:
       self = .divRadio(try DivRadio(dictionary: dictionary, context: context))
     case DivProgress.type:
       self = .divProgress(try DivProgress(dictionary: dictionary, context: context))
-    case DivCounter.type:
-      self = .divCounter(try DivCounter(dictionary: dictionary, context: context))
     case DivWebview.type:
       self = .divWebview(try DivWebview(dictionary: dictionary, context: context))
+    case DivBreadcrumb.type:
+      self = .divBreadcrumb(try DivBreadcrumb(dictionary: dictionary, context: context))
     case DivGoogleMap.type:
       self = .divGoogleMap(try DivGoogleMap(dictionary: dictionary, context: context))
+    case DivAutocomplete.type:
+      self = .divAutocomplete(try DivAutocomplete(dictionary: dictionary, context: context))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
@@ -239,15 +253,19 @@ extension Div: Equatable {
       return l == r
     case let (.divCheckbox(l), .divCheckbox(r)):
       return l == r
+    case let (.divCounter(l), .divCounter(r)):
+      return l == r
     case let (.divRadio(l), .divRadio(r)):
       return l == r
     case let (.divProgress(l), .divProgress(r)):
       return l == r
-    case let (.divCounter(l), .divCounter(r)):
-      return l == r
     case let (.divWebview(l), .divWebview(r)):
       return l == r
+    case let (.divBreadcrumb(l), .divBreadcrumb(r)):
+      return l == r
     case let (.divGoogleMap(l), .divGoogleMap(r)):
+      return l == r
+    case let (.divAutocomplete(l), .divAutocomplete(r)):
       return l == r
     default:
       return false
