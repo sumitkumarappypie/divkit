@@ -448,10 +448,7 @@ private final class AutocompleteBlockView: BlockView, VisibleBoundsTrackingLeaf 
   }
 
   private func fireActions(_ actions: [UserInterfaceAction]) {
-    guard let observer, let path else { return }
-    for action in actions {
-      observer.elementStateChanged(path, state: action)
-    }
+    actions.perform(sendingFrom: self)
   }
 
   @objc private func textFieldDidChange() {
@@ -467,11 +464,9 @@ extension AutocompleteBlockView: UITextFieldDelegate {
     }
     filterSuggestions()
 
-    guard let observer, let path else { return }
-    for action in onFocusActions {
-      observer.elementStateChanged(path, state: action)
-    }
-    observer.elementStateChanged(path, state: TextFieldFocusState(isFocused: true))
+    onFocusActions.perform(sendingFrom: self)
+    guard let path else { return }
+    observer?.focusedElementChanged(isFocused: true, forPath: path)
   }
 
   func textFieldDidEndEditing(_: UITextField) {
@@ -480,18 +475,13 @@ extension AutocompleteBlockView: UITextFieldDelegate {
       hideDropdown()
     }
 
-    guard let observer, let path else { return }
-    for action in onBlurActions {
-      observer.elementStateChanged(path, state: action)
-    }
-    observer.elementStateChanged(path, state: TextFieldFocusState(isFocused: false))
+    onBlurActions.perform(sendingFrom: self)
+    guard let path else { return }
+    observer?.focusedElementChanged(isFocused: false, forPath: path)
   }
 
   func textFieldShouldReturn(_: UITextField) -> Bool {
-    guard let observer, let path else { return true }
-    for action in enterKeyActions {
-      observer.elementStateChanged(path, state: action)
-    }
+    enterKeyActions.perform(sendingFrom: self)
     return true
   }
 
