@@ -27,6 +27,8 @@ extension Div {
          .divVideo,
          .divWebview,
          .divGoogleMap,
+         .divAutocomplete,
+         .divBreadcrumb,
          .divText:
       []
     }

@@ -131,6 +131,8 @@ extension Div {
          .divVideo,
          .divWebview,
          .divGoogleMap,
+         .divAutocomplete,
+         .divBreadcrumb,
          .divText:
       // no children (table cells are not patchable as array items)
       self

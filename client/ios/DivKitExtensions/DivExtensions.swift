@@ -46,6 +46,9 @@ extension Div {
          .divTable,
          .divVideo,
          .divWebview,
+         .divGoogleMap,
+         .divAutocomplete,
+         .divBreadcrumb,
          .divTabs:
       break
     }
