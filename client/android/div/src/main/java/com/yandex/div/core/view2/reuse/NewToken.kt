@@ -34,6 +34,8 @@ internal class NewToken(
             is Div.Counter -> listOf()
             is Div.Webview -> listOf()
             is Div.GoogleMap -> listOf()
+            is Div.Autocomplete -> listOf()
+            is Div.Breadcrumb -> listOf()
             is Div.Container -> div.value.buildItems(resolver).itemsToNewTokenList()
             is Div.Custom -> div.value.nonNullItems.toDivItemBuilderResult(resolver).itemsToNewTokenList()
             is Div.Grid -> div.value.itemsToDivItemBuilderResult(resolver).itemsToNewTokenList()

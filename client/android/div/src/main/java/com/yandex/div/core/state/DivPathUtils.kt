@@ -154,6 +154,8 @@ internal object DivPathUtils {
             is Div.Counter -> null
             is Div.Webview -> null
             is Div.GoogleMap -> null
+            is Div.Autocomplete -> null
+            is Div.Breadcrumb -> null
         }
     }
 

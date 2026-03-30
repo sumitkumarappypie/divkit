@@ -179,6 +179,8 @@ private fun Div.getItems(resolver: ExpressionResolver): List<DivItemBuilderResul
         is Div.Counter -> emptyList()
         is Div.Webview -> emptyList()
         is Div.GoogleMap -> emptyList()
+        is Div.Autocomplete -> emptyList()
+        is Div.Breadcrumb -> emptyList()
         is Div.Container -> value.buildItems(resolver)
         is Div.Grid -> value.itemsToDivItemBuilderResult(resolver)
         is Div.Gallery -> value.buildItems(resolver)

@@ -37,6 +37,8 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
             is Div.Counter -> visit(div, context, path)
             is Div.Webview -> visit(div, context, path)
             is Div.GoogleMap -> visit(div, context, path)
+            is Div.Autocomplete -> visit(div, context, path)
+            is Div.Breadcrumb -> visit(div, context, path)
         }
     }
 
@@ -168,6 +170,12 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
         defaultVisit(data, context, path)
 
     protected open fun visit(data: Div.GoogleMap, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Autocomplete, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Breadcrumb, context: BindingContext, path: DivStatePath) =
         defaultVisit(data, context, path)
 }
 

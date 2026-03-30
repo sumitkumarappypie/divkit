@@ -28,6 +28,7 @@ import com.yandex.div.internal.widget.DivGravity
 import com.yandex.div.internal.widget.DivLayoutParams
 import com.yandex.div.json.expressions.ExpressionResolver
 import com.yandex.div2.Div
+import com.yandex.div2.DivAutocomplete
 import com.yandex.div2.DivAlignmentHorizontal
 import com.yandex.div2.DivAlignmentVertical
 import com.yandex.div2.DivAnimationDirection
@@ -35,6 +36,7 @@ import com.yandex.div2.DivAnimationInterpolator
 import com.yandex.div2.DivBase
 import com.yandex.div2.DivBlendMode
 import com.yandex.div2.DivBorder
+import com.yandex.div2.DivBreadcrumb
 import com.yandex.div2.DivContainer
 import com.yandex.div2.DivContentAlignmentHorizontal
 import com.yandex.div2.DivContentAlignmentVertical
@@ -100,6 +102,8 @@ internal val Div.type: String
             is Div.Counter -> DivCounter.TYPE
             is Div.Webview -> DivWebview.TYPE
             is Div.GoogleMap -> DivGoogleMap.TYPE
+            is Div.Autocomplete -> DivAutocomplete.TYPE
+            is Div.Breadcrumb -> DivBreadcrumb.TYPE
         }
     }
 
@@ -217,6 +221,8 @@ internal fun Div.containsStateInnerTransitions(resolver: ExpressionResolver): Bo
         is Div.Counter -> false
         is Div.Webview -> false
         is Div.GoogleMap -> false
+        is Div.Autocomplete -> false
+        is Div.Breadcrumb -> false
     }
 }
 
@@ -245,6 +251,8 @@ internal val Div.isBranch: Boolean
         is Div.Counter -> false
         is Div.Webview -> false
         is Div.GoogleMap -> false
+        is Div.Autocomplete -> false
+        is Div.Breadcrumb -> false
         is Div.Container -> true
         is Div.Grid -> true
         is Div.Gallery -> true

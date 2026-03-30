@@ -131,6 +131,8 @@ internal object DivComparator {
             is Div.Counter -> emptyList()
             is Div.Webview -> emptyList()
             is Div.GoogleMap -> emptyList()
+            is Div.Autocomplete -> emptyList()
+            is Div.Breadcrumb -> emptyList()
         }
     }
 

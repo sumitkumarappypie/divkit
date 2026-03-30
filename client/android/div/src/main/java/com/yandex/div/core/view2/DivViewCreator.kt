@@ -8,6 +8,7 @@ import com.yandex.div.core.annotations.Mockable
 import com.yandex.div.core.dagger.DivScope
 import com.yandex.div.core.dagger.Names
 import com.yandex.div.core.util.isWrapContainer
+import com.yandex.div.core.view2.divs.widgets.DivAutocompleteView
 import com.yandex.div.core.view2.divs.widgets.DivCustomWrapper
 import com.yandex.div.core.view2.divs.widgets.DivFrameLayout
 import com.yandex.div.core.view2.divs.widgets.DivGifImageView
@@ -121,6 +122,7 @@ internal class DivViewCreator @Inject constructor(
                 register(TAG_COUNTER, { DivCounterView(context) }, counter.capacity)
                 register(TAG_WEBVIEW, { DivWebviewView(context) }, webview.capacity)
                 register(TAG_GOOGLE_MAP, { DivGoogleMapView(context) }, googleMap.capacity)
+                register(TAG_AUTOCOMPLETE, { DivAutocompleteView(context) }, 0)
             }
         }
     }
@@ -190,6 +192,7 @@ internal class DivViewCreator @Inject constructor(
         const val TAG_WEBVIEW = "DIV2.WEBVIEW"
         const val TAG_GOOGLE_MAP = "DIV2.GOOGLE_MAP"
         const val TAG_VIDEO = "DIV2.VIDEO"
+        const val TAG_AUTOCOMPLETE = "DIV2.AUTOCOMPLETE"
 
         val TAGS = arrayOf(
             TAG_TEXT,
@@ -216,7 +219,8 @@ internal class DivViewCreator @Inject constructor(
             TAG_TABLE,
             TAG_COUNTER,
             TAG_WEBVIEW,
-            TAG_GOOGLE_MAP
+            TAG_GOOGLE_MAP,
+            TAG_AUTOCOMPLETE
         )
 
         private fun Div.getTag(resolver: ExpressionResolver) =
@@ -248,6 +252,8 @@ internal class DivViewCreator @Inject constructor(
                 is Div.Counter -> TAG_COUNTER
                 is Div.Webview -> TAG_WEBVIEW
                 is Div.GoogleMap -> TAG_GOOGLE_MAP
+                is Div.Autocomplete -> TAG_AUTOCOMPLETE
+                is Div.Breadcrumb -> ""
                 is Div.Separator -> ""
             }
     }

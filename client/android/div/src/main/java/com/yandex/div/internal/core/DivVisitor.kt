@@ -30,6 +30,8 @@ abstract class DivVisitor<T> {
             is Div.Counter -> visit(div, resolver)
             is Div.Webview -> visit(div, resolver)
             is Div.GoogleMap -> visit(div, resolver)
+            is Div.Autocomplete -> visit(div, resolver)
+            is Div.Breadcrumb -> visit(div, resolver)
         }
     }
 
@@ -82,4 +84,8 @@ abstract class DivVisitor<T> {
     protected open fun visit(data: Div.Webview, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 
     protected open fun visit(data: Div.GoogleMap, resolver: ExpressionResolver) = defaultVisit(data, resolver)
+
+    protected open fun visit(data: Div.Autocomplete, resolver: ExpressionResolver) = defaultVisit(data, resolver)
+
+    protected open fun visit(data: Div.Breadcrumb, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 }

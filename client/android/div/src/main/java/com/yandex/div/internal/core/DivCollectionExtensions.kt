@@ -122,6 +122,8 @@ private fun Div.copy(id: String? = value().id): Div {
         is Div.Counter -> Div.Counter(value.copy(id = id))
         is Div.Webview -> Div.Webview(value.copy(id = id))
         is Div.GoogleMap -> Div.GoogleMap(value.copy(id = id))
+        is Div.Autocomplete -> Div.Autocomplete(value.copy(id = id))
+        is Div.Breadcrumb -> Div.Breadcrumb(value.copy(id = id))
     }
 }
 
