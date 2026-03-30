@@ -101,25 +101,40 @@ internal class DivAutocompleteBinder @Inject constructor(
         val divView = bindingContext.divView
         val data = divView.divData ?: return
         val errorCollector = errorCollectors.getOrCreate(divView.dataTag, data)
+        val resolver = bindingContext.expressionResolver
 
         val subscription = variableController.subscribeToVariableChange(
             div.suggestionsVariable,
             errorCollector,
             invokeOnSubscription = true
         ) { variable: Variable ->
-            val value = variable.getValue() as? String ?: return@subscribeToVariableChange
-            val items = parseSuggestions(value)
+            val rawValue = variable.getValue()
+            val items = parseSuggestions(rawValue)
             setSuggestions(items)
+
+            // Show/hide dropdown based on suggestions and current text
+            val text = editText.text?.toString() ?: ""
+            val minLen = div.minQueryLength.evaluate(resolver).toIntSafely()
+            if (items.isNotEmpty() && text.length >= minLen) {
+                showDropdown()
+            } else if (items.isEmpty() && div.dismissOnEmpty.evaluate(resolver)) {
+                dismissDropdown()
+            }
         }
         addSubscription(subscription)
     }
 
-    private fun parseSuggestions(jsonString: String): List<DivAutocompleteView.SuggestionItem> {
+    private fun parseSuggestions(rawValue: Any?): List<DivAutocompleteView.SuggestionItem> {
         return try {
-            val array = JSONArray(jsonString)
+            // The variable value can be a JSONArray directly or a String containing JSON
+            val array = when (rawValue) {
+                is JSONArray -> rawValue
+                is String -> JSONArray(rawValue)
+                is List<*> -> JSONArray(rawValue)
+                else -> return emptyList()
+            }
             (0 until array.length()).mapNotNull { i ->
                 val obj = array.optJSONObject(i) ?: run {
-                    // Support simple string array
                     val str = array.optString(i) ?: return@mapNotNull null
                     return@mapNotNull DivAutocompleteView.SuggestionItem(
                         value = str,
@@ -128,6 +143,7 @@ internal class DivAutocompleteBinder @Inject constructor(
                     )
                 }
                 val itemValue = obj.optString("value") ?: return@mapNotNull null
+                if (itemValue.isEmpty()) return@mapNotNull null
                 DivAutocompleteView.SuggestionItem(
                     value = itemValue,
                     text = obj.optString("text", null),
