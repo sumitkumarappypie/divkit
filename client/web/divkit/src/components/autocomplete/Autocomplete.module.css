@@ -47,15 +47,7 @@
     pointer-events: auto;
 }
 
-.autocomplete__dropdown_below {
-    top: 100%;
-    margin-top: 2px;
-}
-
-.autocomplete__dropdown_above {
-    bottom: 100%;
-    margin-bottom: 2px;
-}
+/* Dropdown is positioned via portal (inline styles) to escape overflow:clip ancestors */
 
 .autocomplete__suggestion {
     padding: 8px 12px;

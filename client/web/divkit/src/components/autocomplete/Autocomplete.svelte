@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getContext, onDestroy, tick } from 'svelte';
+    import { getContext, onDestroy, onMount, tick } from 'svelte';
 
     import css from './Autocomplete.module.css';
 
@@ -211,13 +211,59 @@
         }));
     }
 
-    // Dropdown positioning
+    // Portal: render dropdown into document.body to escape overflow:clip ancestors
+    let portalEl: HTMLDivElement | null = null;
+
+    onMount(() => {
+        portalEl = document.createElement('div');
+        portalEl.style.position = 'absolute';
+        portalEl.style.top = '0';
+        portalEl.style.left = '0';
+        portalEl.style.width = '0';
+        portalEl.style.height = '0';
+        portalEl.style.overflow = 'visible';
+        portalEl.style.zIndex = '10000';
+        portalEl.style.pointerEvents = 'none';
+        document.body.appendChild(portalEl);
+    });
+
+    onDestroy(() => {
+        if (portalEl && portalEl.parentNode) {
+            portalEl.parentNode.removeChild(portalEl);
+            portalEl = null;
+        }
+    });
+
+    // Dropdown positioning — calculates fixed position relative to viewport
     function updateDropdownPosition(): void {
         if (!inputEl) return;
         const rect = inputEl.getBoundingClientRect();
         const spaceBelow = window.innerHeight - rect.bottom;
         const spaceAbove = rect.top;
         dropdownPosition = spaceBelow >= 200 || spaceBelow >= spaceAbove ? 'below' : 'above';
+    }
+
+    function getDropdownStyle(): string {
+        if (!inputEl) return '';
+        const rect = inputEl.getBoundingClientRect();
+        const maxH = maxVisibleSuggestions * 44;
+        const top = dropdownPosition === 'below'
+            ? rect.bottom + window.scrollY + 2
+            : rect.top + window.scrollY - maxH - 2;
+        return `position:absolute;left:${rect.left + window.scrollX}px;top:${top}px;width:${rect.width}px;max-height:${maxH}px;color:${suggestionColor};pointer-events:auto;`;
+    }
+
+    function portalAction(node: HTMLElement) {
+        if (portalEl) {
+            portalEl.appendChild(node);
+        }
+        return {
+            destroy() {
+                if (node.parentNode) {
+                    node.parentNode.removeChild(node);
+                }
+            }
+        };
     }
 
     // Event handlers
@@ -385,8 +431,9 @@
 
         {#if showDropdown && suggestions.length > 0}
             <div
-                class={genClassName('autocomplete__dropdown', css, { [dropdownPosition]: true })}
-                style={makeStyle(dropdownStl)}
+                use:portalAction
+                class={genClassName('autocomplete__dropdown', css, {})}
+                style={getDropdownStyle()}
                 role="listbox"
                 bind:this={dropdownEl}
             >
