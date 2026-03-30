@@ -120,7 +120,7 @@
     let selectOptionsDialog: SelectOptionsDialog;
     let itemsListDialog: ItemsListDialog;
 
-    let isCustomFileDialogShown = false;
+    let isCustomFileDialogShown = false;  
 
     setContext<LanguageContext>(LANGUAGE_CTX, {
         lang,
