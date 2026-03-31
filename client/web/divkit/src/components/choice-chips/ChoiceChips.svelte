@@ -147,17 +147,14 @@
     $: disabledTextColor = correctColor($jsonDisabledTextColor, 1, 'rgba(0,0,0,0.38)');
     $: disabledBorderColor = correctColor($jsonDisabledBorderColor, 1, 'transparent');
 
-    // Selected value variable binding
+    // Selected value variable binding — works with both string and array variables
     $: selectedVariable = (() => {
         if (!selectedVarName) {
             return createVariable('temp', 'string', '') as Variable;
         }
-        if (selectionMode === 'multi') {
-            return componentContext.getVariable(selectedVarName, 'array') ||
-                rootCtx.awaitGlobalVariable(selectedVarName, 'array', []) ||
-                createVariable('temp', 'array', []);
-        }
-        return componentContext.getVariable(selectedVarName, 'string') ||
+        // Try array first (for multi mode), then string (works for both modes)
+        return componentContext.getVariable(selectedVarName, 'array') ||
+            componentContext.getVariable(selectedVarName, 'string') ||
             rootCtx.awaitGlobalVariable(selectedVarName, 'string', '') ||
             createVariable('temp', 'string', '');
     })();
@@ -195,21 +192,18 @@
 
     function applyDefaults(): void {
         const currentVal = selectedVariable.getValue();
-        if (selectionMode === 'single') {
-            if (!currentVal) {
-                const defaultItem = resolvedItems.find(it => correctBooleanInt(it.is_selected_by_default, false));
-                if (defaultItem) {
-                    selectedVariable.setValue(defaultItem.value);
-                }
-            }
-        } else {
-            const arr = Array.isArray(currentVal) ? currentVal : [];
-            if (arr.length === 0) {
-                const defaults = resolvedItems
-                    .filter(it => correctBooleanInt(it.is_selected_by_default, false))
-                    .map(it => it.value);
-                if (defaults.length > 0) {
+        const selected = parseSelection(currentVal);
+        if (selected.size === 0) {
+            const defaults = resolvedItems
+                .filter(it => correctBooleanInt(it.is_selected_by_default, false))
+                .map(it => it.value);
+            if (defaults.length > 0) {
+                if (selectionMode === 'single') {
+                    selectedVariable.setValue(defaults[0]);
+                } else if (Array.isArray(currentVal)) {
                     selectedVariable.setValue(defaults);
+                } else {
+                    selectedVariable.setValue(JSON.stringify(defaults));
                 }
             }
         }
@@ -230,12 +224,31 @@
     // Reactive selected values for template tracking
     $: currentSelection = $selectedVariable;
 
+    // Parse current selection into a Set for easy lookup
+    function parseSelection(current: unknown): Set<string> {
+        if (Array.isArray(current)) {
+            return new Set(current.filter((v): v is string => typeof v === 'string'));
+        }
+        if (typeof current === 'string' && current) {
+            if (selectionMode === 'multi') {
+                // Try parsing as JSON array for multi mode with string variable
+                try {
+                    const parsed = JSON.parse(current);
+                    if (Array.isArray(parsed)) {
+                        return new Set(parsed.filter((v): v is string => typeof v === 'string'));
+                    }
+                } catch (_) {
+                    // Not JSON — treat as single value
+                }
+            }
+            return new Set([current]);
+        }
+        return new Set();
+    }
+
     // Check if a chip is selected
     function isChipSelected(value: string, current: unknown): boolean {
-        if (selectionMode === 'single') {
-            return current === value;
-        }
-        return Array.isArray(current) && current.includes(value);
+        return parseSelection(current).has(value);
     }
 
     // Handle chip click
@@ -243,23 +256,26 @@
         const isEnabled = correctBooleanInt(item.is_enabled, true);
         if (!isEnabled) return;
 
+        const current = selectedVariable.getValue();
+        const isArray = Array.isArray(current);
+
         if (selectionMode === 'single') {
-            const current = selectedVariable.getValue();
-            if (current === item.value) {
-                selectedVariable.setValue('');
-            } else {
-                selectedVariable.setValue(item.value);
-            }
+            const currentVal = isArray ? '' : (current as string);
+            selectedVariable.setValue(currentVal === item.value ? '' : item.value);
         } else {
-            const current = selectedVariable.getValue();
-            const arr = Array.isArray(current) ? [...current] : [];
-            const idx = arr.indexOf(item.value);
-            if (idx >= 0) {
-                arr.splice(idx, 1);
+            const selected = parseSelection(current);
+            if (selected.has(item.value)) {
+                selected.delete(item.value);
             } else {
-                arr.push(item.value);
+                selected.add(item.value);
             }
-            selectedVariable.setValue(arr);
+            const newValue = Array.from(selected);
+            // Write back in same format as the variable type
+            if (isArray) {
+                selectedVariable.setValue(newValue);
+            } else {
+                selectedVariable.setValue(newValue.length ? JSON.stringify(newValue) : '');
+            }
         }
 
         if (selectionActions && selectionActions.length) {
