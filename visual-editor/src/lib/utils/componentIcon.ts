@@ -28,7 +28,7 @@ import webviewIcon from '../../assets/components/webview.svg?url';
 import breadcrumbIcon from '../../assets/components/breadcrumb.svg?url';
 import googleMapIcon from '../../assets/components/google-map.svg?url';
 import autocompleteIcon from '../../assets/components/input.svg?url';
-import choiceChipsIcon from '../../assets/components/radio.svg?url';
+import choiceChipsIcon from '../../assets/components/choice-chips.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
