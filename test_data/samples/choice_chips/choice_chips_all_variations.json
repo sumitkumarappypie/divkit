@@ -31,7 +31,7 @@
             "selection_mode": "single",
             "selected_value_variable": "selected_basic",
             "chip_style": "outlined",
-            "items": [
+            "chip_items": [
               { "value": "option1", "text": "Option 1" },
               { "value": "option2", "text": "Option 2" },
               { "value": "option3", "text": "Option 3" }
@@ -44,7 +44,7 @@
             "selection_mode": "multi",
             "selected_value_variable": "selected_multi",
             "chip_style": "filled",
-            "items": [
+            "chip_items": [
               { "value": "read", "text": "Reading", "icon": "https://via.placeholder.com/24" },
               { "value": "music", "text": "Music", "icon": "https://via.placeholder.com/24" },
               { "value": "sports", "text": "Sports", "icon": "https://via.placeholder.com/24" },
@@ -60,7 +60,7 @@
             "selected_value_variable": "selected_scroll",
             "chip_style": "elevated",
             "layout_mode": "scroll",
-            "items": [
+            "chip_items": [
               { "value": "item1", "text": "Item 1" },
               { "value": "item2", "text": "Item 2" },
               { "value": "item3", "text": "Item 3" },
@@ -84,7 +84,7 @@
             "selected_text_color": "#FFFFFF",
             "default_background_color": "#E1BEE7",
             "default_text_color": "#4A148C",
-            "items": [
+            "chip_items": [
               { "value": "purple", "text": "Purple" },
               { "value": "violet", "text": "Violet" },
               { "value": "magenta", "text": "Magenta" },
@@ -98,7 +98,7 @@
             "selection_mode": "single",
             "selected_value_variable": "selected_disabled",
             "chip_style": "outlined",
-            "items": [
+            "chip_items": [
               { "value": "active1", "text": "Active" },
               { "value": "active2", "text": "Also Active" },
               { "value": "disabled1", "text": "Disabled", "is_enabled": 0 },
@@ -113,7 +113,7 @@
             "selection_mode": "single",
             "selected_value_variable": "selected_preselected",
             "chip_style": "outlined",
-            "items": [
+            "chip_items": [
               { "value": "pre1", "text": "First" },
               { "value": "pre2", "text": "Second (Default)", "is_selected_by_default": 1 },
               { "value": "pre3", "text": "Third" },
@@ -131,7 +131,7 @@
             "selected_text_color": "#000000",
             "default_background_color": "#333333",
             "default_text_color": "#E0E0E0",
-            "items": [
+            "chip_items": [
               { "value": "dark1", "text": "Night" },
               { "value": "dark2", "text": "Midnight" },
               { "value": "dark3", "text": "Shadow" },
@@ -157,7 +157,7 @@
             "chip_height": 48,
             "font_size": 18,
             "corner_radius": 24,
-            "items": [
+            "chip_items": [
               { "value": "big1", "text": "Large Chip A" },
               { "value": "big2", "text": "Large Chip B" },
               { "value": "big3", "text": "Large Chip C" }
@@ -172,7 +172,7 @@
             "chip_style": "outlined",
             "chip_spacing": 4,
             "row_spacing": 4,
-            "items": [
+            "chip_items": [
               { "value": "min1", "text": "Tight A" },
               { "value": "min2", "text": "Tight B" },
               { "value": "min3", "text": "Tight C" },

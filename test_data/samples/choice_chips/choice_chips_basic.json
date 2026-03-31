@@ -17,7 +17,7 @@
             "selection_mode": "single",
             "selected_value_variable": "selected_category",
             "chip_style": "outlined",
-            "items": [
+            "chip_items": [
               { "value": "all", "text": "All", "is_selected_by_default": 1 },
               { "value": "tech", "text": "Technology" },
               { "value": "design", "text": "Design" },

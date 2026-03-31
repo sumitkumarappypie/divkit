@@ -42,7 +42,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
   public let height: Field<DivSizeTemplate>? // default value: .divWrapContentSize(DivWrapContentSize())
   public let iconSize: Field<Expression<Int>>? // constraint: number >= 0; default value: 18
   public let id: Field<String>?
-  public let items: Field<[DivChoiceChipsItemTemplate]>?
+  public let chipItems: Field<[DivChoiceChipsItemTemplate]>?
   public let itemsVariable: Field<String>?
   public let layoutMode: Field<Expression<LayoutMode>>? // default value: wrap
   public let layoutProvider: Field<DivLayoutProviderTemplate>?
@@ -105,7 +105,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       height: dictionary.getOptionalField("height", templateToType: templateToType),
       iconSize: dictionary.getOptionalExpressionField("icon_size"),
       id: dictionary.getOptionalField("id"),
-      items: dictionary.getOptionalArray("items", templateToType: templateToType),
+      chipItems: dictionary.getOptionalArray("chip_items", templateToType: templateToType),
       itemsVariable: dictionary.getOptionalField("items_variable"),
       layoutMode: dictionary.getOptionalExpressionField("layout_mode"),
       layoutProvider: dictionary.getOptionalField("layout_provider", templateToType: templateToType),
@@ -169,7 +169,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
     height: Field<DivSizeTemplate>? = nil,
     iconSize: Field<Expression<Int>>? = nil,
     id: Field<String>? = nil,
-    items: Field<[DivChoiceChipsItemTemplate]>? = nil,
+    chipItems: Field<[DivChoiceChipsItemTemplate]>? = nil,
     itemsVariable: Field<String>? = nil,
     layoutMode: Field<Expression<LayoutMode>>? = nil,
     layoutProvider: Field<DivLayoutProviderTemplate>? = nil,
@@ -230,7 +230,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
     self.height = height
     self.iconSize = iconSize
     self.id = id
-    self.items = items
+    self.chipItems = chipItems
     self.itemsVariable = itemsVariable
     self.layoutMode = layoutMode
     self.layoutProvider = layoutProvider
@@ -292,7 +292,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
     let heightValue = parent?.height?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let iconSizeValue = parent?.iconSize?.resolveOptionalValue(context: context, validator: ResolvedValue.iconSizeValidator) ?? .noValue
     let idValue = parent?.id?.resolveOptionalValue(context: context) ?? .noValue
-    let itemsValue = parent?.items?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
+    let chipItemsValue = parent?.chipItems?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
     let itemsVariableValue = parent?.itemsVariable?.resolveOptionalValue(context: context) ?? .noValue
     let layoutModeValue = parent?.layoutMode?.resolveOptionalValue(context: context) ?? .noValue
     let layoutProviderValue = parent?.layoutProvider?.resolveOptionalValue(context: context, useOnlyLinks: true) ?? .noValue
@@ -352,7 +352,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
       iconSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "icon_size", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
-      itemsValue.errorsOrWarnings?.map { .nestedObjectError(field: "items", error: $0) },
+      chipItemsValue.errorsOrWarnings?.map { .nestedObjectError(field: "chip_items", error: $0) },
       itemsVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "items_variable", error: $0) },
       layoutModeValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_mode", error: $0) },
       layoutProviderValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_provider", error: $0) },
@@ -421,7 +421,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       height: heightValue.value,
       iconSize: iconSizeValue.value,
       id: idValue.value,
-      items: itemsValue.value,
+      chipItems: chipItemsValue.value,
       itemsVariable: itemsVariableValue.value,
       layoutMode: layoutModeValue.value,
       layoutProvider: layoutProviderValue.value,
@@ -488,7 +488,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
     var heightValue: DeserializationResult<DivSize> = .noValue
     var iconSizeValue: DeserializationResult<Expression<Int>> = parent?.iconSize?.value() ?? .noValue
     var idValue: DeserializationResult<String> = parent?.id?.value() ?? .noValue
-    var itemsValue: DeserializationResult<[DivChoiceChipsItem]> = .noValue
+    var chipItemsValue: DeserializationResult<[DivChoiceChipsItem]> = .noValue
     var itemsVariableValue: DeserializationResult<String> = parent?.itemsVariable?.value() ?? .noValue
     var layoutModeValue: DeserializationResult<Expression<DivChoiceChips.LayoutMode>> = parent?.layoutMode?.value() ?? .noValue
     var layoutProviderValue: DeserializationResult<DivLayoutProvider> = .noValue
@@ -578,8 +578,8 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
         iconSizeValue = deserialize(__dictValue, validator: ResolvedValue.iconSizeValidator).merged(with: iconSizeValue)
       case "id":
         idValue = deserialize(__dictValue).merged(with: idValue)
-      case "items":
-        itemsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivChoiceChipsItemTemplate.self).merged(with: itemsValue)
+      case "chip_items":
+        chipItemsValue = deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivChoiceChipsItemTemplate.self).merged(with: chipItemsValue)
       case "items_variable":
         itemsVariableValue = deserialize(__dictValue).merged(with: itemsVariableValue)
       case "layout_mode":
@@ -696,8 +696,8 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
         iconSizeValue = iconSizeValue.merged(with: { deserialize(__dictValue, validator: ResolvedValue.iconSizeValidator) })
       case parent?.id?.link:
         idValue = idValue.merged(with: { deserialize(__dictValue) })
-      case parent?.items?.link:
-        itemsValue = itemsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivChoiceChipsItemTemplate.self) })
+      case parent?.chipItems?.link:
+        chipItemsValue = chipItemsValue.merged(with: { deserialize(__dictValue, templates: context.templates, templateToType: context.templateToType, type: DivChoiceChipsItemTemplate.self) })
       case parent?.itemsVariable?.link:
         itemsVariableValue = itemsVariableValue.merged(with: { deserialize(__dictValue) })
       case parent?.layoutMode?.link:
@@ -770,7 +770,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       _ = focusValue = focusValue.merged(with: { parent.focus?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = functionsValue = functionsValue.merged(with: { parent.functions?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = heightValue = heightValue.merged(with: { parent.height?.resolveOptionalValue(context: context, useOnlyLinks: true) })
-      _ = itemsValue = itemsValue.merged(with: { parent.items?.resolveOptionalValue(context: context, useOnlyLinks: true) })
+      _ = chipItemsValue = chipItemsValue.merged(with: { parent.chipItems?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = layoutProviderValue = layoutProviderValue.merged(with: { parent.layoutProvider?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = marginsValue = marginsValue.merged(with: { parent.margins?.resolveOptionalValue(context: context, useOnlyLinks: true) })
       _ = paddingsValue = paddingsValue.merged(with: { parent.paddings?.resolveOptionalValue(context: context, useOnlyLinks: true) })
@@ -818,7 +818,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       heightValue.errorsOrWarnings?.map { .nestedObjectError(field: "height", error: $0) },
       iconSizeValue.errorsOrWarnings?.map { .nestedObjectError(field: "icon_size", error: $0) },
       idValue.errorsOrWarnings?.map { .nestedObjectError(field: "id", error: $0) },
-      itemsValue.errorsOrWarnings?.map { .nestedObjectError(field: "items", error: $0) },
+      chipItemsValue.errorsOrWarnings?.map { .nestedObjectError(field: "chip_items", error: $0) },
       itemsVariableValue.errorsOrWarnings?.map { .nestedObjectError(field: "items_variable", error: $0) },
       layoutModeValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_mode", error: $0) },
       layoutProviderValue.errorsOrWarnings?.map { .nestedObjectError(field: "layout_provider", error: $0) },
@@ -887,7 +887,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       height: heightValue.value,
       iconSize: iconSizeValue.value,
       id: idValue.value,
-      items: itemsValue.value,
+      chipItems: chipItemsValue.value,
       itemsVariable: itemsVariableValue.value,
       layoutMode: layoutModeValue.value,
       layoutProvider: layoutProviderValue.value,
@@ -959,7 +959,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       height: height ?? mergedParent.height,
       iconSize: iconSize ?? mergedParent.iconSize,
       id: id ?? mergedParent.id,
-      items: items ?? mergedParent.items,
+      chipItems: chipItems ?? mergedParent.chipItems,
       itemsVariable: itemsVariable ?? mergedParent.itemsVariable,
       layoutMode: layoutMode ?? mergedParent.layoutMode,
       layoutProvider: layoutProvider ?? mergedParent.layoutProvider,
@@ -1026,7 +1026,7 @@ public final class DivChoiceChipsTemplate: TemplateValue, Sendable {
       height: merged.height?.tryResolveParent(templates: templates),
       iconSize: merged.iconSize,
       id: merged.id,
-      items: merged.items?.tryResolveParent(templates: templates),
+      chipItems: merged.chipItems?.tryResolveParent(templates: templates),
       itemsVariable: merged.itemsVariable,
       layoutMode: merged.layoutMode,
       layoutProvider: merged.layoutProvider?.tryResolveParent(templates: templates),

@@ -30,7 +30,7 @@ Extends `div-base.json`.
 |---|---|---|---|---|
 | `selection_mode` | enum: `single`, `multi` | no | `single` | Single or multi-selection |
 | `selected_value_variable` | `string` | yes | — | Variable name for selected value(s). Binds to `string` in single mode, `array` in multi mode |
-| `items` | `array<div-choice-chips-item>` | no | — | Static chip items defined in JSON |
+| `chip_items` | `array<div-choice-chips-item>` | no | — | Static chip items defined in JSON |
 | `items_variable` | `string` | no | — | Variable name containing dynamic chip items array |
 | `selection_actions` | `array<div-action>` | no | — | Actions fired when selection changes |
 
@@ -87,7 +87,7 @@ Extends `div-base.json`.
 
 Priority order:
 1. If `items_variable` is set and the variable exists with a valid array value → use it
-2. Else if `items` array is defined in JSON → use static items
+2. Else if `chip_items` array is defined in JSON → use static items
 3. Else → render nothing (empty widget)
 
 Items from `items_variable` are parsed the same way as static items: each array element must have at minimum a `value` string field.
@@ -172,7 +172,7 @@ Colors applied when not explicitly overridden by per-property color settings:
   "selection_mode": "single",
   "selected_value_variable": "category",
   "chip_style": "outlined",
-  "items": [
+  "chip_items": [
     { "value": "all", "text": "All" },
     { "value": "tech", "text": "Technology" },
     { "value": "design", "text": "Design" },
@@ -194,7 +194,7 @@ Colors applied when not explicitly overridden by per-property color settings:
   "selected_value_variable": "tags",
   "chip_style": "filled",
   "show_checkmark": 1,
-  "items": [
+  "chip_items": [
     { "value": "js", "text": "JavaScript", "is_selected_by_default": 1 },
     { "value": "py", "text": "Python" },
     { "value": "rs", "text": "Rust" },
@@ -213,7 +213,7 @@ Colors applied when not explicitly overridden by per-property color settings:
   "selected_value_variable": "day",
   "chip_style": "elevated",
   "layout_mode": "scroll",
-  "items": [
+  "chip_items": [
     { "value": "mon", "text": "Mon" },
     { "value": "tue", "text": "Tue" },
     { "value": "wed", "text": "Wed" },

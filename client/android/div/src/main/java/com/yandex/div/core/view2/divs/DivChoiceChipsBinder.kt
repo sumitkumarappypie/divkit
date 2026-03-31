@@ -255,7 +255,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
     ) {
         // Parse static items if present
         val resolver = bindingContext.expressionResolver
-        val staticItems = div.items?.map { item ->
+        val staticItems = div.chipItems?.map { item ->
             val value = item.value.evaluate(resolver)
             DivChoiceChipsView.ChipItem(
                 value = value,

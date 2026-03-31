@@ -28,7 +28,7 @@ export interface DivChoiceChipsData extends DivBaseData {
     selected_value_variable: string;
 
     // Items
-    items?: ChoiceChipsItem[];
+    chip_items?: ChoiceChipsItem[];
     items_variable?: string;
 
     // Actions

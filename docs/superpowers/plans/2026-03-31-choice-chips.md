@@ -83,13 +83,13 @@ Create `schema/div-choice-chips.json`:
           "$ref": "div-variable-name.json",
           "$description": "translations.json#/div_choice_chips_selected_value_variable"
         },
-        "items": {
+        "chip_items": {
           "type": "array",
           "items": {
             "$ref": "div-choice-chips-item.json",
             "$description": "translations.json#/div_choice_chips_item"
           },
-          "$description": "translations.json#/div_choice_chips_items"
+          "$description": "translations.json#/div_choice_chips_chip_items"
         },
         "items_variable": {
           "$ref": "div-variable-name.json",
@@ -237,7 +237,7 @@ In `schema/translations.json`, add all translation keys. Use the pattern `div_ch
   "en": "Name of the variable to store selected value(s). String variable for single mode, array variable for multi mode.",
   "ru": "Имя переменной для хранения выбранных значений. Строковая переменная для single, массив для multi."
 },
-"div_choice_chips_items": {
+"div_choice_chips_chip_items": {
   "en": "Static array of chip items.",
   "ru": "Статический массив элементов чипов."
 },
@@ -397,7 +397,7 @@ export interface DivChoiceChipsData extends DivBaseData {
     type: 'choice_chips';
     selection_mode?: 'single' | 'multi';
     selected_value_variable: string;
-    items?: ChoiceChipsItem[];
+    chip_items?: ChoiceChipsItem[];
     items_variable?: string;
     selection_actions?: Action[];
     layout_mode?: 'wrap' | 'scroll';
@@ -519,7 +519,7 @@ Create `client/web/divkit/src/components/choice-chips/ChoiceChips.svelte`. The c
 1. Import `componentContext` from Svelte context using `getContext('componentContext')`
 2. Use `getDerivedFromVars()` for all reactive JSON properties
 3. Use `correctBooleanInt()` for all BooleanInt properties
-4. Resolve items from `items_variable` (array variable) first, fall back to static `items`
+4. Resolve items from `items_variable` (array variable) first, fall back to static `chip_items`
 5. For single mode: bind to string variable via `getVariable(name, 'string')`, toggle on/off
 6. For multi mode: bind to array variable via `getVariable(name, 'array')`, add/remove values
 7. Fire `selection_actions` via `componentContext.execAnyActions()` on user tap only
@@ -718,7 +718,7 @@ Key observation methods (each subscribes to expressions/variables):
 
 1. `observeSelectionMode()` — reads `div.selectionMode` expression, calls `view.setSelectionMode()`
 2. `observeSelectedVariable()` — subscribes to the variable named by `div.selectedValueVariable`. For single mode: subscribe as string variable. For multi mode: subscribe as array variable. On variable change, call `view.setSelectedValues()`. On chip click callback, update the variable (toggle in single mode, add/remove in multi mode) and fire `div.selectionActions` via `actionBinder`
-3. `observeItems()` — if `div.items` is set, parse static items. Subscribe to `div.itemsVariable` if set (same `parseSuggestions`-style parsing as autocomplete: handle `JSONArray`, `String`, `List<*>` raw values). Call `view.setChipItems()`
+3. `observeItems()` — if `div.chipItems` is set, parse static items. Subscribe to `div.itemsVariable` if set (same `parseSuggestions`-style parsing as autocomplete: handle `JSONArray`, `String`, `List<*>` raw values). Call `view.setChipItems()`
 4. `observeLayoutMode()` — reads `div.layoutMode` expression, calls `view.setLayoutMode()`
 5. `observeChipStyle()` — reads `div.chipStyle` expression, resolves theme defaults, merges with explicit color overrides from div properties, calls `view.setChipColors()`
 6. `observeSpacing()` — reads `div.chipSpacing` and `div.rowSpacing`, calls view setters
@@ -1095,7 +1095,7 @@ extension DivChoiceChips: DivBlockModeling {
       return parseItemsFromVariable(variable)
     }
     // Fall back to static items
-    return (items ?? []).map { item in
+    return (chipItems ?? []).map { item in
       ChoiceChipsBlock.ChipItem(
         value: item.value,
         text: item.text,

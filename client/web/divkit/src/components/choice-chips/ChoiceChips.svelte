@@ -56,12 +56,7 @@
     $: jsonChipPadding = componentContext.getDerivedFromVars(componentContext.json.chip_padding);
     $: jsonIconSize = componentContext.getDerivedFromVars(componentContext.json.icon_size);
     $: jsonShowCheckmark = componentContext.getDerivedFromVars(componentContext.json.show_checkmark);
-    $: jsonItems = componentContext.getDerivedFromVars(
-        componentContext.json.items,
-        undefined,
-        true,
-        0
-    );
+    $: staticItems = componentContext.json.chip_items;
 
     // Color properties
     $: jsonSelectedBgColor = componentContext.getDerivedFromVars(componentContext.json.selected_background_color);
@@ -174,7 +169,7 @@
         null;
 
     // Resolve items: from variable first, then static
-    $: resolvedItems = resolveItems($jsonItems, itemsVariable ? $itemsVariable : null);
+    $: resolvedItems = resolveItems(staticItems, itemsVariable ? $itemsVariable : null);
 
     function resolveItems(staticItems: unknown, varItems: unknown): ChoiceChipsItem[] {
         // items_variable takes precedence

@@ -54,7 +54,7 @@ public final class DivChoiceChips: DivBase, Sendable {
   public let height: DivSize // default value: .divWrapContentSize(DivWrapContentSize())
   public let iconSize: Expression<Int> // constraint: number >= 0; default value: 18
   public let id: String?
-  public let items: [DivChoiceChipsItem]?
+  public let chipItems: [DivChoiceChipsItem]?
   public let itemsVariable: String?
   public let layoutMode: Expression<LayoutMode> // default value: wrap
   public let layoutProvider: DivLayoutProvider?
@@ -258,7 +258,7 @@ public final class DivChoiceChips: DivBase, Sendable {
       height: try dictionary.getOptionalField("height", transform: { (dict: [String: Any]) in try DivSize(dictionary: dict, context: context) }),
       iconSize: try dictionary.getOptionalExpressionField("icon_size", validator: Self.iconSizeValidator, context: context),
       id: try dictionary.getOptionalField("id", context: context),
-      items: try dictionary.getOptionalArray("items", transform: { (dict: [String: Any]) in try? DivChoiceChipsItem(dictionary: dict, context: context) }),
+      chipItems: try dictionary.getOptionalArray("chip_items", transform: { (dict: [String: Any]) in try? DivChoiceChipsItem(dictionary: dict, context: context) }),
       itemsVariable: try dictionary.getOptionalField("items_variable", context: context),
       layoutMode: try dictionary.getOptionalExpressionField("layout_mode", context: context),
       layoutProvider: try dictionary.getOptionalField("layout_provider", transform: { (dict: [String: Any]) in try DivLayoutProvider(dictionary: dict, context: context) }),
@@ -321,7 +321,7 @@ public final class DivChoiceChips: DivBase, Sendable {
     height: DivSize? = nil,
     iconSize: Expression<Int>? = nil,
     id: String? = nil,
-    items: [DivChoiceChipsItem]? = nil,
+    chipItems: [DivChoiceChipsItem]? = nil,
     itemsVariable: String? = nil,
     layoutMode: Expression<LayoutMode>? = nil,
     layoutProvider: DivLayoutProvider? = nil,
@@ -381,7 +381,7 @@ public final class DivChoiceChips: DivBase, Sendable {
     self.height = height ?? .divWrapContentSize(DivWrapContentSize())
     self.iconSize = iconSize ?? .value(18)
     self.id = id
-    self.items = items
+    self.chipItems = chipItems
     self.itemsVariable = itemsVariable
     self.layoutMode = layoutMode ?? .value(.wrap)
     self.layoutProvider = layoutProvider
@@ -483,7 +483,7 @@ extension DivChoiceChips: Equatable {
     guard
       lhs.iconSize == rhs.iconSize,
       lhs.id == rhs.id,
-      lhs.items == rhs.items
+      lhs.chipItems == rhs.chipItems
     else {
       return false
     }
@@ -595,7 +595,7 @@ extension DivChoiceChips: Serializable {
     result["height"] = height.toDictionary()
     result["icon_size"] = iconSize.toValidSerializationValue()
     result["id"] = id
-    result["items"] = items?.map { $0.toDictionary() }
+    result["chip_items"] = chipItems?.map { $0.toDictionary() }
     result["items_variable"] = itemsVariable
     result["layout_mode"] = layoutMode.toValidSerializationValue()
     result["layout_provider"] = layoutProvider?.toDictionary()

@@ -3667,7 +3667,7 @@
     "en": "Name of the variable that stores the selected chip value(s).",
     "ru": "Имя переменной, хранящей значение(я) выбранных чипов."
   },
-  "div_choice_chips_items": {
+  "div_choice_chips_chip_items": {
     "en": "Static array of chip items to display.",
     "ru": "Статический массив элементов чипов для отображения."
   },

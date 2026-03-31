@@ -95,7 +95,7 @@ extension DivChoiceChips: DivBlockModeling {
     }
 
     // Fall back to static items
-    guard let staticItems = items else { return [] }
+    guard let staticItems = chipItems else { return [] }
     return staticItems.map { item in
       ChoiceChipsBlock.ChipItem(
         value: item.resolveValue(expressionResolver) ?? "",

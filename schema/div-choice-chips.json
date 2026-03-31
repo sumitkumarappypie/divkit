@@ -25,12 +25,12 @@
           "$ref": "div-variable-name.json",
           "$description": "translations.json#/div_choice_chips_selected_value_variable"
         },
-        "items": {
+        "chip_items": {
           "type": "array",
           "items": {
             "$ref": "div-choice-chips-item.json"
           },
-          "$description": "translations.json#/div_choice_chips_items"
+          "$description": "translations.json#/div_choice_chips_chip_items"
         },
         "items_variable": {
           "$ref": "div-variable-name.json",
