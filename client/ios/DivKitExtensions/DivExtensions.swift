@@ -48,6 +48,7 @@ extension Div {
          .divWebview,
          .divGoogleMap,
          .divAutocomplete,
+         .divChoiceChips,
          .divBreadcrumb,
          .divTabs:
       break

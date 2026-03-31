@@ -67,6 +67,7 @@ extension Div {
          .divWebview,
          .divGoogleMap,
          .divAutocomplete,
+         .divChoiceChips,
          .divBreadcrumb:
       return accessibility?.resolveDescription(expressionResolver)
     case let .divText(divText):

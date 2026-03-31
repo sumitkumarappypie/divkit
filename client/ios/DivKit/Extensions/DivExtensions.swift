@@ -28,6 +28,7 @@ extension Div {
          .divWebview,
          .divGoogleMap,
          .divAutocomplete,
+         .divChoiceChips,
          .divBreadcrumb,
          .divText:
       []
