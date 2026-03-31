@@ -338,10 +338,7 @@ private final class AutocompleteBlockView: BlockView, VisibleBoundsTrackingLeaf 
     if query.count < minQueryLength {
       filteredSuggestions = []
     } else {
-      let lowercasedQuery = query.lowercased()
-      filteredSuggestions = allSuggestions.filter {
-        $0.displayText.lowercased().contains(lowercasedQuery)
-      }
+      filteredSuggestions = allSuggestions
     }
     dropdownTable.reloadData()
     updateDropdownVisibility()
