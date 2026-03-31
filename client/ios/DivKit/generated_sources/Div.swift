@@ -33,6 +33,7 @@ public enum Div: Sendable {
   case divGoogleMap(DivGoogleMap)
   case divAutocomplete(DivAutocomplete)
   case divChoiceChips(DivChoiceChips)
+  case divRating(DivRating)
 
   public var value: Serializable & DivBase {
     switch self {
@@ -89,6 +90,8 @@ public enum Div: Sendable {
     case let .divAutocomplete(value):
       return value
     case let .divChoiceChips(value):
+      return value
+    case let .divRating(value):
       return value
     }
   }
@@ -148,6 +151,8 @@ public enum Div: Sendable {
     case let .divAutocomplete(value):
       return value.id
     case let .divChoiceChips(value):
+      return value.id
+    case let .divRating(value):
       return value.id
     }
   }
@@ -212,6 +217,8 @@ extension Div {
       self = .divAutocomplete(try DivAutocomplete(dictionary: dictionary, context: context))
     case DivChoiceChips.type:
       self = .divChoiceChips(try DivChoiceChips(dictionary: dictionary, context: context))
+    case DivRating.type:
+      self = .divRating(try DivRating(dictionary: dictionary, context: context))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
@@ -275,6 +282,8 @@ extension Div: Equatable {
     case let (.divAutocomplete(l), .divAutocomplete(r)):
       return l == r
     case let (.divChoiceChips(l), .divChoiceChips(r)):
+      return l == r
+    case let (.divRating(l), .divRating(r)):
       return l == r
     default:
       return false

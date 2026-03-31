@@ -133,6 +133,7 @@ extension Div {
          .divGoogleMap,
          .divAutocomplete,
          .divChoiceChips,
+         .divRating,
          .divBreadcrumb,
          .divText:
       // no children (table cells are not patchable as array items)

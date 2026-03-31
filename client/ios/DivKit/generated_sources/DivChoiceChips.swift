@@ -33,6 +33,7 @@ public final class DivChoiceChips: DivBase, Sendable {
   public let background: [DivBackground]?
   public let border: DivBorder?
   public let chipHeight: Expression<Int> // constraint: number >= 0; default value: 36
+  public let chipItems: [DivChoiceChipsItem]?
   public let chipPadding: DivEdgeInsets?
   public let chipSpacing: Expression<Int> // constraint: number >= 0; default value: 8
   public let chipStyle: Expression<ChipStyle> // default value: outlined
@@ -54,7 +55,6 @@ public final class DivChoiceChips: DivBase, Sendable {
   public let height: DivSize // default value: .divWrapContentSize(DivWrapContentSize())
   public let iconSize: Expression<Int> // constraint: number >= 0; default value: 18
   public let id: String?
-  public let chipItems: [DivChoiceChipsItem]?
   public let itemsVariable: String?
   public let layoutMode: Expression<LayoutMode> // default value: wrap
   public let layoutProvider: DivLayoutProvider?
@@ -237,6 +237,7 @@ public final class DivChoiceChips: DivBase, Sendable {
       background: try dictionary.getOptionalArray("background", transform: { (dict: [String: Any]) in try? DivBackground(dictionary: dict, context: context) }),
       border: try dictionary.getOptionalField("border", transform: { (dict: [String: Any]) in try DivBorder(dictionary: dict, context: context) }),
       chipHeight: try dictionary.getOptionalExpressionField("chip_height", validator: Self.chipHeightValidator, context: context),
+      chipItems: try dictionary.getOptionalArray("chip_items", transform: { (dict: [String: Any]) in try? DivChoiceChipsItem(dictionary: dict, context: context) }),
       chipPadding: try dictionary.getOptionalField("chip_padding", transform: { (dict: [String: Any]) in try DivEdgeInsets(dictionary: dict, context: context) }),
       chipSpacing: try dictionary.getOptionalExpressionField("chip_spacing", validator: Self.chipSpacingValidator, context: context),
       chipStyle: try dictionary.getOptionalExpressionField("chip_style", context: context),
@@ -258,7 +259,6 @@ public final class DivChoiceChips: DivBase, Sendable {
       height: try dictionary.getOptionalField("height", transform: { (dict: [String: Any]) in try DivSize(dictionary: dict, context: context) }),
       iconSize: try dictionary.getOptionalExpressionField("icon_size", validator: Self.iconSizeValidator, context: context),
       id: try dictionary.getOptionalField("id", context: context),
-      chipItems: try dictionary.getOptionalArray("chip_items", transform: { (dict: [String: Any]) in try? DivChoiceChipsItem(dictionary: dict, context: context) }),
       itemsVariable: try dictionary.getOptionalField("items_variable", context: context),
       layoutMode: try dictionary.getOptionalExpressionField("layout_mode", context: context),
       layoutProvider: try dictionary.getOptionalField("layout_provider", transform: { (dict: [String: Any]) in try DivLayoutProvider(dictionary: dict, context: context) }),
@@ -300,6 +300,7 @@ public final class DivChoiceChips: DivBase, Sendable {
     background: [DivBackground]? = nil,
     border: DivBorder? = nil,
     chipHeight: Expression<Int>? = nil,
+    chipItems: [DivChoiceChipsItem]? = nil,
     chipPadding: DivEdgeInsets? = nil,
     chipSpacing: Expression<Int>? = nil,
     chipStyle: Expression<ChipStyle>? = nil,
@@ -321,7 +322,6 @@ public final class DivChoiceChips: DivBase, Sendable {
     height: DivSize? = nil,
     iconSize: Expression<Int>? = nil,
     id: String? = nil,
-    chipItems: [DivChoiceChipsItem]? = nil,
     itemsVariable: String? = nil,
     layoutMode: Expression<LayoutMode>? = nil,
     layoutProvider: DivLayoutProvider? = nil,
@@ -360,6 +360,7 @@ public final class DivChoiceChips: DivBase, Sendable {
     self.background = background
     self.border = border
     self.chipHeight = chipHeight ?? .value(36)
+    self.chipItems = chipItems
     self.chipPadding = chipPadding
     self.chipSpacing = chipSpacing ?? .value(8)
     self.chipStyle = chipStyle ?? .value(.outlined)
@@ -381,7 +382,6 @@ public final class DivChoiceChips: DivBase, Sendable {
     self.height = height ?? .divWrapContentSize(DivWrapContentSize())
     self.iconSize = iconSize ?? .value(18)
     self.id = id
-    self.chipItems = chipItems
     self.itemsVariable = itemsVariable
     self.layoutMode = layoutMode ?? .value(.wrap)
     self.layoutProvider = layoutProvider
@@ -434,56 +434,56 @@ extension DivChoiceChips: Equatable {
     guard
       lhs.border == rhs.border,
       lhs.chipHeight == rhs.chipHeight,
-      lhs.chipPadding == rhs.chipPadding
-    else {
-      return false
-    }
-    guard
-      lhs.chipSpacing == rhs.chipSpacing,
-      lhs.chipStyle == rhs.chipStyle,
-      lhs.columnSpan == rhs.columnSpan
-    else {
-      return false
-    }
-    guard
-      lhs.cornerRadius == rhs.cornerRadius,
-      lhs.defaultBackgroundColor == rhs.defaultBackgroundColor,
-      lhs.defaultBorderColor == rhs.defaultBorderColor
-    else {
-      return false
-    }
-    guard
-      lhs.defaultTextColor == rhs.defaultTextColor,
-      lhs.disabledBackgroundColor == rhs.disabledBackgroundColor,
-      lhs.disabledBorderColor == rhs.disabledBorderColor
-    else {
-      return false
-    }
-    guard
-      lhs.disabledTextColor == rhs.disabledTextColor,
-      lhs.disappearActions == rhs.disappearActions,
-      lhs.extensions == rhs.extensions
-    else {
-      return false
-    }
-    guard
-      lhs.focus == rhs.focus,
-      lhs.fontFamily == rhs.fontFamily,
-      lhs.fontSize == rhs.fontSize
-    else {
-      return false
-    }
-    guard
-      lhs.fontWeight == rhs.fontWeight,
-      lhs.functions == rhs.functions,
-      lhs.height == rhs.height
-    else {
-      return false
-    }
-    guard
-      lhs.iconSize == rhs.iconSize,
-      lhs.id == rhs.id,
       lhs.chipItems == rhs.chipItems
+    else {
+      return false
+    }
+    guard
+      lhs.chipPadding == rhs.chipPadding,
+      lhs.chipSpacing == rhs.chipSpacing,
+      lhs.chipStyle == rhs.chipStyle
+    else {
+      return false
+    }
+    guard
+      lhs.columnSpan == rhs.columnSpan,
+      lhs.cornerRadius == rhs.cornerRadius,
+      lhs.defaultBackgroundColor == rhs.defaultBackgroundColor
+    else {
+      return false
+    }
+    guard
+      lhs.defaultBorderColor == rhs.defaultBorderColor,
+      lhs.defaultTextColor == rhs.defaultTextColor,
+      lhs.disabledBackgroundColor == rhs.disabledBackgroundColor
+    else {
+      return false
+    }
+    guard
+      lhs.disabledBorderColor == rhs.disabledBorderColor,
+      lhs.disabledTextColor == rhs.disabledTextColor,
+      lhs.disappearActions == rhs.disappearActions
+    else {
+      return false
+    }
+    guard
+      lhs.extensions == rhs.extensions,
+      lhs.focus == rhs.focus,
+      lhs.fontFamily == rhs.fontFamily
+    else {
+      return false
+    }
+    guard
+      lhs.fontSize == rhs.fontSize,
+      lhs.fontWeight == rhs.fontWeight,
+      lhs.functions == rhs.functions
+    else {
+      return false
+    }
+    guard
+      lhs.height == rhs.height,
+      lhs.iconSize == rhs.iconSize,
+      lhs.id == rhs.id
     else {
       return false
     }
@@ -574,6 +574,7 @@ extension DivChoiceChips: Serializable {
     result["background"] = background?.map { $0.toDictionary() }
     result["border"] = border?.toDictionary()
     result["chip_height"] = chipHeight.toValidSerializationValue()
+    result["chip_items"] = chipItems?.map { $0.toDictionary() }
     result["chip_padding"] = chipPadding?.toDictionary()
     result["chip_spacing"] = chipSpacing.toValidSerializationValue()
     result["chip_style"] = chipStyle.toValidSerializationValue()
@@ -595,7 +596,6 @@ extension DivChoiceChips: Serializable {
     result["height"] = height.toDictionary()
     result["icon_size"] = iconSize.toValidSerializationValue()
     result["id"] = id
-    result["chip_items"] = chipItems?.map { $0.toDictionary() }
     result["items_variable"] = itemsVariable
     result["layout_mode"] = layoutMode.toValidSerializationValue()
     result["layout_provider"] = layoutProvider?.toDictionary()

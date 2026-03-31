@@ -29,6 +29,7 @@ extension Div {
          .divGoogleMap,
          .divAutocomplete,
          .divChoiceChips,
+         .divRating,
          .divBreadcrumb,
          .divText:
       []

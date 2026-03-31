@@ -44,6 +44,7 @@ extension Div {
          .divGoogleMap,
          .divAutocomplete,
          .divChoiceChips,
+         .divRating,
          .divBreadcrumb,
          .divTabs:
       break
@@ -83,6 +84,7 @@ extension Div {
          .divGoogleMap,
          .divAutocomplete,
          .divChoiceChips,
+         .divRating,
          .divBreadcrumb,
          .divTabs:
       []
