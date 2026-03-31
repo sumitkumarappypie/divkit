@@ -1,0 +1,95 @@
+{
+  "$description": "translations.json#/div_rating",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "rating"
+          ]
+        },
+        "rating_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_rating_rating_variable"
+        },
+        "max_rating": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "5",
+          "$description": "translations.json#/div_rating_max_rating"
+        },
+        "step": {
+          "type": "number",
+          "default_value": "1",
+          "$description": "translations.json#/div_rating_step"
+        },
+        "is_interactive": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "true",
+          "$description": "translations.json#/div_rating_is_interactive"
+        },
+        "rating_icon": {
+          "$ref": "div-image-background.json",
+          "$description": "translations.json#/div_rating_rating_icon"
+        },
+        "icon_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "32",
+          "$description": "translations.json#/div_rating_icon_size"
+        },
+        "icon_spacing": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "4",
+          "$description": "translations.json#/div_rating_icon_spacing"
+        },
+        "icon_padding": {
+          "$ref": "div-edge-insets.json",
+          "$description": "translations.json#/div_rating_icon_padding"
+        },
+        "active_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#FFFFC107",
+          "$description": "translations.json#/div_rating_active_color"
+        },
+        "inactive_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#FFE0E0E0",
+          "$description": "translations.json#/div_rating_inactive_color"
+        },
+        "border_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_rating_border_color"
+        },
+        "disabled_color": {
+          "$ref": "common.json#/color",
+          "default_value": "#FFBDBDBD",
+          "$description": "translations.json#/div_rating_disabled_color"
+        },
+        "rating_change_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_rating_rating_change_actions",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "rating_variable"
+  ]
+}

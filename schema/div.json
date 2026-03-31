@@ -109,6 +109,10 @@
     {
       "$ref": "div-choice-chips.json",
       "$description": "translations.json#/div_choice_chips_short"
+    },
+    {
+      "$ref": "div-rating.json",
+      "$description": "translations.json#/div_rating_short"
     }
   ]
 }

@@ -3786,5 +3786,65 @@
   "div_choice_chips_item_is_selected_by_default": {
     "en": "Whether the chip is selected by default on initial render.",
     "ru": "Выбран ли чип по умолчанию при первом отображении."
+  },
+  "div_rating": {
+    "en": "A rating bar widget that allows users to view and set a rating by selecting stars or custom icons.",
+    "ru": "Виджет рейтинга, позволяющий пользователям просматривать и устанавливать рейтинг, выбирая звёзды или пользовательские иконки."
+  },
+  "div_rating_short": {
+    "en": "Rating bar.",
+    "ru": "Полоса рейтинга."
+  },
+  "div_rating_rating_variable": {
+    "en": "Name of the variable that stores the current rating value.",
+    "ru": "Имя переменной, хранящей текущее значение рейтинга."
+  },
+  "div_rating_max_rating": {
+    "en": "Maximum rating value (number of icons displayed).",
+    "ru": "Максимальное значение рейтинга (количество отображаемых иконок)."
+  },
+  "div_rating_step": {
+    "en": "Step value for rating increments (e.g., 0.5 for half-star ratings).",
+    "ru": "Шаг изменения рейтинга (например, 0.5 для рейтинга с половиной звезды)."
+  },
+  "div_rating_is_interactive": {
+    "en": "Enables or disables user interaction with the rating bar.",
+    "ru": "Включает или отключает пользовательское взаимодействие с полосой рейтинга."
+  },
+  "div_rating_rating_icon": {
+    "en": "Custom icon image used for each rating unit instead of the default star.",
+    "ru": "Пользовательская иконка, используемая для каждой единицы рейтинга вместо звезды по умолчанию."
+  },
+  "div_rating_icon_size": {
+    "en": "Size of each rating icon in dp.",
+    "ru": "Размер каждой иконки рейтинга в dp."
+  },
+  "div_rating_icon_spacing": {
+    "en": "Horizontal spacing between rating icons in dp.",
+    "ru": "Горизонтальный отступ между иконками рейтинга в dp."
+  },
+  "div_rating_icon_padding": {
+    "en": "Padding around each rating icon.",
+    "ru": "Отступы вокруг каждой иконки рейтинга."
+  },
+  "div_rating_active_color": {
+    "en": "Color of icons representing the active (selected) portion of the rating.",
+    "ru": "Цвет иконок, представляющих активную (выбранную) часть рейтинга."
+  },
+  "div_rating_inactive_color": {
+    "en": "Color of icons representing the inactive (unselected) portion of the rating.",
+    "ru": "Цвет иконок, представляющих неактивную (невыбранную) часть рейтинга."
+  },
+  "div_rating_border_color": {
+    "en": "Border color of rating icons.",
+    "ru": "Цвет границы иконок рейтинга."
+  },
+  "div_rating_disabled_color": {
+    "en": "Color of rating icons when the widget is disabled.",
+    "ru": "Цвет иконок рейтинга, когда виджет отключён."
+  },
+  "div_rating_rating_change_actions": {
+    "en": "Actions fired when the rating value changes.",
+    "ru": "Действия, выполняемые при изменении значения рейтинга."
   }
 }
