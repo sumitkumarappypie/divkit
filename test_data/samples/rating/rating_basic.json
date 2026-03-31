@@ -1,0 +1,20 @@
+{
+  "card": {
+    "log_id": "rating_basic",
+    "variables": [
+      { "name": "user_rating", "type": "string", "value": "3" }
+    ],
+    "states": [{
+      "state_id": 0,
+      "div": {
+        "type": "container",
+        "orientation": "vertical",
+        "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 16 },
+        "items": [
+          { "type": "text", "text": "Rate this product", "font_size": 20, "font_weight": "bold", "margins": { "bottom": 12 } },
+          { "type": "rating", "rating_variable": "user_rating", "max_rating": 5, "step": 1, "active_color": "#FFC107", "inactive_color": "#E0E0E0" }
+        ]
+      }
+    }]
+  }
+}

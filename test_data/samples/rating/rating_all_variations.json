@@ -1,0 +1,48 @@
+{
+  "card": {
+    "log_id": "rating_all_variations",
+    "variables": [
+      { "name": "rating_basic", "type": "string", "value": "3" },
+      { "name": "rating_half", "type": "string", "value": "3.5" },
+      { "name": "rating_display", "type": "string", "value": "4" },
+      { "name": "rating_purple", "type": "string", "value": "2" },
+      { "name": "rating_large", "type": "string", "value": "4" },
+      { "name": "rating_small", "type": "string", "value": "3" },
+      { "name": "rating_ten", "type": "string", "value": "7" },
+      { "name": "rating_action", "type": "string", "value": "0" }
+    ],
+    "states": [{
+      "state_id": 0,
+      "div": {
+        "type": "container",
+        "orientation": "vertical",
+        "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 16 },
+        "items": [
+          { "type": "text", "text": "1. Basic 5-Star Rating", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_basic", "max_rating": 5, "step": 1, "active_color": "#FFC107", "inactive_color": "#E0E0E0", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "2. Half-Star with Border", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_half", "max_rating": 5, "step": 0, "active_color": "#4CAF50", "inactive_color": "#E0E0E0", "border_color": "#388E3C", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "3. Display-Only (Non-Interactive)", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_display", "max_rating": 5, "step": 1, "is_interactive": 0, "active_color": "#FF9800", "inactive_color": "#E0E0E0", "disabled_color": "#BDBDBD", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "4. Custom Purple Colors", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_purple", "max_rating": 5, "step": 1, "active_color": "#9C27B0", "inactive_color": "#E1BEE7", "border_color": "#7B1FA2", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "5. Large Icons (48px)", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_large", "max_rating": 5, "step": 1, "icon_size": 48, "active_color": "#FFC107", "inactive_color": "#E0E0E0", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "6. Small Compact (20px, 2px spacing)", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_small", "max_rating": 5, "step": 1, "icon_size": 20, "icon_spacing": 2, "active_color": "#FFC107", "inactive_color": "#E0E0E0", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "7. 10-Star Rating", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_ten", "max_rating": 10, "step": 1, "icon_size": 24, "active_color": "#FFC107", "inactive_color": "#E0E0E0", "margins": { "bottom": 20 } },
+
+          { "type": "text", "text": "8. With Rating Change Actions (Blue)", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          { "type": "rating", "rating_variable": "rating_action", "max_rating": 5, "step": 1, "active_color": "#2196F3", "inactive_color": "#BBDEFB", "border_color": "#1976D2", "rating_change_actions": [{ "log_id": "rating_changed", "url": "div-action://set_variable?name=rating_action" }] }
+        ]
+      }
+    }]
+  }
+}
