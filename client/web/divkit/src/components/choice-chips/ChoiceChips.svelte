@@ -272,47 +272,35 @@
         ? `${chipPadding.top || 0}px ${chipPadding.right || 0}px ${chipPadding.bottom || 0}px ${chipPadding.left || 0}px`
         : `0 ${12}px`;
 
-    // Build chip style
-    function getChipStyle(item: ChoiceChipsItem, selected: boolean): Record<string, string | number | undefined> {
-        const isEnabled = correctBooleanInt(item.is_enabled, true);
+    // Base chip style (reactive — Svelte tracks all dependencies)
+    $: baseChipStyle = {
+        'border-radius': cornerRadius + 'px',
+        'font-size': pxToEm(fontSize),
+        'font-weight': fontWeight,
+        'font-family': fontFamily || undefined,
+        height: chipHeight + 'px',
+        padding: chipPaddingCss
+    };
 
-        let bgColor: string;
-        let txtColor: string;
-        let brdColor: string;
-        let shadow: string | undefined;
-
-        if (!isEnabled) {
-            bgColor = disabledBgColor;
-            txtColor = disabledTextColor;
-            brdColor = disabledBorderColor;
-        } else if (selected) {
-            bgColor = selectedBgColor;
-            txtColor = selectedTextColor;
-            brdColor = selectedBorderColor;
-        } else {
-            bgColor = defaultBgColor;
-            txtColor = defaultTextColor;
-            brdColor = defaultBorderColor;
-        }
-
-        if (isEnabled && chipStyle === 'elevated') {
-            shadow = theme.shadow;
-        }
-
-        return {
-            'background-color': bgColor,
-            color: txtColor,
-            'border-color': brdColor,
-            'border-radius': cornerRadius + 'px',
-            'font-size': pxToEm(fontSize),
-            'font-weight': fontWeight,
-            'font-family': fontFamily || undefined,
-            height: chipHeight + 'px',
-            padding: chipPaddingCss,
-            'box-shadow': shadow,
-            gap: showCheckmark || item.icon ? '4px' : undefined
-        };
-    }
+    // Color sets (reactive)
+    $: selectedStyle = {
+        'background-color': selectedBgColor,
+        color: selectedTextColor,
+        'border-color': selectedBorderColor,
+        'box-shadow': chipStyle === 'elevated' ? theme.shadow : undefined
+    };
+    $: defaultStyle = {
+        'background-color': defaultBgColor,
+        color: defaultTextColor,
+        'border-color': defaultBorderColor,
+        'box-shadow': chipStyle === 'elevated' ? theme.shadow : undefined
+    };
+    $: disabledStyle = {
+        'background-color': disabledBgColor,
+        color: disabledTextColor,
+        'border-color': disabledBorderColor,
+        'box-shadow': undefined
+    };
 
     // Container style
     $: containerStyle = {
@@ -334,11 +322,16 @@
         {#each resolvedItems as item (item.value)}
             {@const selected = isChipSelected(item.value, currentSelection)}
             {@const isEnabled = correctBooleanInt(item.is_enabled, true)}
+            {@const stateStyle = !isEnabled ? disabledStyle : selected ? selectedStyle : defaultStyle}
             <button
                 class={genClassName('chip', css, {
                     disabled: !isEnabled
                 })}
-                style={makeStyle(getChipStyle(item, selected))}
+                style={makeStyle({
+                    ...baseChipStyle,
+                    ...stateStyle,
+                    gap: (showCheckmark && selected) || (item.icon && item.icon.image_url) ? '4px' : undefined
+                })}
                 disabled={!isEnabled}
                 type="button"
                 aria-pressed={selected}
