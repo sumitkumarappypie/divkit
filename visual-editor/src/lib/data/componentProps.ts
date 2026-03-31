@@ -1486,17 +1486,17 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
         type: 'group',
         title: 'choiceChipsProps.title',
         list: [
-            { type: 'select', prop: 'selection_mode', name: 'choiceChipsProps.selection_mode', options: [
+            { type: 'select', prop: 'selection_mode', name: 'choiceChipsProps.selection_mode', default: 'single', options: [
                 { name: 'choiceChipsProps.selection_mode_single', value: 'single' },
                 { name: 'choiceChipsProps.selection_mode_multi', value: 'multi' }
             ]},
             { type: 'variable-name', prop: 'selected_value_variable', name: 'choiceChipsProps.selected_value_variable', required: true, enableSources: true },
             { type: 'variable-name', prop: 'items_variable', name: 'choiceChipsProps.items_variable', enableSources: true },
-            { type: 'select', prop: 'layout_mode', name: 'choiceChipsProps.layout_mode', options: [
+            { type: 'select', prop: 'layout_mode', name: 'choiceChipsProps.layout_mode', default: 'wrap', options: [
                 { name: 'choiceChipsProps.layout_mode_wrap', value: 'wrap' },
                 { name: 'choiceChipsProps.layout_mode_scroll', value: 'scroll' }
             ]},
-            { type: 'select', prop: 'chip_style', name: 'choiceChipsProps.chip_style', options: [
+            { type: 'select', prop: 'chip_style', name: 'choiceChipsProps.chip_style', default: 'outlined', options: [
                 { name: 'choiceChipsProps.chip_style_outlined', value: 'outlined' },
                 { name: 'choiceChipsProps.chip_style_filled', value: 'filled' },
                 { name: 'choiceChipsProps.chip_style_elevated', value: 'elevated' }
