@@ -181,6 +181,7 @@ private fun Div.getItems(resolver: ExpressionResolver): List<DivItemBuilderResul
         is Div.GoogleMap -> emptyList()
         is Div.Autocomplete -> emptyList()
         is Div.ChoiceChips -> emptyList()
+        is Div.Rating -> emptyList()
         is Div.Breadcrumb -> emptyList()
         is Div.Container -> value.buildItems(resolver)
         is Div.Grid -> value.itemsToDivItemBuilderResult(resolver)

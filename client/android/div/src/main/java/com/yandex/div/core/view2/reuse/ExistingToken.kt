@@ -49,6 +49,7 @@ internal class ExistingToken(
             is Div.GoogleMap -> emptyList()
             is Div.Autocomplete -> emptyList()
             is Div.ChoiceChips -> emptyList()
+            is Div.Rating -> emptyList()
             is Div.Breadcrumb -> emptyList()
             is Div.Container -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)
             is Div.Custom -> div.value.itemsToExistingTokenList(item.expressionResolver, parentToken)

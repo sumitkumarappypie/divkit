@@ -156,6 +156,7 @@ internal object DivPathUtils {
             is Div.GoogleMap -> null
             is Div.Autocomplete -> null
             is Div.ChoiceChips -> null
+            is Div.Rating -> null
             is Div.Breadcrumb -> null
         }
     }

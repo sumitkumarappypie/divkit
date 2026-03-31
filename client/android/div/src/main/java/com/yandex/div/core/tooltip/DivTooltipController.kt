@@ -635,6 +635,7 @@ private fun Div.hasAction(): Boolean {
         is Div.GoogleMap -> false
         is Div.Autocomplete -> true
         is Div.ChoiceChips -> true
+        is Div.Rating -> true
         is Div.Breadcrumb -> false
     }
 }

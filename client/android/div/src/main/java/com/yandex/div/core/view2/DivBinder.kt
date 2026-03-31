@@ -9,6 +9,7 @@ import com.yandex.div.core.extension.DivExtensionController
 import com.yandex.div.core.state.DivStatePath
 import com.yandex.div.core.view2.divs.DivAutocompleteBinder
 import com.yandex.div.core.view2.divs.DivChoiceChipsBinder
+import com.yandex.div.core.view2.divs.DivRatingBinder
 import com.yandex.div.core.view2.divs.DivContainerBinder
 import com.yandex.div.core.view2.divs.DivCustomBinder
 import com.yandex.div.core.view2.divs.DivGifImageBinder
@@ -37,6 +38,7 @@ import com.yandex.div.core.view2.divs.pager.PagerIndicatorConnector
 import com.yandex.div.core.view2.divs.tabs.DivTabsBinder
 import com.yandex.div.core.view2.divs.widgets.DivAutocompleteView
 import com.yandex.div.core.view2.divs.widgets.DivChoiceChipsView
+import com.yandex.div.core.view2.divs.widgets.DivRatingView
 import com.yandex.div.core.view2.divs.widgets.DivCustomWrapper
 import com.yandex.div.core.view2.divs.widgets.DivGifImageView
 import com.yandex.div.core.view2.divs.widgets.DivGridLayout
@@ -98,7 +100,8 @@ internal class DivBinder @Inject constructor(
     private val webviewBinder: DivWebviewBinder,
     private val googleMapBinder: DivGoogleMapBinder,
     private val autocompleteBinder: DivAutocompleteBinder,
-    private val choiceChipsBinder: DivChoiceChipsBinder
+    private val choiceChipsBinder: DivChoiceChipsBinder,
+    private val ratingBinder: DivRatingBinder
 ) {
 
     fun bind(parentContext: BindingContext, view: View, div: Div, path: DivStatePath) = suppressExpressionErrors {
@@ -147,6 +150,7 @@ internal class DivBinder @Inject constructor(
             is Div.GoogleMap -> bindGoogleMap(context, view, div, path)
             is Div.Autocomplete -> bindAutocomplete(context, view, div, path)
             is Div.ChoiceChips -> bindChoiceChips(context, view, div, path)
+            is Div.Rating -> bindRating(context, view, div, path)
             is Div.Breadcrumb -> Unit
         }.also {
             // extensionController bound new CustomView in DivCustomBinder after replacing in parent
@@ -264,6 +268,10 @@ internal class DivBinder @Inject constructor(
         choiceChipsBinder.bindView(context, view as DivChoiceChipsView, data, path)
     }
 
+    private fun bindRating(context: BindingContext, view: View, data: Div.Rating, path: DivStatePath) {
+        ratingBinder.bindView(context, view as DivRatingView, data, path)
+    }
+
     private fun bindLayoutParams(view: View, data: DivBase, resolver: ExpressionResolver) {
         view.applyMargins(data.margins, resolver)
     }
@@ -295,6 +303,7 @@ internal class DivBinder @Inject constructor(
         is Div.GoogleMap -> (view as DivGoogleMapView).setDataWithoutBinding(context, div)
         is Div.Autocomplete -> (view as DivAutocompleteView).setDataWithoutBinding(context, div)
         is Div.ChoiceChips -> (view as DivChoiceChipsView).setDataWithoutBinding(context, div)
+        is Div.Rating -> (view as DivRatingView).setDataWithoutBinding(context, div)
         is Div.Breadcrumb -> Unit
     }
 

@@ -32,6 +32,7 @@ abstract class DivVisitor<T> {
             is Div.GoogleMap -> visit(div, resolver)
             is Div.Autocomplete -> visit(div, resolver)
             is Div.ChoiceChips -> visit(div, resolver)
+            is Div.Rating -> visit(div, resolver)
             is Div.Breadcrumb -> visit(div, resolver)
         }
     }
@@ -89,6 +90,8 @@ abstract class DivVisitor<T> {
     protected open fun visit(data: Div.Autocomplete, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 
     protected open fun visit(data: Div.ChoiceChips, resolver: ExpressionResolver) = defaultVisit(data, resolver)
+
+    protected open fun visit(data: Div.Rating, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 
     protected open fun visit(data: Div.Breadcrumb, resolver: ExpressionResolver) = defaultVisit(data, resolver)
 }

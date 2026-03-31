@@ -124,6 +124,7 @@ private fun Div.copy(id: String? = value().id): Div {
         is Div.GoogleMap -> Div.GoogleMap(value.copy(id = id))
         is Div.Autocomplete -> Div.Autocomplete(value.copy(id = id))
         is Div.ChoiceChips -> Div.ChoiceChips(value.copy(id = id))
+        is Div.Rating -> Div.Rating(value.copy(id = id))
         is Div.Breadcrumb -> Div.Breadcrumb(value.copy(id = id))
     }
 }

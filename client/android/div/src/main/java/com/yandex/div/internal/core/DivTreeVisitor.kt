@@ -39,6 +39,7 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
             is Div.GoogleMap -> visit(div, context, path)
             is Div.Autocomplete -> visit(div, context, path)
             is Div.ChoiceChips -> visit(div, context, path)
+            is Div.Rating -> visit(div, context, path)
             is Div.Breadcrumb -> visit(div, context, path)
         }
     }
@@ -177,6 +178,9 @@ internal abstract class DivTreeVisitor<T>(private val returnCondition: ((T) -> B
         defaultVisit(data, context, path)
 
     protected open fun visit(data: Div.ChoiceChips, context: BindingContext, path: DivStatePath) =
+        defaultVisit(data, context, path)
+
+    protected open fun visit(data: Div.Rating, context: BindingContext, path: DivStatePath) =
         defaultVisit(data, context, path)
 
     protected open fun visit(data: Div.Breadcrumb, context: BindingContext, path: DivStatePath) =

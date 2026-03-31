@@ -96,6 +96,7 @@ internal class DivRuntimeVisitor @Inject constructor(
             is Div.GoogleMap -> defaultVisit(div, divView, path, parentRuntime)
             is Div.Autocomplete -> defaultVisit(div, divView, path, parentRuntime)
             is Div.ChoiceChips -> defaultVisit(div, divView, path, parentRuntime)
+            is Div.Rating -> defaultVisit(div, divView, path, parentRuntime)
             is Div.Breadcrumb -> defaultVisit(div, divView, path, parentRuntime)
         }
     }
