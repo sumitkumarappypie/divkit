@@ -152,9 +152,9 @@
         if (!selectedVarName) {
             return createVariable('temp', 'string', '') as Variable;
         }
-        // Try array first (for multi mode), then string (works for both modes)
-        return componentContext.getVariable(selectedVarName, 'array') ||
-            componentContext.getVariable(selectedVarName, 'string') ||
+        // Try string first (works for both modes), then array
+        return componentContext.getVariable(selectedVarName, 'string') ||
+            componentContext.getVariable(selectedVarName, 'array') ||
             rootCtx.awaitGlobalVariable(selectedVarName, 'string', '') ||
             createVariable('temp', 'string', '');
     })();
