@@ -1,0 +1,38 @@
+.rating {
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.rating__icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.rating__icon_interactive {
+    cursor: pointer;
+}
+
+.rating__icon_disabled {
+    cursor: default;
+}
+
+.rating__icon-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.rating__icon-layer_inactive {
+    z-index: 1;
+}
+
+.rating__icon-layer_active {
+    z-index: 2;
+}
