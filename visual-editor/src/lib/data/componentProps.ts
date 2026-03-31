@@ -32,7 +32,8 @@ export const supportedComponents = new Set([
     'webview',
     'breadcrumb',
     'google_map',
-    'autocomplete'
+    'autocomplete',
+    'choice_chips'
 ]);
 
 export const containerComponents = new Set([
@@ -1471,6 +1472,52 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             type: 'string',
             enableSources: true
         }]
+    }],
+    choice_chips: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            type: 'string',
+            prop: 'accessibility.description',
+            enableSources: true,
+            name: 'a11yProps.description'
+        }]
+    }, {
+        type: 'group',
+        title: 'choiceChipsProps.title',
+        list: [
+            { type: 'select', prop: 'selection_mode', name: 'choiceChipsProps.selection_mode', options: [
+                { name: 'choiceChipsProps.selection_mode_single', value: 'single' },
+                { name: 'choiceChipsProps.selection_mode_multi', value: 'multi' }
+            ]},
+            { type: 'variable-name', prop: 'selected_value_variable', name: 'choiceChipsProps.selected_value_variable', required: true, enableSources: true },
+            { type: 'variable-name', prop: 'items_variable', name: 'choiceChipsProps.items_variable', enableSources: true },
+            { type: 'select', prop: 'layout_mode', name: 'choiceChipsProps.layout_mode', options: [
+                { name: 'choiceChipsProps.layout_mode_wrap', value: 'wrap' },
+                { name: 'choiceChipsProps.layout_mode_scroll', value: 'scroll' }
+            ]},
+            { type: 'select', prop: 'chip_style', name: 'choiceChipsProps.chip_style', options: [
+                { name: 'choiceChipsProps.chip_style_outlined', value: 'outlined' },
+                { name: 'choiceChipsProps.chip_style_filled', value: 'filled' },
+                { name: 'choiceChipsProps.chip_style_elevated', value: 'elevated' }
+            ]},
+            { type: 'split', list: [
+                { type: 'integer', prop: 'chip_spacing', name: 'choiceChipsProps.chip_spacing', min: 0, max: 100, enableSources: true },
+                { type: 'integer', prop: 'row_spacing', name: 'choiceChipsProps.row_spacing', min: 0, max: 100, enableSources: true }
+            ]},
+            { type: 'split', list: [
+                { type: 'integer', prop: 'font_size', name: 'props.font_size', min: 1, max: 1000, enableSources: true },
+                { type: 'integer', prop: 'corner_radius', name: 'choiceChipsProps.corner_radius', min: 0, max: 100, enableSources: true }
+            ]},
+            { type: 'split', list: [
+                { type: 'integer', prop: 'chip_height', name: 'choiceChipsProps.chip_height', min: 16, max: 200, enableSources: true },
+                { type: 'integer', prop: 'icon_size', name: 'choiceChipsProps.icon_size', min: 8, max: 100, enableSources: true }
+            ]},
+            { type: 'color', prop: 'selected_background_color', name: 'choiceChipsProps.selected_background_color', enableSources: true },
+            { type: 'color', prop: 'selected_text_color', name: 'choiceChipsProps.selected_text_color', enableSources: true },
+            { type: 'color', prop: 'default_background_color', name: 'choiceChipsProps.default_background_color', enableSources: true },
+            { type: 'color', prop: 'default_text_color', name: 'choiceChipsProps.default_text_color', enableSources: true }
+        ]
     }],
     state: [...BASE_COMPONENT_PROPS, {
         type: 'group',
