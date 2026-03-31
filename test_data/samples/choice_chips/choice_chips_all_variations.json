@@ -1,0 +1,188 @@
+{
+  "card": {
+    "log_id": "choice_chips_all_variations",
+    "variables": [
+      { "name": "selected_basic", "type": "string", "value": "option1" },
+      { "name": "selected_multi", "type": "array", "value": [] },
+      { "name": "selected_scroll", "type": "string", "value": "item1" },
+      { "name": "selected_colors", "type": "string", "value": "purple" },
+      { "name": "selected_disabled", "type": "string", "value": "active1" },
+      { "name": "selected_preselected", "type": "string", "value": "pre2" },
+      { "name": "selected_dark", "type": "string", "value": "dark1" },
+      { "name": "dynamic_items", "type": "array", "value": [
+        { "value": "dyn1", "text": "Dynamic A" },
+        { "value": "dyn2", "text": "Dynamic B" },
+        { "value": "dyn3", "text": "Dynamic C" }
+      ]},
+      { "name": "selected_dynamic", "type": "string", "value": "dyn1" },
+      { "name": "selected_large", "type": "string", "value": "big1" },
+      { "name": "selected_minimal", "type": "string", "value": "min1" }
+    ],
+    "states": [{
+      "state_id": 0,
+      "div": {
+        "type": "container",
+        "orientation": "vertical",
+        "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 16 },
+        "items": [
+          { "type": "text", "text": "1. Basic Single (Outlined)", "font_size": 16, "font_weight": "bold", "margins": { "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_basic",
+            "chip_style": "outlined",
+            "items": [
+              { "value": "option1", "text": "Option 1" },
+              { "value": "option2", "text": "Option 2" },
+              { "value": "option3", "text": "Option 3" }
+            ]
+          },
+
+          { "type": "text", "text": "2. Multi with Checkmarks (Filled)", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "multi",
+            "selected_value_variable": "selected_multi",
+            "chip_style": "filled",
+            "items": [
+              { "value": "read", "text": "Reading", "icon": "https://via.placeholder.com/24" },
+              { "value": "music", "text": "Music", "icon": "https://via.placeholder.com/24" },
+              { "value": "sports", "text": "Sports", "icon": "https://via.placeholder.com/24" },
+              { "value": "travel", "text": "Travel", "icon": "https://via.placeholder.com/24" },
+              { "value": "cooking", "text": "Cooking", "icon": "https://via.placeholder.com/24" }
+            ]
+          },
+
+          { "type": "text", "text": "3. Horizontal Scroll (Elevated)", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_scroll",
+            "chip_style": "elevated",
+            "layout_mode": "scroll",
+            "items": [
+              { "value": "item1", "text": "Item 1" },
+              { "value": "item2", "text": "Item 2" },
+              { "value": "item3", "text": "Item 3" },
+              { "value": "item4", "text": "Item 4" },
+              { "value": "item5", "text": "Item 5" },
+              { "value": "item6", "text": "Item 6" },
+              { "value": "item7", "text": "Item 7" },
+              { "value": "item8", "text": "Item 8" },
+              { "value": "item9", "text": "Item 9" },
+              { "value": "item10", "text": "Item 10" }
+            ]
+          },
+
+          { "type": "text", "text": "4. Custom Colors (Purple Theme)", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_colors",
+            "chip_style": "filled",
+            "selected_background_color": "#7B1FA2",
+            "selected_text_color": "#FFFFFF",
+            "default_background_color": "#E1BEE7",
+            "default_text_color": "#4A148C",
+            "items": [
+              { "value": "purple", "text": "Purple" },
+              { "value": "violet", "text": "Violet" },
+              { "value": "magenta", "text": "Magenta" },
+              { "value": "lavender", "text": "Lavender" }
+            ]
+          },
+
+          { "type": "text", "text": "5. With Disabled Chips", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_disabled",
+            "chip_style": "outlined",
+            "items": [
+              { "value": "active1", "text": "Active" },
+              { "value": "active2", "text": "Also Active" },
+              { "value": "disabled1", "text": "Disabled", "is_enabled": 0 },
+              { "value": "disabled2", "text": "Also Disabled", "is_enabled": 0 },
+              { "value": "active3", "text": "Still Active" }
+            ]
+          },
+
+          { "type": "text", "text": "6. Pre-selected Items", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_preselected",
+            "chip_style": "outlined",
+            "items": [
+              { "value": "pre1", "text": "First" },
+              { "value": "pre2", "text": "Second (Default)", "is_selected_by_default": 1 },
+              { "value": "pre3", "text": "Third" },
+              { "value": "pre4", "text": "Fourth" }
+            ]
+          },
+
+          { "type": "text", "text": "7. Dark Theme", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_dark",
+            "chip_style": "filled",
+            "selected_background_color": "#BB86FC",
+            "selected_text_color": "#000000",
+            "default_background_color": "#333333",
+            "default_text_color": "#E0E0E0",
+            "items": [
+              { "value": "dark1", "text": "Night" },
+              { "value": "dark2", "text": "Midnight" },
+              { "value": "dark3", "text": "Shadow" },
+              { "value": "dark4", "text": "Eclipse" }
+            ]
+          },
+
+          { "type": "text", "text": "8. Dynamic Items (items_variable)", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_dynamic",
+            "chip_style": "outlined",
+            "items_variable": "dynamic_items"
+          },
+
+          { "type": "text", "text": "9. Large Chips", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_large",
+            "chip_style": "filled",
+            "chip_height": 48,
+            "font_size": 18,
+            "corner_radius": 24,
+            "items": [
+              { "value": "big1", "text": "Large Chip A" },
+              { "value": "big2", "text": "Large Chip B" },
+              { "value": "big3", "text": "Large Chip C" }
+            ]
+          },
+
+          { "type": "text", "text": "10. Minimal Spacing", "font_size": 16, "font_weight": "bold", "margins": { "top": 16, "bottom": 8 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_minimal",
+            "chip_style": "outlined",
+            "chip_spacing": 4,
+            "row_spacing": 4,
+            "items": [
+              { "value": "min1", "text": "Tight A" },
+              { "value": "min2", "text": "Tight B" },
+              { "value": "min3", "text": "Tight C" },
+              { "value": "min4", "text": "Tight D" },
+              { "value": "min5", "text": "Tight E" },
+              { "value": "min6", "text": "Tight F" }
+            ]
+          }
+        ]
+      }
+    }]
+  }
+}

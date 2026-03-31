@@ -1,0 +1,33 @@
+{
+  "card": {
+    "log_id": "choice_chips_basic",
+    "variables": [
+      { "name": "selected_category", "type": "string", "value": "all" }
+    ],
+    "states": [{
+      "state_id": 0,
+      "div": {
+        "type": "container",
+        "orientation": "vertical",
+        "paddings": { "left": 16, "top": 16, "right": 16, "bottom": 16 },
+        "items": [
+          { "type": "text", "text": "Select Category", "font_size": 18, "font_weight": "bold", "margins": { "bottom": 12 } },
+          {
+            "type": "choice_chips",
+            "selection_mode": "single",
+            "selected_value_variable": "selected_category",
+            "chip_style": "outlined",
+            "items": [
+              { "value": "all", "text": "All", "is_selected_by_default": 1 },
+              { "value": "tech", "text": "Technology" },
+              { "value": "design", "text": "Design" },
+              { "value": "business", "text": "Business" },
+              { "value": "science", "text": "Science" }
+            ],
+            "selection_actions": [{ "log_id": "category_changed", "url": "div-action://set_variable?name=selected_category" }]
+          }
+        ]
+      }
+    }]
+  }
+}
