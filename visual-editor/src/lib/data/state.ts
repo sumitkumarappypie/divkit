@@ -898,6 +898,35 @@ export class State {
                     value: 400
                 }
             };
+        } else if (type === 'choice_chips') {
+            const uid = this.genId().replace(/[^a-z0-9]/gi, '');
+            const selectedVarName = `chips_selected_${uid}`;
+            json = {
+                type,
+                selection_mode: 'single',
+                selected_value_variable: selectedVarName,
+                chip_style: 'outlined',
+                chip_items: [
+                    { value: 'option1', text: 'Option 1' },
+                    { value: 'option2', text: 'Option 2' },
+                    { value: 'option3', text: 'Option 3' }
+                ],
+                width: {
+                    type: 'match_parent'
+                },
+                height: {
+                    type: 'wrap_content'
+                }
+            };
+            // Auto-create the variable
+            const vars = get(this.customVariables);
+            vars.push({
+                id: this.genVariableId(),
+                name: selectedVarName,
+                type: 'string',
+                value: ''
+            });
+            this.customVariables.set(vars);
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {
