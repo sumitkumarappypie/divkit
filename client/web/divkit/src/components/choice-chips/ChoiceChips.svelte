@@ -227,13 +227,15 @@
         }
     }
 
+    // Reactive selected values for template tracking
+    $: currentSelection = $selectedVariable;
+
     // Check if a chip is selected
-    function isChipSelected(value: string): boolean {
+    function isChipSelected(value: string, current: unknown): boolean {
         if (selectionMode === 'single') {
-            return $selectedVariable === value;
+            return current === value;
         }
-        const arr = $selectedVariable;
-        return Array.isArray(arr) && arr.includes(value);
+        return Array.isArray(current) && current.includes(value);
     }
 
     // Handle chip click
@@ -330,7 +332,7 @@
         {layoutParams}
     >
         {#each resolvedItems as item (item.value)}
-            {@const selected = isChipSelected(item.value)}
+            {@const selected = isChipSelected(item.value, currentSelection)}
             {@const isEnabled = correctBooleanInt(item.is_enabled, true)}
             <button
                 class={genClassName('chip', css, {
