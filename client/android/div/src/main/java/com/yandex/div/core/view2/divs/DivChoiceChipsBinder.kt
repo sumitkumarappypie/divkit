@@ -157,7 +157,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
         val callback = { _: Any ->
             val fontSize = div.fontSize.evaluate(resolver).toFloat()
             val fontFamily = div.fontFamily?.evaluate(resolver)
-            val fontWeight = div.fontWeight.evaluate(resolver)
+            val fontWeight = div.fontWeight?.evaluate(resolver) ?: DivFontWeight.REGULAR
             val typefaceProvider = typefaceResolver.getTypefaceProvider(fontFamily)
             val weightInt = getTypefaceValue(fontWeight, null)
             val typeface = getTypeface(weightInt, typefaceProvider)
@@ -170,7 +170,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
         }
         addSubscription(div.fontSize.observeAndGet(resolver, callback))
         div.fontFamily?.let { addSubscription(it.observeAndGet(resolver, callback)) }
-        addSubscription(div.fontWeight.observeAndGet(resolver, callback))
+        div.fontWeight?.let { addSubscription(it.observeAndGet(resolver, callback)) }
     }
 
     private fun DivChoiceChipsView.observeChipStyle(
@@ -254,13 +254,15 @@ internal class DivChoiceChipsBinder @Inject constructor(
         bindingContext: BindingContext
     ) {
         // Parse static items if present
+        val resolver = bindingContext.expressionResolver
         val staticItems = div.items?.map { item ->
+            val value = item.value.evaluate(resolver)
             DivChoiceChipsView.ChipItem(
-                value = item.value,
-                text = item.text ?: item.value,
-                iconUrl = item.icon?.imageUrl?.evaluate(bindingContext.expressionResolver)?.toString(),
-                isEnabled = item.isEnabled?.evaluate(bindingContext.expressionResolver) != false,
-                isSelectedByDefault = item.isSelectedByDefault?.evaluate(bindingContext.expressionResolver) == true
+                value = value,
+                text = item.text?.evaluate(resolver) ?: value,
+                iconUrl = item.icon?.imageUrl?.evaluate(resolver)?.toString(),
+                isEnabled = item.isEnabled?.evaluate(resolver) != false,
+                isSelectedByDefault = item.isSelectedByDefault?.evaluate(resolver) == true
             )
         }
 
