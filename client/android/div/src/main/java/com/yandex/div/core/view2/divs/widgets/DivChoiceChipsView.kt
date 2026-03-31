@@ -44,7 +44,7 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
     )
 
     enum class SelectionMode {
-        SINGLE, MULTIPLE
+        SINGLE, MULTI
     }
 
     enum class LayoutMode {
@@ -75,8 +75,10 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
     private var rowSpacingDp: Int = 8
     private var cornerRadiusDp: Float = 16f
     private var chipHeightDp: Int = 32
-    private var chipPaddingHorizontalDp: Int = 12
-    private var chipPaddingVerticalDp: Int = 4
+    private var chipPaddingLeftDp: Int = 12
+    private var chipPaddingTopDp: Int = 4
+    private var chipPaddingRightDp: Int = 12
+    private var chipPaddingBottomDp: Int = 4
     private var showCheckmark: Boolean = false
     private var iconSizeDp: Int = 18
 
@@ -169,9 +171,11 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
         rebuildChips()
     }
 
-    fun setChipPadding(horizontalDp: Int, verticalDp: Int) {
-        chipPaddingHorizontalDp = horizontalDp
-        chipPaddingVerticalDp = verticalDp
+    fun setChipPadding(leftDp: Int, topDp: Int, rightDp: Int, bottomDp: Int) {
+        chipPaddingLeftDp = leftDp
+        chipPaddingTopDp = topDp
+        chipPaddingRightDp = rightDp
+        chipPaddingBottomDp = bottomDp
         rebuildChips()
     }
 
@@ -200,11 +204,13 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
 
         val spacingPx = chipSpacingDp.dpToPx(resources.displayMetrics)
         val heightPx = chipHeightDp.dpToPx(resources.displayMetrics)
-        val hPaddingPx = chipPaddingHorizontalDp.dpToPx(resources.displayMetrics)
-        val vPaddingPx = chipPaddingVerticalDp.dpToPx(resources.displayMetrics)
+        val leftPaddingPx = chipPaddingLeftDp.dpToPx(resources.displayMetrics)
+        val topPaddingPx = chipPaddingTopDp.dpToPx(resources.displayMetrics)
+        val rightPaddingPx = chipPaddingRightDp.dpToPx(resources.displayMetrics)
+        val bottomPaddingPx = chipPaddingBottomDp.dpToPx(resources.displayMetrics)
 
         chipItems.forEachIndexed { index, item ->
-            val chip = createChipView(item, heightPx, hPaddingPx, vPaddingPx)
+            val chip = createChipView(item, heightPx, leftPaddingPx, topPaddingPx, rightPaddingPx, bottomPaddingPx)
 
             when (layoutMode) {
                 LayoutMode.SCROLL -> {
@@ -264,8 +270,10 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
     private fun createChipView(
         item: ChipItem,
         heightPx: Int,
-        hPaddingPx: Int,
-        vPaddingPx: Int
+        leftPaddingPx: Int,
+        topPaddingPx: Int,
+        rightPaddingPx: Int,
+        bottomPaddingPx: Int
     ): TextView {
         return TextView(context).apply {
             text = item.text
@@ -274,7 +282,7 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
             isSingleLine = true
             setTextSize(TypedValue.COMPLEX_UNIT_SP, chipTextSizeSp)
             typeface = Typeface.create(chipTypeface, chipFontWeight)
-            setPadding(hPaddingPx, vPaddingPx, hPaddingPx, vPaddingPx)
+            setPadding(leftPaddingPx, topPaddingPx, rightPaddingPx, bottomPaddingPx)
             minHeight = heightPx
 
             isEnabled = item.isEnabled
@@ -296,7 +304,7 @@ internal class DivChoiceChipsView(context: Context) : FrameLayout(context),
                 selectedValues.clear()
                 selectedValues.add(value)
             }
-            SelectionMode.MULTIPLE -> {
+            SelectionMode.MULTI -> {
                 if (selectedValues.contains(value)) {
                     selectedValues.remove(value)
                 } else {

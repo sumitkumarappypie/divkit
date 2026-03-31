@@ -16,6 +16,7 @@ import com.yandex.div.data.Variable
 import com.yandex.div.json.expressions.ExpressionResolver
 import com.yandex.div2.Div
 import com.yandex.div2.DivChoiceChips
+import com.yandex.div2.DivFontWeight
 import org.json.JSONArray
 import org.json.JSONObject
 import javax.inject.Inject
@@ -59,7 +60,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
             setSelectionMode(
                 when (mode) {
                     DivChoiceChips.SelectionMode.SINGLE -> DivChoiceChipsView.SelectionMode.SINGLE
-                    DivChoiceChips.SelectionMode.MULTIPLE -> DivChoiceChipsView.SelectionMode.MULTIPLE
+                    DivChoiceChips.SelectionMode.MULTI -> DivChoiceChipsView.SelectionMode.MULTI
                 }
             )
         }
@@ -116,14 +117,19 @@ internal class DivChoiceChipsBinder @Inject constructor(
         div: DivChoiceChips,
         resolver: ExpressionResolver
     ) {
+        val chipPadding = div.chipPadding ?: return
         val callback = { _: Any ->
             setChipPadding(
-                div.chipPaddingHorizontal.evaluate(resolver).toIntSafely(),
-                div.chipPaddingVertical.evaluate(resolver).toIntSafely()
+                chipPadding.left.evaluate(resolver).toIntSafely(),
+                chipPadding.top.evaluate(resolver).toIntSafely(),
+                chipPadding.right.evaluate(resolver).toIntSafely(),
+                chipPadding.bottom.evaluate(resolver).toIntSafely()
             )
         }
-        addSubscription(div.chipPaddingHorizontal.observeAndGet(resolver, callback))
-        addSubscription(div.chipPaddingVertical.observeAndGet(resolver, callback))
+        addSubscription(chipPadding.left.observeAndGet(resolver, callback))
+        addSubscription(chipPadding.top.observeAndGet(resolver, callback))
+        addSubscription(chipPadding.right.observeAndGet(resolver, callback))
+        addSubscription(chipPadding.bottom.observeAndGet(resolver, callback))
     }
 
     private fun DivChoiceChipsView.observeShowCheckmark(
@@ -153,20 +159,11 @@ internal class DivChoiceChipsBinder @Inject constructor(
             val fontFamily = div.fontFamily?.evaluate(resolver)
             val fontWeight = div.fontWeight.evaluate(resolver)
             val typefaceProvider = typefaceResolver.getTypefaceProvider(fontFamily)
-            val fontWeightValue = div.fontWeightValue?.evaluate(resolver)?.toInt()
-            val weightInt = getTypefaceValue(
-                when (fontWeight) {
-                    DivChoiceChips.FontWeight.LIGHT -> com.yandex.div2.DivFontWeight.LIGHT
-                    DivChoiceChips.FontWeight.REGULAR -> com.yandex.div2.DivFontWeight.REGULAR
-                    DivChoiceChips.FontWeight.MEDIUM -> com.yandex.div2.DivFontWeight.MEDIUM
-                    DivChoiceChips.FontWeight.BOLD -> com.yandex.div2.DivFontWeight.BOLD
-                },
-                fontWeightValue
-            )
+            val weightInt = getTypefaceValue(fontWeight, null)
             val typeface = getTypeface(weightInt, typefaceProvider)
             val style = when (fontWeight) {
-                DivChoiceChips.FontWeight.BOLD -> android.graphics.Typeface.BOLD
-                DivChoiceChips.FontWeight.MEDIUM -> android.graphics.Typeface.BOLD
+                DivFontWeight.BOLD -> android.graphics.Typeface.BOLD
+                DivFontWeight.MEDIUM -> android.graphics.Typeface.BOLD
                 else -> android.graphics.Typeface.NORMAL
             }
             setFontProperties(fontSize, typeface, style)
@@ -261,7 +258,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
             DivChoiceChipsView.ChipItem(
                 value = item.value,
                 text = item.text ?: item.value,
-                iconUrl = item.iconUrl?.toString(),
+                iconUrl = item.icon?.imageUrl?.evaluate(bindingContext.expressionResolver)?.toString(),
                 isEnabled = item.isEnabled?.evaluate(bindingContext.expressionResolver) != false,
                 isSelectedByDefault = item.isSelectedByDefault?.evaluate(bindingContext.expressionResolver) == true
             )
@@ -335,7 +332,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
         val errorCollector = errorCollectors.getOrCreate(divView.dataTag, data)
 
         val subscription = variableController.subscribeToVariableChange(
-            div.selectedVariable,
+            div.selectedValueVariable,
             errorCollector,
             invokeOnSubscription = true
         ) { variable: Variable ->
@@ -352,15 +349,15 @@ internal class DivChoiceChipsBinder @Inject constructor(
                 DivChoiceChips.SelectionMode.SINGLE -> {
                     com.yandex.div.internal.core.VariableMutationHandler.setVariable(
                         bindingContext.divView,
-                        div.selectedVariable,
+                        div.selectedValueVariable,
                         clickedValue,
                         bindingContext.expressionResolver
                     )
                 }
-                DivChoiceChips.SelectionMode.MULTIPLE -> {
+                DivChoiceChips.SelectionMode.MULTI -> {
                     // For multi mode, we need to update the array variable
                     // Read current value, toggle the clicked value, write back
-                    val currentVar = variableController.getMutableVariable(div.selectedVariable)
+                    val currentVar = variableController.getMutableVariable(div.selectedValueVariable)
                     val currentRaw = currentVar?.getValue()
                     val currentSet = mutableSetOf<String>()
                     when (currentRaw) {
@@ -391,7 +388,7 @@ internal class DivChoiceChipsBinder @Inject constructor(
                     val newArray = JSONArray(currentSet.toList())
                     com.yandex.div.internal.core.VariableMutationHandler.setVariable(
                         bindingContext.divView,
-                        div.selectedVariable,
+                        div.selectedValueVariable,
                         newArray.toString(),
                         bindingContext.expressionResolver
                     )
