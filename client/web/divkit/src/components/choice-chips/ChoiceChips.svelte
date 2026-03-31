@@ -56,7 +56,12 @@
     $: jsonChipPadding = componentContext.getDerivedFromVars(componentContext.json.chip_padding);
     $: jsonIconSize = componentContext.getDerivedFromVars(componentContext.json.icon_size);
     $: jsonShowCheckmark = componentContext.getDerivedFromVars(componentContext.json.show_checkmark);
-    $: jsonItems = componentContext.getDerivedFromVars(componentContext.json.items);
+    $: jsonItems = componentContext.getDerivedFromVars(
+        componentContext.json.items,
+        undefined,
+        true,
+        0
+    );
 
     // Color properties
     $: jsonSelectedBgColor = componentContext.getDerivedFromVars(componentContext.json.selected_background_color);
