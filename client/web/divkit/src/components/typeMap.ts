@@ -26,6 +26,7 @@ import GoogleMap from './google-map/GoogleMap.svelte';
 import Custom from './custom/Custom.svelte';
 import Breadcrumb from './breadcrumb/Breadcrumb.svelte';
 import Autocomplete from './autocomplete/Autocomplete.svelte';
+import ChoiceChips from './choice-chips/ChoiceChips.svelte';
 
 export const TYPE_MAP: Record<string, ComponentType> = {
     text: Text,
@@ -53,5 +54,6 @@ export const TYPE_MAP: Record<string, ComponentType> = {
     google_map: GoogleMap,
     custom: Custom,
     breadcrumb: Breadcrumb,
-    autocomplete: Autocomplete
+    autocomplete: Autocomplete,
+    choice_chips: ChoiceChips
 };
