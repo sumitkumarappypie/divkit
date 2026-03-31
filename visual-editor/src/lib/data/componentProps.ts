@@ -1536,7 +1536,7 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             { type: 'variable-name', prop: 'rating_variable', name: 'ratingProps.rating_variable', required: true, enableSources: true },
             { type: 'split', list: [
                 { type: 'integer', prop: 'max_rating', name: 'ratingProps.max_rating', min: 1, max: 20, enableSources: true },
-                { type: 'integer', prop: 'step', name: 'ratingProps.step', min: 0, max: 10, enableSources: true }
+                { type: 'number', prop: 'step', name: 'ratingProps.step', enableSources: true }
             ]},
             { type: 'split', list: [
                 { type: 'integer', prop: 'icon_size', name: 'ratingProps.icon_size', min: 8, max: 200, enableSources: true },
