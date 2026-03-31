@@ -32,6 +32,7 @@ public enum DivTemplate: TemplateValue, Sendable {
   case divBreadcrumbTemplate(DivBreadcrumbTemplate)
   case divGoogleMapTemplate(DivGoogleMapTemplate)
   case divAutocompleteTemplate(DivAutocompleteTemplate)
+  case divChoiceChipsTemplate(DivChoiceChipsTemplate)
 
   public var value: Any {
     switch self {
@@ -86,6 +87,8 @@ public enum DivTemplate: TemplateValue, Sendable {
     case let .divGoogleMapTemplate(value):
       return value
     case let .divAutocompleteTemplate(value):
+      return value
+    case let .divChoiceChipsTemplate(value):
       return value
     }
   }
@@ -144,6 +147,8 @@ public enum DivTemplate: TemplateValue, Sendable {
       return .divGoogleMapTemplate(try value.resolveParent(templates: templates))
     case let .divAutocompleteTemplate(value):
       return .divAutocompleteTemplate(try value.resolveParent(templates: templates))
+    case let .divChoiceChipsTemplate(value):
+      return .divChoiceChipsTemplate(try value.resolveParent(templates: templates))
     }
   }
 
@@ -365,6 +370,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case let .divChoiceChipsTemplate(value):
+      let result = value.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divChoiceChips(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divChoiceChips(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     }
   }
 
@@ -582,6 +595,14 @@ public enum DivTemplate: TemplateValue, Sendable {
       case let .failure(errors): return .failure(errors)
       case .noValue: return .noValue
       }
+    case DivChoiceChips.type:
+      let result = DivChoiceChipsTemplate.resolveValue(context: context, useOnlyLinks: useOnlyLinks)
+      switch result {
+      case let .success(value): return .success(.divChoiceChips(value))
+      case let .partialSuccess(value, warnings): return .partialSuccess(.divChoiceChips(value), warnings: warnings)
+      case let .failure(errors): return .failure(errors)
+      case .noValue: return .noValue
+      }
     default:
       return .failure(NonEmptyArray(.requiredFieldIsMissing(field: "type")))
     }
@@ -645,6 +666,8 @@ extension DivTemplate {
       self = .divGoogleMapTemplate(try DivGoogleMapTemplate(dictionary: dictionary, templateToType: templateToType))
     case DivAutocompleteTemplate.type:
       self = .divAutocompleteTemplate(try DivAutocompleteTemplate(dictionary: dictionary, templateToType: templateToType))
+    case DivChoiceChipsTemplate.type:
+      self = .divChoiceChipsTemplate(try DivChoiceChipsTemplate(dictionary: dictionary, templateToType: templateToType))
     default:
       throw DeserializationError.requiredFieldIsMissing(field: "type")
     }
