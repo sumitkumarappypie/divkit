@@ -29,6 +29,7 @@ import breadcrumbIcon from '../../assets/components/breadcrumb.svg?url';
 import googleMapIcon from '../../assets/components/google-map.svg?url';
 import autocompleteIcon from '../../assets/components/input.svg?url';
 import choiceChipsIcon from '../../assets/components/choice-chips.svg?url';
+import ratingIcon from '../../assets/components/rating.svg?url';
 import unknownIcon from '../../assets/components/unknown.svg?url';
 
 const MAP = {
@@ -58,7 +59,8 @@ const MAP = {
     breadcrumb: breadcrumbIcon,
     google_map: googleMapIcon,
     autocomplete: autocompleteIcon,
-    choice_chips: choiceChipsIcon
+    choice_chips: choiceChipsIcon,
+    rating: ratingIcon
 };
 
 const MAP_BY_ORIENTATION = {

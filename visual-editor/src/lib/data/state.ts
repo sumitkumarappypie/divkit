@@ -927,6 +927,32 @@ export class State {
                 value: ''
             });
             this.customVariables.set(vars);
+        } else if (type === 'rating') {
+            const uid = this.genId().replace(/[^a-z0-9]/gi, '');
+            const ratingVarName = `rating_value_${uid}`;
+            json = {
+                type,
+                rating_variable: ratingVarName,
+                max_rating: 5,
+                step: 1,
+                active_color: '#FFC107',
+                inactive_color: '#E0E0E0',
+                icon_size: 32,
+                width: {
+                    type: 'wrap_content'
+                },
+                height: {
+                    type: 'wrap_content'
+                }
+            };
+            const vars = get(this.customVariables);
+            vars.push({
+                id: this.genVariableId(),
+                name: ratingVarName,
+                type: 'string',
+                value: '0'
+            });
+            this.customVariables.set(vars);
         } else if (type in namedTemplates && namedTemplates[type].newNode) {
             json = { ...namedTemplates[type].newNode, type };
         } else {

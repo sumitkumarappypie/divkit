@@ -33,7 +33,8 @@ export const supportedComponents = new Set([
     'breadcrumb',
     'google_map',
     'autocomplete',
-    'choice_chips'
+    'choice_chips',
+    'rating'
 ]);
 
 export const containerComponents = new Set([
@@ -1517,6 +1518,34 @@ export const COMPONENT_PROPS: Record<string, ComponentProperty[]> = {
             { type: 'color', prop: 'selected_text_color', name: 'choiceChipsProps.selected_text_color', enableSources: true },
             { type: 'color', prop: 'default_background_color', name: 'choiceChipsProps.default_background_color', enableSources: true },
             { type: 'color', prop: 'default_text_color', name: 'choiceChipsProps.default_text_color', enableSources: true }
+        ]
+    }],
+    rating: [...BASE_COMPONENT_PROPS, {
+        type: 'group',
+        title: 'a11yProps.title',
+        list: [{
+            type: 'string',
+            prop: 'accessibility.description',
+            enableSources: true,
+            name: 'a11yProps.description'
+        }]
+    }, {
+        type: 'group',
+        title: 'ratingProps.title',
+        list: [
+            { type: 'variable-name', prop: 'rating_variable', name: 'ratingProps.rating_variable', required: true, enableSources: true },
+            { type: 'split', list: [
+                { type: 'integer', prop: 'max_rating', name: 'ratingProps.max_rating', min: 1, max: 20, enableSources: true },
+                { type: 'integer', prop: 'step', name: 'ratingProps.step', min: 0, max: 10, enableSources: true }
+            ]},
+            { type: 'split', list: [
+                { type: 'integer', prop: 'icon_size', name: 'ratingProps.icon_size', min: 8, max: 200, enableSources: true },
+                { type: 'integer', prop: 'icon_spacing', name: 'ratingProps.icon_spacing', min: 0, max: 100, enableSources: true }
+            ]},
+            { type: 'color', prop: 'active_color', name: 'ratingProps.active_color', enableSources: true },
+            { type: 'color', prop: 'inactive_color', name: 'ratingProps.inactive_color', enableSources: true },
+            { type: 'color', prop: 'border_color', name: 'ratingProps.border_color', enableSources: true },
+            { type: 'color', prop: 'disabled_color', name: 'ratingProps.disabled_color', enableSources: true }
         ]
     }],
     state: [...BASE_COMPONENT_PROPS, {
