@@ -1,0 +1,165 @@
+{
+  "$description": "translations.json#/div_choice_chips",
+  "allOf": [
+    {
+      "$ref": "div-base.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "choice_chips"
+          ]
+        },
+        "selection_mode": {
+          "type": "string",
+          "enum": [
+            "single",
+            "multi"
+          ],
+          "default_value": "single",
+          "$description": "translations.json#/div_choice_chips_selection_mode"
+        },
+        "selected_value_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_choice_chips_selected_value_variable"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "div-choice-chips-item.json"
+          },
+          "$description": "translations.json#/div_choice_chips_items"
+        },
+        "items_variable": {
+          "$ref": "div-variable-name.json",
+          "$description": "translations.json#/div_choice_chips_items_variable"
+        },
+        "selection_actions": {
+          "type": "array",
+          "items": {
+            "$ref": "div-action.json"
+          },
+          "$description": "translations.json#/div_choice_chips_selection_actions",
+          "platforms": [
+            "android",
+            "ios",
+            "web"
+          ]
+        },
+        "layout_mode": {
+          "type": "string",
+          "enum": [
+            "wrap",
+            "scroll"
+          ],
+          "default_value": "wrap",
+          "$description": "translations.json#/div_choice_chips_layout_mode"
+        },
+        "chip_spacing": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "8",
+          "$description": "translations.json#/div_choice_chips_chip_spacing"
+        },
+        "row_spacing": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "8",
+          "$description": "translations.json#/div_choice_chips_row_spacing"
+        },
+        "chip_style": {
+          "type": "string",
+          "enum": [
+            "outlined",
+            "filled",
+            "elevated"
+          ],
+          "default_value": "outlined",
+          "$description": "translations.json#/div_choice_chips_chip_style"
+        },
+        "corner_radius": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "16",
+          "$description": "translations.json#/div_choice_chips_corner_radius"
+        },
+        "font_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "14",
+          "$description": "translations.json#/div_choice_chips_font_size"
+        },
+        "font_weight": {
+          "$ref": "div-font-weight.json",
+          "$description": "translations.json#/div_choice_chips_font_weight"
+        },
+        "font_family": {
+          "type": "string",
+          "$description": "translations.json#/div_choice_chips_font_family"
+        },
+        "selected_background_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_selected_background_color"
+        },
+        "selected_text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_selected_text_color"
+        },
+        "selected_border_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_selected_border_color"
+        },
+        "default_background_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_default_background_color"
+        },
+        "default_text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_default_text_color"
+        },
+        "default_border_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_default_border_color"
+        },
+        "disabled_background_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_disabled_background_color"
+        },
+        "disabled_text_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_disabled_text_color"
+        },
+        "disabled_border_color": {
+          "$ref": "common.json#/color",
+          "$description": "translations.json#/div_choice_chips_disabled_border_color"
+        },
+        "show_checkmark": {
+          "$ref": "common.json#/boolean_int",
+          "default_value": "false",
+          "$description": "translations.json#/div_choice_chips_show_checkmark"
+        },
+        "icon_size": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "18",
+          "$description": "translations.json#/div_choice_chips_icon_size"
+        },
+        "chip_height": {
+          "$ref": "common.json#/non_negative_integer",
+          "default_value": "36",
+          "$description": "translations.json#/div_choice_chips_chip_height"
+        },
+        "chip_padding": {
+          "$ref": "div-edge-insets.json",
+          "$description": "translations.json#/div_choice_chips_chip_padding"
+        }
+      }
+    }
+  ],
+  "platforms": [
+    "android",
+    "ios",
+    "web"
+  ],
+  "required": [
+    "type",
+    "selected_value_variable"
+  ]
+}

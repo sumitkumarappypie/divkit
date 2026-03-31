@@ -1,0 +1,31 @@
+{
+  "$description": "translations.json#/div_choice_chips_item",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "string",
+      "$description": "translations.json#/div_choice_chips_item_value"
+    },
+    "text": {
+      "type": "string",
+      "$description": "translations.json#/div_choice_chips_item_text"
+    },
+    "icon": {
+      "$ref": "div-image-background.json",
+      "$description": "translations.json#/div_choice_chips_item_icon"
+    },
+    "is_enabled": {
+      "$ref": "common.json#/boolean_int",
+      "default_value": "true",
+      "$description": "translations.json#/div_choice_chips_item_is_enabled"
+    },
+    "is_selected_by_default": {
+      "$ref": "common.json#/boolean_int",
+      "default_value": "false",
+      "$description": "translations.json#/div_choice_chips_item_is_selected_by_default"
+    }
+  },
+  "required": [
+    "value"
+  ]
+}

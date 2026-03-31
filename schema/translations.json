@@ -3650,5 +3650,141 @@
   "div_autocomplete_suggestion_secondary_text": {
     "en": "Secondary text shown below the main suggestion text.",
     "ru": "Дополнительный текст, отображаемый под основным текстом подсказки."
+  },
+  "div_choice_chips": {
+    "en": "A chip-based selection widget that allows users to choose one or more options from a set of chips.",
+    "ru": "Виджет выбора на основе чипов, позволяющий пользователям выбирать один или несколько вариантов из набора чипов."
+  },
+  "div_choice_chips_short": {
+    "en": "Choice chips selector.",
+    "ru": "Селектор чипов выбора."
+  },
+  "div_choice_chips_selection_mode": {
+    "en": "Selection mode: 'single' allows only one chip selected at a time, 'multi' allows multiple.",
+    "ru": "Режим выбора: 'single' — только один чип, 'multi' — несколько одновременно."
+  },
+  "div_choice_chips_selected_value_variable": {
+    "en": "Name of the variable that stores the selected chip value(s).",
+    "ru": "Имя переменной, хранящей значение(я) выбранных чипов."
+  },
+  "div_choice_chips_items": {
+    "en": "Static array of chip items to display.",
+    "ru": "Статический массив элементов чипов для отображения."
+  },
+  "div_choice_chips_items_variable": {
+    "en": "Name of the array variable containing chip items.",
+    "ru": "Имя переменной-массива с элементами чипов."
+  },
+  "div_choice_chips_selection_actions": {
+    "en": "Actions fired when the user selects or deselects a chip.",
+    "ru": "Действия, выполняемые при выборе или снятии выбора чипа."
+  },
+  "div_choice_chips_layout_mode": {
+    "en": "Layout mode: 'wrap' wraps chips into multiple rows, 'scroll' places them in a horizontal scrollable row.",
+    "ru": "Режим компоновки: 'wrap' — перенос чипов на несколько строк, 'scroll' — горизонтальная прокрутка."
+  },
+  "div_choice_chips_chip_spacing": {
+    "en": "Horizontal spacing between chips in dp.",
+    "ru": "Горизонтальный отступ между чипами в dp."
+  },
+  "div_choice_chips_row_spacing": {
+    "en": "Vertical spacing between rows of chips in dp.",
+    "ru": "Вертикальный отступ между рядами чипов в dp."
+  },
+  "div_choice_chips_chip_style": {
+    "en": "Visual style of the chips: 'outlined', 'filled', or 'elevated'.",
+    "ru": "Визуальный стиль чипов: 'outlined', 'filled' или 'elevated'."
+  },
+  "div_choice_chips_corner_radius": {
+    "en": "Corner radius of each chip in dp.",
+    "ru": "Радиус скругления углов каждого чипа в dp."
+  },
+  "div_choice_chips_font_size": {
+    "en": "Font size of the chip label text in sp.",
+    "ru": "Размер шрифта текста чипа в sp."
+  },
+  "div_choice_chips_font_weight": {
+    "en": "Font weight of the chip label text.",
+    "ru": "Насыщенность шрифта текста чипа."
+  },
+  "div_choice_chips_font_family": {
+    "en": "Font family for the chip label text.",
+    "ru": "Семейство шрифта для текста чипа."
+  },
+  "div_choice_chips_selected_background_color": {
+    "en": "Background color of a selected chip.",
+    "ru": "Цвет фона выбранного чипа."
+  },
+  "div_choice_chips_selected_text_color": {
+    "en": "Text color of a selected chip.",
+    "ru": "Цвет текста выбранного чипа."
+  },
+  "div_choice_chips_selected_border_color": {
+    "en": "Border color of a selected chip.",
+    "ru": "Цвет границы выбранного чипа."
+  },
+  "div_choice_chips_default_background_color": {
+    "en": "Background color of an unselected chip.",
+    "ru": "Цвет фона невыбранного чипа."
+  },
+  "div_choice_chips_default_text_color": {
+    "en": "Text color of an unselected chip.",
+    "ru": "Цвет текста невыбранного чипа."
+  },
+  "div_choice_chips_default_border_color": {
+    "en": "Border color of an unselected chip.",
+    "ru": "Цвет границы невыбранного чипа."
+  },
+  "div_choice_chips_disabled_background_color": {
+    "en": "Background color of a disabled chip.",
+    "ru": "Цвет фона отключённого чипа."
+  },
+  "div_choice_chips_disabled_text_color": {
+    "en": "Text color of a disabled chip.",
+    "ru": "Цвет текста отключённого чипа."
+  },
+  "div_choice_chips_disabled_border_color": {
+    "en": "Border color of a disabled chip.",
+    "ru": "Цвет границы отключённого чипа."
+  },
+  "div_choice_chips_show_checkmark": {
+    "en": "Whether to show a checkmark icon on selected chips.",
+    "ru": "Показывать ли значок галочки на выбранных чипах."
+  },
+  "div_choice_chips_icon_size": {
+    "en": "Size of the chip icon in dp.",
+    "ru": "Размер иконки чипа в dp."
+  },
+  "div_choice_chips_chip_height": {
+    "en": "Height of each chip in dp.",
+    "ru": "Высота каждого чипа в dp."
+  },
+  "div_choice_chips_chip_padding": {
+    "en": "Internal padding of each chip.",
+    "ru": "Внутренние отступы каждого чипа."
+  },
+  "div_choice_chips_item": {
+    "en": "A single chip item in the choice chips widget.",
+    "ru": "Элемент чипа в виджете выбора чипов."
+  },
+  "div_choice_chips_item_value": {
+    "en": "The underlying value associated with this chip.",
+    "ru": "Значение, связанное с данным чипом."
+  },
+  "div_choice_chips_item_text": {
+    "en": "Display text for the chip. Falls back to value if absent.",
+    "ru": "Отображаемый текст чипа. Если отсутствует, используется value."
+  },
+  "div_choice_chips_item_icon": {
+    "en": "Optional icon displayed inside the chip.",
+    "ru": "Необязательная иконка, отображаемая внутри чипа."
+  },
+  "div_choice_chips_item_is_enabled": {
+    "en": "Whether the chip is enabled for user interaction.",
+    "ru": "Включён ли чип для взаимодействия с пользователем."
+  },
+  "div_choice_chips_item_is_selected_by_default": {
+    "en": "Whether the chip is selected by default on initial render.",
+    "ru": "Выбран ли чип по умолчанию при первом отображении."
   }
 }

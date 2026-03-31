@@ -105,6 +105,10 @@
     {
       "$ref": "div-autocomplete.json",
       "$description": "translations.json#/div_autocomplete_short"
+    },
+    {
+      "$ref": "div-choice-chips.json",
+      "$description": "translations.json#/div_choice_chips_short"
     }
   ]
 }
